@@ -1,4 +1,4 @@
-around-cc
+In the vicinity C/C++
 =========
 
 - [Summary project deamonds](https://github.com/zaqwes8811/around-cc/wiki/Global-Deamonds)
