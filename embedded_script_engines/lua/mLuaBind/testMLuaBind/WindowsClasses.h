@@ -13,7 +13,7 @@
 
 #include <mluabind/mluabind.h>
 #include <Loki/SmartPtr.h>
-#include "mJarvis.h"
+//#include "mJarvis.h"
 
 #include <iostream>
 #include <memory>
@@ -55,9 +55,10 @@ void setMgr( PtrWndWrapper sPtr );
 extern PtrWndWrapper g_loki_wind_wr;
 
 // интерпритатор
-class mJarvisWindows : public EmbInterpreters::AJarvis {
+class mJarvisWindows// : public EmbInterpreters::AJarvis 
+{
 	public :
-		explicit mJarvisWindows() : AJarvis() {}
+    explicit mJarvisWindows() {}  //: AJarvis() {}
 		EmbInterpreters::ErrCode exhibit();
 		EmbInterpreters::ErrCode runScriptInCurrentThread( EmbInterpreters::Str fname );
 		EmbInterpreters::ErrCode runScriptInNewThread( EmbInterpreters::Str fname );
