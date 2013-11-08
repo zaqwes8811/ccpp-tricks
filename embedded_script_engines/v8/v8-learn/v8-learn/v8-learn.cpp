@@ -43,24 +43,10 @@ TEST(V8, Hello) {
   printf("%s\n", *ascii);
 }
 
-int main(int argc, char* argv[])
-{
-  // Получаем текущую локаль CRT (если нужно потом восстановить)
-  char* crtLocale = setlocale(LC_ALL, NULL);
-  setlocale(LC_ALL, ".1251");
-
-  argv[1] = "--gtest_filter=V8.*"; 
-  argc = 2;
-  //argv[2] = "--gtest_repeat=100"; 
-  argc = 3;
-
+int main(int argc, char* argv[]) {
   // Run
   testing::InitGoogleTest(&argc, argv);
   testing::GTEST_FLAG(print_time) = true;
   RUN_ALL_TESTS();
-
-  //std::cout << "press any key\n";
-  //char c = getchar();
-  setlocale(LC_ALL, crtLocale);
   return 0;
 }
