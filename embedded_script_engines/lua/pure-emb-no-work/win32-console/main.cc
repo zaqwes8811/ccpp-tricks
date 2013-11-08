@@ -1,8 +1,4 @@
-// first.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
-#include "testLua.h"
+//#include "testLua.h"
 
 using namespace std;
 ///
