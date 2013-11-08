@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "WindowsClasses.h"
 using namespace mluabind;
 using namespace EmbInterpreters;
@@ -6,27 +5,27 @@ using namespace std;
 
 void Windows::Run( ) {
 
-	// передаем указатель на себя в глоб. простр. имен
+	// РїРµСЂРµРґР°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃРµР±СЏ РІ РіР»РѕР±. РїСЂРѕСЃС‚СЂ. РёРјРµРЅ
 	PtrWndWrapper loki_wind_wr( new WindowsWrapper( this ) );
 
-	// передаем в глобальное пространство имен
+	// РїРµСЂРµРґР°РµРј РІ РіР»РѕР±Р°Р»СЊРЅРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ
 	::setMgr( loki_wind_wr );
 
-	// вот интерпритатор
+	// РІРѕС‚ РёРЅС‚РµСЂРїСЂРёС‚Р°С‚РѕСЂ
 	std::auto_ptr< AJarvis > jarvis( new mJarvisWindows( ) );
 	
-	// экспонируем классы
+	// СЌРєСЃРїРѕРЅРёСЂСѓРµРј РєР»Р°СЃСЃС‹
 	jarvis->exhibit();
 
-	// запускаем скрипт
+	// Р·Р°РїСѓСЃРєР°РµРј СЃРєСЂРёРїС‚
 	string fname = "config.lua";
 	jarvis->runScriptInCurrentThread( fname );
 
-	// работало - ссылку не удаляет
+	// СЂР°Р±РѕС‚Р°Р»Рѕ - СЃСЃС‹Р»РєСѓ РЅРµ СѓРґР°Р»СЏРµС‚
 	trace( this->getHello( ) );
 }
 
-// прочие реализации
+// РїСЂРѕС‡РёРµ СЂРµР°Р»РёР·Р°С†РёРё
 Windows::Windows( ) { _hello = "hello";	trace( "constr dflt" ); }
 
 std::string Windows::getHello( ) { return this->_getString( ); };
@@ -37,7 +36,7 @@ void Windows::setCore( std::string str ) { _hello = str; }
 
 std::string Windows::_getString( ) { return _hello; }
 
-// обертка класса окна
+// РѕР±РµСЂС‚РєР° РєР»Р°СЃСЃР° РѕРєРЅР°
 WindowsWrapper::WindowsWrapper( Windows* pWindows ) { 
 	trace( "wr. constr. extend" ); _pw = pWindows; 
 }
@@ -54,8 +53,8 @@ void trace( std::string msg ) {
 	std::cout <<  msg <<  std::endl;
 }
 
-/// Встраивание интерпритатора
-// Глобальные объекты - костыль, но пока хватает
+/// Р’СЃС‚СЂР°РёРІР°РЅРёРµ РёРЅС‚РµСЂРїСЂРёС‚Р°С‚РѕСЂР°
+// Р“Р»РѕР±Р°Р»СЊРЅС‹Рµ РѕР±СЉРµРєС‚С‹ - РєРѕСЃС‚С‹Р»СЊ, РЅРѕ РїРѕРєР° С…РІР°С‚Р°РµС‚
 PtrWndWrapper g_loki_wind_wr( new WindowsWrapper( ) );
 
 PtrWndWrapper getMgr( ) { 
@@ -65,16 +64,16 @@ PtrWndWrapper getMgr( ) {
 
 void setMgr( PtrWndWrapper sPtr ) { g_loki_wind_wr = sPtr; }
 
-// реализация самого класса интерпретатора
+// СЂРµР°Р»РёР·Р°С†РёСЏ СЃР°РјРѕРіРѕ РєР»Р°СЃСЃР° РёРЅС‚РµСЂРїСЂРµС‚Р°С‚РѕСЂР°
 ErrCode mJarvisWindows::runScriptInCurrentThread( EmbInterpreters::Str fname ) {
-	// запускаем скрипт
+	// Р·Р°РїСѓСЃРєР°РµРј СЃРєСЂРёРїС‚
 	luaL_dofile( __L, fname.c_str() );
 }
 
 ErrCode mJarvisWindows::exhibit() {
-	// Экспонируем обертку себя
-	// Это тот случай когда нельзя завернуть указатель в смарт обертку - 
-	//   например класс окна MFC
+	// Р­РєСЃРїРѕРЅРёСЂСѓРµРј РѕР±РµСЂС‚РєСѓ СЃРµР±СЏ
+	// Р­С‚Рѕ С‚РѕС‚ СЃР»СѓС‡Р°Р№ РєРѕРіРґР° РЅРµР»СЊР·СЏ Р·Р°РІРµСЂРЅСѓС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РІ СЃРјР°СЂС‚ РѕР±РµСЂС‚РєСѓ - 
+	//   РЅР°РїСЂРёРјРµСЂ РєР»Р°СЃСЃ РѕРєРЅР° MFC
 	__pHost->Insert( 
 		Class< WindowsWrapper >( "WindowsWrapper" )
 			.Constructor( )
@@ -82,17 +81,17 @@ ErrCode mJarvisWindows::exhibit() {
 			.Method( "setCore", &WindowsWrapper::setCore )
 		 );
 
-	// Экспонируем смарт-указатель
-	// Можно попробовать передать не смарт, но при закрытии инт. сборщик
-	//   мусора в луа вызовет деструктор и может быть двойное удаление. 
-	//   Может и не беда, но лучше RAII, а так получается, что объект создан
-	//   в си часте, а удален в луа
+	// Р­РєСЃРїРѕРЅРёСЂСѓРµРј СЃРјР°СЂС‚-СѓРєР°Р·Р°С‚РµР»СЊ
+	// РњРѕР¶РЅРѕ РїРѕРїСЂРѕР±РѕРІР°С‚СЊ РїРµСЂРµРґР°С‚СЊ РЅРµ СЃРјР°СЂС‚, РЅРѕ РїСЂРё Р·Р°РєСЂС‹С‚РёРё РёРЅС‚. СЃР±РѕСЂС‰РёРє
+	//   РјСѓСЃРѕСЂР° РІ Р»СѓР° РІС‹Р·РѕРІРµС‚ РґРµСЃС‚СЂСѓРєС‚РѕСЂ Рё РјРѕР¶РµС‚ Р±С‹С‚СЊ РґРІРѕР№РЅРѕРµ СѓРґР°Р»РµРЅРёРµ. 
+	//   РњРѕР¶РµС‚ Рё РЅРµ Р±РµРґР°, РЅРѕ Р»СѓС‡С€Рµ RAII, Р° С‚Р°Рє РїРѕР»СѓС‡Р°РµС‚СЃСЏ, С‡С‚Рѕ РѕР±СЉРµРєС‚ СЃРѕР·РґР°РЅ
+	//   РІ СЃРё С‡Р°СЃС‚Рµ, Р° СѓРґР°Р»РµРЅ РІ Р»СѓР°
 	__pHost->Insert( 
 		Class< PtrWndWrapper  >( )
 			.SmartPtr< WindowsWrapper >( )
 	 );
 
-	// получатель указатель из глобального простр. имен
+	// РїРѕР»СѓС‡Р°С‚РµР»СЊ СѓРєР°Р·Р°С‚РµР»СЊ РёР· РіР»РѕР±Р°Р»СЊРЅРѕРіРѕ РїСЂРѕСЃС‚СЂ. РёРјРµРЅ
 	__pHost->Insert( Function( "getMgr", &::getMgr, Adopt( -1 ) ) );
 }
 

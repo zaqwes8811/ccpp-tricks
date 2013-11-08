@@ -177,10 +177,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\WindowsClasses.cpp"
 				>
 			</File>
@@ -191,14 +187,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\targetver.h"
-				>
-			</File>
-			<File
 				RelativePath=".\WindowsClasses.h"
 				>
 			</File>
@@ -207,47 +195,47 @@
 			Name="mLuaBind"
 			>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\callluafunction.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\callluafunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\class.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\class.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\constructor.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\constructor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\declarator.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\declarator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\function.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\function.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\host.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\host.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\luaapi.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\luaapi.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\method.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\method.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\stdbinds.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\stdbinds.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\unicode.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\unicode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\mLuaBind\impl\util.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\MLuaBind-0.06\impl\util.cpp"
 				>
 			</File>
 		</Filter>
@@ -255,50 +243,38 @@
 			Name="Loki"
 			>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\LevelMutex.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\LevelMutex.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\OrderedStatic.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\OrderedStatic.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\SafeFormat.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\SafeFormat.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\Singleton.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\Singleton.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\SmallObj.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\SmallObj.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\SmartPtr.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\SmartPtr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dependencies\Loki\src\StrongPtr.cpp"
+				RelativePath="..\..\..\..\..\..\work-libs\loki-0.1.7\src\StrongPtr.cpp"
 				>
 			</File>
 		</Filter>
 		<Filter
 			Name="dist"
 			>
-			<File
-				RelativePath="..\dist\mJarvis.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\dist\mJarvis.h"
-				>
-			</File>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
