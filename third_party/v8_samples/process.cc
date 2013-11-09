@@ -634,14 +634,20 @@ int main(int argc, char* argv[]) {
     fprintf(stderr, "No script was specified.\n");
     return 1;
   }
+
+  //> V8
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
+
   Handle<String> source = ReadFile(file);
   if (source.IsEmpty()) {
     fprintf(stderr, "Error reading '%s'.\n", file.c_str());
     return 1;
   }
+
+  //> Own
   JsHttpRequestProcessor processor(isolate, source);
+  
   map<string, string> output;
   if (!processor.Initialize(&options, &output)) {
     fprintf(stderr, "Error initializing processor.\n");
