@@ -37,16 +37,6 @@ void PrintMap(map<string, string>* m) {
   }
 }
 
-const int kSampleSize = 1;//6;
-StringHttpRequest kSampleRequests[kSampleSize] = {
-  //StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
-  StringHttpRequest("/", "localhost", "google.net", "firefox")//,
-  //StringHttpRequest("/", "localhost", "google.org", "safari"),
-  //StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
-  //StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
-  //StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
-};
-
 bool ProcessEntries(HttpRequestProcessor* processor, int count,
                     StringHttpRequest* reqs) {
   for (int i = 0; i < count; i++) {
@@ -74,7 +64,15 @@ void ParseOptions(int argc,
 }
 
 TEST(V8, ProcessTop) {
-//int main(int argc, char* argv[]) {
+  const int kSampleSize = 1;//6;
+  StringHttpRequest kSampleRequests[kSampleSize] = {
+    //StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
+    StringHttpRequest("/", "localhost", "google.net", "firefox")//,
+    //StringHttpRequest("/", "localhost", "google.org", "safari"),
+    //StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
+    //StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
+    //StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
+  };
   int argc = 2;
   char* argv[] = {"", "test.js"};
 
@@ -108,5 +106,33 @@ TEST(V8, ProcessTop) {
 
   if (!ProcessEntries(&processor, kSampleSize, kSampleRequests))
     return;// 1;
+  PrintMap(&output);
+}
+
+TEST(V8, ProcessOne) {
+  int argc = 2;
+  char* argv[] = {"", "test.js"};
+
+  v8::V8::InitializeICU();
+  map<string, string> options;
+
+  string file;
+  ParseOptions(argc, argv, options, &file);
+  EXPECT_NE(true, file.empty());
+
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  Handle<String> source = ReadFile(file);
+  EXPECT_NE(true, source.IsEmpty());
+
+  JsHttpRequestProcessor processor(isolate, source);
+  
+  map<string, string> output;
+  EXPECT_EQ(true, processor.Initialize(&options, &output));
+
+  StringHttpRequest request("/", "localhost", "google.net", "firefox");
+
+  EXPECT_EQ(true, processor.Process(&request));
   PrintMap(&output);
 }
