@@ -95,14 +95,14 @@ void PrintMap(map<string, string>* m) {
 
 
 
-const int kSampleSize = 6;
+const int kSampleSize = 1;//6;
 StringHttpRequest kSampleRequests[kSampleSize] = {
-  StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
-  StringHttpRequest("/", "localhost", "google.net", "firefox"),
-  StringHttpRequest("/", "localhost", "google.org", "safari"),
-  StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
-  StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
-  StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
+  //StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
+  StringHttpRequest("/", "localhost", "google.net", "firefox")//,
+  //StringHttpRequest("/", "localhost", "google.org", "safari"),
+  //StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
+  //StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
+  //StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
 };
 
 // -------------------------
