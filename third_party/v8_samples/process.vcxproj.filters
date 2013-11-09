@@ -10,6 +10,10 @@
     <ClCompile Include="..\..\embedded_script_engines\v8\src\process.cc">
       <Filter>extracted</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\embedded_script_engines\v8\src\launcher_process.cc" />
+    <ClCompile Include="..\fused-src\gmock-gtest-all.cc">
+      <Filter>tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="samples.gyp" />
@@ -20,6 +24,9 @@
     </Filter>
     <Filter Include="tests">
       <UniqueIdentifier>{f9d9f48b-360c-4fa8-aa7a-ff0a76867c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{94225668-791f-48f8-be40-1e648d0debcb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

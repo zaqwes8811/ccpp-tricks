@@ -124,9 +124,11 @@
     <None Include="samples.gyp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\embedded_script_engines\v8\src\launcher_process.cc" />
     <ClCompile Include="..\..\embedded_script_engines\v8\src\process.cc" />
     <ClCompile Include="..\..\embedded_script_engines\v8\src\process_global.cc" />
     <ClCompile Include="..\..\embedded_script_engines\v8\src\process_test.cc" />
+    <ClCompile Include="..\fused-src\gmock-gtest-all.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\embedded_script_engines\v8\src\process_classes.h" />

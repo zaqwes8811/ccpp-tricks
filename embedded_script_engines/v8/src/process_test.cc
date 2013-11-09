@@ -73,14 +73,18 @@ void ParseOptions(int argc,
   }
 }
 
-int main(int argc, char* argv[]) {
+TEST(V8, ProcessTop) {
+//int main(int argc, char* argv[]) {
+  int argc = 2;
+  char* argv[] = {"", "test.js"};
+
   v8::V8::InitializeICU();
   map<string, string> options;
   string file;
   ParseOptions(argc, argv, options, &file);
   if (file.empty()) {
     fprintf(stderr, "No script was specified.\n");
-    return 1;
+    return;// 1;
   }
 
   //> V8
@@ -90,7 +94,7 @@ int main(int argc, char* argv[]) {
   Handle<String> source = ReadFile(file);
   if (source.IsEmpty()) {
     fprintf(stderr, "Error reading '%s'.\n", file.c_str());
-    return 1;
+    return;// 1;
   }
 
   //> Own
@@ -99,10 +103,10 @@ int main(int argc, char* argv[]) {
   map<string, string> output;
   if (!processor.Initialize(&options, &output)) {
     fprintf(stderr, "Error initializing processor.\n");
-    return 1;
+    return;// 1;
   }
 
   if (!ProcessEntries(&processor, kSampleSize, kSampleRequests))
-    return 1;
+    return;// 1;
   PrintMap(&output);
 }
