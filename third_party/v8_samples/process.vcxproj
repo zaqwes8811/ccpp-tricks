@@ -50,7 +50,6 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\include;..\third_party\icu\source\i18n;..\third_party\icu\source\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -66,6 +65,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..\include;..\third_party\icu\source\i18n;..\third_party\icu\source\common;..\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\include;..\third_party\icu\source\i18n;..\third_party\icu\source\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\embedded_script_engines\v8\src\process.cc" />
     <ClCompile Include="..\..\embedded_script_engines\v8\src\process_global.cc" />
+    <ClCompile Include="..\..\embedded_script_engines\v8\src\process_test.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\embedded_script_engines\v8\src\process_classes.h" />
