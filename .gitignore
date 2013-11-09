@@ -21,6 +21,7 @@
 *.tlog
 *.cache
 *.lastbuildstate
+*.opensdf
 
 
 
