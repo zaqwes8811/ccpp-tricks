@@ -45,7 +45,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\build\$(Configuration)\</OutDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(VCInstallDir)bin;$(WindowsSdkDir)bin\NETFX 4.0 Tools;$(WindowsSdkDir)bin;$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(FrameworkSDKDir)\bin;$(MSBuildToolsPath32);$(VSInstallDir);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\home\work-libs\v8\include;..\..\..\..\third_party\fused-src;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\home\work-libs\v8\include;..\..\..\..\third_party\fused-src;..\..\..\..\embedded_script_engines\v8\src;..\..\..\..\embedded_script_engines\v8;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\home\work-libs\v8\build\Debug\lib;$(LibraryPath);$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -124,7 +124,12 @@
     <None Include="samples.gyp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="process.cc" />
+    <ClCompile Include="..\..\embedded_script_engines\v8\src\process.cc" />
+    <ClCompile Include="..\..\embedded_script_engines\v8\src\process_global.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\embedded_script_engines\v8\src\process_classes.h" />
+    <ClInclude Include="..\..\embedded_script_engines\v8\src\process_global.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
