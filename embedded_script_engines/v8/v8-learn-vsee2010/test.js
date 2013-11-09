@@ -1,0 +1,3 @@
+function Process() {
+	log("hello");
+}

@@ -40,6 +40,71 @@
 using namespace std;
 using namespace v8;
 
+
+static void LogCallback(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  if (args.Length() < 1) return;
+  HandleScope scope(args.GetIsolate());
+  Handle<Value> arg = args[0];
+  String::Utf8Value value(arg);
+  HttpRequestProcessor::Log(*value);
+}
+
+// Convert a JavaScript string to a std::string.  To not bother too
+// much with string encodings we just use ascii.
+string ObjectToString(Local<Value> value) {
+  String::Utf8Value utf8_value(value);
+  return string(*utf8_value);
+}
+
+// Reads a file into a v8 string.
+Handle<String> ReadFile(const string& name) {
+  FILE* file = fopen(name.c_str(), "rb");
+  if (file == NULL) return Handle<String>();
+
+  fseek(file, 0, SEEK_END);
+  int size = ftell(file);
+  rewind(file);
+
+  char* chars = new char[size + 1];
+  chars[size] = '\0';
+  for (int i = 0; i < size;) {
+    int read = static_cast<int>(fread(&chars[i], 1, size - i, file));
+    i += read;
+  }
+  fclose(file);
+  Handle<String> result = String::New(chars, size);
+  delete[] chars;
+  return result;
+}
+
+bool ProcessEntries(HttpRequestProcessor* processor, int count,
+                    StringHttpRequest* reqs) {
+  for (int i = 0; i < count; i++) {
+    if (!processor->Process(&reqs[i]))
+      return false;
+  }
+  return true;
+}
+
+void PrintMap(map<string, string>* m) {
+  for (map<string, string>::iterator i = m->begin(); i != m->end(); i++) {
+    pair<string, string> entry = *i;
+    printf("%s: %s\n", entry.first.c_str(), entry.second.c_str());
+  }
+}
+
+
+
+const int kSampleSize = 6;
+StringHttpRequest kSampleRequests[kSampleSize] = {
+  StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
+  StringHttpRequest("/", "localhost", "google.net", "firefox"),
+  StringHttpRequest("/", "localhost", "google.org", "safari"),
+  StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
+  StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
+  StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
+};
+
 // -------------------------
 // --- P r o c e s s o r ---
 // -------------------------
@@ -76,7 +141,7 @@ bool JsHttpRequestProcessor::Initialize(map<string, string>* opts,
     return false;
 
   // The script compiled and ran correctly.  Now we fetch out the
-  // Process function from the global object.
+  // Process function !!from the global!! object.
   Handle<String> process_name = String::New("Process");
   Handle<Value> process_val = context->Global()->Get(process_name);
 
@@ -144,7 +209,7 @@ bool JsHttpRequestProcessor::InstallMaps(map<string, string>* opts,
   return true;
 }
 
-
+// Engine?
 bool JsHttpRequestProcessor::Process(HttpRequest* request) {
   // Create a handle scope to keep the temporary object references.
   HandleScope handle_scope(GetIsolate());
