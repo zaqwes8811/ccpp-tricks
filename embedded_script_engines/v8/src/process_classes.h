@@ -16,7 +16,7 @@ using namespace v8;
 // the objects through JavaScript.
 
 /**
- * A simplified http request.
+ * A simplified http request. URL?
  */
 class HttpRequest {
  public:
