@@ -48,7 +48,7 @@ class Point {
   int x_, y_;
 };
 
-TEST(V8, Expose) {
+TEST(V8, ExposeObject) {
   // Get the default Isolate created at startup.
   Isolate* isolate = Isolate::GetCurrent();
 
@@ -58,6 +58,42 @@ TEST(V8, Expose) {
   // Create a new context.
   Handle<Context> context = Context::New(isolate);
 
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  Context::Scope context_scope(context);
+
   //@MayWork?
+  Handle<ObjectTemplate> point_templ = ObjectTemplate::New();
+  point_templ->SetInternalFieldCount(1);
+
+}
+
+Handle<Value> XGetter(Local<String> property, 
+                        const AccessorInfo& info) {
+    return Integer::New(x);
+  }
+    
+  void XSetter(Local<String> property, Local<Value> value,
+               const AccessorInfo& info) {
+    x = value->Int32Value();
+  }
+
+TEST(V8, ExposeSimpleVars) {
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
+
+  // Create a stack-allocated handle scope.
+  HandleScope handle_scope(isolate);
+
+  // Create a new context.
+  Handle<Context> context = Context::New(isolate);
+
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  Context::Scope context_scope(context);
+
+  //@MayWork?
+  Handle<ObjectTemplate> point_templ = ObjectTemplate::New();
+  point_templ->SetInternalFieldCount(1);
 
 }
