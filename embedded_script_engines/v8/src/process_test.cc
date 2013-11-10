@@ -9,72 +9,19 @@
 // App
 #include "process_classes.h"
 
-// Reads a file into a v8 string.
-Handle<String> ReadFile(const string& name) {
-  FILE* file = fopen(name.c_str(), "rb");
-  if (file == NULL) return Handle<String>();
-
-  fseek(file, 0, SEEK_END);
-  int size = ftell(file);
-  rewind(file);
-
-  char* chars = new char[size + 1];
-  chars[size] = '\0';
-  for (int i = 0; i < size;) {
-    int read = static_cast<int>(fread(&chars[i], 1, size - i, file));
-    i += read;
-  }
-  fclose(file);
-  Handle<String> result = String::New(chars, size);
-  delete[] chars;
-  return result;
-}
-
-void PrintMap(map<string, string>* m) {
-  for (map<string, string>::iterator i = m->begin(); i != m->end(); i++) {
-    pair<string, string> entry = *i;
-    printf("%s: %s\n", entry.first.c_str(), entry.second.c_str());
-  }
-}
-
-bool ProcessEntries(HttpRequestProcessor* processor, int count,
-                    StringHttpRequest* reqs) {
-  for (int i = 0; i < count; i++) {
-    if (!processor->Process(&reqs[i]))
-      return false;
-  }
-  return true;
-}
-
-void ParseOptions(int argc,
-                  char* argv[],
-                  map<string, string>& options,
-                  string* file) {
-  for (int i = 1; i < argc; i++) {
-    string arg = argv[i];
-    size_t index = arg.find('=', 0);
-    if (index == string::npos) {
-      *file = arg;
-    } else {
-      string key = arg.substr(0, index);
-      string value = arg.substr(index+1);
-      options[key] = value;
-    }
-  }
-}
 
 TEST(V8, ProcessTop) {
-  const int kSampleSize = 1;//6;
+  const int kSampleSize = 6;
   StringHttpRequest kSampleRequests[kSampleSize] = {
-    //StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
-    StringHttpRequest("/", "localhost", "google.net", "firefox")//,
-    //StringHttpRequest("/", "localhost", "google.org", "safari"),
-    //StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
-    //StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
-    //StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
+    StringHttpRequest("/process.cc", "localhost", "google.com", "firefox"),
+    StringHttpRequest("/", "localhost", "google.net", "firefox"),
+    StringHttpRequest("/", "localhost", "google.org", "safari"),
+    StringHttpRequest("/", "localhost", "yahoo.com", "ie"),
+    StringHttpRequest("/", "localhost", "yahoo.com", "safari"),
+    StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
   };
   int argc = 2;
-  char* argv[] = {"", "test.js"};
+  char* argv[] = {"", "..\\scripts\\count-hosts.js"};
 
   v8::V8::InitializeICU();
   map<string, string> options;
@@ -109,9 +56,40 @@ TEST(V8, ProcessTop) {
   PrintMap(&output);
 }
 
+
+TEST(V8, ProcessTopOne) {
+  const int kSampleSize = 1;
+  StringHttpRequest kSampleRequests[kSampleSize] = {
+    StringHttpRequest("/process.cc", "localhost", "google.com", "firefox")
+  };
+  int argc = 2;
+  char* argv[] = {"", "..\\scripts\\count-hosts.js"};
+
+  v8::V8::InitializeICU();
+  map<string, string> options;
+  string file;
+  ParseOptions(argc, argv, options, &file);
+  EXPECT_NE(true, file.empty());
+
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  Handle<String> source = ReadFile(file);
+  EXPECT_NE(true, source.IsEmpty());
+
+  //> Own
+  JsHttpRequestProcessor processor(isolate, source);
+  
+  // Похоже передаем объект для заполнения
+  map<string, string> output;
+  EXPECT_EQ(true, processor.Initialize(&options, &output));
+  EXPECT_EQ(true, ProcessEntries(&processor, kSampleSize, kSampleRequests));
+  PrintMap(&output);
+}
+
 TEST(V8, ProcessOne) {
   int argc = 2;
-  char* argv[] = {"", "test.js"};
+  char* argv[] = {"", "..\\scripts\\test.js"};
 
   v8::V8::InitializeICU();
   map<string, string> options;
@@ -135,4 +113,35 @@ TEST(V8, ProcessOne) {
 
   EXPECT_EQ(true, processor.Process(&request));
   PrintMap(&output);
+}
+
+// This function returns a new array with three elements, x, y, and z.
+Handle<Array> NewPointArray(int x, int y, int z) {
+  v8::Isolate* isolate = v8::Isolate::GetCurrent();
+
+  // We will be creating temporary handles so we use a handle scope.
+  HandleScope handle_scope(isolate);
+
+  // Create a new empty array.
+  // FAIL!!!
+  //Handle<Array> array = Array::New(3);
+  Local<Array> array = Array::New(3);
+
+  // Return an empty result if there was an error creating the array.
+  if (array.IsEmpty())
+    return Handle<Array>();
+
+  // Fill out the values
+  array->Set(0, Integer::New(x));
+  array->Set(1, Integer::New(y));
+  array->Set(2, Integer::New(z));
+
+  // Return the value through Close.
+  return handle_scope.Close(array);
+}
+
+TEST(V8, ReturnArray) {
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+  Handle<Array> array = ::NewPointArray(0, 1, 2);
 }

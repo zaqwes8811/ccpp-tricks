@@ -131,3 +131,14 @@ class StringHttpRequest : public HttpRequest {
   string user_agent_;
 };
 
+
+// Reads a file into a v8 string.
+Handle<String> ReadFile(const string& name);
+void PrintMap(map<string, string>* m);
+bool ProcessEntries(HttpRequestProcessor* processor, int count,
+                    StringHttpRequest* reqs);
+void ParseOptions(int argc,
+                  char* argv[],
+                  map<string, string>& options,
+                  string* file);
+
