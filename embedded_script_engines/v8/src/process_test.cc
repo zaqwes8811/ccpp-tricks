@@ -117,12 +117,20 @@ TEST(V8, ProcessOne) {
 
 // This function returns a new array with three elements, x, y, and z.
 Handle<Array> NewPointArray(int x, int y, int z) {
-  v8::Isolate* isolate = v8::Isolate::GetCurrent();
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
 
-  // We will be creating temporary handles so we use a handle scope.
+  // Create a stack-allocated handle scope.
+  // Create handle STACK!!
   HandleScope handle_scope(isolate);
 
+  // Create a new context. Локальный!
   Handle<Context> context = Context::New(isolate);
+  
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  // Создать нужно обязательно.
+  Context::Scope context_scope(context);
 
   // Create a new empty array.
   // FAIL!!!
@@ -144,8 +152,26 @@ Handle<Array> NewPointArray(int x, int y, int z) {
 }
 
 TEST(V8, ReturnArray) {
-  //Isolate* isolate = Isolate::GetCurrent();
-  //Handle<Array> array = ::NewPointArray(0, 1, 2);
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
+
+  // Create a stack-allocated handle scope.
+  // Create handle STACK!!
+  HandleScope handle_scope(isolate);
+
+  // Create a new context. Локальный!
+  Handle<Context> context = Context::New(isolate);
+  
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  // Создать нужно обязательно.
+  Context::Scope context_scope(context);
+
+  Handle<Array> array = NewPointArray(0, 1, 2);
+
+  Local<Value> value = array->Get(0);
+  int out_value = value->ToObject()->Int32Value ();
+  ASSERT_EQ(0, out_value);
 }
 
 TEST(V8, ReturnArrayUnroll) {
@@ -153,13 +179,15 @@ TEST(V8, ReturnArrayUnroll) {
   Isolate* isolate = Isolate::GetCurrent();
 
   // Create a stack-allocated handle scope.
+  // Create handle STACK!!
   HandleScope handle_scope(isolate);
 
-  // Create a new context.
+  // Create a new context. Локальный!
   Handle<Context> context = Context::New(isolate);
   
   // Enter the created context for compiling and
   // running the hello world script. 
+  // Создать нужно обязательно.
   Context::Scope context_scope(context);
 
   Local<Array> array = Array::New(3);
