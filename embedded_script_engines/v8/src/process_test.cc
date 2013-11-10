@@ -122,8 +122,11 @@ Handle<Array> NewPointArray(int x, int y, int z) {
   // We will be creating temporary handles so we use a handle scope.
   HandleScope handle_scope(isolate);
 
+  Handle<Context> context = Context::New(isolate);
+
   // Create a new empty array.
   // FAIL!!!
+  // http://stackoverflow.com/questions/7015068/why-does-creating-new-v8array-before-v8scope-cause-segmentation-fault-but-v?rq=1
   //Handle<Array> array = Array::New(3);
   Local<Array> array = Array::New(3);
 
@@ -141,7 +144,68 @@ Handle<Array> NewPointArray(int x, int y, int z) {
 }
 
 TEST(V8, ReturnArray) {
+  //Isolate* isolate = Isolate::GetCurrent();
+  //Handle<Array> array = ::NewPointArray(0, 1, 2);
+}
+
+TEST(V8, ReturnArrayUnroll) {
+// Get the default Isolate created at startup.
   Isolate* isolate = Isolate::GetCurrent();
-  HandleScope scope(isolate);
-  Handle<Array> array = ::NewPointArray(0, 1, 2);
+
+  // Create a stack-allocated handle scope.
+  HandleScope handle_scope(isolate);
+
+  // Create a new context.
+  Handle<Context> context = Context::New(isolate);
+  
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  Context::Scope context_scope(context);
+
+  Local<Array> array = Array::New(3);
+
+  // Return an empty result if there was an error creating the array.
+  ASSERT_NE(true, array.IsEmpty());
+
+  array->Set(0, Integer::New(1));
+  array->Set(1, Integer::New(2));
+  array->Set(2, Integer::New(3));
+
+  Local<Value> value = array->Get(0);
+  int out_value = value->ToObject()->Int32Value ();
+  ASSERT_EQ(1, out_value);
+}
+
+TEST(V8, HelloWorld) {
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
+
+  // Create a stack-allocated handle scope.
+  HandleScope handle_scope(isolate);
+
+  // Create a new context.
+  Handle<Context> context = Context::New(isolate);
+
+  // Here's how you could create a Persistent handle to the context, if needed.
+  Persistent<Context> persistent_context(isolate, context);
+  
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  Context::Scope context_scope(context);
+
+  // Create a string containing the JavaScript source code.
+  Handle<String> source = String::New("'Hello' + ', World!'");
+
+  // Compile the source code.
+  Handle<Script> script = Script::Compile(source);
+  
+  // Run the script to get the result.
+  Handle<Value> result = script->Run();
+  
+  // The persistent handle needs to be eventually disposed.
+  persistent_context.Dispose();
+
+  // Convert the result to an ASCII string and print it.
+  String::AsciiValue ascii(result);
+  printf("%s\n", *ascii);
 }
