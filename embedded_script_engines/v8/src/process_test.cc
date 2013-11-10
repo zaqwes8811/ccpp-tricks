@@ -254,4 +254,55 @@ TEST(V8, RunFreeFuncFromJS) {
   Context::Scope context_scope(context);
 
   // Можно запускать скрипт
+  string file = "..\\scripts\\free_fuc_call_test.js";
+
+  Handle<String> source = ReadFile(file);
+  EXPECT_NE(true, source.IsEmpty());
+
+  TryCatch try_catch;
+
+  // Compile the script and check for errors.
+  Handle<Script> compiled_script = Script::Compile(source);
+  if (compiled_script.IsEmpty()) {
+    String::Utf8Value error(try_catch.Exception());
+    ::HttpRequestProcessor::Log(*error);
+    // The script failed to compile; bail out.
+    return;
+  }
+
+  // Run the script!
+  Handle<Value> result = compiled_script->Run();
+  if (result.IsEmpty()) {
+    // The TryCatch above is still in effect and will have caught the error.
+    String::Utf8Value error(try_catch.Exception());
+    ::HttpRequestProcessor::Log(*error);
+    // Running the script failed; bail out.
+    return;
+  }
 }
+
+int x = 0;
+void XGetter(Local<String> property, 
+             const PropertyCallbackInfo<Value>& info) {
+  info.GetReturnValue().Set(Integer::New(x));
+}
+    
+void XSetter(Local<String> property, Local<Value> value,
+              const PropertyCallbackInfo<void>& info) {
+  x = value->Int32Value();
+}
+
+TEST(V8, GlobalXetter) {
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
+
+  // Create a handle scope to hold the temporary references.
+  HandleScope handle_scope(isolate);
+
+  // YGetter/YSetter are so similar they are omitted for brevity
+  
+  Handle<ObjectTemplate> global_templ = ObjectTemplate::New();
+  global_templ->SetAccessor(String::New("x"), XGetter, XSetter);
+  Handle<Context> context = Context::New(isolate, NULL, global_templ);
+}
+    
