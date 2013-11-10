@@ -303,6 +303,38 @@ TEST(V8, GlobalXetter) {
   
   Handle<ObjectTemplate> global_templ = ObjectTemplate::New();
   global_templ->SetAccessor(String::New("x"), XGetter, XSetter);
+  global_templ->Set(String::New("log"), FunctionTemplate::New(LogCallback));
+
   Handle<Context> context = Context::New(isolate, NULL, global_templ);
+
+  Context::Scope context_scope(context);
+
+  // Run
+  // Можно запускать скрипт
+  string file = "..\\scripts\\free_var_xet_test.js";
+
+  Handle<String> source = ReadFile(file);
+  EXPECT_NE(true, source.IsEmpty());
+
+  TryCatch try_catch;
+
+  // Compile the script and check for errors.
+  Handle<Script> compiled_script = Script::Compile(source);
+  if (compiled_script.IsEmpty()) {
+    String::Utf8Value error(try_catch.Exception());
+    ::HttpRequestProcessor::Log(*error);
+    // The script failed to compile; bail out.
+    return;
+  }
+
+  // Run the script!
+  Handle<Value> result = compiled_script->Run();
+  if (result.IsEmpty()) {
+    // The TryCatch above is still in effect and will have caught the error.
+    String::Utf8Value error(try_catch.Exception());
+    ::HttpRequestProcessor::Log(*error);
+    // Running the script failed; bail out.
+    return;
+  }
 }
     
