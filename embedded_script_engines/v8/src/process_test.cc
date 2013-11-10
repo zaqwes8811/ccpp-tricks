@@ -27,32 +27,21 @@ TEST(V8, ProcessTop) {
   map<string, string> options;
   string file;
   ParseOptions(argc, argv, options, &file);
-  if (file.empty()) {
-    fprintf(stderr, "No script was specified.\n");
-    return;// 1;
-  }
+  EXPECT_NE(true, file.empty());
 
   //> V8
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
-  if (source.IsEmpty()) {
-    fprintf(stderr, "Error reading '%s'.\n", file.c_str());
-    return;// 1;
-  }
+  EXPECT_NE(true, source.IsEmpty());
 
   //> Own
   JsHttpRequestProcessor processor(isolate, source);
   
   map<string, string> output;
-  if (!processor.Initialize(&options, &output)) {
-    fprintf(stderr, "Error initializing processor.\n");
-    return;// 1;
-  }
-
-  if (!ProcessEntries(&processor, kSampleSize, kSampleRequests))
-    return;// 1;
+  EXPECT_EQ(true, processor.Initialize(&options, &output));
+  EXPECT_EQ(true, ProcessEntries(&processor, kSampleSize, kSampleRequests));
   PrintMap(&output);
 }
 
@@ -159,10 +148,13 @@ TEST(V8, ReturnArray) {
   // Create handle STACK!!
   HandleScope handle_scope(isolate);
 
+  /// "!! You must explicitly specify the context 
+  //    in which you want any JavaScript code to be run."
+
   // Create a new context. Локальный!
   Handle<Context> context = Context::New(isolate);
   
-  // Enter the created context for compiling and
+  /// !!Enter!! the created context for compiling and
   // running the hello world script. 
   // Создать нужно обязательно.
   Context::Scope context_scope(context);
@@ -200,7 +192,7 @@ TEST(V8, ReturnArrayUnroll) {
   array->Set(2, Integer::New(3));
 
   Local<Value> value = array->Get(0);
-  int out_value = value->ToObject()->Int32Value ();
+  int out_value = value->ToObject()->Int32Value();
   ASSERT_EQ(1, out_value);
 }
 
@@ -236,4 +228,30 @@ TEST(V8, HelloWorld) {
   // Convert the result to an ASCII string and print it.
   String::AsciiValue ascii(result);
   printf("%s\n", *ascii);
+}
+
+TEST(V8, RunFreeFuncFromJS) {
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
+
+  // Create a handle scope to hold the temporary references.
+  HandleScope handle_scope(isolate);
+
+  // Create a template for the global object where we set the
+  // built-in global functions.
+  Handle<ObjectTemplate> global = ObjectTemplate::New();
+  global->Set(String::New("log"), FunctionTemplate::New(LogCallback));
+
+  // Each processor gets its own context so different processors don't
+  // affect each other. Context::New returns a persistent handle which
+  // is what we need for the reference to remain after we return from
+  // this method. That persistent handle has to be disposed in the
+  // destructor.
+  v8::Handle<v8::Context> context = Context::New(isolate, NULL, global);
+
+  // Enter the new context so all the following operations take place
+  // within it.
+  Context::Scope context_scope(context);
+
+  // Можно запускать скрипт
 }

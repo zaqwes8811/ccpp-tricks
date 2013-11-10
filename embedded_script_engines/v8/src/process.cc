@@ -41,20 +41,7 @@ using namespace std;
 using namespace v8;
 
 
-static void LogCallback(const v8::FunctionCallbackInfo<v8::Value>& args) {
-  if (args.Length() < 1) return;
-  HandleScope scope(args.GetIsolate());
-  Handle<Value> arg = args[0];
-  String::Utf8Value value(arg);
-  HttpRequestProcessor::Log(*value);
-}
 
-// Convert a JavaScript string to a std::string.  To not bother too
-// much with string encodings we just use ascii.
-string ObjectToString(Local<Value> value) {
-  String::Utf8Value utf8_value(value);
-  return string(*utf8_value);
-}
 
 // -------------------------
 // --- P r o c e s s o r ---
