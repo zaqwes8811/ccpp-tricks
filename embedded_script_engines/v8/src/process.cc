@@ -40,9 +40,6 @@
 using namespace std;
 using namespace v8;
 
-
-
-
 // -------------------------
 // --- P r o c e s s o r ---
 // -------------------------
