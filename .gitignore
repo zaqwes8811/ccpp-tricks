@@ -20,7 +20,7 @@
 *.res
 *.sdf
 *.tlog
-*.user
+*.suo
 */BuildLog.htm*
 *~
 /deployer/dist/*
