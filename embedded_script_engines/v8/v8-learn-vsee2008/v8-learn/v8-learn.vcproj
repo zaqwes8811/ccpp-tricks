@@ -173,7 +173,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\v8-learn.cpp"
+				RelativePath="..\..\src\launcher_process.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\process.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\process_global.cc"
 				>
 			</File>
 		</Filter>
@@ -182,6 +190,14 @@
 			>
 			<File
 				RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tests"
+			>
+			<File
+				RelativePath="..\..\src\process_test.cc"
 				>
 			</File>
 		</Filter>
