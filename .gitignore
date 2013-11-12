@@ -21,6 +21,6 @@
 *.sdf
 *.tlog
 *.suo
-*/BuildLog.htm*
+*BuildLog.htm
 *~
 /deployer/dist/*
