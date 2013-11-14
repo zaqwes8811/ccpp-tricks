@@ -24,3 +24,4 @@
 *BuildLog.htm
 *~
 /deployer/dist/*
+*.ipch
