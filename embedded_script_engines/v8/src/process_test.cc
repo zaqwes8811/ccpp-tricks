@@ -337,4 +337,9 @@ TEST(V8, GlobalXetter) {
     return;
   }
 }
+
+TEST(V8, CallJSFuncReturnArraySlots) {
+  // Return Array<Slot>. Slot - u_int/u_char
+  EXPECT_EQ(true, false);
+}
     
