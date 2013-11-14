@@ -92,7 +92,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc" />
-    <ClCompile Include="..\..\src\v8-learn.cpp" />
+    <ClCompile Include="..\..\src\launcher_process.cc" />
+    <ClCompile Include="..\..\src\process.cc" />
+    <ClCompile Include="..\..\src\process_global.cc" />
+    <ClCompile Include="..\..\src\process_test.cc" />
     <ClCompile Include="..\..\tests\v8_base_test.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

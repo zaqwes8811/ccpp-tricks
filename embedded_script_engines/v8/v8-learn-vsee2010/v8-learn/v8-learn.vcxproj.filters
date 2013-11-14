@@ -16,11 +16,18 @@
     <ClCompile Include="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc">
       <Filter>tools</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\v8-learn.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\tests\v8_base_test.cc">
       <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process_test.cc">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\launcher_process.cc" />
+    <ClCompile Include="..\..\src\process.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process_global.cc">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

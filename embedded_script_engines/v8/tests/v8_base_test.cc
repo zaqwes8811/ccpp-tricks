@@ -68,6 +68,8 @@ TEST(V8, ExposeObject) {
 
 }
 
+/*
+// Api устарело
 Handle<Value> XGetter(Local<String> property, 
                         const AccessorInfo& info) {
     return Integer::New(x);
@@ -97,3 +99,4 @@ TEST(V8, ExposeSimpleVars) {
   point_templ->SetInternalFieldCount(1);
 
 }
+*/
