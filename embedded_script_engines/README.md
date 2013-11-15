@@ -6,3 +6,15 @@
 генерирует код уже конкретного процессора, которые не переносим.
 
 На intel/amd with Win/Lin похоже таких проблем нет.
+
+http://workware.net.au/papers/embedded-scripting.pdf !!
+tcl http://jim.tcl.tk/index.html/doc/www/www/index.html
+
+Jim-Tcl!
+
+В основном до armv7
+
+Deamonds:
+
+- to know C and hardware
+- to know VMs
