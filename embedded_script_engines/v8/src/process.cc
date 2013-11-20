@@ -317,6 +317,7 @@ Handle<Object> JsHttpRequestProcessor::WrapRequest(HttpRequest* request) {
 
   // Wrap the raw C++ pointer in an External so it can be referenced
   // from within JavaScript.
+  // "JS not handle!"
   Handle<External> request_ptr = External::New(request);
 
   // Store the request pointer in the JavaScript wrapper.

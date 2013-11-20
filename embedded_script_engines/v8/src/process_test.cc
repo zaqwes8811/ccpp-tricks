@@ -378,7 +378,14 @@ TEST(V8, WrapRequest) {
   processor.WrapRequest(&request);
 }
 
+// http://create.tpsitulsa.com/blog/2009/01/29/v8-objects/
 // ! 
 TEST(V8, CreateCppObjectInsideJS) {
 
 }
+
+// Conect free function to obj in JS. What be with "this".
+TEST(V8, ConnectFreeFunctionToObject) {
+
+}
+
