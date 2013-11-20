@@ -145,6 +145,7 @@ bool JsHttpRequestProcessor::InstallMaps(map<string, string>* opts,
 }
 
 // Engine?
+// Get handle to exist object
 bool JsHttpRequestProcessor::Process(HttpRequest* request) {
   // Create a handle scope to keep the temporary object references.
   HandleScope handle_scope(GetIsolate());
@@ -381,7 +382,7 @@ void JsHttpRequestProcessor::GetUserAgent(
       String::New(path.c_str(), static_cast<int>(path.length())));
 }
 
-
+// Connect static functions
 Handle<ObjectTemplate> JsHttpRequestProcessor::MakeRequestTemplate(
     Isolate* isolate) {
   HandleScope handle_scope(isolate);

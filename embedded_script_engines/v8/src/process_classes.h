@@ -97,7 +97,12 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   // and going back again.
   Handle<Object> WrapMap(map<string, string>* obj);
   static map<string, string>* UnwrapMap(Handle<Object> obj);
+
+//protected:  // TODO:
+public:
   Handle<Object> WrapRequest(HttpRequest* obj);
+  
+private:
   static HttpRequest* UnwrapRequest(Handle<Object> obj);
 
   Isolate* GetIsolate() { return isolate_; }

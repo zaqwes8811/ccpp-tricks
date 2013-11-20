@@ -104,6 +104,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   static Handle<ObjectTemplate> MakeMapTemplate(Isolate* isolate);
 
   // Callbacks that access the individual fields of request objects.
+  // New api!!
   static void GetPath(Local<String> name,
                       const PropertyCallbackInfo<Value>& info);
   static void GetReferrer(Local<String> name,

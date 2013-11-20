@@ -338,8 +338,46 @@ TEST(V8, GlobalXetter) {
     return;
   }
 }
+
+// Accessing to dynamic vars.
+// Point x y
+class Point {
+   public:
+    Point(int x, int y) : x_(x), y_(y) { }
+    int x_, y_;
+  };
+
 /*
 TEST(V8, CallJSFuncReturnArraySlots) {
   // Return Array<Slot>. Slot - u_int/u_char
   EXPECT_EQ(true, false);
 }*/
+
+TEST(V8, WrapRequest) {
+  int argc = 2;
+  char* argv[] = {"", "..\\scripts\\test.js"};
+
+  v8::V8::InitializeICU();
+  map<string, string> options;
+
+  string file;
+  ParseOptions(argc, argv, options, &file);
+  EXPECT_NE(true, file.empty());
+
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  Handle<String> source = ReadFile(file);
+  EXPECT_NE(true, source.IsEmpty());
+
+  JsHttpRequestProcessor processor(isolate, source);
+
+  // Wrap
+  StringHttpRequest request("/", "localhost", "google.net", "firefox");
+  processor.WrapRequest(&request);
+}
+
+// ! 
+TEST(V8, CreateCppObjectInsideJS) {
+
+}

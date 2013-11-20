@@ -8,12 +8,12 @@
 #include <vector>
 
 // Other
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include <v8.h>
 
 // App
-#include "in_memory_storage/sampler.h" 
-#include "v8/src/process_classes.h"
+// #include "in_memory_storage/sampler.h" 
+#include "process_classes.h"
 
 using namespace std;
 using namespace v8;
@@ -39,6 +39,7 @@ class dblite
 	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();		
 };
 
+/*
 class ScriptsV8 {
  public:  
 	 virtual void runScript(std::string)=0;  
@@ -58,6 +59,8 @@ class ScriptsV8Impl : public ScriptsV8 {
 	boost::shared_ptr<::tmitter_web_service::DataBase> db_;
 
 };
+*/
+
 } // namespace
 
 #endif // CC_JS_V8_SCENARIOS
