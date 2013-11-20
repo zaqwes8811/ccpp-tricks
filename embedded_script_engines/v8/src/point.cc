@@ -10,6 +10,7 @@ using v8::String;
 using v8::External;
 using v8::Object;
 using v8::Integer;
+using v8::PropertyCallbackInfo;
 
 // Accessing to dynamic vars.
 // Point x y
@@ -19,8 +20,8 @@ class Point {
     int x_, y_;
   };
 
-Handle<Value> GetPointX(Local<String> property,
-                        const AccessorInfo &info) {
+void GetPointX(Local<String> name,
+               const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
