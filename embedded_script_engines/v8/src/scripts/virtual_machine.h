@@ -28,16 +28,15 @@ class dblite
 	bool execute(const char* sql) { return 0; }
 	int error_code() { return 3;}
 
-	dblite* unwrap_dblite(Handle<Object> obj);
+	static dblite* unwrap_dblite(Handle<Object> obj);
 
 	Handle<v8::Value> SomeProperty(Local<v8::String> name, const const PropertyCallbackInfo<void>& info);
 
-	std::string to_string(Local<Value> v);
+	static std::string to_string(Local<Value> v);
 
-	Handle<Value> Open(const FunctionCallbackInfo<Value>& args);
-//	Handle<Value> Open(FunctionCallback args);
+	static void Open(const FunctionCallbackInfo<Value>& args);
 
-	Handle<ObjectTemplate> CreateDbLiteTemplate();		
+	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();		
 };
 
 class ScriptsV8 {
@@ -52,11 +51,6 @@ class ScriptsV8Impl : public ScriptsV8 {
 			: db_(database) { }
 
 	virtual void runScript(std::string scriptFile);
-/*
-Handle<v8::Value> SomeProperty(Local<v8::String> name, const PropertyCallbackInfo& info) {
-	// info.Holder() указывает на объект V8 (класс Handle<Object>)
-	// name это имя свойства, к которому обращаются
-}*/
 
 	virtual ~ScriptsV8Impl() { }
 
