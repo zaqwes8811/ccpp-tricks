@@ -193,6 +193,7 @@ TEST(V8, ReturnArrayUnroll) {
 
   Local<Value> value = array->Get(0);
   int out_value = value->ToObject()->Int32Value();
+	std::cout << "out value : " <<out_value << endl;
   ASSERT_EQ(1, out_value);
 }
 
@@ -303,8 +304,8 @@ TEST(V8, GlobalXetter) {
   
   Handle<ObjectTemplate> global_templ = ObjectTemplate::New();
   global_templ->SetAccessor(String::New("x"), XGetter, XSetter);
-  global_templ->Set(String::New("log"), FunctionTemplate::New(LogCallback));
-
+  global_templ->Set(String::New("loge"), FunctionTemplate::New(LogCallback));	
+	
   Handle<Context> context = Context::New(isolate, NULL, global_templ);
 
   Context::Scope context_scope(context);
@@ -337,9 +338,8 @@ TEST(V8, GlobalXetter) {
     return;
   }
 }
-
+/*
 TEST(V8, CallJSFuncReturnArraySlots) {
   // Return Array<Slot>. Slot - u_int/u_char
   EXPECT_EQ(true, false);
-}
-    
+}*/

@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;D:\home\lugansky-igor\github\v8\include&quot;;&quot;..\..\..\third_party\fused-src&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components\app-server-linux&quot;;&quot;C:\home\haneda\tmitter-web-service-win\to-inner-reuse&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components&quot;;&quot;C:\home\haneda\in-the-vicinity-cc\embedded_script_engines&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -180,6 +180,10 @@
 				RelativePath="..\..\src\process_global.cc"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\virtual_machine.cc"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="tools"
@@ -194,6 +198,10 @@
 			>
 			<File
 				RelativePath="..\..\src\process_test.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\script_test.cc"
 				>
 			</File>
 		</Filter>

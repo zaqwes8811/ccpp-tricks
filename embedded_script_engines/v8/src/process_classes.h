@@ -54,7 +54,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
  public:
   // Creates a new processor that processes requests by invoking the
   // Process function of the JavaScript script given as an argument.
-  JsHttpRequestProcessor(Isolate* isolate, Handle<String> script)
+	 JsHttpRequestProcessor(Isolate* isolate, Handle<v8::String> script)
       : isolate_(isolate), script_(script) { }
   virtual ~JsHttpRequestProcessor();
 
@@ -65,7 +65,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
  private:
   // Execute the script associated with this processor and extract the
   // Process function.  Returns true if this succeeded, otherwise false.
-  bool ExecuteScript(Handle<String> script);
+	 bool ExecuteScript(Handle<v8::String> script);
 
   // Wrap the options and output map in a JavaScript objects and
   // install it in the global namespace as 'options' and 'output'.
@@ -77,19 +77,19 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   static Handle<ObjectTemplate> MakeMapTemplate(Isolate* isolate);
 
   // Callbacks that access the individual fields of request objects.
-  static void GetPath(Local<String> name,
+	static void GetPath(Local<v8::String> name,
                       const PropertyCallbackInfo<Value>& info);
-  static void GetReferrer(Local<String> name,
+	static void GetReferrer(Local<v8::String> name,
                           const PropertyCallbackInfo<Value>& info);
-  static void GetHost(Local<String> name,
+	static void GetHost(Local<v8::String> name,
                       const PropertyCallbackInfo<Value>& info);
-  static void GetUserAgent(Local<String> name,
+	static void GetUserAgent(Local<v8::String> name,
                            const PropertyCallbackInfo<Value>& info);
 
   // Callbacks that access maps
-  static void MapGet(Local<String> name,
+	static void MapGet(Local<v8::String> name,
                      const PropertyCallbackInfo<Value>& info);
-  static void MapSet(Local<String> name,
+  static void MapSet(Local<v8::String> name,
                      Local<Value> value,
                      const PropertyCallbackInfo<Value>& info);
 
@@ -103,7 +103,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   Isolate* GetIsolate() { return isolate_; }
 
   Isolate* isolate_;
-  Handle<String> script_;
+  Handle<v8::String> script_;
   Persistent<Context> context_;
   Persistent<Function> process_;
   static Persistent<ObjectTemplate> request_template_;
@@ -133,7 +133,7 @@ class StringHttpRequest : public HttpRequest {
 
 
 // Reads a file into a v8 string.
-Handle<String> ReadFile(const string& name);
+Handle<v8::String> ReadFile(const string& name);
 void PrintMap(map<string, string>* m);
 bool ProcessEntries(HttpRequestProcessor* processor, int count,
                     StringHttpRequest* reqs);
