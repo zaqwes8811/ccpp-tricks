@@ -404,3 +404,8 @@ TEST(V8, ConnectFreeFunctionToObject) {
 
 }
 
+// new in JS https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
+TEST(V8, AddFunctionToObject) {
+
+}
+
