@@ -339,13 +339,7 @@ TEST(V8, GlobalXetter) {
   }
 }
 
-// Accessing to dynamic vars.
-// Point x y
-class Point {
-   public:
-    Point(int x, int y) : x_(x), y_(y) { }
-    int x_, y_;
-  };
+
 
 /*
 TEST(V8, CallJSFuncReturnArraySlots) {
@@ -378,10 +372,22 @@ TEST(V8, WrapRequest) {
   processor.WrapRequest(&request);
 }
 
+
 // http://create.tpsitulsa.com/blog/2009/01/29/v8-objects/
 // ! 
 TEST(V8, CreateCppObjectInsideJS) {
-
+  //create your function template
+  Handle<FunctionTemplate> point_template = FunctionTemplate::New();
+ 
+  //get the point's instance template
+  Handle<ObjectTemplate> point_instance_template = point_template->InstanceTemplate();
+ 
+  //set its internal field count to one (we'll put references to the C++ point here later)
+  point_instance_template->SetInternalFieldCount(1);
+ 
+  //add some properties (x and y)
+  point_instance_template->SetAccessor(String::New("x"), GetPointX, SetPointX);
+  point_instance_template->SetAccessor(String::New("y"), GetPointY, SetPointY);
 }
 
 // Conect free function to obj in JS. What be with "this".
