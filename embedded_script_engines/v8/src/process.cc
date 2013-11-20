@@ -163,7 +163,8 @@ bool JsHttpRequestProcessor::Process(HttpRequest* request) {
   // Set up an exception handler before calling the Process function
   TryCatch try_catch;
 
-  // Invoke the process function, giving the global object as 'this'
+  // TOTH: in JavaScript function may be connected to exist objects
+  // Invoke the process function, giving the global object as !!'this'!!
   // and one argument, the request.
   const int argc = 1;
   Handle<Value> argv[argc] = { request_obj };

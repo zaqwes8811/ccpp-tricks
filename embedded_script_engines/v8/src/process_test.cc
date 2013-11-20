@@ -373,6 +373,7 @@ TEST(V8, WrapRequest) {
   JsHttpRequestProcessor processor(isolate, source);
 
   // Wrap
+  // !! Simple in-stack object!
   StringHttpRequest request("/", "localhost", "google.net", "firefox");
   processor.WrapRequest(&request);
 }
