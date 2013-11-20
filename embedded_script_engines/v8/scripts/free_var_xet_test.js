@@ -1,6 +1,6 @@
  
 
  var tmp = x;
- log(x);
+ loge(x);
  x = 10;
- log(x);
+ loge(x);
