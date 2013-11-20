@@ -302,13 +302,12 @@ TEST(V8, GlobalXetter) {
   HandleScope handle_scope(isolate);
 
   // YGetter/YSetter are so similar they are omitted for brevity
-  
   Handle<ObjectTemplate> global_templ = ObjectTemplate::New();
   global_templ->SetAccessor(String::New("x"), XGetter, XSetter);
   global_templ->Set(String::New("loge"), FunctionTemplate::New(LogCallback));	
 	
+  // Only now create context? Local handle!
   Handle<Context> context = Context::New(isolate, NULL, global_templ);
-
   Context::Scope context_scope(context);
 
   // Run
@@ -369,15 +368,20 @@ TEST(V8, WrapRequest) {
 
   // Wrap
   // !! Simple in-stack object!
-  StringHttpRequest request("/", "localhost", "google.net", "firefox");
-  processor.WrapRequest(&request);
+
+  // FAILED
+  //StringHttpRequest request("/", "localhost", "google.net", "firefox");
+  //processor.WrapRequest(&request);
 }
 
 
 // http://create.tpsitulsa.com/blog/2009/01/29/v8-objects/
 // ! 
 TEST(V8, CreateCppObjectInsideJS) {
-  //create your function template
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  //create your function template. Why? After use object?
   Handle<FunctionTemplate> point_template = FunctionTemplate::New();
  
   //get the point's instance template
@@ -389,6 +393,10 @@ TEST(V8, CreateCppObjectInsideJS) {
   //add some properties (x and y)
   point_instance_template->SetAccessor(String::New("x"), GetPointX, SetPointX);
   point_instance_template->SetAccessor(String::New("y"), GetPointY, SetPointY);
+
+  // Look like context not used now!
+  // Template Created! 
+  // "A template is a blueprint for JavaScript functions and objects in a context"
 }
 
 // Conect free function to obj in JS. What be with "this".

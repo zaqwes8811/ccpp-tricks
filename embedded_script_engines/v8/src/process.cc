@@ -189,7 +189,7 @@ JsHttpRequestProcessor::~JsHttpRequestProcessor() {
   process_.Dispose();
 }
 
-
+// TOTH: Templates in Persistent?
 Persistent<ObjectTemplate> JsHttpRequestProcessor::request_template_;
 Persistent<ObjectTemplate> JsHttpRequestProcessor::map_template_;
 
