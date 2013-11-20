@@ -111,7 +111,10 @@ private:
   Handle<v8::String> script_;
   Persistent<Context> context_;
   Persistent<Function> process_;
+  
+  // Lazy initialized?
   static Persistent<ObjectTemplate> request_template_;
+
   static Persistent<ObjectTemplate> map_template_;
 };
 
