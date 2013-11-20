@@ -20,7 +20,6 @@ void ScriptsV8Impl::runScript(std::string file) {
 }
 
 dblite* dblite::unwrap_dblite(Handle<Object> obj) {
-
 	Handle<External> field = Handle<External>::Cast(obj->GetInternalField(0));
 	void* ptr = field->Value();
 	return static_cast<dblite*>(ptr);
@@ -32,51 +31,27 @@ Handle<v8::Value> dblite::SomeProperty(Local<v8::String> name, const const Prope
 	return Integer::New(unwrap_dblite(info.Holder())->error_code());
 }
 
-Handle<Value> dblite::Open(const FunctionCallbackInfo<Value>& args) {
-//v8::Handle<v8::Value> dblite::Open(v8::FunctionCallback args) {
-	
-	if (args.Length() < 1) return Undefined(); // нету параметров? отбой!
-  dblite* db = unwrap_dblite(args.This()); // забираем указатель на dblite
-	std::string sql = to_string(args[0]); // получаем строку в C++, описание to_string находится в первой части этой статьи
-	return v8::Boolean::New(db->open(sql.data())); // вызываем open() и возвращаем результат
-
-	/*HandleScope scope(args.GetIsolate());
-  Handle<Value> arg = args[0];
-  String::Utf8Value value(arg);
-  HttpRequestProcessor::Log(*value);
-	*/
+void dblite::Open(const FunctionCallbackInfo<Value>& info) {
+  dblite* db = unwrap_dblite(info.This()); // забираем указатель на dblite
+	std::string sql = to_string(info[0]); // получаем строку в C++, описание to_string находится в первой части этой статьи
+	info.GetReturnValue().Set(v8::BooleanObject::New(db->open(sql.data())));	
 }  
 
-Handle<ObjectTemplate> dblite::CreateDbLiteTemplate() {
-		Isolate* isolate = Isolate::GetCurrent();
-		HandleScope handle_scope(isolate);
-		//HandleScope handle_scope;
-    Local<ObjectTemplate> result = ObjectTemplate::New(); // создаем новый темплейт
-    result->SetInternalFieldCount(1); // отводим в нем один слот для хранения внешних (для V8) ссылок (void*)
-            // в нашем случае в нулевой ячейке будет храниться dblite*
+v8::Handle<v8::FunctionTemplate> dblite::CreateDbLiteTemplate() {	
 
-// прописываем свойство объекта (НЕ ФУНКЦИЮ) - зачем нам лишние скобки?
-//		result->SetAccessor(v8::String::NewSymbol("errorCode"), ErrorCode); // получить код ошибки
+	v8::HandleScope handle_scope(v8::Isolate::GetCurrent());
+	v8::Handle<v8::FunctionTemplate> templ = v8::FunctionTemplate::New();
+	v8::Handle<v8::ObjectTemplate> instTempl = templ->InstanceTemplate();
+	instTempl->SetInternalFieldCount(1);
 
-// прописываем функции - методы объекта
-		result->Set(v8::String::NewSymbol("open"), FunctionTemplate::New(&::scenarios::dblite::Open));    
-  //  result->Set(String::NewSymbol("close"), FunctionTemplate::New(Close));    
-   // result->Set(String::NewSymbol("execute"), FunctionTemplate::New(Execute));    
-
-	//Handle<ObjectTemplate> global_templ = ObjectTemplate::New();
-  //global_templ->SetAccessor(String::New("x"), XGetter, XSetter);
-	//global_templ->Set(v8::String::New("open"), FunctionTemplate::New(Open));	
-	
-  //Handle<Context> context = Context::New(isolate, NULL, global_templ);
-
-  //Context::Scope context_scope(context);
-
+	v8::Handle<v8::ObjectTemplate> proto = templ->PrototypeTemplate();
+	proto->SetAccessorProperty(v8::String::NewSymbol("open"), v8::FunctionTemplate::New(
+			static_cast<v8::FunctionCallback>(&::scenarios::dblite::Open)));
 
 // возвращаем временный хэндл хитрым образом, который переносит наш хэндл в предыдущий HandleScope и не дает ему 
 // уничтожиться при уничтожении "нашего" HandleScope - handle_scope
-    return handle_scope.Close(result);
+ return handle_scope.Close(templ);
 }
-
 
 std::string dblite::to_string(Local<Value> value) {
 	
@@ -85,8 +60,4 @@ std::string dblite::to_string(Local<Value> value) {
 		if (p == 0) return std::string();
 		return std::string(p);
 }
-
-
-
-
-}
+} // namespace scenarios
