@@ -8,6 +8,7 @@
 
 // App
 #include "process_classes.h"
+#include "point.h"
 
 
 TEST(V8, ProcessTop) {

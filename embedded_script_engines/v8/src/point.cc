@@ -23,9 +23,30 @@ void GetPointX(Local<String> name,
  
 
 void SetPointX(Local<String> property, Local<Value> value,
-               const PropertyCallbackInfo<Value>& info) {
+               const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   static_cast<Point*>(ptr)->x_ = value->Int32Value();
+}
+
+void GetPointY(Local<String> name,
+               const PropertyCallbackInfo<Value>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<Point*>(ptr)->y_;
+
+  // New api
+  // return Integer::New(value);
+  info.GetReturnValue().Set(Integer::New(value));
+}
+ 
+
+void SetPointY(Local<String> property, Local<Value> value,
+               const PropertyCallbackInfo<void>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<Point*>(ptr)->y_ = value->Int32Value();
 }
