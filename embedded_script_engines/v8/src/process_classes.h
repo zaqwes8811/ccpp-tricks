@@ -97,7 +97,12 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   // and going back again.
   Handle<Object> WrapMap(map<string, string>* obj);
   static map<string, string>* UnwrapMap(Handle<Object> obj);
+
+//protected:  // TODO:
+public:
   Handle<Object> WrapRequest(HttpRequest* obj);
+  
+private:
   static HttpRequest* UnwrapRequest(Handle<Object> obj);
 
   Isolate* GetIsolate() { return isolate_; }
@@ -106,7 +111,10 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   Handle<v8::String> script_;
   Persistent<Context> context_;
   Persistent<Function> process_;
+  
+  // Lazy initialized?
   static Persistent<ObjectTemplate> request_template_;
+
   static Persistent<ObjectTemplate> map_template_;
 };
 

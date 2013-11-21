@@ -29,5 +29,11 @@
     <ClCompile Include="..\..\src\process_global.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\script_test.cc">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\point.cc">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

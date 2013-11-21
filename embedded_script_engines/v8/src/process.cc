@@ -145,6 +145,7 @@ bool JsHttpRequestProcessor::InstallMaps(map<string, string>* opts,
 }
 
 // Engine?
+// Get handle to exist object
 bool JsHttpRequestProcessor::Process(HttpRequest* request) {
   // Create a handle scope to keep the temporary object references.
   HandleScope handle_scope(GetIsolate());
@@ -162,7 +163,8 @@ bool JsHttpRequestProcessor::Process(HttpRequest* request) {
   // Set up an exception handler before calling the Process function
   TryCatch try_catch;
 
-  // Invoke the process function, giving the global object as 'this'
+  // TOTH: in JavaScript function may be connected to exist objects
+  // Invoke the process function, giving the global object as !!'this'!!
   // and one argument, the request.
   const int argc = 1;
   Handle<Value> argv[argc] = { request_obj };
@@ -187,7 +189,7 @@ JsHttpRequestProcessor::~JsHttpRequestProcessor() {
   process_.Dispose();
 }
 
-
+// TOTH: Templates in Persistent?
 Persistent<ObjectTemplate> JsHttpRequestProcessor::request_template_;
 Persistent<ObjectTemplate> JsHttpRequestProcessor::map_template_;
 
@@ -315,6 +317,7 @@ Handle<Object> JsHttpRequestProcessor::WrapRequest(HttpRequest* request) {
 
   // Wrap the raw C++ pointer in an External so it can be referenced
   // from within JavaScript.
+  // "JS not handle!"
   Handle<External> request_ptr = External::New(request);
 
   // Store the request pointer in the JavaScript wrapper.
@@ -381,7 +384,7 @@ void JsHttpRequestProcessor::GetUserAgent(
       String::New(path.c_str(), static_cast<int>(path.length())));
 }
 
-
+// Connect static functions
 Handle<ObjectTemplate> JsHttpRequestProcessor::MakeRequestTemplate(
     Isolate* isolate) {
   HandleScope handle_scope(isolate);
