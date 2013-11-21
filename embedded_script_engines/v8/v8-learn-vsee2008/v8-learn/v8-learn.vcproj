@@ -173,6 +173,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\src\point.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\process.cc"
 				>
 			</File>
@@ -201,7 +205,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\script_test.cc"
+				RelativePath="..\..\src\script_test.cc"
 				>
 			</File>
 		</Filter>

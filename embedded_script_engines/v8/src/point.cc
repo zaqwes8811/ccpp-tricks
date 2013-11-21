@@ -22,7 +22,6 @@ void GetPointX(Local<String> name,
   // return Integer::New(value);
   info.GetReturnValue().Set(Integer::New(value));
 }
- 
 
 void SetPointX(Local<String> property, Local<Value> value,
                const PropertyCallbackInfo<void>& info) {
@@ -43,7 +42,6 @@ void GetPointY(Local<String> name,
   // return Integer::New(value);
   info.GetReturnValue().Set(Integer::New(value));
 }
- 
 
 void SetPointY(Local<String> property, Local<Value> value,
                const PropertyCallbackInfo<void>& info) {

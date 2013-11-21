@@ -1,8 +1,9 @@
 //#include "config.h"
-#include "v8/src/scripts/virtual_machine.h"
+#include "virtual_machine.h"
 
 namespace scenarios {
 
+/*
 void ScriptsV8Impl::runScript(std::string file) {
 	
 	Isolate* isolate = Isolate::GetCurrent();
@@ -17,7 +18,7 @@ void ScriptsV8Impl::runScript(std::string file) {
 	int out_value = value->ToObject()->Int32Value();
 	cout << "value : " << out_value << endl;
 
-}
+}*/
 
 dblite* dblite::unwrap_dblite(Handle<Object> obj) {
 	Handle<External> field = Handle<External>::Cast(obj->GetInternalField(0));

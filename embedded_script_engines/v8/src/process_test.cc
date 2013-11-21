@@ -409,3 +409,7 @@ TEST(V8, AddFunctionToObject) {
 
 }
 
+TEST(V8, IfFieldIsArray) {
+
+}
+
