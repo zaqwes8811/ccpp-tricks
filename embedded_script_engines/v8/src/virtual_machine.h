@@ -37,6 +37,11 @@ class dblite
 	static void Open(const FunctionCallbackInfo<Value>& args);
 
 	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();		
+
+
+	
+
+
 };
 
 /*
