@@ -5,6 +5,7 @@ import re  # регулярные выражения
 from generator.cpp import utils
 from generator.cpp import ast
 
+
 class ScalarVariableField(object):
     """
     About:
@@ -18,7 +19,8 @@ class ScalarVariableField(object):
         self.variable_node_ = variable_node
 
         # Регистрируем типы
-        self.V8_RECODER = {'int': 'Integer', 'std::string': 'String'}
+        self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String'}
+        self.V8_SETTER_RECODER_ = {'int': 'Int32', 'std::string': 'String'}
 
     def make_scalar_getter(self):
         """
@@ -35,24 +37,41 @@ class ScalarVariableField(object):
                                               self.variable_node_.name,
                                               self.class_name_)
 
-        if field_type not in self.V8_RECODER:
+        if field_type not in self.V8_GETTER_RECODER_:
             return "Map not found"
 
         template = 'void v8_getter_' + field_name + '(\r\n' + \
-                   '      Local<String> name,\r\n' + \
-                   '      const PropertyCallbackInfo<Value>& info) \r\n' + \
+                   '    Local<String> name,\r\n' + \
+                   '    const PropertyCallbackInfo<Value>& info) \r\n' + \
                    '  {\r\n' + \
                    '  Local<Object> self = info.Holder();\r\n' + \
                    '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\r\n' + \
                    '  void* ptr = wrap->Value();\r\n' + \
                    '  ' + field_type + ' value = static_cast<' + class_name + '*>(ptr)->' + field_name + ';\r\n' + \
-                   '  info.GetReturnValue().Set(' + self.V8_RECODER[field_type] + '::New(value));\r\n' + \
+                   '  info.GetReturnValue().Set(' + self.V8_GETTER_RECODER_[field_type] + '::New(value));\r\n' + \
                    '}'
 
         return template
 
     def make_scalar_setter(self):
-        pass
+        field_type, field_name, class_name = (self.variable_node_.type.name,
+                                              self.variable_node_.name,
+                                              self.class_name_)
+
+        if field_type not in self.V8_GETTER_RECODER_:
+            return "Map not found"
+
+        template = 'void v8_setter_' + field_name + '(\r\n' + \
+                   '        Local<String> property, Local<Value> value,\r\n' + \
+                   '        const PropertyCallbackInfo<void>& info) \r\n' + \
+                   '  {\r\n' + \
+                   '  Local<Object> self = info.Holder();\r\n' + \
+                   '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\r\n' + \
+                   '  void* ptr = wrap->Value();\r\n' + \
+                   '  static_cast<' + class_name + '*>(ptr)->' + field_name + ' = value->' + self.V8_SETTER_RECODER_[field_type] + 'Value();\r\n' + \
+                   '}'
+
+        return template
 
 
 def extract_variable_declaration(source, header_file_name):
@@ -74,7 +93,8 @@ def extract_variable_declaration(source, header_file_name):
                     if isinstance(record, ast.VariableDeclaration):
                         # модификаторы и... *, & отделены от имени типа!
                         #if scalar?:
-                        #elif  vector?
+                        #elif  vector? std::vector<string>, Vector, List, Array...
+                        # это не скаляр и сеттер будет другим https://developers.google.com/v8/embed
                         #else
                         #check what happened
                         yield ScalarVariableField(node.name, record)
@@ -95,6 +115,7 @@ def main():
     # zaqwes
     for elem in extract_variable_declaration(source, header_file_name):
         print elem.make_scalar_getter()
+        print elem.make_scalar_setter()
 
 
 if __name__ == '__main__':

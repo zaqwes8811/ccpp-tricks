@@ -12,3 +12,13 @@ class Point {
    Vector values_range;
    //int array[42];  // Replace to vector!!
 };
+
+/*
+void SetPointY(Local<String> property, Local<Value> value,
+               const PropertyCallbackInfo<void>& info) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    static_cast<Point*>(ptr)->y_ = value->Int32Value();
+}
+*/
