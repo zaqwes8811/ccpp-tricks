@@ -26,6 +26,7 @@ def regenerate_point_class(class_name):
 class Field(object):
     pass
 
+
 GETTER_TEMPLATE_ = """
 void GetPointY(Local<String> name,
                const PropertyCallbackInfo<Value>& info) {
@@ -33,6 +34,22 @@ void GetPointY(Local<String> name,
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   int value = static_cast<Point*>(ptr)->y_;"""
+
+
+def make_scalar_getter_template(field_type, field_name, class_name):
+    """
+    About:
+    class Point {
+        public:  // bad, but now be it
+        int x;
+    };
+
+    """
+    v8_recoder = {'int': 'Integer'}
+
+
+    pass
+
 
 POINT_DOWN_PART_ = """  // New api
   // return Integer::New(value);
@@ -67,20 +84,19 @@ def print_set_point(index, in_string):
     in_string = in_string.replace(" ", "")
     if len(in_string) != 0:
         if (index % 2) != 0:
-            searchResult = ""
             # тут ищем все вхождения квадратных скобок в имени переменной
             regular = re.compile('\[.*\]')
-            searchResult = regular.search(in_string)
+            search_result = regular.search(in_string)
             # удаляем ; и _
             k = in_string.replace(";", "").replace("_", "")
             # запоминаем индекс внутри квадр скобок и вписываем его в аргументы функции
-            if searchResult:
-                indexOfArray = searchResult.group()
-                indexOfArray = indexOfArray.replace("[", "").replace("]", "")
-                setter_part_tmp = setter_part_tmp.replace("& info", "& info, int " + indexOfArray)
+            if search_result:
+                index_of_array = search_result.group()
+                index_of_array = index_of_array.replace("[", "").replace("]", "")
+                setter_part_tmp = setter_part_tmp.replace("& info", "& info, int " + index_of_array)
                 # удаляем символы внутри квадратных скобок вместе со скобками
-            if searchResult:
-                k = k.replace(searchResult.group(), "")
+            if search_result:
+                k = k.replace(search_result.group(), "")
                 # удаляем ;
             in_string = in_string.replace(";", "")
             # тут меняем строчную букву на заглавную
@@ -88,8 +104,8 @@ def print_set_point(index, in_string):
             k = k.replace(k[0], jTemp[0])
             # главные изменения
             setter_part_tmp = \
-                setter_part_tmp\
-                    .replace("void SetPointY", "void set" + k)\
+                setter_part_tmp \
+                    .replace("void SetPointY", "void set" + k) \
                     .replace("y_", in_string)
     return setter_part_tmp
 
