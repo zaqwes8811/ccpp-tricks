@@ -27,15 +27,6 @@ class Field(object):
     pass
 
 
-GETTER_TEMPLATE_ = """
-void GetPointY(Local<String> name,
-               const PropertyCallbackInfo<Value>& info) {
-  Local<Object> self = info.Holder();
-  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-  void* ptr = wrap->Value();
-  int value = static_cast<Point*>(ptr)->y_;"""
-
-
 def make_scalar_getter_template(field_type, field_name, class_name):
     """
     About:
@@ -46,13 +37,31 @@ def make_scalar_getter_template(field_type, field_name, class_name):
 
     """
     v8_recoder = {'int': 'Integer'}
+    if field_name not in v8_recoder:
+        return None
+
+    template = """
+        void v8_getter_""" + field_name + """(Local<String> name,
+                       const PropertyCallbackInfo<Value>& info) {
+          Local<Object> self = info.Holder();
+          Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+          void* ptr = wrap->Value();
+          """ + field_type + """ value = static_cast<"""+class_name+"""*>(ptr)->y_;
+          info.GetReturnValue().Set(""" + v8_recoder[field_type] + """::New(value));
+        }"""
+
+    return template
 
 
-    pass
+GETTER_TEMPLATE_ = """
+void GetPointY(Local<String> name,
+               const PropertyCallbackInfo<Value>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<Point*>(ptr)->y_;"""
 
-
-POINT_DOWN_PART_ = """  // New api
-  // return Integer::New(value);
+POINT_DOWN_PART_ = """
   info.GetReturnValue().Set(Integer::New(value));
 }"""
 
