@@ -1,37 +1,30 @@
 # coding: utf-8
 import re  # регулярные выражения
-__author__ = 'TekScope_Local_Admin'
 
-class_name = """
-class Point {
-  public:
-   Point(int x, int y) : x_(x),
-        y_(y) { }
-   int x_;
-   int y_;
-};
-"""
+# Third_party
+from generator.cpp import utils
 
 
-for i in class_name.split('\n'):
-    if '(' not in i and ":" not in i:
-        if len(i) == 0:
-            continue
-        if i[0] == ' ':
-            print(i.replace(';', ' = 0;').replace("  int ", '  this.'))
-        else:
-            print(i)
+def regenerate_point_class(class_name):
+    """
+    var Point = function() { }
 
-"""
-var Point = function() {
+    var pointInstance = new Point();
+    """
+    for i in class_name.split('\n'):
+        if '(' not in i and ":" not in i:
+            if len(i) == 0:
+                continue
+            if i[0] == ' ':
+                print(i.replace(';', ' = 0;').replace("  int ", '  this.'))
+            else:
+                print(i)
 
 
-}
 
-var pointInstance = new Point();
-"""
+header_file_name = 'test-data/database.h'
 
-class_transmit_code =
+class_transmit_code = utils.ReadFile(header_file_name)
 
 getPoint = """
 void GetPointY(Local<String> name,
@@ -220,5 +213,7 @@ for i in class_transmit_code.split('\n'):
                     index = index + 1
 print(updn)
 
+if __name__=='__main__':
+    pass
 
 

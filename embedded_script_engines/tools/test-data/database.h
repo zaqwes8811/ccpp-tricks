@@ -1,4 +1,3 @@
-"""
 #define foreach_ BOOST_FOREACH
 #define foreach_r_ BOOST_REVERSE_FOREACH
 
@@ -12,12 +11,12 @@ using boost::shared_ptr;
 //  состояние нужно сохранять при каждой итерации на случай выкл.
 //    так как при включении собъется.
 class DataBase {
- public:
-	 DataBase() { };
-  ~DataBase(void) {}
+  public:
+    DataBase() { };
+    ~DataBase(void) {}
 
-	void ParseCfgSystem(uchar* localCopyBuffer);
-	void ParsePkgAndChangeState(uchar* localCopyBuffer, int bufferLength);
+    void ParseCfgSystem(uchar* localCopyBuffer);
+    void ParsePkgAndChangeState(uchar* localCopyBuffer, int bufferLength);
 
 private:
 	void ParseMainStateTmitter(const uint8* ptrSourceArray);
@@ -39,25 +38,23 @@ public:
   int counterDebug___;
 #endif
 
-	std::vector<std::string> stringMsgsQuerySTL;
-  // LLevel
-  std::vector<int> LLTypeCodesQuerySTL;
-  // HLevel
-  std::vector<int> HLTypeCodesQuerySTL;
-   // МУ или ДУ
+    std::vector<std::string> stringMsgsQuerySTL;
+    // LLevel
+    std::vector<int> LLTypeCodesQuerySTL;
+    // HLevel
+    std::vector<int> HLTypeCodesQuerySTL;
+    // МУ или ДУ
 
-  // есть еще Авт. но как реализовать пока не ясно
-  std::string typeControl_;
+    // есть еще Авт. но как реализовать пока не ясно
+    std::string typeControl_;
 
-  bool failsReseted_;
+    bool failsReseted_;
 
-  bool printPABLock_[kMaxPABs];
-  bool printPABLockEvent_[kMaxPABs];
-  bool printPABNoInPower_[kMaxPABs];
-  bool printPABNoInPowerEvent_[kMaxPABs];
-  bool printPABUnlock_[kMaxPABs];
-  bool printPABInPowerOk_[kMaxPABs];
-
-
-	int currentQueryIndex_;    // number SNMP events in Queue
-	"""
+    bool printPABLock_[kMaxPABs];
+    bool printPABLockEvent_[kMaxPABs];
+    bool printPABNoInPower_[kMaxPABs];
+    bool printPABNoInPowerEvent_[kMaxPABs];
+    bool printPABUnlock_[kMaxPABs];
+    bool printPABInPowerOk_[kMaxPABs];
+    int currentQueryIndex_;    // number SNMP events in Queue
+};
