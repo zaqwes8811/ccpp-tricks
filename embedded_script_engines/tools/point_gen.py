@@ -275,19 +275,23 @@ def extract_variable_declaration(source, header_file_name):
 
 
 def main():
-    #header_file_name = 'test-data/point.h'
-    header_file_name = 'test-data/database.h'
+    header_file_name = 'test-data/point.h'
+    #header_file_name = 'test-data/database.h'
     source = utils.ReadFile(header_file_name)
 
-    make(source)
+    #make(source)
 
-    """
     out_data = extract_variable_declaration(source, header_file_name)
 
+    # модификаторы и... *, & отделены от имени типа!
     for class_name in out_data:
         print class_name
         for var in out_data[class_name]:
-            print var.name"""
+            #if scalar?:
+            print (var.type.name)
+            #elif  vector?
+            #else
+            #check what happened
 
 
 if __name__ == '__main__':
