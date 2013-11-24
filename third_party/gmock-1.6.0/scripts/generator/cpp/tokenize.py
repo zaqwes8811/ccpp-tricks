@@ -30,7 +30,7 @@ except ImportError:
 
 import sys
 
-from cpp import utils
+from generator.cpp import utils
 
 
 if not hasattr(builtins, 'set'):

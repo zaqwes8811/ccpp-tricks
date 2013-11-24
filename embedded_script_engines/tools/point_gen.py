@@ -3,6 +3,7 @@ import re  # регулярные выражения
 
 # Third_party
 from generator.cpp import utils
+from generator.cpp import tokenize
 
 
 def regenerate_point_class(class_name):
@@ -207,6 +208,10 @@ def make(source):
 if __name__ == '__main__':
     header_file_name = 'test-data/database.h'
     source_header = utils.ReadFile(header_file_name)
-    make(source_header)
+    #make(source_header)
+
+    if source_header:
+        for token in tokenize.GetTokens(source_header):
+            print('%-12s: %s' % (token.token_type, token.name))
 
 
