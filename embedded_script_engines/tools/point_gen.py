@@ -177,7 +177,6 @@ def make(source):
                                     # очистка темпов
                                 uptemp = ""
                                 downtemp = ""
-                                setPartTemp = ""
                                 setPartDownTemp = ""
                             else:
                                 downtemp = downtemp + printGetPointDown(index, jj).__str__()
@@ -210,30 +209,34 @@ def make(source):
     print(updn)
 
 
-def main():
-    header_file_name = 'test-data/point.h'
-    source = utils.ReadFile(header_file_name)
-    #make(source_header)
-
-    if source:
-        for token in tokenize.GetTokens(source):
-            #print('%-12s: %s' % (token.token_type, token.name))
-            pass
-
+def extract_variable_declaration(source, header_file_name):
     builder = ast.BuilderFromSource(source, header_file_name)
-
-    import json
+    out_data = {}
     try:
         for node in builder.Generate():
             if isinstance(node, ast.Class):
+                out_data[node.name] = []
+                class_data = out_data[node.name]
                 for record in node.body:
                     if isinstance(record, ast.VariableDeclaration):
-                        print record
-
+                        class_data.append(record)
+        return out_data
     except KeyboardInterrupt:
         return
-    except:
+    except Exception as e:
         pass
+
+
+def main():
+    header_file_name = 'test-data/point.h'
+    source = utils.ReadFile(header_file_name)
+
+    #make(source_header)
+
+    out_data = extract_variable_declaration(source, header_file_name)
+
+    for class_name in out_data:
+        print class_name, out_data[class_name]
 
 if __name__ == '__main__':
     main()
