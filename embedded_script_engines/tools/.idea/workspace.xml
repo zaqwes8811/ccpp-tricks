@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="point_gen.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="point_gen.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/point_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="230" column="36" selection-start="9751" selection-end="9751" vertical-scroll-proportion="0.8196721" vertical-offset="3460" max-vertical-offset="4182">
+            <state line="231" column="0" selection-start="9752" selection-end="9752" vertical-scroll-proportion="0.0" vertical-offset="3460" max-vertical-offset="4199">
               <folding />
             </state>
           </provider>
@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="point.h" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="point.h" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test-data/point.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="2" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
+            <state line="9" column="2" selection-start="209" selection-end="209" vertical-scroll-proportion="0.27868852" vertical-offset="0" max-vertical-offset="549">
               <folding />
             </state>
           </provider>
@@ -69,11 +69,11 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/test-data/point.h" />
         <option value="$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/tokenize.py" />
         <option value="$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/ast.py" />
         <option value="$PROJECT_DIR$/test-data/database.h" />
         <option value="$PROJECT_DIR$/point_gen.py" />
+        <option value="$PROJECT_DIR$/test-data/point.h" />
       </list>
     </option>
   </component>
@@ -410,13 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test-data/point.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="2" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test-data/database.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="2" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1139">
@@ -433,7 +426,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/point_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="230" column="36" selection-start="9751" selection-end="9751" vertical-scroll-proportion="0.8196721" vertical-offset="3460" max-vertical-offset="4182">
+        <state line="231" column="0" selection-start="9752" selection-end="9752" vertical-scroll-proportion="0.0" vertical-offset="3460" max-vertical-offset="4199">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-data/point.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="2" selection-start="209" selection-end="209" vertical-scroll-proportion="0.27868852" vertical-offset="0" max-vertical-offset="549">
           <folding />
         </state>
       </provider>

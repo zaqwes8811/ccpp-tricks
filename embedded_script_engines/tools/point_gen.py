@@ -229,6 +229,7 @@ def main():
                 for record in node.body:
                     if isinstance(record, ast.VariableDeclaration):
                         print record
+
     except KeyboardInterrupt:
         return
     except:
