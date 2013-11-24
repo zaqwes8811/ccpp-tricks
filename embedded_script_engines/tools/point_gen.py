@@ -34,23 +34,24 @@ void GetPointY(Local<String> name,
   void* ptr = wrap->Value();
   int value = static_cast<Point*>(ptr)->y_;"""
 
-PointDownPart = """  // New api
+POINT_DOWN_PART_ = """  // New api
   // return Integer::New(value);
   info.GetReturnValue().Set(Integer::New(value));
 }"""
 
-setPart = """void SetPointY(Local<String> property, Local<Value> value,
+SETTER_PART_ = """void SetPointY(Local<String> property, Local<Value> value,
                const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   static_cast<Point*>(ptr)->y_ ="""
 
-setPartDown = """ value->Int32Value();
+SETTER_PART_DOWN_ = """ value->Int32Value();
 }"""
 
+
 def printSetPointDown(index, j):
-    tempSetPartDown = setPartDown
+    tempSetPartDown = SETTER_PART_DOWN_
     j = j.replace(" ", "")
     if len(j) != 0:
         if (index % 2) == 0 or index == 0:
@@ -61,35 +62,36 @@ def printSetPointDown(index, j):
     return "xxxx"
 
 
-def print_set_point(index, j):
-    tempSetPart = setPart
-    j = j.replace(" ", "")
-    if len(j) != 0:
+def print_set_point(index, in_string):
+    setter_part_tmp = SETTER_PART_
+    in_string = in_string.replace(" ", "")
+    if len(in_string) != 0:
         if (index % 2) != 0:
             searchResult = ""
             # тут ищем все вхождения квадратных скобок в имени переменной
             regular = re.compile('\[.*\]')
-            searchResult = regular.search(j)
+            searchResult = regular.search(in_string)
             # удаляем ; и _
-            k = j.replace(";", "").replace("_", "")
+            k = in_string.replace(";", "").replace("_", "")
             # запоминаем индекс внутри квадр скобок и вписываем его в аргументы функции
             if searchResult:
                 indexOfArray = searchResult.group()
                 indexOfArray = indexOfArray.replace("[", "").replace("]", "")
-                tempSetPart = tempSetPart.replace("& info", "& info, int " + indexOfArray)
+                setter_part_tmp = setter_part_tmp.replace("& info", "& info, int " + indexOfArray)
                 # удаляем символы внутри квадратных скобок вместе со скобками
             if searchResult:
                 k = k.replace(searchResult.group(), "")
                 # удаляем ;
-            j = j.replace(";", "")
+            in_string = in_string.replace(";", "")
             # тут меняем строчную букву на заглавную
             jTemp = k.capitalize()
             k = k.replace(k[0], jTemp[0])
             # главные изменения
-            tempSetPart = tempSetPart.replace("void SetPointY", "void set" + k).replace("y_", j)
-            #if "SetPointY" not in tempSetPart:
-            #print(tempSetPart)
-    return tempSetPart
+            setter_part_tmp = \
+                setter_part_tmp\
+                    .replace("void SetPointY", "void set" + k)\
+                    .replace("y_", in_string)
+    return setter_part_tmp
 
 
 def printGetPointUp(index, j):
@@ -129,7 +131,7 @@ def printGetPointDown(index, j):
     j = j.replace(" ", "")
     if len(j) != 0:
         if (index % 2) == 0 or index == 0:
-            temp = PointDownPart
+            temp = POINT_DOWN_PART_
             if "bool" in j and '[' not in j and 'vector' not in j:
                 temp = temp.replace("Integer", "Boolean")
             if "char" in j and "*" not in j and '[' not in j and 'vector' not in j:
@@ -144,12 +146,10 @@ def printGetPointDown(index, j):
 
 
 def make(source):
-
-
     setPartDownTemp = ""
     uptemp = ""
-    downtemp = ""
-    updn = ""
+    down_temp = ""
+    up_down = ""
     for i in source.split('\n'):
         if '(' not in i and ")" not in i and "{" not in i and "}" not in i \
             and "#" not in i \
@@ -172,19 +172,19 @@ def make(source):
                                     setPartTemp = ""
                                 uptemp = uptemp + printGetPointUp(index, jj).__str__()
                                 # заполнение result
-                                if "void" in uptemp and "New" in downtemp:
-                                    updn = updn + uptemp + downtemp
+                                if "void" in uptemp and "New" in down_temp:
+                                    up_down = up_down + uptemp + down_temp
                                 if 'set' in setPartTemp:
-                                    updn = updn + "\n\n" + setPartTemp
+                                    up_down = up_down + "\n\n" + setPartTemp
                                     # приделываем нижнюю часть set
                                 if 'xxxx' not in setPartDownTemp:
-                                    updn = updn + setPartDownTemp + "\n"
+                                    up_down = up_down + setPartDownTemp + "\n"
                                     # очистка темпов
                                 uptemp = ""
-                                downtemp = ""
+                                down_temp = ""
                                 setPartDownTemp = ""
                             else:
-                                downtemp = downtemp + printGetPointDown(index, jj).__str__()
+                                down_temp = down_temp + printGetPointDown(index, jj).__str__()
                                 setPartDownTemp = printSetPointDown(index, jj)
                             index = index + 1
                         break
@@ -197,21 +197,21 @@ def make(source):
                                 setPartTemp = ""
 
                             uptemp = uptemp + printGetPointUp(index, j).__str__()
-                            if "void" in uptemp and "New" in downtemp:
-                                updn = updn + uptemp + downtemp
+                            if "void" in uptemp and "New" in down_temp:
+                                up_down = up_down + uptemp + down_temp
                             if 'set' in setPartTemp:
-                                updn = updn + "\n\n" + setPartTemp
+                                up_down = up_down + "\n\n" + setPartTemp
                             if 'xxxx' not in setPartDownTemp:
-                                updn = updn + setPartDownTemp + "\n"
+                                up_down = up_down + setPartDownTemp + "\n"
                             uptemp = ""
-                            downtemp = ""
+                            down_temp = ""
                             setPartTemp = ""
                             setPartDownTemp = ""
                         else:
-                            downtemp = downtemp + printGetPointDown(index, j).__str__()
+                            down_temp = down_temp + printGetPointDown(index, j).__str__()
                             setPartDownTemp = printSetPointDown(index, j)
                         index = index + 1
-    print(updn)
+    print up_down
 
 
 class V8AccessVariableDeclarationWrapper(object):
