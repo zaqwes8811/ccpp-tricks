@@ -23,6 +23,10 @@ def regenerate_point_class(class_name):
                 print(i)
 
 
+class Field(object):
+    pass
+
+
 def make(source):
     GETTER_TEMPLATE_ = """
     void GetPointY(Local<String> name,
@@ -206,21 +210,21 @@ def make(source):
     print(updn)
 
 
+def main():
+    header_file_name = 'test-data/database.h'
+    source_header = utils.ReadFile(header_file_name)
+    #make(source_header)
+
+
+    if source_header:
+        for token in tokenize.GetTokens(source_header):
+            #print('%-12s: %s' % (token.token_type, token.name))
+            pass
+
+    IsFunction = lambda node: isinstance(node, ast.Type)
+    ast.PrintAllIndentifiers(['test-data/point.h'], IsFunction)
+
 if __name__ == '__main__':
-    def main():
-        header_file_name = 'test-data/database.h'
-        source_header = utils.ReadFile(header_file_name)
-        #make(source_header)
-
-        #if source_header:
-        #    for token in tokenize.GetTokens(source_header):
-        #        print('%-12s: %s' % (token.token_type, token.name))
-
-        print header_file_name
-        def print_all(node):
-            return True
-        ast.PrintAllIndentifiers([header_file_name, 'test-data/point.h'], print_all)
-
     main()
 
 

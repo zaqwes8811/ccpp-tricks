@@ -1679,6 +1679,7 @@ def PrintIndentifiers(filename, should_print):
     builder = BuilderFromSource(source, filename)
     try:
         for node in builder.Generate():
+            print node 
             if should_print(node):
                 print(node.name)
     except KeyboardInterrupt:
