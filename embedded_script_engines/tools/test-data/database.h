@@ -2,18 +2,19 @@
 #define foreach_r_ BOOST_REVERSE_FOREACH
 
 //using ::in_memory_storages::PkgForSNMP;
+//using boost::weak_ptr;
+//using boost::shared_ptr;
 
 namespace tmitter_web_service {
 
-using boost::weak_ptr;
-using boost::shared_ptr;
+
 // @TODO: <igor.a.lugansky@gmail.com>
 //  состояние нужно сохранять при каждой итерации на случай выкл.
 //    так как при включении собъется.
 class DataBase {
   public:
-    DataBase() { };
-    ~DataBase(void) {}
+    DataBase() { }
+    ~DataBase() {}
 
     void ParseCfgSystem(uchar* localCopyBuffer);
     void ParsePkgAndChangeState(uchar* localCopyBuffer, int bufferLength);
@@ -58,3 +59,4 @@ public:
     bool printPABInPowerOk_[kMaxPABs];
     int currentQueryIndex_;    // number SNMP events in Queue
 };
+}

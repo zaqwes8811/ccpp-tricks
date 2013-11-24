@@ -4,6 +4,7 @@ import re  # регулярные выражения
 # Third_party
 from generator.cpp import utils
 from generator.cpp import tokenize
+from generator.cpp import ast
 
 
 def regenerate_point_class(class_name):
@@ -206,12 +207,20 @@ def make(source):
 
 
 if __name__ == '__main__':
-    header_file_name = 'test-data/database.h'
-    source_header = utils.ReadFile(header_file_name)
-    #make(source_header)
+    def main():
+        header_file_name = 'test-data/database.h'
+        source_header = utils.ReadFile(header_file_name)
+        #make(source_header)
 
-    if source_header:
-        for token in tokenize.GetTokens(source_header):
-            print('%-12s: %s' % (token.token_type, token.name))
+        #if source_header:
+        #    for token in tokenize.GetTokens(source_header):
+        #        print('%-12s: %s' % (token.token_type, token.name))
+
+        print header_file_name
+        def print_all(node):
+            return True
+        ast.PrintAllIndentifiers([header_file_name, 'test-data/point.h'], print_all)
+
+    main()
 
 

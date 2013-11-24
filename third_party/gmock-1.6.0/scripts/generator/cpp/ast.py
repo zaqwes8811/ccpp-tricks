@@ -42,9 +42,9 @@ except ImportError:
 import sys
 import traceback
 
-from cpp import keywords
-from cpp import tokenize
-from cpp import utils
+from generator.cpp import keywords
+from generator.cpp import tokenize
+from generator.cpp import utils
 
 
 if not hasattr(builtins, 'reversed'):

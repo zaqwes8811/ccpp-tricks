@@ -26,19 +26,26 @@
       <file leaf-file-name="point_gen.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/point_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="214" column="63" selection-start="9391" selection-end="9391" vertical-scroll-proportion="0.0" vertical-offset="3071" max-vertical-offset="3791">
+            <state line="221" column="50" selection-start="9584" selection-end="9600" vertical-scroll-proportion="0.0" vertical-offset="3252" max-vertical-offset="3944">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tokenize.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/tokenize.py">
+      <file leaf-file-name="database.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test-data/database.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="16" selection-start="746" selection-end="746" vertical-scroll-proportion="1.0029498" vertical-offset="51" max-vertical-offset="4981">
-              <folding>
-                <element signature="e#841#851#0" expanded="true" />
-              </folding>
+            <state line="20" column="0" selection-start="534" selection-end="534" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1139">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="point.h" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test-data/point.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="2" selection-start="98" selection-end="98" vertical-scroll-proportion="0.17801048" vertical-offset="0" max-vertical-offset="573">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,10 +60,11 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/test-data/database.h" />
         <option value="$PROJECT_DIR$/test-data/point.h" />
-        <option value="$PROJECT_DIR$/point_gen.py" />
         <option value="$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/tokenize.py" />
+        <option value="$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/ast.py" />
+        <option value="$PROJECT_DIR$/point_gen.py" />
+        <option value="$PROJECT_DIR$/test-data/database.h" />
       </list>
     </option>
   </component>
@@ -102,50 +110,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.6 (C:/Python26/python.exe) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v8" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.6 (C:/Python26/python.exe) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v8" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.6 (C:/Python26/python.exe) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -366,17 +330,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17109375" sideWeight="0.42099193" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17109375" sideWeight="0.6908881" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39941263" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5790081" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3091119" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -413,33 +377,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test-data/point.h">
+    <entry file="file://$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/tokenize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="2" selection-start="98" selection-end="98" vertical-scroll-proportion="0.15525115" vertical-offset="0" max-vertical-offset="657">
+        <state line="23" column="16" selection-start="746" selection-end="746" vertical-scroll-proportion="0.76233184" vertical-offset="51" max-vertical-offset="4981">
+          <folding>
+            <element signature="e#841#851#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/gmock_class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="14" selection-start="5544" selection-end="5544" vertical-scroll-proportion="0.63874346" vertical-offset="2201" max-vertical-offset="3366">
+          <folding>
+            <element signature="e#990#999#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/point_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="221" column="50" selection-start="9584" selection-end="9600" vertical-scroll-proportion="0.0" vertical-offset="3252" max-vertical-offset="3944">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test-data/database.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="356" selection-end="356" vertical-scroll-proportion="0.33637747" vertical-offset="0" max-vertical-offset="1105">
+        <state line="20" column="0" selection-start="534" selection-end="534" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1139">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/point_gen.py">
+    <entry file="file://$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/ast.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="63" selection-start="9391" selection-end="9391" vertical-scroll-proportion="0.0" vertical-offset="3071" max-vertical-offset="3791">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../third_party/gmock-1.6.0/scripts/generator/cpp/tokenize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="746" selection-end="746" vertical-scroll-proportion="1.0029498" vertical-offset="51" max-vertical-offset="4981">
+        <state line="59" column="0" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.066317625" vertical-offset="965" max-vertical-offset="29393">
           <folding>
-            <element signature="e#841#851#0" expanded="true" />
+            <element signature="e#1197#1207#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-data/point.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="2" selection-start="98" selection-end="98" vertical-scroll-proportion="0.17801048" vertical-offset="0" max-vertical-offset="573">
+          <folding />
         </state>
       </provider>
     </entry>
