@@ -210,6 +210,16 @@ def make(source):
 
 
 def extract_variable_declaration(source, header_file_name):
+    """
+    Abstract:
+        Extract variable declaration form C++ header file.
+    Args:
+        source - content header file
+        header_file_name - name header file
+
+    Returns:
+        ...
+    """
     builder = ast.BuilderFromSource(source, header_file_name)
     out_data = {}
     try:
