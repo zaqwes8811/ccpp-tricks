@@ -222,14 +222,17 @@ def main():
 
     builder = ast.BuilderFromSource(source, header_file_name)
 
+    import json
     try:
         for node in builder.Generate():
-            print node  # Похоже только топовый узел
+            if isinstance(node, ast.Class):
+                for record in node.body:
+                    if isinstance(record, ast.VariableDeclaration):
+                        print record
     except KeyboardInterrupt:
         return
     except:
         pass
-
 
 if __name__ == '__main__':
     main()
