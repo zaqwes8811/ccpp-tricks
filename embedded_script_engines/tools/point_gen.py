@@ -17,8 +17,10 @@ class ScalarVariableField(object):
         self.class_name_ = class_name
         self.variable_node_ = variable_node
 
-    @staticmethod
-    def make_scalar_getter_template(field_type, field_name, class_name):
+        # Регистрируем типы
+        self.V8_RECODER = {'int': 'Integer', 'std::string': 'String'}
+
+    def make_scalar_getter(self):
         """
         About:
         class Point {
@@ -29,9 +31,11 @@ class ScalarVariableField(object):
         Notes:
             static method is BAD!
         """
+        field_type, field_name, class_name = (self.variable_node_.type.name,
+                                              self.variable_node_.name,
+                                              self.class_name_)
 
-        v8_recoder = {'int': 'Integer', 'std::string': 'String'}
-        if field_type not in v8_recoder:
+        if field_type not in self.V8_RECODER:
             return "Map not found"
 
         template = 'void v8_getter_' + field_name + '(\r\n' + \
@@ -42,14 +46,13 @@ class ScalarVariableField(object):
                    '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\r\n' + \
                    '  void* ptr = wrap->Value();\r\n' + \
                    '  ' + field_type + ' value = static_cast<' + class_name + '*>(ptr)->' + field_name + ';\r\n' + \
-                   '  info.GetReturnValue().Set(' + v8_recoder[field_type] + '::New(value));\r\n' + \
+                   '  info.GetReturnValue().Set(' + self.V8_RECODER[field_type] + '::New(value));\r\n' + \
                    '}'
 
         return template
 
-    def __str__(self):
-        package = (self.variable_node_.type.name, self.variable_node_.name, self.class_name_)
-        return ScalarVariableField.make_scalar_getter_template(*package)
+    def make_scalar_setter(self):
+        pass
 
 
 def extract_variable_declaration(source, header_file_name):
@@ -64,14 +67,17 @@ def extract_variable_declaration(source, header_file_name):
         [VarField0, ...]
     """
     builder = ast.BuilderFromSource(source, header_file_name)
-    out_data = []
     try:
         for node in builder.Generate():
             if isinstance(node, ast.Class):
                 for record in node.body:
                     if isinstance(record, ast.VariableDeclaration):
-                        out_data.append(ScalarVariableField(node.name, record))
-        return out_data
+                        # модификаторы и... *, & отделены от имени типа!
+                        #if scalar?:
+                        #elif  vector?
+                        #else
+                        #check what happened
+                        yield ScalarVariableField(node.name, record)
     except KeyboardInterrupt:
         return
     except Exception as e:
@@ -83,18 +89,12 @@ def main():
     #header_file_name = 'test-data/database.h'
     source = utils.ReadFile(header_file_name)
 
+    # han
     #make(source)
 
-    out_data = extract_variable_declaration(source, header_file_name)
-
-    # модификаторы и... *, & отделены от имени типа!
-    for elem in out_data:
-        #if scalar?:
-
-        print elem
-        #elif  vector?
-        #else
-        #check what happened
+    # zaqwes
+    for elem in extract_variable_declaration(source, header_file_name):
+        print elem.make_scalar_getter()
 
 
 if __name__ == '__main__':
