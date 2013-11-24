@@ -211,18 +211,25 @@ def make(source):
 
 
 def main():
-    header_file_name = 'test-data/database.h'
-    source_header = utils.ReadFile(header_file_name)
+    header_file_name = 'test-data/point.h'
+    source = utils.ReadFile(header_file_name)
     #make(source_header)
 
-
-    if source_header:
-        for token in tokenize.GetTokens(source_header):
+    if source:
+        for token in tokenize.GetTokens(source):
             #print('%-12s: %s' % (token.token_type, token.name))
             pass
 
-    IsFunction = lambda node: isinstance(node, ast.Type)
-    ast.PrintAllIndentifiers(['test-data/point.h'], IsFunction)
+    builder = ast.BuilderFromSource(source, header_file_name)
+
+    try:
+        for node in builder.Generate():
+            print node  # Похоже только топовый узел
+    except KeyboardInterrupt:
+        return
+    except:
+        pass
+
 
 if __name__ == '__main__':
     main()
