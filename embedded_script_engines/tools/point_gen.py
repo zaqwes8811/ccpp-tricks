@@ -26,120 +26,125 @@ def regenerate_point_class(class_name):
 class Field(object):
     pass
 
+GETTER_TEMPLATE_ = """
+void GetPointY(Local<String> name,
+               const PropertyCallbackInfo<Value>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<Point*>(ptr)->y_;"""
+
+PointDownPart = """  // New api
+  // return Integer::New(value);
+  info.GetReturnValue().Set(Integer::New(value));
+}"""
+
+setPart = """void SetPointY(Local<String> property, Local<Value> value,
+               const PropertyCallbackInfo<void>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<Point*>(ptr)->y_ ="""
+
+setPartDown = """ value->Int32Value();
+}"""
+
+def printSetPointDown(index, j):
+    tempSetPartDown = setPartDown
+    j = j.replace(" ", "")
+    if len(j) != 0:
+        if (index % 2) == 0 or index == 0:
+            if "bool" in j and '[' not in j and 'vector' not in j:
+                tempSetPartDown = tempSetPartDown.replace("Int32Value", "BooleanValue")
+                #print(tempSetPartDown)
+        return tempSetPartDown
+    return "xxxx"
+
+
+def print_set_point(index, j):
+    tempSetPart = setPart
+    j = j.replace(" ", "")
+    if len(j) != 0:
+        if (index % 2) != 0:
+            searchResult = ""
+            # тут ищем все вхождения квадратных скобок в имени переменной
+            regular = re.compile('\[.*\]')
+            searchResult = regular.search(j)
+            # удаляем ; и _
+            k = j.replace(";", "").replace("_", "")
+            # запоминаем индекс внутри квадр скобок и вписываем его в аргументы функции
+            if searchResult:
+                indexOfArray = searchResult.group()
+                indexOfArray = indexOfArray.replace("[", "").replace("]", "")
+                tempSetPart = tempSetPart.replace("& info", "& info, int " + indexOfArray)
+                # удаляем символы внутри квадратных скобок вместе со скобками
+            if searchResult:
+                k = k.replace(searchResult.group(), "")
+                # удаляем ;
+            j = j.replace(";", "")
+            # тут меняем строчную букву на заглавную
+            jTemp = k.capitalize()
+            k = k.replace(k[0], jTemp[0])
+            # главные изменения
+            tempSetPart = tempSetPart.replace("void SetPointY", "void set" + k).replace("y_", j)
+            #if "SetPointY" not in tempSetPart:
+            #print(tempSetPart)
+    return tempSetPart
+
+
+def printGetPointUp(index, j):
+    tempGetPoint = GETTER_TEMPLATE_
+    j = j.replace(" ", "")
+    if len(j) != 0:
+        if (index % 2) != 0: # нечетные для имен полей, четные для типов данных полей
+            k = ""
+            searchResult = ""
+            # тут ищем все вхождения квадратных скобок в имени переменной
+            temp = j # переменная для удаления [*]
+            regular = re.compile('\[.*\]')
+            searchResult = regular.search(j)
+            # удаляем ; и _
+            k = j.replace(";", "").replace("_", "")
+
+            # запоминаем индекс внутри квадр скобок и вписываем его в аргументы функции
+            if searchResult:
+                indexOfArray = searchResult.group()
+                indexOfArray = indexOfArray.replace("[", "").replace("]", "")
+                tempGetPoint = tempGetPoint.replace("& info", "& info, int " + indexOfArray)
+
+            # удаляем символы внутри квадратных скобок вместе со скобками
+            if searchResult:
+                k = k.replace(searchResult.group(), "")
+                # удаляем ;
+            j = j.replace(";", "")
+            # тут меняем строчную букву на заглавную
+            jTemp = k.capitalize()
+            k = k.replace(k[0], jTemp[0])
+            # главные изменения
+            tempGetPoint = tempGetPoint.replace("void GetPointY", "void get" + k).replace("y_", j)
+            return tempGetPoint
+
+
+def printGetPointDown(index, j):
+    j = j.replace(" ", "")
+    if len(j) != 0:
+        if (index % 2) == 0 or index == 0:
+            temp = PointDownPart
+            if "bool" in j and '[' not in j and 'vector' not in j:
+                temp = temp.replace("Integer", "Boolean")
+            if "char" in j and "*" not in j and '[' not in j and 'vector' not in j:
+                temp = temp.replace("Integer", "Char")
+            if "char*" in j:
+                temp = temp.replace("Integer", "v8::String")
+            if "string" in j and "vector" not in j:
+                temp = temp.replace("Integer", "v8::String")
+                #if "vector" in j and "string" not in j:
+                #temp = temp.replace("Integer", "Array")
+            return temp
+
 
 def make(source):
-    GETTER_TEMPLATE_ = """
-    void GetPointY(Local<String> name,
-                   const PropertyCallbackInfo<Value>& info) {
-      Local<Object> self = info.Holder();
-      Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-      void* ptr = wrap->Value();
-      int value = static_cast<Point*>(ptr)->y_;"""
 
-    PointDownPart = """  // New api
-      // return Integer::New(value);
-      info.GetReturnValue().Set(Integer::New(value));
-    }"""
-
-    setPart = """void SetPointY(Local<String> property, Local<Value> value,
-                   const PropertyCallbackInfo<void>& info) {
-      Local<Object> self = info.Holder();
-      Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-      void* ptr = wrap->Value();
-      static_cast<Point*>(ptr)->y_ ="""
-
-    setPartDown = """ value->Int32Value();
-    }"""
-
-    def printSetPointDown(index, j):
-        tempSetPartDown = setPartDown
-        j = j.replace(" ", "")
-        if len(j) != 0:
-            if (index % 2) == 0 or index == 0:
-                if "bool" in j and '[' not in j and 'vector' not in j:
-                    tempSetPartDown = tempSetPartDown.replace("Int32Value", "BooleanValue")
-                #print(tempSetPartDown)
-            return tempSetPartDown
-        return "xxxx"
-
-    def printSetPoint(index, j):
-        tempSetPart = setPart
-        j = j.replace(" ", "")
-        if len(j) != 0:
-            if (index % 2) != 0:
-                searchResult = ""
-                # тут ищем все вхождения квадратных скобок в имени переменной
-                regular = re.compile('\[.*\]')
-                searchResult = regular.search(j)
-                # удаляем ; и _
-                k = j.replace(";", "").replace("_", "")
-                # запоминаем индекс внутри квадр скобок и вписываем его в аргументы функции
-                if searchResult:
-                    indexOfArray = searchResult.group()
-                    indexOfArray = indexOfArray.replace("[", "").replace("]", "")
-                    tempSetPart = tempSetPart.replace("& info", "& info, int " + indexOfArray)
-                    # удаляем символы внутри квадратных скобок вместе со скобками
-                if searchResult:
-                    k = k.replace(searchResult.group(), "")
-                    # удаляем ;
-                j = j.replace(";", "")
-                # тут меняем строчную букву на заглавную
-                jTemp = k.capitalize()
-                k = k.replace(k[0], jTemp[0])
-                # главные изменения
-                tempSetPart = tempSetPart.replace("void SetPointY", "void set" + k).replace("y_", j)
-                #if "SetPointY" not in tempSetPart:
-                #print(tempSetPart)
-        return tempSetPart
-
-    def printGetPointUp(index, j):
-        tempGetPoint = GETTER_TEMPLATE_
-        j = j.replace(" ", "")
-        if len(j) != 0:
-            if (index % 2) != 0: # нечетные для имен полей, четные для типов данных полей
-                k = ""
-                searchResult = ""
-                # тут ищем все вхождения квадратных скобок в имени переменной
-                temp = j # переменная для удаления [*]
-                regular = re.compile('\[.*\]')
-                searchResult = regular.search(j)
-                # удаляем ; и _
-                k = j.replace(";", "").replace("_", "")
-
-                # запоминаем индекс внутри квадр скобок и вписываем его в аргументы функции
-                if searchResult:
-                    indexOfArray = searchResult.group()
-                    indexOfArray = indexOfArray.replace("[", "").replace("]", "")
-                    tempGetPoint = tempGetPoint.replace("& info", "& info, int " + indexOfArray)
-
-                # удаляем символы внутри квадратных скобок вместе со скобками
-                if searchResult:
-                    k = k.replace(searchResult.group(), "")
-                    # удаляем ;
-                j = j.replace(";", "")
-                # тут меняем строчную букву на заглавную
-                jTemp = k.capitalize()
-                k = k.replace(k[0], jTemp[0])
-                # главные изменения
-                tempGetPoint = tempGetPoint.replace("void GetPointY", "void get" + k).replace("y_", j)
-                return tempGetPoint
-
-    def printGetPointDown(index, j):
-        j = j.replace(" ", "")
-        if len(j) != 0:
-            if (index % 2) == 0 or index == 0:
-                temp = PointDownPart
-                if "bool" in j and '[' not in j and 'vector' not in j:
-                    temp = temp.replace("Integer", "Boolean")
-                if "char" in j and "*" not in j and '[' not in j and 'vector' not in j:
-                    temp = temp.replace("Integer", "Char")
-                if "char*" in j:
-                    temp = temp.replace("Integer", "v8::String")
-                if "string" in j and "vector" not in j:
-                    temp = temp.replace("Integer", "v8::String")
-                    #if "vector" in j and "string" not in j:
-                    #temp = temp.replace("Integer", "Array")
-                return temp
 
     setPartDownTemp = ""
     uptemp = ""
@@ -162,7 +167,7 @@ def make(source):
                         for jj in k.split(' '):
                             # ниже разбираем по частям, меняем нужные слова, собираем обратно
                             if (index % 2) != 0:
-                                setPartTemp = printSetPoint(index, jj).__str__()
+                                setPartTemp = print_set_point(index, jj).__str__()
                                 if "SetPointY" in setPartTemp:
                                     setPartTemp = ""
                                 uptemp = uptemp + printGetPointUp(index, jj).__str__()
@@ -187,7 +192,7 @@ def make(source):
                     index = 0
                     for j in i.split(' '):
                         if (index % 2) != 0:
-                            setPartTemp = printSetPoint(index, j).__str__()
+                            setPartTemp = print_set_point(index, j).__str__()
                             if "SetPointY" in setPartTemp:
                                 setPartTemp = ""
 
@@ -207,6 +212,13 @@ def make(source):
                             setPartDownTemp = printSetPointDown(index, j)
                         index = index + 1
     print(updn)
+
+
+class V8AccessVariableDeclarationWrapper(object):
+    """
+    About:
+    """
+    pass
 
 
 def extract_variable_declaration(source, header_file_name):
@@ -238,15 +250,20 @@ def extract_variable_declaration(source, header_file_name):
 
 
 def main():
-    header_file_name = 'test-data/point.h'
+    #header_file_name = 'test-data/point.h'
+    header_file_name = 'test-data/database.h'
     source = utils.ReadFile(header_file_name)
 
-    #make(source_header)
+    make(source)
 
+    """
     out_data = extract_variable_declaration(source, header_file_name)
 
     for class_name in out_data:
-        print class_name, out_data[class_name]
+        print class_name
+        for var in out_data[class_name]:
+            print var.name"""
+
 
 if __name__ == '__main__':
     main()
