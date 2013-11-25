@@ -5,7 +5,8 @@ import re  # регулярные выражения
 from generator.cpp import utils
 from generator.cpp import ast
 
-from han import make
+from han import extract_var_declaration
+from han import make_scalar_getter, make_scalar_setter
 
 
 class ScalarVariableField(object):
@@ -112,12 +113,22 @@ def main():
     source = utils.ReadFile(header_file_name)
 
     # han
-    make(source)
+    if True:
+        type_and_var_list = extract_var_declaration(source)
 
-    # zaqwes
-    #for elem in extract_variable_declaration(source, header_file_name):
-    #    print elem.make_scalar_getter()
-    #    print elem.make_scalar_setter()
+        for elem in type_and_var_list:
+            print make_scalar_getter(*elem)
+            print make_scalar_setter(*elem)
+    else:
+        # zaqwes
+        vars = extract_variable_declaration(source, header_file_name)
+
+        #if
+        # Make V8 view
+        for elem in vars:
+            print elem.make_scalar_getter()
+            print elem.make_scalar_setter()
+        #elif Dart
 
 
 if __name__ == '__main__':

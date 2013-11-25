@@ -6,6 +6,7 @@ class Point {
    int y_;
    //const int* ptr;  // нужно быть внимательным! Var...name  это только int!
    std::string name_;  // Возможно для V8 нужно еще пребразовывать в const char*
+   char z_;
 
    // пока считает за скаляры
    std::vector<std::string> vector_values;
