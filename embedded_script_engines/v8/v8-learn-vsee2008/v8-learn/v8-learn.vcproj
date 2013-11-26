@@ -185,6 +185,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\v8_wrap\v8_wrapper.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8_wrap\v8_wrapper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8_wrap\v8_wrapper_db.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\virtual_machine.cc"
 				>
 			</File>
@@ -200,6 +212,10 @@
 		<Filter
 			Name="tests"
 			>
+			<File
+				RelativePath="..\..\tests\database_manipulations.cc"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\process_test.cc"
 				>

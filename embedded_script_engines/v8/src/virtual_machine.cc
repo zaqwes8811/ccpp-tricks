@@ -3,23 +3,6 @@
 
 namespace scenarios {
 
-/*
-void ScriptsV8Impl::runScript(std::string file) {
-	
-	Isolate* isolate = Isolate::GetCurrent();
-  HandleScope scope(isolate);
-
-	Handle<Context> context = Context::New(isolate);
-	Context::Scope context_scope(context);
-
-  //Handle<v8::String> source = ReadFile(file);
-
-	Local<Integer> value = Integer::New(1);
-	int out_value = value->ToObject()->Int32Value();
-	cout << "value : " << out_value << endl;
-
-}*/
-
 dblite* dblite::unwrap_dblite(Handle<Object> obj) {
 	Handle<External> field = Handle<External>::Cast(obj->GetInternalField(0));
 	void* ptr = field->Value();
@@ -61,4 +44,83 @@ std::string dblite::to_string(Local<Value> value) {
 		if (p == 0) return std::string();
 		return std::string(p);
 }
+
+void v8_get_idx_oned_etv_(Local<String> name,
+               const PropertyCallbackInfo<Value>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<dblite*>(ptr)->idx_oned_etv_;
+
+  // New api
+  // return Integer::New(value);
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void v8_set_idx_oned_etv_(Local<String> property, Local<Value> value,
+               const PropertyCallbackInfo<void>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<dblite*>(ptr)->idx_oned_etv_ = value->Int32Value();
+}
+
+void v8_set_accessor_idx_oned_etv_() {
+	Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  //create your function template. Why? After use object?
+  Handle<FunctionTemplate> point_template = FunctionTemplate::New();
+ 
+  //get the point's instance template
+  Handle<ObjectTemplate> point_instance_template = point_template->InstanceTemplate();
+ 
+  //set its internal field count to one (we'll put references to the C++ point here later)
+  point_instance_template->SetInternalFieldCount(1);
+ 
+  //add some properties (x and y)
+  point_instance_template->SetAccessor(String::New("idx_oned_etv_"), 
+												v8_get_idx_oned_etv_, v8_set_idx_oned_etv_);
+}
+
+
 } // namespace scenarios
+
+
+/*
+void GetPointY(Local<String> name,
+               const PropertyCallbackInfo<Value>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<Point*>(ptr)->y_;
+
+  // New api
+  // return Integer::New(value);
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void SetPointY(Local<String> property, Local<Value> value,
+               const PropertyCallbackInfo<void>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<Point*>(ptr)->y_ = value->Int32Value();
+}*/
+
+/*
+void ScriptsV8Impl::runScript(std::string file) {
+	
+	Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+	Handle<Context> context = Context::New(isolate);
+	Context::Scope context_scope(context);
+
+  //Handle<v8::String> source = ReadFile(file);
+
+	Local<Integer> value = Integer::New(1);
+	int out_value = value->ToObject()->Int32Value();
+	cout << "value : " << out_value << endl;
+
+}*/

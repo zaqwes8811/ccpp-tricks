@@ -9,6 +9,8 @@
 // App
 #include "process_classes.h"
 #include "point.h"
+#include "v8/src/v8_wrap/v8_wrapper.h"
+#include "v8/src/virtual_machine.h"
 
 
 TEST(V8, ProcessTop) {
@@ -412,4 +414,16 @@ TEST(V8, AddFunctionToObject) {
 TEST(V8, IfFieldIsArray) {
 
 }
+
+TEST(V8, Han) {
+	using ::scenarios::V8WrapperImpl;
+	using scenarios::dblite;
+	dblite* db = new dblite;
+	V8WrapperImpl * wrapper = new V8WrapperImpl(db, "..\\scripts\\script.js");
+
+	wrapper->runScript();
+
+
+}
+
 

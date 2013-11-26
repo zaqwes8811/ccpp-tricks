@@ -15,6 +15,8 @@
 // #include "in_memory_storage/sampler.h" 
 #include "process_classes.h"
 
+typedef unsigned char uchar;
+
 using namespace std;
 using namespace v8;
 
@@ -36,11 +38,36 @@ class dblite
 
 	static void Open(const FunctionCallbackInfo<Value>& args);
 
-	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();		
+	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();
+  
+	uchar ctrlModeTgrVar_;
+	uchar typeLoadTgrVar_;
+	uchar tmitterLockTgrVar___;
+	uchar tmitterOnTgrVar___;
+	uchar powHalfModeTgrVar_;
+	uchar istreamTgrVar_;
+	uchar outSynTgrVar_;
+	uchar statusTmitterTgrVar_;
 
-
-	
-
+  uchar type_tm_digital_;  
+// 1 - norm 0 - not norm  
+  uchar ibWork_;        
+  // Vtv 1 - lock 0 -unlock  
+  uchar exciterLock_;   
+  // Power Amplifier // 1 - lock 0 -unlock
+  uchar ibPowAmpLock_;     
+  
+  // Номер работающего возбудителя
+  // Vtv 1 = 1 or ETV2 = 2
+  uchar idx_oned_etv_;     
+   // Vtv 1 = 1 or ETV2 = 2
+  uchar idx_oned_etv_q_;    
+  // radiation mode 1 -reserve 0 - main
+  uchar ibRadioMode_;      
+  
+  // Transmitter 1 - ready 0 -not ready
+  // набор Отказов для вывода на веб-интерфейс?
+  uchar transmitterReady_;
 
 };
 
