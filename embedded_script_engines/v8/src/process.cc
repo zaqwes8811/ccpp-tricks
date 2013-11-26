@@ -53,6 +53,8 @@ bool JsHttpRequestProcessor::Initialize(map<string, string>* opts,
   // Create a template for the global object where we set the
   // built-in global functions.
   Handle<ObjectTemplate> global = ObjectTemplate::New();
+
+  // Expose logger
   global->Set(String::New("log"), FunctionTemplate::New(LogCallback));
 
   // Each processor gets its own context so different processors don't

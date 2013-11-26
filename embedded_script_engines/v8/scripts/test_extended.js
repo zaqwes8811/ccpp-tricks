@@ -21,6 +21,10 @@ function isEmpty(obj) {
     return true;
 }
 
+log(options['key']);
+options['key'] = 'value2';
+log(options['key']);
+
 function Process() {
 	var that = this;
 	for (var key in that) {
