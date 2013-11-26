@@ -23,10 +23,18 @@ function isEmpty(obj) {
 
 //log(options['key']);
 options['key'] = 'value2';
-//log(options['key']);
-for (var key in options) {
-    log(key);
-  } 
+log(options);
+
+var tmp = {'asf': 'asfd'};
+log(tmp)
+log(Object.keys(options));
+for (var index in options) { 
+  log(options);
+   if (tmp.hasOwnProperty(index)) {
+       var attr = tmp[index];
+       log(attr);
+   }
+}
 
 function Process() {
 	var that = this;

@@ -73,6 +73,10 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
 
   // Constructs the template that describes the JavaScript wrapper
   // type for requests.
+  // foreach() для так экспонированных хешей не работают!
+  //   но на прямоую обратится можно. Возможно это нормально, т.к. 
+  //   JS принимает как экспонированный класс, и возможно это еще не полноценный
+  //   JS-объект
   static Handle<ObjectTemplate> MakeRequestTemplate(Isolate* isolate);
   static Handle<ObjectTemplate> MakeBlueprintMap(Isolate* isolate);
 

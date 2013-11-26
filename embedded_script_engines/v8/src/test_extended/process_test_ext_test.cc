@@ -18,7 +18,12 @@ TEST(ProcessTestExt, Create) {
   map<string, string> options;
   map<string, string> output;
 
+  // Expose not as object. Can't get keys.
+  // Это не полноценный объект JavaScript
   options.insert(pair<string, string>("key", "value"));
+  options.insert(pair<string, string>("key1", "value"));
+  options.insert(pair<string, string>("key2", "value"));
+  options.insert(pair<string, string>("key3", "value"));
 
   string file;
   ParseOptions(argc, argv, options, &file);
@@ -37,4 +42,7 @@ TEST(ProcessTestExt, Create) {
 
   // Похоже нужно инициализироваться
   processor.Initialize(&options, &output);
+
+  // Не понадобилось. Вообще она как понял создает два объекта в global scope.
+  //processor.InstallMapsTest(&
 }
