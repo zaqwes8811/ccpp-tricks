@@ -97,8 +97,13 @@
     <ClCompile Include="..\..\src\process_global.cc" />
     <ClCompile Include="..\..\src\process_test.cc" />
     <ClCompile Include="..\..\src\script_test.cc" />
+    <ClCompile Include="..\..\src\test_extended\process_test_ext.cc" />
+    <ClCompile Include="..\..\src\test_extended\process_test_ext_test.cc" />
     <ClCompile Include="..\..\src\v8_wrap\v8_wrapper.cc" />
     <ClCompile Include="..\..\tests\v8_base_test.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\test_extended\process_test_ext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

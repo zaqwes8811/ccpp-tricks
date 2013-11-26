@@ -38,5 +38,16 @@
     <ClCompile Include="..\..\src\v8_wrap\v8_wrapper.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\test_extended\process_test_ext_test.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\test_extended\process_test_ext.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\test_extended\process_test_ext.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

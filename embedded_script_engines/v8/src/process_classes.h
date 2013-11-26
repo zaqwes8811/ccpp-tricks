@@ -62,7 +62,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
                           map<string, string>* output);
   virtual bool Process(HttpRequest* req);
 
- private:
+ protected:
   // Execute the script associated with this processor and extract the
   // Process function.  Returns true if this succeeded, otherwise false.
 	 bool ExecuteScript(Handle<v8::String> script);
