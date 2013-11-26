@@ -21,9 +21,12 @@ function isEmpty(obj) {
     return true;
 }
 
-log(options['key']);
+//log(options['key']);
 options['key'] = 'value2';
-log(options['key']);
+//log(options['key']);
+for (var key in options) {
+    log(key);
+  } 
 
 function Process() {
 	var that = this;

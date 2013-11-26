@@ -140,6 +140,7 @@ bool JsHttpRequestProcessor::InstallMaps(map<string, string>* opts,
   // Set the options object as a property on the global object.
   context->Global()->Set(String::New("options"), opts_obj);
 
+  // ! Нужно получить новую форму для объекта
   Handle<Object> output_obj = WrapMap(output);
   context->Global()->Set(String::New("output"), output_obj);
 
@@ -209,7 +210,7 @@ Handle<Object> JsHttpRequestProcessor::WrapMap(map<string, string>* obj) {
   // Fetch the template for creating JavaScript map wrappers.
   // It only has to be created once, which we do on demand.
   if (map_template_.IsEmpty()) {
-    Handle<ObjectTemplate> raw_template = MakeMapTemplate(GetIsolate());
+    Handle<ObjectTemplate> raw_template = MakeBlueprintMap(GetIsolate());
     map_template_.Reset(GetIsolate(), raw_template);
   }
   Handle<ObjectTemplate> templ =
@@ -280,7 +281,7 @@ void JsHttpRequestProcessor::MapSet(Local<String> name,
 }
 
 
-Handle<ObjectTemplate> JsHttpRequestProcessor::MakeMapTemplate(
+Handle<ObjectTemplate> JsHttpRequestProcessor::MakeBlueprintMap(
     Isolate* isolate) {
   HandleScope handle_scope(isolate);
 

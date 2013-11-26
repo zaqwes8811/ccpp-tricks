@@ -74,7 +74,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
   // Constructs the template that describes the JavaScript wrapper
   // type for requests.
   static Handle<ObjectTemplate> MakeRequestTemplate(Isolate* isolate);
-  static Handle<ObjectTemplate> MakeMapTemplate(Isolate* isolate);
+  static Handle<ObjectTemplate> MakeBlueprintMap(Isolate* isolate);
 
   // Callbacks that access the individual fields of request objects.
 	static void GetPath(Local<v8::String> name,
