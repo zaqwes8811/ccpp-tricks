@@ -19,7 +19,7 @@ TEST(ProcessTestExt, Create) {
   map<string, string> output;
 
   // Expose not as object. Can't get keys.
-  // Это не полноценный объект JavaScript
+  // Р­С‚Рѕ РЅРµ РїРѕР»РЅРѕС†РµРЅРЅС‹Р№ РѕР±СЉРµРєС‚ JavaScript
   options.insert(pair<string, string>("key", "value"));
   options.insert(pair<string, string>("key1", "value"));
   options.insert(pair<string, string>("key2", "value"));
@@ -31,18 +31,18 @@ TEST(ProcessTestExt, Create) {
 
   Isolate* isolate = Isolate::GetCurrent();
 
-  // Всегда нужно создать - это как бы свой стек для V8
+  // Р’СЃРµРіРґР° РЅСѓР¶РЅРѕ СЃРѕР·РґР°С‚СЊ - СЌС‚Рѕ РєР°Рє Р±С‹ СЃРІРѕР№ СЃС‚РµРє РґР»СЏ V8
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
   EXPECT_NE(true, source.IsEmpty());
 
-  // Создаем класс для тестирования
+  // РЎРѕР·РґР°РµРј РєР»Р°СЃСЃ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ
   JsHttpRequestProcessorTestExt processor(isolate, source);
 
-  // Похоже нужно инициализироваться
+  // РџРѕС…РѕР¶Рµ РЅСѓР¶РЅРѕ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊСЃСЏ
   processor.Initialize(&options, &output);
 
-  // Не понадобилось. Вообще она как понял создает два объекта в global scope.
+  // РќРµ РїРѕРЅР°РґРѕР±РёР»РѕСЃСЊ. Р’РѕРѕР±С‰Рµ РѕРЅР° РєР°Рє РїРѕРЅСЏР» СЃРѕР·РґР°РµС‚ РґРІР° РѕР±СЉРµРєС‚Р° РІ global scope.
   //processor.InstallMapsTest(&
 }
