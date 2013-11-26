@@ -36,7 +36,7 @@ class V8WrapperImpl : public V8Wrapper {
 	// wrap db
 	static ::scenarios::dblite* unwrap_dblite(Handle<Object> obj);
 
-	Handle<v8::Value> SomeProperty(Local<v8::String> name, const const PropertyCallbackInfo<void>& info);
+	Handle<v8::Value> SomeProperty(Local<v8::String> name, const PropertyCallbackInfo<void>& info);
 
 	static std::string to_string(Local<Value> v);
 

@@ -1,5 +1,5 @@
 //#include "config.h"
-#include "process_classes.h"
+#include "process.h"
 
 class JsHttpRequestProcessorTestExt : 
     public JsHttpRequestProcessor 

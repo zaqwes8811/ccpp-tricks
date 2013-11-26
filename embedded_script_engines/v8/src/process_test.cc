@@ -7,9 +7,9 @@
 #include <gtest/gtest.h>
 
 // App
-#include "process_classes.h"
+#include "process.h"
 #include "point.h"
-#include "v8_wrap/v8_wrapper.h"
+#include "v8_wrapper.h"
 #include "virtual_machine.h"
 
 

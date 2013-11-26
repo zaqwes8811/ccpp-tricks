@@ -91,16 +91,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc" />
+    <ClCompile Include="..\..\src\database_manipulations.cc" />
     <ClCompile Include="..\..\src\launcher_process.cc" />
     <ClCompile Include="..\..\src\point.cc" />
     <ClCompile Include="..\..\src\process.cc" />
-    <ClCompile Include="..\..\src\process_global.cc" />
     <ClCompile Include="..\..\src\process_test.cc" />
-    <ClCompile Include="..\..\src\script_test.cc" />
     <ClCompile Include="..\..\src\test_extended\process_test_ext.cc" />
     <ClCompile Include="..\..\src\test_extended\process_test_ext_test.cc" />
-    <ClCompile Include="..\..\src\v8_wrap\v8_wrapper.cc" />
-    <ClCompile Include="..\..\tests\v8_base_test.cc" />
+    <ClCompile Include="..\..\src\point_expose_test.cc" />
+    <ClCompile Include="..\..\src\v8_wrapper.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\test_extended\process_test_ext.h" />
