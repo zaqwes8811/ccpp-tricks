@@ -9,8 +9,8 @@
 // App
 #include "process_classes.h"
 #include "point.h"
-#include "v8/src/v8_wrap/v8_wrapper.h"
-#include "v8/src/virtual_machine.h"
+#include "v8_wrap/v8_wrapper.h"
+#include "virtual_machine.h"
 
 
 TEST(V8, ProcessTop) {

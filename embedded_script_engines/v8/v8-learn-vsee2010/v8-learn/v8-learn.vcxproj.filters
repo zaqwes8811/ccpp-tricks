@@ -35,5 +35,8 @@
     <ClCompile Include="..\..\src\point.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\v8_wrap\v8_wrapper.cc">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
