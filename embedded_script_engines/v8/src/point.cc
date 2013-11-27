@@ -56,6 +56,8 @@ v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint(
     result->SetInternalFieldCount(1);
 
     // Connect getter/setter
+    result->SetAccessor(String::New("x"), GetPointX, SetPointX);
+    result->SetAccessor(String::New("y"), GetPointY, SetPointY);
   
     return handle_scope.Close(result);
   }

@@ -7,6 +7,7 @@
 
 // App
 #include "process.h"
+#include "point.h"
 
 using std::string;
 
@@ -20,16 +21,23 @@ using v8::Persistent;
 
 class PointV8Engine {
  public:
-  static PointV8Engine* CreateForOwn(Isolate* isolate, Handle<String> source) {
-    PointV8Engine* engine = new PointV8Engine(isolate, source);
+  static PointV8Engine* CreateForOwn(
+      Isolate* isolate, 
+      Handle<String> source,
+      V8Point* point) 
+    {
+    PointV8Engine* engine = new PointV8Engine(isolate, source, point);
     engine->Initialize();
     return engine;
   }
   
 
  protected:
-  PointV8Engine(Isolate* isolate, Handle<String> source) :
-    isolate_(isolate), source_(source) { }
+  PointV8Engine(
+    Isolate* isolate, 
+    Handle<String> source,
+    V8Point* point) 
+    : isolate_(isolate), source_(source), point_(point) { }
 
   void Initialize() {
     HandleScope handle_scope(GetIsolate());
@@ -60,6 +68,12 @@ class PointV8Engine {
     //@Point
     {
       HandleScope handle_scope(GetIsolate());
+      if (point_template_.IsEmpty()) {
+        Handle<ObjectTemplate> raw_template = point_->CreateBlueprint(GetIsolate());
+        point_template_.Reset(GetIsolate(), raw_template);
+      }
+
+      // Можно оборачивать реальный объект
     }
   }
 
@@ -75,7 +89,15 @@ class PointV8Engine {
   //
   // При экспонировании похоже не нужно.
   Persistent<Context> context_;
+
+  // Может и не нужно будет
+  V8Point* point_;
+
+  // Blueprints
+  static Persistent<ObjectTemplate> point_template_;
 };
+
+Persistent<ObjectTemplate> PointV8Engine::point_template_;
 
 TEST(PointEngine, Create) {
   v8::V8::InitializeICU();
@@ -90,8 +112,12 @@ TEST(PointEngine, Create) {
   Handle<String> source = ReadFile(file);
   EXPECT_NE(true, source.IsEmpty());
 
+  // Point
+  V8Point v8_point;
+
   // Engine
-  PointV8Engine* engine = PointV8Engine::CreateForOwn(isolate, source);
+  PointV8Engine* engine = PointV8Engine::CreateForOwn(
+      isolate, source, &v8_point);
 
   delete engine;
 }

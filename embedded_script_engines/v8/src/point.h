@@ -6,13 +6,18 @@
 // Accessing to dynamic vars.
 // Point x y
 class Point {
-   public:
-    Point(int x, int y) : x_(x), y_(y) { }
-    int x_, y_;
-  };
+  public:
+  Point(int x, int y) : x_(x), y_(y) { }
+  int x_, y_;
+};
 
 class V8Point {
 public:
+  V8Point() {}
+
+  v8::Handle<v8::ObjectTemplate> CreateBlueprint(
+      v8::Isolate* isolate);
+
   static void GetPointX(v8::Local<v8::String> name,
                  const v8::PropertyCallbackInfo<v8::Value>& info);
   static void SetPointX(v8::Local<v8::String> property, v8::Local<v8::Value> value,
@@ -23,10 +28,4 @@ public:
      v8::Local<v8::String> property, 
      v8::Local<v8::Value> value,
      const v8::PropertyCallbackInfo<void>& info);
-
-//protected:
-  V8Point() {}
-
-  v8::Handle<v8::ObjectTemplate> CreateBlueprint(
-      v8::Isolate* isolate);
 };
