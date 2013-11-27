@@ -17,9 +17,6 @@ void V8Point::GetPointX(Local<String> name,
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   int value = static_cast<Point*>(ptr)->x_;
-
-  // New api
-  // return Integer::New(value);
   info.GetReturnValue().Set(Integer::New(value));
 }
 
@@ -37,9 +34,6 @@ void V8Point::GetPointY(Local<String> name,
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   int value = static_cast<Point*>(ptr)->y_;
-
-  // New api
-  // return Integer::New(value);
   info.GetReturnValue().Set(Integer::New(value));
 }
 
