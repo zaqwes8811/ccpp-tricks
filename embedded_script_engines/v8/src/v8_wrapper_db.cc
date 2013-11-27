@@ -1,5 +1,5 @@
 //#include "config.h"
-#include "v8/src/v8_wrap/v8_wrapper.h"
+#include "v8_wrapper.h"
 
 namespace scenarios {
 

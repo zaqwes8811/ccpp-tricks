@@ -1,54 +1,26 @@
-#include "v8/src/virtual_machine.h"
-#include <string>
-using ::scenarios::dblite;
+//#include "config.h"
+#include "v8_wrapper.h"
+
 
 namespace scenarios {
 
-class V8Wrapper {
- public:  
-	 virtual void requestCfg()=0;  
-	 virtual void requestParams()=0;
-};
+void V8WrapperImpl::requestCfg() {
 
-class V8WrapperImpl : public V8Wrapper {
- public:
-	explicit V8WrapperImpl(
-		::scenarios::dblite* database, std::string JSFileName) 
-		: db_(database), JSFileName_(JSFileName) { }
+}
 
-	virtual void requestCfg();
+void V8WrapperImpl::requestParams() {
 
-	static virtual void requestParams();
 
-	void runScript();
 
-	virtual ~V8WrapperImpl() { }
+}
 
- private:
-	::scenarios::dblite* db_;
-	std::string JSFileName_;
+void V8WrapperImpl::runScript() {
+	//V8WrapperImpl::v8_set_accessor_t_idx_oned_etv_();
 
-	// wrap db
-	static ::scenarios::dblite* unwrap_dblite(Handle<Object> obj);
+}
 
-	Handle<v8::Value> SomeProperty(Local<v8::String> name, const const PropertyCallbackInfo<void>& info);
-
-	static std::string to_string(Local<Value> v);
-
-	static void Open(const FunctionCallbackInfo<Value>& args);
-
-	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();
-/*
-	void v8_get_t_idx_oned_etv_(Local<String> name,
-               const PropertyCallbackInfo<Value>& info);
-
-	void v8_set_t_idx_oned_etv_(Local<String> property, Local<Value> value,
-               const PropertyCallbackInfo<void>& info);
-
-	void v8_set_accessor_t_idx_oned_etv_();
-
-*/
 	
+/*
 static void v8_get_t_idx_oned_etv_(Local<String> name,
                const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
@@ -57,7 +29,6 @@ static void v8_get_t_idx_oned_etv_(Local<String> name,
 	int value = static_cast<::scenarios::dblite*>(ptr)->idx_oned_etv_;
 
   // New api
-  // return Integer::New(value);
   info.GetReturnValue().Set(Integer::New(value));
 }
 
@@ -93,7 +64,7 @@ void v8_set_accessor_t_idx_oned_etv_() {
 	
 	db_instance_template->Set(String::New("log"), FunctionTemplate::New(LogCallback));	
 	db_instance_template->Set(String::New("onRequestParams"), 
-		FunctionTemplate::New(requestParams));	
+    FunctionTemplate::New(&::scenarios::requestParams));	
 	//static_cast<v8::AccessorSetterCallback>(&scenarios::V8WrapperImpl::v8_set_t_idx_oned_etv_));
 
 	Handle<Context> context = Context::New(isolate, NULL, db_instance_template);
@@ -128,14 +99,6 @@ void v8_set_accessor_t_idx_oned_etv_() {
     return;
   }
 
+*/
 
-}
-
-
-
-
-
-
-
-};
-}
+}  // end namespace

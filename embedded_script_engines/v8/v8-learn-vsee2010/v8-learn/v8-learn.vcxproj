@@ -51,8 +51,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\home\lugansky-igor\in-the-vicinity-cc\embedded_script_engines\v8\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -92,13 +91,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc" />
+    <ClCompile Include="..\..\src\database_manipulations.cc" />
     <ClCompile Include="..\..\src\launcher_process.cc" />
     <ClCompile Include="..\..\src\point.cc" />
     <ClCompile Include="..\..\src\process.cc" />
-    <ClCompile Include="..\..\src\process_global.cc" />
     <ClCompile Include="..\..\src\process_test.cc" />
-    <ClCompile Include="..\..\src\script_test.cc" />
-    <ClCompile Include="..\..\tests\v8_base_test.cc" />
+    <ClCompile Include="..\..\src\test_extended\process_test_ext.cc" />
+    <ClCompile Include="..\..\src\test_extended\process_test_ext_test.cc" />
+    <ClCompile Include="..\..\src\point_expose_test.cc" />
+    <ClCompile Include="..\..\src\v8_wrapper.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\test_extended\process_test_ext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

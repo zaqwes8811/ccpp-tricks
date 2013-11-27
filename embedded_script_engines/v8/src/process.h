@@ -62,7 +62,7 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
                           map<string, string>* output);
   virtual bool Process(HttpRequest* req);
 
- private:
+ protected:
   // Execute the script associated with this processor and extract the
   // Process function.  Returns true if this succeeded, otherwise false.
 	 bool ExecuteScript(Handle<v8::String> script);
@@ -73,8 +73,12 @@ class JsHttpRequestProcessor : public HttpRequestProcessor {
 
   // Constructs the template that describes the JavaScript wrapper
   // type for requests.
+  // foreach() для так экспонированных хешей не работают!
+  //   но на прямоую обратится можно. Возможно это нормально, т.к. 
+  //   JS принимает как экспонированный класс, и возможно это еще не полноценный
+  //   JS-объект
   static Handle<ObjectTemplate> MakeRequestTemplate(Isolate* isolate);
-  static Handle<ObjectTemplate> MakeMapTemplate(Isolate* isolate);
+  static Handle<ObjectTemplate> MakeBlueprintMap(Isolate* isolate);
 
   // Callbacks that access the individual fields of request objects.
 	static void GetPath(Local<v8::String> name,
