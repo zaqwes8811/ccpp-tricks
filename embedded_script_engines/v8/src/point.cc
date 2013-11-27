@@ -11,7 +11,7 @@ using v8::PropertyCallbackInfo;
 using v8::HandleScope;
 using v8::Isolate;
 
-void GetPointX(Local<String> name,
+void V8Point::GetPointX(Local<String> name,
                const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
@@ -23,7 +23,7 @@ void GetPointX(Local<String> name,
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void SetPointX(Local<String> property, Local<Value> value,
+void V8Point::SetPointX(Local<String> property, Local<Value> value,
                const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
@@ -31,7 +31,7 @@ void SetPointX(Local<String> property, Local<Value> value,
   static_cast<Point*>(ptr)->x_ = value->Int32Value();
 }
 
-void GetPointY(Local<String> name,
+void V8Point::GetPointY(Local<String> name,
                const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
@@ -43,7 +43,7 @@ void GetPointY(Local<String> name,
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void SetPointY(Local<String> property, Local<Value> value,
+void V8Point::SetPointY(Local<String> property, Local<Value> value,
                const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
