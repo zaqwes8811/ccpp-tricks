@@ -16,13 +16,13 @@ protected:
   V8Point() {}
 
 public:
-  void GetPointX(v8::Local<v8::String> name,
+  static void GetPointX(v8::Local<v8::String> name,
                  const v8::PropertyCallbackInfo<v8::Value>& info);
-  void SetPointX(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+  static void SetPointX(v8::Local<v8::String> property, v8::Local<v8::Value> value,
                  const v8::PropertyCallbackInfo<void>& info);
-  void GetPointY(v8::Local<v8::String> name,
+  static void GetPointY(v8::Local<v8::String> name,
                  const v8::PropertyCallbackInfo<v8::Value>& info);
-  void SetPointY(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+  static void SetPointY(v8::Local<v8::String> property, v8::Local<v8::Value> value,
                  const v8::PropertyCallbackInfo<void>& info);
 
 };
