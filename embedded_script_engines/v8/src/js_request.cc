@@ -202,8 +202,7 @@ void JSRequest::wrapDataBase(char* JSFileName) {
 	map<string, string> options;
   map<string, string> output;
 
-  // Expose not as object. Can't get keys.
-  // Это не полноценный объект JavaScript
+  // Expose not as object. Can't get keys.  
   options.insert(pair<string, string>("key", "value"));
   options.insert(pair<string, string>("key1", "value"));
   options.insert(pair<string, string>("key2", "value"));
@@ -213,7 +212,7 @@ void JSRequest::wrapDataBase(char* JSFileName) {
 	int argc = 2;
 	char* argv[] = {"", JSFileName};
   v8::V8::InitializeICU();
-  string file;//= JSFileName;
+  string file;
  
 	ParseOptions(argc, argv, options, &file);	
   Isolate* isolate = Isolate::GetCurrent();
