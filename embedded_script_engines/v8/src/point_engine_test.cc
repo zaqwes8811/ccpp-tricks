@@ -17,8 +17,14 @@ using v8::HandleScope;
 
 class PointV8Engine {
 public:
-  PointV8Engine(Isolate* isolate, Handle<String> source) {}
+  PointV8Engine(Isolate* isolate, Handle<String> source) :
+    isolate_(isolate), source_(source) { }
 
+protected:
+
+private:
+  Isolate* isolate_;
+  Handle<String> source_;
 };
 
 TEST(PointEngine, Create) {
@@ -33,4 +39,6 @@ TEST(PointEngine, Create) {
 
   Handle<String> source = ReadFile(file);
   EXPECT_NE(true, source.IsEmpty());
+
+  // Engine
 }
