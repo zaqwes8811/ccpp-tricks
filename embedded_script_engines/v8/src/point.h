@@ -12,9 +12,6 @@ class Point {
   };
 
 class V8Point {
-protected:
-  V8Point() {}
-
 public:
   static void GetPointX(v8::Local<v8::String> name,
                  const v8::PropertyCallbackInfo<v8::Value>& info);
@@ -22,7 +19,14 @@ public:
                  const v8::PropertyCallbackInfo<void>& info);
   static void GetPointY(v8::Local<v8::String> name,
                  const v8::PropertyCallbackInfo<v8::Value>& info);
-  static void SetPointY(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-                 const v8::PropertyCallbackInfo<void>& info);
+  static void SetPointY(
+     v8::Local<v8::String> property, 
+     v8::Local<v8::Value> value,
+     const v8::PropertyCallbackInfo<void>& info);
 
+//protected:
+  V8Point() {}
+
+  v8::Handle<v8::ObjectTemplate> CreateBlueprint(
+      v8::Isolate* isolate);
 };

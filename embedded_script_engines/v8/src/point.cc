@@ -11,6 +11,8 @@ using v8::PropertyCallbackInfo;
 using v8::HandleScope;
 using v8::Isolate;
 
+using v8::ObjectTemplate;
+
 void V8Point::GetPointX(Local<String> name,
                const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
@@ -45,20 +47,15 @@ void V8Point::SetPointY(Local<String> property, Local<Value> value,
   static_cast<Point*>(ptr)->y_ = value->Int32Value();
 }
 
-// Need put env data
-//Handle<Object> wrapPoint(Point *pointToWrap, Isolate* isolate) {
-    //enter a handle scope
-  //  HandleScope handle_scope(isolate);
- 
-    //create a new point instance
-    //Local<Object> point_instance = point_templ->NewInstance();
- 
-    //set that internal field
-    //point_instance->SetInternalField(0, External::New(pointToWrap));
- 
-    //I'm skipping some Persistent MakeWeak goodness right here
- 
-    //to prevent the point_instance from being destroyed when its
-    //scope handle_scope is, use the Close() function
-    //return handle_scope.Close(point_instance);
-//}
+v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint(
+      v8::Isolate* isolate) 
+    {
+    HandleScope handle_scope(isolate);
+
+    Handle<ObjectTemplate> result = ObjectTemplate::New();
+    result->SetInternalFieldCount(1);
+
+    // Connect getter/setter
+  
+    return handle_scope.Close(result);
+  }
