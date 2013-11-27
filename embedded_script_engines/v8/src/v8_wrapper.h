@@ -1,4 +1,5 @@
 #include "virtual_machine.h"
+#include "process.h"
 
 // C++
 #include <string>
@@ -10,7 +11,7 @@ namespace scenarios {
 class V8Wrapper {
  public:  
 	 virtual void requestCfg() = 0;  
-	 virtual void requestParams() = 0;
+	 virtual void requestParamst() = 0;
 
    // !!! Здесь он виртуальный !!! Исправить везде!!
    // Это Грубейшая ошибка!!
@@ -25,8 +26,9 @@ class V8WrapperImpl : public V8Wrapper {
 		  : db_(database), JSFileName_(JSFileName) { }
 
 	virtual void requestCfg();
-	virtual void requestParams();
-
+	virtual void requestParamst();
+	void testForExtProcess();
+	
 	void runScript();
 
  private:
@@ -42,5 +44,7 @@ class V8WrapperImpl : public V8Wrapper {
 
 	static void Open(const FunctionCallbackInfo<Value>& args);
 	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();
+	
+
 };
 }

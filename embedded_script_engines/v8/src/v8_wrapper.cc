@@ -1,28 +1,51 @@
 //#include "config.h"
-#include "v8_wrapper.h"
 
+// cpp
+#include <map>
+#include <string>
+
+// app
+#include "v8_wrapper.h"
+#include "js_request.h"
+
+using std::map;
+using std::string;
+using ::scenarios::JSRequest;
 
 namespace scenarios {
 
-void V8WrapperImpl::requestCfg() {
+void V8WrapperImpl::requestCfg() { }
 
-}
-
-void V8WrapperImpl::requestParams() {
-
-
-
-}
+void V8WrapperImpl::requestParamst() { }
 
 void V8WrapperImpl::runScript() {
 	//V8WrapperImpl::v8_set_accessor_t_idx_oned_etv_();
+}
+
+void V8WrapperImpl::testForExtProcess() {
+	
 
 }
 
-	
+
+}  // end namespace
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
+
 static void v8_get_t_idx_oned_etv_(Local<String> name,
-               const PropertyCallbackInfo<Value>& info) {
+																	 const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
@@ -33,7 +56,7 @@ static void v8_get_t_idx_oned_etv_(Local<String> name,
 }
 
 static void v8_set_t_idx_oned_etv_(Local<String> property, Local<Value> value,
-               const PropertyCallbackInfo<void>& info) {
+																	 const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
@@ -63,9 +86,9 @@ void v8_set_accessor_t_idx_oned_etv_() {
  // databaseObj->SetInternalField(0, External::New(db_));
 	
 	db_instance_template->Set(String::New("log"), FunctionTemplate::New(LogCallback));	
-	db_instance_template->Set(String::New("onRequestParams"), 
-    FunctionTemplate::New(&::scenarios::requestParams));	
-	//static_cast<v8::AccessorSetterCallback>(&scenarios::V8WrapperImpl::v8_set_t_idx_oned_etv_));
+	//db_instance_template->SetAccessorProperty(v8::String::NewSymbol("RequestParamsTempl"),
+		//v8::FunctionTemplate::New(
+		//static_cast<v8::FunctionCallback>(&::scenarios::V8WrapperImpl::requestParamsTempl)));
 
 	Handle<Context> context = Context::New(isolate, NULL, db_instance_template);
   Context::Scope context_scope(context);
@@ -98,7 +121,4 @@ void v8_set_accessor_t_idx_oned_etv_() {
     // Running the script failed; bail out.
     return;
   }
-
-*/
-
-}  // end namespace
+}*/

@@ -3,18 +3,23 @@
 
 // C++
 #include <map>
+#include <string>
 
 // Other
 #include <gtest/gtest.h>
 
+// App
+#include "js_request.h"
+#include "v8_wrapper.h"
+#include "virtual_machine.h"
+
+using ::scenarios::dblite;
+using ::scenarios::V8WrapperImpl;
+using ::scenarios::JSRequest;
 using std::pair;
 
 
 TEST(ProcessTestExt, Create) {
-  int argc = 2;
-  char* argv[] = {"", "..\\scripts\\test_extended.js"};
-
-  v8::V8::InitializeICU();
   map<string, string> options;
   map<string, string> output;
 
@@ -25,6 +30,10 @@ TEST(ProcessTestExt, Create) {
   options.insert(pair<string, string>("key2", "value"));
   options.insert(pair<string, string>("key3", "value"));
 
+	// V8
+	int argc = 2;
+  char* argv[] = {"", "..\\scripts\\test_extended.js"};
+  v8::V8::InitializeICU();
   string file;
   ParseOptions(argc, argv, options, &file);
   EXPECT_NE(true, file.empty());
@@ -45,4 +54,15 @@ TEST(ProcessTestExt, Create) {
 
   // Не понадобилось. Вообще она как понял создает два объекта в global scope.
   //processor.InstallMapsTest(&
+}
+
+TEST(ProcessTestExt, CreateHanedas) {
+	dblite* db = new dblite;
+	//::scenarios::V8WrapperImpl wrapper(db,"");
+	::scenarios::JSRequest wrapper(db);
+	wrapper.wrapDataBase("..\\scripts\\test_extended.js");
+	//"..\\scripts\\test_extended.js"
+	//wrapper.testForExtProcess();
+
+	delete db;
 }
