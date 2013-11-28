@@ -7,6 +7,8 @@ from generator.cpp import ast
 
 from han import extract_var_declaration
 from han import make_scalar_getter, make_scalar_setter
+from han import make_getter_and_setter_add
+from han import makeAll
 
 
 class ScalarVariableField(object):
@@ -112,13 +114,21 @@ def main():
     #header_file_name = 'test-data/database.h'
     source = utils.ReadFile(header_file_name)
 
-    # han
     if True:
+        # han
         type_and_var_list = extract_var_declaration(source)
 
-        for elem in type_and_var_list:
-            print make_scalar_getter(*elem)
-            print make_scalar_setter(*elem)
+        if True:
+            # временный вывод !отформатированный и без массивов!
+            print(makeAll(type_and_var_list))
+        else:
+            # формирование кода добавления геттеров и сеттеров
+            for elem in type_and_var_list:
+                print(make_getter_and_setter_add(*elem))
+
+            for elem in type_and_var_list:
+                print(make_scalar_getter(*elem))
+                print(make_scalar_setter(*elem))
     else:
         # zaqwes
         vars = extract_variable_declaration(source, header_file_name)
@@ -126,8 +136,8 @@ def main():
         #if
         # Make V8 view
         for elem in vars:
-            print elem.make_scalar_getter()
-            print elem.make_scalar_setter()
+            print(elem.make_scalar_getter())
+            print(elem.make_scalar_setter())
         #elif Dart
 
 
