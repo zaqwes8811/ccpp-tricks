@@ -114,6 +114,7 @@ TEST(PointEngine, Create) {
 
   // Point
   V8Point v8_point;
+	//Point point;
 
   // Engine
   PointV8Engine* engine = PointV8Engine::CreateForOwn(
