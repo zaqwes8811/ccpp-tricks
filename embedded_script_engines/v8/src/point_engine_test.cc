@@ -144,7 +144,11 @@ TEST(PointEngine, Create) {
 
   // Point
   V8Point v8_point;
+<<<<<<< HEAD
   Point point_real(1, 2);
+=======
+	//Point point;
+>>>>>>> 405fe7e5bbe62b090b92f648c15998459e98fe59
 
   // Engine
   PointV8Engine* engine = PointV8Engine::CreateForOwn(

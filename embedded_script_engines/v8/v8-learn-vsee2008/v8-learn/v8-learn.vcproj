@@ -185,6 +185,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\point_engine_test.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\point_expose_test.cc"
 				>
 			</File>
@@ -205,11 +209,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\small_base_test.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\v8_wrapper.cc"
 				>
 			</File>
 			<File
 				RelativePath="..\..\src\v8_wrapper_db.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8small_base.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8small_base_engine.cc"
 				>
 			</File>
 			<File
