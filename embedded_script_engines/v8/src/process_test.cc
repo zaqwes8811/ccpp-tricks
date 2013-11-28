@@ -393,8 +393,8 @@ TEST(V8, CreateCppObjectInsideJS) {
   point_instance_template->SetInternalFieldCount(1);
  
   //add some properties (x and y)
-  point_instance_template->SetAccessor(String::New("x"), GetPointX, SetPointX);
-  point_instance_template->SetAccessor(String::New("y"), GetPointY, SetPointY);
+  point_instance_template->SetAccessor(String::New("x"), &V8Point::GetPointX, &V8Point::SetPointX);
+  point_instance_template->SetAccessor(String::New("y"), &V8Point::GetPointY, &V8Point::SetPointY);
 
   // Look like context not used now!
   // Template Created! 

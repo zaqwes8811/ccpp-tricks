@@ -6,17 +6,26 @@
 // Accessing to dynamic vars.
 // Point x y
 class Point {
-   public:
-    Point(int x, int y) : x_(x), y_(y) { }
-    int x_, y_;
-  };
+  public:
+  Point(int x, int y) : x_(x), y_(y) { }
+  int x_, y_;
+};
 
-void GetPointX(v8::Local<v8::String> name,
-               const v8::PropertyCallbackInfo<v8::Value>& info);
-void SetPointX(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-               const v8::PropertyCallbackInfo<void>& info);
-void GetPointY(v8::Local<v8::String> name,
-               const v8::PropertyCallbackInfo<v8::Value>& info);
-void SetPointY(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-               const v8::PropertyCallbackInfo<void>& info);
+class V8Point {
+public:
+  V8Point() {}
 
+  v8::Handle<v8::ObjectTemplate> CreateBlueprint(
+      v8::Isolate* isolate);
+
+  static void GetPointX(v8::Local<v8::String> name,
+                 const v8::PropertyCallbackInfo<v8::Value>& info);
+  static void SetPointX(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+                 const v8::PropertyCallbackInfo<void>& info);
+  static void GetPointY(v8::Local<v8::String> name,
+                 const v8::PropertyCallbackInfo<v8::Value>& info);
+  static void SetPointY(
+     v8::Local<v8::String> property, 
+     v8::Local<v8::Value> value,
+     const v8::PropertyCallbackInfo<void>& info);
+};

@@ -92,8 +92,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc" />
     <ClCompile Include="..\..\src\database_manipulations.cc" />
+    <ClCompile Include="..\..\src\js_request.cc" />
     <ClCompile Include="..\..\src\launcher_process.cc" />
     <ClCompile Include="..\..\src\point.cc" />
+    <ClCompile Include="..\..\src\point_engine_test.cc" />
     <ClCompile Include="..\..\src\process.cc" />
     <ClCompile Include="..\..\src\process_test.cc" />
     <ClCompile Include="..\..\src\test_extended\process_test_ext.cc" />

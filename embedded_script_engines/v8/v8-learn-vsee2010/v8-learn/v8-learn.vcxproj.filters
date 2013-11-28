@@ -38,6 +38,12 @@
     <ClCompile Include="..\..\src\process_test.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\js_request.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\point_engine_test.cc">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\test_extended\process_test_ext.h">
