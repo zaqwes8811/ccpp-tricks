@@ -28,15 +28,16 @@ class V8SmallBaseEngine {
   static V8SmallBaseEngine* CreateForOwn(
       Isolate* isolate, 
       Handle<String> source,
-      V8SmallBase* point);
-  
+			SmallBase* database,
+      V8SmallBase* v8database);  
 
  protected:
   V8SmallBaseEngine(
     Isolate* isolate, 
     Handle<String> source,
+		SmallBase* database,
     V8SmallBase* temp) 
-				: isolate_(isolate), source_(source), temp_(temp) { }
+				: isolate_(isolate), source_(source), database_(database), temp_(temp) { }
 
 	bool Initialize();
 
@@ -61,6 +62,7 @@ class V8SmallBaseEngine {
 
   // Может и не нужно будет
   V8SmallBase* temp_;
+	SmallBase* const database_;
 
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;

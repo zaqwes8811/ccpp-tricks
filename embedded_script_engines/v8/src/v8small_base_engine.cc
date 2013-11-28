@@ -5,8 +5,9 @@ namespace scenarios {
 V8SmallBaseEngine* V8SmallBaseEngine::CreateForOwn(
     Isolate* isolate, 
     Handle<String> source,
-    V8SmallBase* point) {
-  V8SmallBaseEngine* engine = new V8SmallBaseEngine(isolate, source, point);
+		SmallBase* database,
+    V8SmallBase* v8_database) {
+  V8SmallBaseEngine* engine = new V8SmallBaseEngine(isolate, source, database, v8_database);
   engine->Initialize();
   return engine;
 }
@@ -101,7 +102,7 @@ bool V8SmallBaseEngine::ExecuteScript(Handle<String> script) {
 // main func
 bool V8SmallBaseEngine::Initialize() {
 	//vamp
-	SmallBase* database = new SmallBase(0); 
+	
 	SmallBase* database_output = new SmallBase(0);
 
   HandleScope handle_scope(GetIsolate());
@@ -130,10 +131,10 @@ bool V8SmallBaseEngine::Initialize() {
   Context::Scope context_scope(context);
 	
 	// test log
-	cout << "value in C++ to run " << database->temp_ << endl;
+	cout << "value in C++ to run " << database_->temp_ << endl;
 
 	// Run...
-	if (!InstallVars(database, database_output))
+	if (!InstallVars(database_, database_output))
     return false;
 
   // Compile and run the script
@@ -141,7 +142,7 @@ bool V8SmallBaseEngine::Initialize() {
     return false;
 
 	// test log
-	cout << "value in C++ after run " << database->temp_ << endl;
+	cout << "value in C++ after run " << database_->temp_ << endl;
 
 }
 

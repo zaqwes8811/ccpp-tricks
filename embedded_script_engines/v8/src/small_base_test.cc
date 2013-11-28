@@ -45,7 +45,7 @@ TEST(SmallBaseEngine, Create) {
   //string file = "..\\scripts\\test_extended.js";
 	string file = "..\\scripts\\script_small_base_engine_test.js";
   EXPECT_NE(true, file.empty());
-
+	SmallBase* database = new SmallBase(0);
   Isolate* isolate = Isolate::GetCurrent();
 
   // ¬сегда нужно создать - это как бы свой стек дл€ V8
@@ -61,7 +61,7 @@ TEST(SmallBaseEngine, Create) {
   // Engine
   V8SmallBaseEngine* engine = V8SmallBaseEngine::CreateForOwn(
 
-		isolate, source, &v8_smalldb);
+		isolate, source, database, &v8_smalldb);
 
 	
 
