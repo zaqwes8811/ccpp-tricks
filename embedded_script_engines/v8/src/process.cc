@@ -427,6 +427,34 @@ StringHttpRequest::StringHttpRequest(const string& path,
 
 ///@Functions
 
+bool ExecuteScript(Handle<String> script, Isolate* isolate) {
+  HandleScope handle_scope(isolate);
+
+  // We're just about to compile the script; set up an error handler to
+  // catch any exceptions the script might throw.
+  TryCatch try_catch;
+
+  // Compile the script and check for errors.
+  Handle<Script> compiled_script = Script::Compile(script);
+  if (compiled_script.IsEmpty()) {
+    String::Utf8Value error(try_catch.Exception());
+    printf("Logged: %s\n", *error);
+    // The script failed to compile; bail out.
+    return false;
+  }
+
+  // Run the script!
+  Handle<Value> result = compiled_script->Run();
+  if (result.IsEmpty()) {
+    // The TryCatch above is still in effect and will have caught the error.
+    String::Utf8Value error(try_catch.Exception());
+    printf("Logged: %s\n", *error);
+    // Running the script failed; bail out.
+    return false;
+  }
+  return true;
+}
+
 
 // Reads a file into a v8 string.
 Handle<String> ReadFile(const string& name) {
