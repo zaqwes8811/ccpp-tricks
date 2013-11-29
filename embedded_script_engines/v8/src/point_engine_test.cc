@@ -24,10 +24,11 @@ class PointV8Engine {
   static PointV8Engine* CreateForOwn(
       Isolate* isolate, 
       Handle<String> source,
-      V8Point* point) 
+      V8Point* point,
+      Point* real_point) 
     {
     PointV8Engine* engine = new PointV8Engine(isolate, source, point);
-    engine->Initialize();
+    engine->Initialize(real_point);
     return engine;
   }
   
@@ -39,7 +40,7 @@ class PointV8Engine {
     V8Point* point) 
     : isolate_(isolate), source_(source), point_(point) { }
 
-  void Initialize() {
+  void Initialize(Point* real_point) {
     HandleScope handle_scope(GetIsolate());
 
     // Create a template for the global object where we set the
@@ -66,15 +67,13 @@ class PointV8Engine {
     Context::Scope context_scope(context);
 
     //@Point
-    {
-      HandleScope handle_scope(GetIsolate());
-      if (point_template_.IsEmpty()) {
-        Handle<ObjectTemplate> raw_template = point_->CreateBlueprint(GetIsolate());
-        point_template_.Reset(GetIsolate(), raw_template);
-      }
+    // Install
+    Handle<Object> output_obj = WrapPoint(real_point);
+    context->Global()->Set(String::New("point_zero"), output_obj);
 
-      // Можно оборачивать реальный объект
-    }
+    //@Point
+    // Run Script
+    bool success = ExecuteScript(source_, isolate_);
   }
 
  private:
@@ -95,13 +94,44 @@ class PointV8Engine {
 
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;
+
+
+  // Спутано с Persistent - поэтому пока wrap-функция не вынести в V8Point
+  // Но вынести ее можно и нужно. Может быть проблема со scope/context
+  Handle<Object> WrapPoint(Point* point) {
+    HandleScope handle_scope(GetIsolate());
+    if (point_template_.IsEmpty()) {
+      Handle<ObjectTemplate> raw_template = 
+          point_->CreateBlueprint(GetIsolate());
+
+      // Сохраняем, но похоже можно и текущим пользоваться
+      point_template_.Reset(GetIsolate(), raw_template);
+    }
+
+    // Можно оборачивать реальный объект
+    // Сперва нужно сделать пустую обертку
+    // Create an empty map wrapper.
+    Handle<ObjectTemplate> templ =
+        Local<ObjectTemplate>::New(GetIsolate(), point_template_);
+    Handle<Object> result = templ->NewInstance();
+
+    // Wrap the raw C++ pointer in an External so it can be referenced
+    // from within JavaScript.
+    Handle<External> map_ptr = External::New(point);
+
+    // Store the map pointer in the JavaScript wrapper.
+    result->SetInternalField(0, map_ptr);
+    return handle_scope.Close(result);
+  }
 };
+
+
 
 Persistent<ObjectTemplate> PointV8Engine::point_template_;
 
 TEST(PointEngine, Create) {
   v8::V8::InitializeICU();
-  string file = "..\\scripts\\test_extended.js";
+  string file = "..\\scripts\\point.js";
   EXPECT_NE(true, file.empty());
 
   Isolate* isolate = Isolate::GetCurrent();
@@ -114,11 +144,14 @@ TEST(PointEngine, Create) {
 
   // Point
   V8Point v8_point;
-	//Point point;
+  Point point_real(1, 2);
 
   // Engine
   PointV8Engine* engine = PointV8Engine::CreateForOwn(
-      isolate, source, &v8_point);
+      isolate, source, &v8_point, &point_real);
+
+  EXPECT_EQ(199, point_real.x_);
+  EXPECT_EQ(42, point_real.y_);
 
   delete engine;
 }
