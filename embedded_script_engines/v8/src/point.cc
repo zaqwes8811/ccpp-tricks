@@ -64,3 +64,36 @@ v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint(
   
     return handle_scope.Close(result);
   }
+
+v8::Handle<v8::Object> V8Point::ForgePoint(
+      Point* point, 
+      v8::Isolate* isolate,
+      v8::Persistent<v8::ObjectTemplate>* point_blueprint,  
+      v8::Persistent<v8::Context>* context) {
+
+    HandleScope handle_scope(isolate);
+    Context::Scope scope(isolate, *context);
+
+    if (point_blueprint->IsEmpty()) {
+      Handle<ObjectTemplate> raw_template = 
+          this->CreateBlueprint(isolate, context);
+
+      // Сохраняем, но похоже можно и текущим пользоваться
+      point_blueprint->Reset(isolate, raw_template);
+    }
+
+    // Можно оборачивать реальный объект
+    // Сперва нужно сделать пустую обертку
+    // Create an empty map wrapper.
+    Handle<ObjectTemplate> templ =
+        Local<ObjectTemplate>::New(isolate, *point_blueprint);
+    Handle<Object> result = templ->NewInstance();
+
+    // Wrap the raw C++ pointer in an External so it can be referenced
+    // from within JavaScript.
+    Handle<External> map_ptr = External::New(point);
+
+    // Store the map pointer in the JavaScript wrapper.
+    result->SetInternalField(0, map_ptr);
+    return handle_scope.Close(result);
+  }
