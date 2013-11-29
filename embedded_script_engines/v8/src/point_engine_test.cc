@@ -19,28 +19,42 @@ using v8::HandleScope;
 using v8::Context;
 using v8::Persistent;
 
+
 class PointV8Engine {
+ public:
+   virtual ~PointV8Engine() {}
+
+public:
+  virtual void RunWithRealPoint(Point* real_point) = 0;
+
+ protected:
+  Isolate* GetIsolate() { return isolate_; }
+  Isolate* isolate_;
+  virtual Handle<Object> WrapPoint(Point* point) = 0;
+};
+
+
+class PointV8EngineImplWithPersistent : public PointV8Engine {
  public:
   static PointV8Engine* CreateForOwn(
       Isolate* isolate, 
       Handle<String> source,
-      V8Point* point,
-      Point* real_point) 
+      V8Point* point) 
     {
-    PointV8Engine* engine = new PointV8Engine(isolate, source, point);
-    engine->Initialize(real_point);
+    PointV8Engine* engine = new PointV8EngineImplWithPersistent(isolate, source, point);
     return engine;
   }
   
 
  protected:
-  PointV8Engine(
+  PointV8EngineImplWithPersistent(
     Isolate* isolate, 
     Handle<String> source,
     V8Point* point) 
     : isolate_(isolate), source_(source), point_(point) { }
 
-  void Initialize(Point* real_point) {
+public:
+  virtual void RunWithRealPoint(Point* real_point) {
     HandleScope handle_scope(GetIsolate());
 
     // Create a template for the global object where we set the
@@ -98,7 +112,7 @@ class PointV8Engine {
 
   // Спутано с Persistent - поэтому пока wrap-функция не вынести в V8Point
   // Но вынести ее можно и нужно. Может быть проблема со scope/context
-  Handle<Object> WrapPoint(Point* point) {
+  virtual Handle<Object> WrapPoint(Point* point) {
     HandleScope handle_scope(GetIsolate());
     if (point_template_.IsEmpty()) {
       Handle<ObjectTemplate> raw_template = 
@@ -127,7 +141,7 @@ class PointV8Engine {
 
 
 
-Persistent<ObjectTemplate> PointV8Engine::point_template_;
+Persistent<ObjectTemplate> PointV8EngineImplWithPersistent::point_template_;
 
 TEST(PointEngine, Create) {
   v8::V8::InitializeICU();
@@ -147,8 +161,9 @@ TEST(PointEngine, Create) {
   Point point_real(1, 2);
 
   // Engine
-  PointV8Engine* engine = PointV8Engine::CreateForOwn(
-      isolate, source, &v8_point, &point_real);
+  PointV8Engine* engine = PointV8EngineImplWithPersistent::CreateForOwn(
+      isolate, source, &v8_point);
+  engine->RunWithRealPoint(&point_real);
 
   EXPECT_EQ(199, point_real.x_);
   EXPECT_EQ(42, point_real.y_);
