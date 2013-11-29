@@ -3,7 +3,12 @@ import re  # регулярные выражения
 
 __author__ = 'TekScope_Local_Admin'
 
-print "\n"
+# ПЕЧАТАТЬ ЛИ МАССИВЫ?????
+# 0 - нет
+# 1 - да
+check_array_print = 0
+
+print("\n")
 """
 var Point = function() {
 
@@ -69,8 +74,8 @@ public:
   bool printPABLock_[kMaxPABs];
   bool printPABLockEvent_[kMaxPABs];
   bool printPABNoInPower_[kMaxPABs];
-  bool printPABNoInPowerEvent_[kMaxPABs];
-  bool printPABUnlock_[kMaxPABs];
+  uchar printPABNoInPowerEvent_[kMaxPABs];
+  uint printPABUnlock_[kMaxPABs];
   bool printPABInPowerOk_[kMaxPABs];
 
 
@@ -143,19 +148,30 @@ def getTypeAndVarList(typeAndVarStrings):
 def transmitCTypeToV8(type, typeFunc):
     result = ""
     if typeFunc == "get":
-        if type == "int":
+        if type == "int" or type == "uint"\
+                         or type == "char" \
+                         or type == "uchar":
             result = "Integer"
     if typeFunc == "set":
-        if type == "int":
+        if type == "int" or type == "uint" \
+                         or type == "uchar" \
+                         or type == "char":
             result = "Int32"
     if type == "bool":
         result = "Boolean"
-    if type == "char":
-        result = "Char"
-    if type == "String":
-        result == "v8::String"
+    #bad
+    #if type == "string" or type == "std::string":
+        #result == "v8::String"
+    if "string" in type:
+        result = "v8::String"
     return result
 
+def transmitSignedUnsignedTypes(type):
+    if type == "uchar":
+        return "unsigned char"
+    if type == "uint":
+        return "unsigned int"
+    return type
 
 def getFuncName(name):
     nameCapitalized = name.capitalize()
@@ -163,36 +179,92 @@ def getFuncName(name):
 
 
 def make_scalar_getter(type, name):
-    result = "\n" + "void get" + getFuncName(name) + """(Local<String> name,
-               const PropertyCallbackInfo<Value>& info) {
+    result = \
+"\n" + "static void v8_get_" + getFuncName(name) + """(Local<String> name,
+    const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  """ + type + " value = static_cast<Point*>(ptr)->" + name + ''';
+  """ + transmitSignedUnsignedTypes(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
   info.GetReturnValue().Set(''' + transmitCTypeToV8(type, "get") + """::New(value));
 }
 """
-    return result
+    return ArrayOrNotArray(result, name, type, "get")
 
 
 def make_scalar_setter(type, name):
-    result = "\n" + "void set" + getFuncName(name) + '''(Local<String> property, Local<Value> value,
-               const PropertyCallbackInfo<void>& info) {
+    result = \
+"\n" + "static void v8_set_" + getFuncName(name) + '''(Local<String> property, Local<Value> value,
+    const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   static_cast<''' + "DataBase" + "*>(ptr)->" + name + "= value->" + transmitCTypeToV8(type, "set") \
-             + "Value();" + '''
+  + "Value();" + '''
 }
 '''
+    return ArrayOrNotArray(result, name, type, "set")
+
+def make_getter_and_setter_add(type, name):
+    result = "  result->SetAccessor(String::New(\"" + name +"\"), v8_get_" + name + ", v8_set_" + name + ");"
+
+    result = ArrayOrNotArray(result, name, type, "add")
+
     return result
 
+def ArrayOrNotArray(result, name, type, typeFunc):
+    if check_array_print == 0:
+        if "[" not in name and "vector" not in type:
+            return result
+        else:
+            return ""
+    if check_array_print == 1:
+        return result
+    if typeFunc == "add":
+        return "error: bad logic (in make_getter_and_setter_add) or " + check_array_print + " != 0 or 1, default = 0"
+    if typeFunc == "set":
+        return "error: bad logic (in make_scalar_setter) or " + check_array_print + " != 0 or 1, default = 0"
+    if typeFunc == "get":
+        return "error: bad logic (in make_scalar_getter) or " + check_array_print + " != 0 or 1, default = 0"
+
+
+# ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
+# еще добавил формирование функции CreateBlueprint
+def makeAll(type_and_var_list):
+   result = """v8::Handle<v8::ObjectTemplate> CreateBlueprint(
+      v8::Isolate* isolate) {
+"""
+   for elem in type_and_var_list:
+      result = result + make_getter_and_setter_add(*elem) + "\n"
+
+   result = result + """
+}"""
+   result = result.replace('\n\n', '\n')
+   for elem in type_and_var_list:
+       result = result + make_scalar_getter(*elem) + make_scalar_setter(*elem)
+
+   result = result.replace('\n ', '\n')
+   result = result.replace('\n\n','\n').replace('\n\n}','\n}')
+   result = result.replace("}\n", "}\n\n")
+   return result
+
+# 0 - вывод без массивов!
+# 1 - вывод с массивами (по умолчанию 0)
+check_array_print = 0
 
 if __name__ == '__main__':
     type_and_var_list = extract_var_declaration(class_transmit_code)
+    # такой будет вывод, когда подключим все массивы и функции
+    if False:
+        for elem in type_and_var_list:
+            print(make_getter_and_setter_add(*elem))
 
-    for elem in type_and_var_list:
-        print make_scalar_getter(*elem)
-        print make_scalar_setter(*elem)
+        for elem in type_and_var_list:
+            print(make_scalar_getter(*elem))
+            print(make_scalar_setter(*elem))
+    else:
+    # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
+        print(makeAll(type_and_var_list))
+
 
 
