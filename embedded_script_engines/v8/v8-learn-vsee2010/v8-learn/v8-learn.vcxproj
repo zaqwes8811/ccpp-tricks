@@ -95,6 +95,7 @@
     <ClCompile Include="..\..\src\js_request.cc" />
     <ClCompile Include="..\..\src\launcher_process.cc" />
     <ClCompile Include="..\..\src\point.cc" />
+    <ClCompile Include="..\..\src\point\engine_cut_persistents.cc" />
     <ClCompile Include="..\..\src\point_engine_test.cc" />
     <ClCompile Include="..\..\src\process.cc" />
     <ClCompile Include="..\..\src\process_test.cc" />
@@ -104,6 +105,7 @@
     <ClCompile Include="..\..\src\v8_wrapper.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\point\point_engines.h" />
     <ClInclude Include="..\..\src\test_extended\process_test_ext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

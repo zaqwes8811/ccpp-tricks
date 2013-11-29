@@ -16,7 +16,7 @@ public:
   V8Point() {}
 
   v8::Handle<v8::ObjectTemplate> CreateBlueprint(
-      v8::Isolate* isolate);
+      v8::Isolate* isolate, v8::Persistent<v8::Context>* context);
 
   static void GetPointX(v8::Local<v8::String> name,
                  const v8::PropertyCallbackInfo<v8::Value>& info);
