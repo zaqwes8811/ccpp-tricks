@@ -75,7 +75,7 @@ public:
 
     //@Point
     // Run Script
-    bool success = ExecuteScript(source_, isolate_);
+    bool success = ExecuteScript(source_, isolate_, &context_);
   }
 
  private:

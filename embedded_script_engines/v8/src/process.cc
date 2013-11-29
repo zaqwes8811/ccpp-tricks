@@ -427,8 +427,10 @@ StringHttpRequest::StringHttpRequest(const string& path,
 
 ///@Functions
 
-bool ExecuteScript(Handle<String> script, Isolate* isolate) {
+bool ExecuteScript(Handle<String> script, Isolate* isolate, v8::Persistent<Context>* context) {
   HandleScope handle_scope(isolate);
+
+  Context::Scope scope(isolate, *context);
 
   // We're just about to compile the script; set up an error handler to
   // catch any exceptions the script might throw.

@@ -160,5 +160,5 @@ void LogCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
 // much with string encodings we just use ascii.
 string ObjectToString(Local<Value> value);
 
-bool ExecuteScript(Handle<String> script, Isolate* isolate);
+bool ExecuteScript(Handle<String> script, Isolate* isolate, v8::Persistent<v8::Context>* context);
 
