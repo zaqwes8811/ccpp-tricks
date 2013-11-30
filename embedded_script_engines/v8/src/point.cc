@@ -10,6 +10,7 @@ using v8::Integer;
 using v8::PropertyCallbackInfo;
 using v8::HandleScope;
 using v8::Isolate;
+using v8::Context;
 
 using v8::ObjectTemplate;
 
@@ -48,9 +49,11 @@ void V8Point::SetPointY(Local<String> property, Local<Value> value,
 }
 
 v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint(
-      v8::Isolate* isolate) 
+      v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
     {
     HandleScope handle_scope(isolate);
+
+    Context::Scope scope(isolate, *context);
 
     Handle<ObjectTemplate> result = ObjectTemplate::New();
     result->SetInternalFieldCount(1);
