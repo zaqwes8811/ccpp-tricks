@@ -26,22 +26,17 @@ class PointV8EngineImplWithPersistent : public PointV8Engine {
  public:
   static PointV8Engine* CreateForOwn(
       Isolate* isolate, 
-      Handle<String> source,
-      V8Point* point) 
+      Handle<String> source) 
     {
-    PointV8Engine* engine = new PointV8EngineImplWithPersistent(isolate, source, point);
+    PointV8Engine* engine = new PointV8EngineImplWithPersistent(isolate, source);
     return engine;
   }
-  
 
  protected:
-  PointV8EngineImplWithPersistent(
-    Isolate* isolate, 
-    Handle<String> source,
-    V8Point* point) 
-    : isolate_(isolate), source_(source), point_(point) { }
+  PointV8EngineImplWithPersistent(Isolate* isolate, Handle<String> source) 
+    : isolate_(isolate), source_(source) { }
 
-public:
+ public:
   virtual void RunWithRealPoint(Point* real_point) {
     HandleScope handle_scope(GetIsolate());
 
@@ -91,12 +86,8 @@ public:
   // При экспонировании похоже не нужно.
   Persistent<Context> context_;
 
-  // Может и не нужно будет
-  V8Point* point_;
-
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;
-
 
   // Спутано с Persistent - поэтому пока wrap-функция не вынести в V8Point
   // Но вынести ее можно и нужно. Может быть проблема со scope/context
@@ -104,9 +95,11 @@ public:
     HandleScope handle_scope(GetIsolate());
 
     Context::Scope scope(GetIsolate(), context_);
+
+    V8Point v8_point(isolate_);
     if (point_template_.IsEmpty()) {
       Handle<ObjectTemplate> raw_template = 
-          point_->CreateBlueprint(GetIsolate(), &context_);
+          v8_point.MakeBlueprint();
 
       // Сохраняем, но похоже можно и текущим пользоваться
       point_template_.Reset(GetIsolate(), raw_template);
@@ -146,12 +139,11 @@ TEST(PointEngine, Create) {
   EXPECT_NE(true, source.IsEmpty());
 
   // Point
-  V8Point v8_point;
   Point point_real(1, 2);
 
   // Engine
-  PointV8Engine* engine = PointV8EngineImplWithPersistent::CreateForOwn(
-      isolate, source, &v8_point);
+  PointV8Engine* engine = 
+      PointV8EngineImplWithPersistent::CreateForOwn(isolate, source);
   engine->RunWithRealPoint(&point_real);
 
   EXPECT_EQ(199, point_real.x_);
@@ -159,32 +151,3 @@ TEST(PointEngine, Create) {
 
   delete engine;
 }
-
-/*
-TEST(PointEngine, CreateFree) {
-  v8::V8::InitializeICU();
-  string file = "..\\scripts\\point.js";
-  EXPECT_NE(true, file.empty());
-
-  Isolate* isolate = Isolate::GetCurrent();
-
-  // Всегда нужно создать - это как бы свой стек для V8
-  HandleScope scope(isolate);
-
-  Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
-
-  // Point
-  V8Point v8_point;
-  Point point_real(1, 2);
-
-  // Engine
-  PointV8Engine* engine = PointV8EngineImplNoPersistent::CreateForOwn(
-      isolate, source, &v8_point);
-  engine->RunWithRealPoint(&point_real);
-
-  EXPECT_EQ(199, point_real.x_);
-  EXPECT_EQ(42, point_real.y_);
-
-  delete engine;
-}*/
