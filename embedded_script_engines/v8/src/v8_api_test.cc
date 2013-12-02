@@ -38,15 +38,20 @@ TEST(V8, Indexed) {
   // Create a stack-allocated handle scope.
   HandleScope handle_scope(isolate);
 
-  // Create a new context.
-  Handle<Context> context = Context::New(isolate);
-  
-  // Enter the created context for compiling and
-  // running the hello world script. 
+  // YGetter/YSetter are so similar they are omitted for brevity
+  Handle<ObjectTemplate> global_templ = ObjectTemplate::New();
+  global_templ->Set(String::New("log"), FunctionTemplate::New(LogCallback));	
+	
+  // Only now create context? Local handle!
+  Handle<Context> context = Context::New(isolate, NULL, global_templ);
   Context::Scope context_scope(context);
 
+  ///@Workspace
+
+
+  ///@RunScript
   // Create a string containing the JavaScript source code.
-  Handle<String> source = String::New("'Hello' + ', World!'");
+  Handle<String> source = String::New("log('Hello' + ', World!');");
 
   // Compile the source code.
   Handle<Script> script = Script::Compile(source);
