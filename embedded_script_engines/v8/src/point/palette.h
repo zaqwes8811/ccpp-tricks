@@ -51,6 +51,39 @@ public:
     return handle_scope.Close(result);
   }
 
+  Handle<Object> ForgePalette(
+      Palette* palette,
+      Isolate* isolate, 
+      Persistent<Context>* context,
+      Persistent<ObjectTemplate>* blueprint) 
+    {
+    HandleScope handle_scope(isolate);
+    Context::Scope scope(isolate, *context);
+
+    if (blueprint->IsEmpty()) {
+      Handle<ObjectTemplate> raw_template = 
+          this->MakeBlueprint(isolate, context);
+
+      // Сохраняем, но похоже можно и текущим пользоваться
+      blueprint->Reset(isolate, raw_template);
+    }
+
+    // Можно оборачивать реальный объект
+    // Сперва нужно сделать пустую обертку
+    // Create an empty map wrapper.
+    Handle<ObjectTemplate> templ =
+        Local<ObjectTemplate>::New(isolate, *blueprint);
+    Handle<Object> result = templ->NewInstance();
+
+    // Wrap the raw C++ pointer in an External so it can be referenced
+    // from within JavaScript.
+    Handle<External> map_ptr = External::New(palette);
+
+    // Store the map pointer in the JavaScript wrapper.
+    result->SetInternalField(0, map_ptr);
+    return handle_scope.Close(result);
+  }
+
 //private:
   Isolate* isolate_;
   Persistent<Context>* context_;
