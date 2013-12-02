@@ -35,51 +35,51 @@ V8Palette::V8Palette(
 }
 
 v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint(
-      v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
-    {
-    HandleScope handle_scope(isolate);
+    v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
+  {
+  HandleScope handle_scope(isolate);
 
-    Context::Scope scope(isolate, *context);
+  Context::Scope scope(isolate, *context);
 
-    Handle<ObjectTemplate> result = ObjectTemplate::New();
-    result->SetInternalFieldCount(1);
+  Handle<ObjectTemplate> result = ObjectTemplate::New();
+  result->SetInternalFieldCount(1);
 
-    // Connect getter/setter
-    result->SetAccessor(String::New("point"), GetPointX);
+  // Connect getter/setter
+  result->SetAccessor(String::New("point"), GetPointValue);
 
-    return handle_scope.Close(result);
-  }
+  return handle_scope.Close(result);
+}
 
 Handle<Object> V8Palette::ForgePalette(
-      Palette* palette,
-      Isolate* isolate, 
-      Persistent<Context>* context,
-      Persistent<ObjectTemplate>* blueprint) 
-    {
-    HandleScope handle_scope(isolate);
-    Context::Scope scope(isolate, *context);
+    Palette* palette,
+    Isolate* isolate, 
+    Persistent<Context>* context,
+    Persistent<ObjectTemplate>* blueprint) 
+  {
+  HandleScope handle_scope(isolate);
+  Context::Scope scope(isolate, *context);
 
-    if (blueprint->IsEmpty()) {
-      Handle<ObjectTemplate> raw_template = 
-          this->MakeBlueprint(isolate, context);
+  if (blueprint->IsEmpty()) {
+    Handle<ObjectTemplate> raw_template = 
+        this->MakeBlueprint(isolate, context);
 
-      // Сохраняем, но похоже можно и текущим пользоваться
-      blueprint->Reset(isolate, raw_template);
-    }
-
-    // Можно оборачивать реальный объект
-    // Сперва нужно сделать пустую обертку
-    // Create an empty map wrapper.
-    Handle<ObjectTemplate> templ =
-        Local<ObjectTemplate>::New(isolate, *blueprint);
-    Handle<Object> result = templ->NewInstance();
-
-    // Wrap the raw C++ pointer in an External so it can be referenced
-    // from within JavaScript.
-    Handle<External> map_ptr = External::New(palette);
-
-    // Store the map pointer in the JavaScript wrapper.
-    result->SetInternalField(0, map_ptr);
-    return handle_scope.Close(result);
+    // Сохраняем, но похоже можно и текущим пользоваться
+    blueprint->Reset(isolate, raw_template);
   }
+
+  // Можно оборачивать реальный объект
+  // Сперва нужно сделать пустую обертку
+  // Create an empty map wrapper.
+  Handle<ObjectTemplate> templ =
+      Local<ObjectTemplate>::New(isolate, *blueprint);
+  Handle<Object> result = templ->NewInstance();
+
+  // Wrap the raw C++ pointer in an External so it can be referenced
+  // from within JavaScript.
+  Handle<External> map_ptr = External::New(palette);
+
+  // Store the map pointer in the JavaScript wrapper.
+  result->SetInternalField(0, map_ptr);
+  return handle_scope.Close(result);
+}
 

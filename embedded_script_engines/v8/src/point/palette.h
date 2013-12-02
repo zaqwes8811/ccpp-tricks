@@ -25,16 +25,19 @@ public:
       Isolate* isolate,
       Persistent<Context>* context);
 
-  static void GetPointX(Local<String> name,
+  static void GetPointValue(Local<String> name,
                  const PropertyCallbackInfo<Value>& info) {
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
 
-    V8Palette* palette = static_cast<V8Palette*>(ptr);
+    // Возвращает точку!
+    //V8Palette* palette = static_cast<V8Palette*>(ptr);
+    Point* point = static_cast<Point*>(ptr);
 
     // Вот как вернуть объект!?
-    info.GetReturnValue().Set<v8::Object>(palette->point_field_);
+    // Похоже объект не тот!
+    //info.GetReturnValue().Set<v8::Object>(palette->point_field_);
   }
 
   v8::Handle<v8::ObjectTemplate> MakeBlueprint(
@@ -56,6 +59,7 @@ public:
   // Все что нужно для работы с точкой.
   v8::Persistent<v8::ObjectTemplate> point_blueprint_;
   v8::Persistent<v8::Object> point_field_;
+  //v8::Persistent<v8::Object> v8_point_field_;
 
   // Все что нужно для работы с массивом точек.
   //v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
