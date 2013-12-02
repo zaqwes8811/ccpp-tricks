@@ -96,13 +96,15 @@ TEST(V8, Indexed) {
   ///@RunScript
   // Create a string containing the JavaScript source code.
   Handle<String> source = String::New("log(v8_array[0]);log(v8_array[32]);v8_array[1] = 11;log(v8_array[1]);");
-  EXPECT_EQ(11, array[1]);
+  
 
   // Compile the source code.
   Handle<Script> script = Script::Compile(source);
   
   // Run the script to get the result.
   Handle<Value> result = script->Run();
+
+  EXPECT_EQ(11, array[1]);
 
   // Convert the result to an ASCII string and print it.
   String::AsciiValue ascii(result);
