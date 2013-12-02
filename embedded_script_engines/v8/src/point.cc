@@ -14,6 +14,8 @@ using v8::Context;
 
 using v8::ObjectTemplate;
 
+v8::Persistent<v8::ObjectTemplate> V8Point::own_blueprint_;
+
 void V8Point::GetPointX(Local<String> name,
                         const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
@@ -50,12 +52,10 @@ void V8Point::SetPointY(Local<String> property, Local<Value> value,
   static_cast<Point*>(ptr)->y_ = value->Int32Value();
 }
 
-v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint(
-    v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
-  {
-  HandleScope handle_scope(isolate);
+v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint() {
+  HandleScope handle_scope(isolate_);
 
-  Context::Scope scope(isolate, *context);
+  Context::Scope scope(isolate_, *context_);
 
   Handle<ObjectTemplate> result = ObjectTemplate::New();
   result->SetInternalFieldCount(1);

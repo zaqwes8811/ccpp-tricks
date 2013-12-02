@@ -6,10 +6,11 @@
 v8::Persistent<v8::ObjectTemplate> V8Palette::point_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::point_array_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::int_array_blueprint_;
+Persistent<ObjectTemplate> V8Palette::own_blueprint_;
 
 V8Palette::V8Palette(
     Isolate* isolate,
-    Persistent<Context>* context) 
+    Persistent<Context>* context) : isolate_(isolate), context_(context)
   { 
   // Нужно создать Persistent!
   HandleScope handle_scope(isolate);
@@ -44,13 +45,9 @@ V8Palette::V8Palette(
   }
 }
 
-v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint(
-    v8::Isolate* isolate, 
-    v8::Persistent<v8::Context>* context) 
-  {
-  HandleScope handle_scope(isolate);
-
-  Context::Scope scope(isolate, *context);
+v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint() {
+  HandleScope handle_scope(isolate_);
+  Context::Scope scope(isolate_, *context_);
 
   Handle<ObjectTemplate> result = ObjectTemplate::New();
   result->SetInternalFieldCount(1);
@@ -63,28 +60,23 @@ v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint(
   return handle_scope.Close(result);
 }
 
-Handle<Object> V8Palette::ForgePalette(
-    Palette* palette,
-    Isolate* isolate, 
-    Persistent<Context>* context,
-    Persistent<ObjectTemplate>* blueprint) 
-  {
-  HandleScope handle_scope(isolate);
-  Context::Scope scope(isolate, *context);
+Handle<Object> V8Palette::Forge(Palette* palette) {
+  HandleScope handle_scope(isolate_);
+  Context::Scope scope(isolate_, *context_);
 
-  if (blueprint->IsEmpty()) {
+  if (own_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
-        this->MakeBlueprint(isolate, context);
+        this->MakeBlueprint();
 
     // Сохраняем, но похоже можно и текущим пользоваться
-    blueprint->Reset(isolate, raw_template);
+    own_blueprint_.Reset(isolate_, raw_template);
   }
 
   // Можно оборачивать реальный объект
   // Сперва нужно сделать пустую обертку
   // Create an empty map wrapper.
   Handle<ObjectTemplate> templ =
-      Local<ObjectTemplate>::New(isolate, *blueprint);
+      Local<ObjectTemplate>::New(isolate_, own_blueprint_);
   Handle<Object> result = templ->NewInstance();
 
   // Wrap the raw C++ pointer in an External so it can be referenced
@@ -101,19 +93,7 @@ void V8Palette::ArrayIndexSetter(
     Local<Value> value,
     const PropertyCallbackInfo<Value>& info) 
   { 
-  /*if (index < Palette::MAX_SIZE) {
-    v8::Local<v8::Object> self = info.Holder();
-    Handle<External> field = Handle<External>::Cast(self->GetInternalField(0));
-    void* ptr = field->Value();
-    int* array_tmp = static_cast<int*>(ptr);
-    
-    // Как извлечь значение?
-    array_tmp[index] = ObjectToInt(value);
 
-    //info.GetReturnValue().Set(v8::Number::New(array_tmp[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }*/
 }
 
 void V8Palette::ArrayIndexGetter(
@@ -147,7 +127,9 @@ void V8Palette::GetPointValue(
 
   // Возвращает точку!
   Palette* palette = static_cast<Palette*>(ptr);
+  Point* point = &(palette->point_);
 
+  //
   // Нужно плучить V8Palette или сделать новый хэндлер
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(), 
@@ -156,7 +138,7 @@ void V8Palette::GetPointValue(
 
   // Wrap the raw C++ pointer in an External so it can be referenced
   // from within JavaScript.
-  Handle<External> point_handle = External::New(&palette->point_);
+  Handle<External> point_handle = External::New(point);
 
   // Store the map pointer in the JavaScript wrapper.
   instance->SetInternalField(0, point_handle);

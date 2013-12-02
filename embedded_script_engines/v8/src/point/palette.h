@@ -27,19 +27,16 @@ public:
 
   // About:
   //   Getters complex objects.
+
+  // Point Palette::point_;
   static void GetPointValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
 
+  // int Palette::array_[MAX_SIZE]
   static void GetIntArrayValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
-
-  static void GetPointsArrayValue(
-      Local<String> name,
-      const PropertyCallbackInfo<Value>& info);
-
-  // Работа с конечным массивом
   static void ArrayIndexGetter(
       uint32_t index,
       const PropertyCallbackInfo<Value>& info);
@@ -49,6 +46,11 @@ public:
       Local<Value> value,
       const PropertyCallbackInfo<Value>& info);
 
+  // Point Palette::point_array[MAX_SIZE];
+  static void GetPointsArrayValue(
+      Local<String> name,
+      const PropertyCallbackInfo<Value>& info);
+
   static void PointArrayIndexGetter(
       uint32_t index,
       const PropertyCallbackInfo<Value>& info);
@@ -56,20 +58,11 @@ public:
   static void PointArrayIndexSetter(
       uint32_t index,
       Local<Value> value,
-      const PropertyCallbackInfo<Value>& info) 
-    {
-  
-  }
-
-  // Работа с массивом точек.
+      const PropertyCallbackInfo<Value>& info) {}
 
   // About:
   //   Make this root object.
-  Handle<Object> ForgePalette(
-      Palette* palette,
-      Isolate* isolate, 
-      Persistent<Context>* context,
-      Persistent<ObjectTemplate>* blueprint);
+  Handle<Object> Forge(Palette* palette);
 
 public:
   // Все что нужно для работы с точкой.
@@ -81,9 +74,11 @@ public:
   // Массив точек.
   static v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
 
-//private:  
+private:
+  // Сам объект
+  static Persistent<ObjectTemplate> own_blueprint_;
+  Isolate* const isolate_;
+  Persistent<Context>* const context_;
   // Тоже будит видимым - нужно для композиции.
-  v8::Handle<v8::ObjectTemplate> MakeBlueprint(
-      v8::Isolate* isolate, 
-      v8::Persistent<v8::Context>* context);
+  v8::Handle<v8::ObjectTemplate> MakeBlueprint();
 };

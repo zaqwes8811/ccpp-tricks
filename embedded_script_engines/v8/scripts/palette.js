@@ -13,3 +13,5 @@ for (var key in that) {
 log(palette.point.x);
 log(palette.int_array[0]);
 log(palette.points_array[1].x);
+palette.points_array[1].x = 10;
+log(palette.points_array[1].x);
