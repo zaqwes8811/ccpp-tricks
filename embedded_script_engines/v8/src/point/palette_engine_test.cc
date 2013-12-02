@@ -83,6 +83,7 @@ TEST(V8, Palette) {
 
   ///@Objects
   Palette palette;
+  palette.array_[0] = 100;
 
   // Engine
   PaletteEngine engine(isolate, source, &palette);

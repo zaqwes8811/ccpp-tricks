@@ -4,6 +4,7 @@
 #include "process.h"
 
 v8::Persistent<v8::ObjectTemplate> V8Palette::point_blueprint_;
+v8::Persistent<v8::ObjectTemplate> V8Palette::point_array_blueprint_;
 
 V8Palette::V8Palette(
     Isolate* isolate,
@@ -24,7 +25,13 @@ V8Palette::V8Palette(
   }
 
   // Шаблон массива
+  if (point_array_blueprint_.IsEmpty()) {
+    Handle<ObjectTemplate> raw_template = 
+        ArrayMakeBlueprint(isolate, ArrayIndexGetter, ArrayIndexSetter);
 
+    // Сохраняем, но похоже можно и текущим пользоваться
+    point_array_blueprint_.Reset(isolate, raw_template);
+  }
 }
 
 v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint(
@@ -78,6 +85,47 @@ Handle<Object> V8Palette::ForgePalette(
   return handle_scope.Close(result);
 }
 
+void V8Palette::ArrayIndexSetter(
+    uint32_t index,
+    Local<Value> value,
+    const PropertyCallbackInfo<Value>& info) 
+  { 
+  if (index < Palette::MAX_SIZE) {
+    v8::Local<v8::Object> self = info.Holder();
+    Handle<External> field = Handle<External>::Cast(self->GetInternalField(0));
+    void* ptr = field->Value();
+    int* array_tmp = static_cast<int*>(ptr);
+    
+    // Как извлечь значение?
+    array_tmp[index] = ObjectToInt(value);
+
+    //info.GetReturnValue().Set(v8::Number::New(array_tmp[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8Palette::ArrayIndexGetter(
+    uint32_t index,
+    const PropertyCallbackInfo<Value>& info) 
+  {
+  
+  if (index < Palette::MAX_SIZE) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+
+    // Возвращает точку!
+    int* palette = static_cast<int*>(ptr);
+
+    info.GetReturnValue().Set(v8::Number::New(palette[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+
+//@HardObjects
 void V8Palette::GetPointValue(
     Local<String> name,
     const PropertyCallbackInfo<Value>& info) 
@@ -119,37 +167,22 @@ void V8Palette::GetIntArrayValue(
   Palette* palette = static_cast<Palette*>(ptr);
 
   // Нужно обернуть и вернуть
-}
+  // Нужно плучить V8Palette или сделать новый хэндлер
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(), 
+      point_array_blueprint_);
 
-void V8Palette::ArrayIndexSetter(
-    uint32_t index,
-    Local<Value> value,
-    const PropertyCallbackInfo<Value>& info) 
-  { 
-  if (index < Palette::MAX_SIZE) {
-    v8::Local<v8::Object> self = info.Holder();
-    Handle<External> field = Handle<External>::Cast(self->GetInternalField(0));
-    void* ptr = field->Value();
-    int* array_tmp = static_cast<int*>(ptr);
-    
-    // Как извлечь значение?
-    array_tmp[index] = ObjectToInt(value);
+  Handle<Object> instance = templ->NewInstance();
 
-    //info.GetReturnValue().Set(v8::Number::New(array_tmp[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
+  // Wrap the raw C++ pointer in an External so it can be referenced
+  // from within JavaScript.
+  Handle<External> point_handle = External::New(&palette->array_);
 
-void V8Palette::ArrayIndexGetter(
-    uint32_t index,
-    const PropertyCallbackInfo<Value>& info) 
-  {
-  
-  if (index < Palette::MAX_SIZE) {
-    v8::Local<v8::Object> self = info.Holder();
-    //info.GetReturnValue().Set(v8::Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
+  // Store the map pointer in the JavaScript wrapper.
+  instance->SetInternalField(0, point_handle);
+
+  // Вот как вернуть объект!?
+  // Похоже объект не тот!
+  info.GetReturnValue().Set<v8::Object>(instance);
 }
+//@HardObjects
