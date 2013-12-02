@@ -247,6 +247,10 @@
 					RelativePath="..\..\src\point\palette.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\point\palette_engine_test.cc"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
