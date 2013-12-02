@@ -30,12 +30,33 @@ void ArrayIndexGetter(
     uint32_t index,
     const PropertyCallbackInfo<Value>& info) 
   {
+  
   if (index < kArraySize) {
     v8::Local<v8::Object> self = info.Holder();
     info.GetReturnValue().Set(v8::Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
   }
+}
+
+void ArrayIndexSetter(
+    uint32_t index,
+    Local<Value> value,
+    const PropertyCallbackInfo<Value>& info) 
+  {
+
+  /*
+  if (index < kArraySize) {
+    v8::Local<v8::Object> self = info.Holder();
+    Handle<External> field = Handle<External>::Cast(self->GetInternalField(0));
+    void* ptr = field->Value();
+    int* array = static_cast<int*>(ptr);
+    array[index] = v8::value->
+
+    info.GetReturnValue().Set(v8::Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }*/
 }
 
 TEST(V8, Indexed) {
@@ -58,7 +79,7 @@ TEST(V8, Indexed) {
   // Blueprint
   Handle<ObjectTemplate> blueprint = ObjectTemplate::New();
   blueprint->SetInternalFieldCount(1);
-  blueprint->SetIndexedPropertyHandler(ArrayIndexGetter);
+  blueprint->SetIndexedPropertyHandler(ArrayIndexGetter, ArrayIndexSetter);
 
   // Wrap
   Handle<Object> wrap = blueprint->NewInstance();
@@ -74,7 +95,7 @@ TEST(V8, Indexed) {
 
   ///@RunScript
   // Create a string containing the JavaScript source code.
-  Handle<String> source = String::New("log(v8_array[0]);log(v8_array[32]);");
+  Handle<String> source = String::New("log(v8_array[0]);log(v8_array[32]);v8_array[0] = 11;");
 
   // Compile the source code.
   Handle<Script> script = Script::Compile(source);
