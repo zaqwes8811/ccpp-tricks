@@ -3,7 +3,6 @@
 // App
 #include "process.h"
 
-v8::Persistent<v8::ObjectTemplate> V8Palette::point_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::point_array_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::int_array_blueprint_;
 Persistent<ObjectTemplate> V8Palette::own_blueprint_;
@@ -15,17 +14,6 @@ V8Palette::V8Palette(
   // Нужно создать Persistent!
   HandleScope handle_scope(isolate);
   Context::Scope scope(isolate, *context);
-  
-  // Инициализируем шаблоны
-  // Шаблон точки
-  if (point_blueprint_.IsEmpty()) {
-    Handle<ObjectTemplate> raw_template = 
-        V8Point(isolate_, context_).MakeBlueprint();
-
-    // Сохраняем, но похоже можно и текущим пользоваться
-    point_blueprint_.Reset(isolate, raw_template);
-  }
-
   // Шаблон массива
   if (int_array_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
@@ -128,24 +116,8 @@ void V8Palette::GetPointValue(
   // Возвращает точку!
   Palette* palette = static_cast<Palette*>(ptr);
   Point* point = &(palette->point_);
-
-  //
-  // Нужно плучить V8Palette или сделать новый хэндлер
-  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
-      Isolate::GetCurrent(), 
-      point_blueprint_);
-  Handle<Object> instance = templ->NewInstance();
-
-  // Wrap the raw C++ pointer in an External so it can be referenced
-  // from within JavaScript.
-  Handle<External> point_handle = External::New(point);
-
-  // Store the map pointer in the JavaScript wrapper.
-  instance->SetInternalField(0, point_handle);
-
-  // Вот как вернуть объект!?
-  // Похоже объект не тот!
-  info.GetReturnValue().Set<v8::Object>(instance);
+  V8Point v8_point(Isolate::GetCurrent());
+  info.GetReturnValue().Set<v8::Object>(v8_point.Forge(point, Context::GetCurrent()));
 }
 
 void V8Palette::GetIntArrayValue(
@@ -224,24 +196,10 @@ void V8Palette::PointArrayIndexGetter(
 
     // Возвращает точку!
     Palette* palette = static_cast<Palette*>(ptr);
+    Point* point = &palette->point_array[index];
 
-    // Оборачиваем точку
-    // Нужно плучить V8Palette или сделать новый хэндлер
-    Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
-        Isolate::GetCurrent(), 
-        point_blueprint_);
-    Handle<Object> instance = templ->NewInstance();
-
-    // Wrap the raw C++ pointer in an External so it can be referenced
-    // from within JavaScript.
-    Handle<External> point_handle = External::New(&palette->point_array[index]);
-
-    // Store the map pointer in the JavaScript wrapper.
-    instance->SetInternalField(0, point_handle);
-
-    // Вот как вернуть объект!?
-    // Похоже объект не тот!
-    info.GetReturnValue().Set<v8::Object>(instance);
+    V8Point v8_point(Isolate::GetCurrent());
+    info.GetReturnValue().Set<v8::Object>(v8_point.Forge(point, Context::GetCurrent()));
   } else {
     info.GetReturnValue().Set(Undefined());
   }

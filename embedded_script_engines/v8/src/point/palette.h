@@ -65,9 +65,6 @@ public:
   Handle<Object> Forge(Palette* palette);
 
 public:
-  // Все что нужно для работы с точкой.
-  static v8::Persistent<v8::ObjectTemplate> point_blueprint_;
-
   // Просто массив int.
   static v8::Persistent<v8::ObjectTemplate> int_array_blueprint_;
 

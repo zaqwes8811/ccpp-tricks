@@ -31,13 +31,12 @@ class PointV8EngineImplWithPersistent : public PointV8Engine {
     PointV8Engine* engine = new PointV8EngineImplWithPersistent(isolate, source);
     return engine;
   }
-  
 
  protected:
   PointV8EngineImplWithPersistent(Isolate* isolate, Handle<String> source) 
     : isolate_(isolate), source_(source) { }
 
-public:
+ public:
   virtual void RunWithRealPoint(Point* real_point) {
     HandleScope handle_scope(GetIsolate());
 
@@ -97,7 +96,7 @@ public:
 
     Context::Scope scope(GetIsolate(), context_);
 
-    V8Point v8_point(isolate_, &context_);
+    V8Point v8_point(isolate_);
     if (point_template_.IsEmpty()) {
       Handle<ObjectTemplate> raw_template = 
           v8_point.MakeBlueprint();

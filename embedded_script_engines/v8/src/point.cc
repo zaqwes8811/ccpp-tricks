@@ -55,7 +55,7 @@ void V8Point::SetPointY(Local<String> property, Local<Value> value,
 v8::Handle<v8::ObjectTemplate> V8Point::MakeBlueprint() {
   HandleScope handle_scope(isolate_);
 
-  Context::Scope scope(isolate_, *context_);
+  Context::Scope scope(Context::GetCurrent());
 
   Handle<ObjectTemplate> result = ObjectTemplate::New();
   result->SetInternalFieldCount(1);
@@ -67,9 +67,9 @@ v8::Handle<v8::ObjectTemplate> V8Point::MakeBlueprint() {
   return handle_scope.Close(result);
 }
 
-v8::Handle<v8::Object> V8Point::Forge(Point* point) {
+v8::Handle<v8::Object> V8Point::Forge(Point* point, v8::Handle<v8::Context> context) {
   HandleScope handle_scope(isolate_);
-  Context::Scope scope(isolate_, *context_);
+  Context::Scope scope(context);
 
   if (own_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
