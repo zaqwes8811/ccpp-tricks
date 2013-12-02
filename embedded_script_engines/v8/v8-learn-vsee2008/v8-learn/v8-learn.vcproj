@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;..\..\..\components\app-server-linux&quot;;&quot;..\..\..\to-inner-reuse&quot;;..\..\..\components;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;..\..\..\components\app-server-linux&quot;;&quot;..\..\..\to-inner-reuse&quot;;..\..\..\components;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;C:\home\haneda\tmitter-web-service-win\components\app-server-linux&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -172,6 +172,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\..\..\..\..\tmitter-web-service-win\components\app-server-linux\in_memory_storage\emitter\emitter.cc"
+				>
+			</File>
 			<Filter
 				Name="main_filter"
 				>
@@ -221,14 +225,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="point"
-				>
-				<File
-					RelativePath="..\..\src\point.cc"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="around_point"
 				>
 				<File
@@ -245,6 +241,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\point\palette_engine_test.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\point.cc"
 					>
 				</File>
 				<File

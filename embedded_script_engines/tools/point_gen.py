@@ -115,12 +115,29 @@ def main():
     source = utils.ReadFile(header_file_name)
 
     if True:
+        temp = """
+
+    int PABTotal_
+	int total_bcl_
+	int excitersTotal_
+	int DBTotal_
+	int transmitterID___
+	int terminal_amps_per_block___
+	int sizeBlockPreampParams_
+	int sizeBlockTerminalAmpParams_
+	int sizeBlockBCNParams_
+	int sizeBlockDBParams_
+	int sizeBlockModParams_
+
+        """
         # han
         type_and_var_list = extract_var_declaration(source)
 
         if True:
             # временный вывод !отформатированный и без массивов!
-            print(makeAll(type_and_var_list))
+            #print(makeAll(type_and_var_list))
+            for elem in type_and_var_list:
+                print type_and_var_list
         else:
             # формирование кода добавления геттеров и сеттеров
             for elem in type_and_var_list:

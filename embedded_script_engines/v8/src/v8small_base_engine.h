@@ -17,7 +17,7 @@ using ::scenarios::SmallBase;
 using ::scenarios::V8SmallBase;
 using ::std::cout;
 using std::endl;
-
+//typedef ::tmitter_web_service::DataBase SmallBase;
 namespace scenarios {
 
 
@@ -28,14 +28,15 @@ class V8SmallBaseEngine {
   static V8SmallBaseEngine* CreateForOwn(
       Isolate* isolate, 
       Handle<String> source,
-			SmallBase* database,
+		//	SmallBase* database,
+			::tmitter_web_service::DataBase*,
       V8SmallBase* v8database);  
 	bool Process();
  protected:
   V8SmallBaseEngine(
     Isolate* isolate, 
     Handle<String> source,
-		SmallBase* database,
+		::tmitter_web_service::DataBase* const database,
     V8SmallBase* temp) 
 				: isolate_(isolate), source_(source), database_(database), temp_(temp) { }
 
@@ -43,8 +44,8 @@ class V8SmallBaseEngine {
 
 	void Log(const char* event);
 	bool ExecuteScript(Handle<String> script);
-	Handle<Object> WrapVar(SmallBase* obj);
-	bool InstallVars(SmallBase* opts, SmallBase* output);	
+	Handle<Object> WrapVar(::tmitter_web_service::DataBase* obj);
+	bool InstallVars(::tmitter_web_service::DataBase* opts, ::tmitter_web_service::DataBase* output);	
 	Handle<Object> WrapRequest(); 
 	Handle<ObjectTemplate> MakeRequestTemplate (Isolate* isolate);
 
@@ -65,7 +66,7 @@ class V8SmallBaseEngine {
 
   // Может и не нужно будет
   V8SmallBase* temp_;
-	SmallBase* const database_;
+	::tmitter_web_service::DataBase* const database_;
 
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;
