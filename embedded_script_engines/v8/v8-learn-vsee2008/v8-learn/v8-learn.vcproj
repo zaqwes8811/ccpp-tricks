@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;..\..\..\components\app-server-linux&quot;;&quot;..\..\..\to-inner-reuse&quot;;..\..\..\components;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;..\..\..\components\app-server-linux&quot;;&quot;..\..\..\to-inner-reuse&quot;;..\..\..\components;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;C:\home\haneda\tmitter-web-service-win\components\app-server-linux&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
