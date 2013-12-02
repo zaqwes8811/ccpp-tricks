@@ -84,17 +84,21 @@ public:
 
 class_transmit_code = """
 
-    int PABTotal_
-	int total_bcl_
-	int excitersTotal_
-	int DBTotal_
-	int transmitterID___
-	int terminal_amps_per_block___
-	int sizeBlockPreampParams_
-	int sizeBlockTerminalAmpParams_
-	int sizeBlockBCNParams_
-	int sizeBlockDBParams_
-	int sizeBlockModParams_
+class Point {
+  public:
+   Point(int x, int y) : x_(x),
+        y_(y) { }
+   int xsdfsdfsdf_;
+   int ysddf_;
+
+   std::string name_;  // Возможно для V8 нужно еще пребразовывать в const char*
+   char zorro_;
+
+   // пока считает за скаляры
+   std::vector<std::string> vector_values;
+   Vector values_range;
+   //int array[42];  // Replace to vector!!
+};
 
 """
 
