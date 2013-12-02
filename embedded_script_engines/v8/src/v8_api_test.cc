@@ -16,14 +16,49 @@ using std::string;
 using std::cout;
 using std::endl;
 
+using v8::Value;
+using v8::PropertyCallbackInfo;
+
 /**
 https://code.google.com/p/v8/issues/detail?id=389
 */
 
+static int array[32];
+
+void ArrayIndexGetter(
+    uint32_t index,
+    const PropertyCallbackInfo<Value>& info) 
+  {
+}
+
 TEST(V8, Indexed) {
+  // Get the default Isolate created at startup.
+  Isolate* isolate = Isolate::GetCurrent();
 
+  // Create a stack-allocated handle scope.
+  HandleScope handle_scope(isolate);
 
+  // Create a new context.
+  Handle<Context> context = Context::New(isolate);
+  
+  // Enter the created context for compiling and
+  // running the hello world script. 
+  Context::Scope context_scope(context);
+
+  // Create a string containing the JavaScript source code.
+  Handle<String> source = String::New("'Hello' + ', World!'");
+
+  // Compile the source code.
+  Handle<Script> script = Script::Compile(source);
+  
+  // Run the script to get the result.
+  Handle<Value> result = script->Run();
+
+  // Convert the result to an ASCII string and print it.
+  String::AsciiValue ascii(result);
 } 
+
+
 
 // This function returns a new array with three elements, x, y, and z.
 Handle<Array> NewPointArray(int x, int y, int z) {
@@ -208,4 +243,41 @@ TEST(V8, GlobalXetter) {
     // Running the script failed; bail out.
     return;
   }
+}
+
+TEST(V8, CreateObjectOnJSSide) {
+/*
+v8::Handle<v8::FunctionTemplate> point_templ = 
+v8::FunctionTemplate::New();
+  point_templ->SetClassName(v8::String::New("IntArray"));
+  v8::Handle<v8::ObjectTemplate> point_inst = point_templ-
+>InstanceTemplate();
+  point_inst->SetIndexedPropertyHandler(GetPointX,SetPointX);
+  global->Set(v8::String::New("IntArray"),point_templ);
+  global->Set(v8::String::New("IntArray"), 
+v8::FunctionTemplate::New(double_array));
+
+  // Create a new execution environment containing the built-in
+  // functions
+  v8::Handle<v8::Context> context = v8::Context::New(NULL, global);
+
+the get and set functions are
+
+v8::Handle<v8::Value> GetPointX(uint32_t index, const v8::AccessorInfo 
+&info) {
+	v8::Local<v8::Object> self = info.Holder();
+	return  v8::Number::New(10);
+  }
+v8::Handle<v8::Value> SetPointX(uint32_t index, v8::Local<v8::Value> value,
+                 const v8::AccessorInfo& info) {
+    v8::Local<v8::Object> self = info.Holder();
+	return v8::Undefined();
+}
+
+when running compiled exe i can go
+var a = new IntArray();
+a[0];//return nothing
+a[0]=2;
+a[0];//returns 2 and I would expect it to return 10
+*/
 }
