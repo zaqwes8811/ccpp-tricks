@@ -20,7 +20,7 @@ V8Palette::V8Palette(
   // Шаблон точки
   if (point_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
-        V8Point().CreateBlueprint(isolate, context);
+        V8Point(isolate_, context_).MakeBlueprint();
 
     // Сохраняем, но похоже можно и текущим пользоваться
     point_blueprint_.Reset(isolate, raw_template);

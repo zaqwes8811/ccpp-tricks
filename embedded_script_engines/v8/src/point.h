@@ -18,12 +18,9 @@ public:
   V8Point(v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
       : isolate_(isolate), context_(context) { }
 
+  v8::Handle<v8::Object> Forge(Point* point);
 
-  v8::Handle<v8::Object> Forge(Point* point) {
-  
-  }
-
-  v8::Handle<v8::ObjectTemplate> CreateBlueprint();
+  v8::Handle<v8::ObjectTemplate> MakeBlueprint();
 
   static void GetPointX(
       v8::Local<v8::String> name,

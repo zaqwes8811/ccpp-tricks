@@ -52,7 +52,7 @@ void V8Point::SetPointY(Local<String> property, Local<Value> value,
   static_cast<Point*>(ptr)->y_ = value->Int32Value();
 }
 
-v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint() {
+v8::Handle<v8::ObjectTemplate> V8Point::MakeBlueprint() {
   HandleScope handle_scope(isolate_);
 
   Context::Scope scope(isolate_, *context_);
@@ -63,7 +63,34 @@ v8::Handle<v8::ObjectTemplate> V8Point::CreateBlueprint() {
   // Connect getter/setter
   result->SetAccessor(String::New("x"), GetPointX, SetPointX);
   result->SetAccessor(String::New("y"), GetPointY, SetPointY);
-  result->SetAccessor(String::New("internal_point"), GetPointY, SetPointY);
 
+  return handle_scope.Close(result);
+}
+
+v8::Handle<v8::Object> V8Point::Forge(Point* point) {
+  HandleScope handle_scope(isolate_);
+  Context::Scope scope(isolate_, *context_);
+
+  if (own_blueprint_.IsEmpty()) {
+    Handle<ObjectTemplate> raw_template = 
+        this->MakeBlueprint();
+
+    // Сохраняем, но похоже можно и текущим пользоваться
+    own_blueprint_.Reset(isolate_, raw_template);
+  }
+
+  // Можно оборачивать реальный объект
+  // Сперва нужно сделать пустую обертку
+  // Create an empty map wrapper.
+  Handle<ObjectTemplate> templ =
+      Local<ObjectTemplate>::New(isolate_, own_blueprint_);
+  Handle<Object> result = templ->NewInstance();
+
+  // Wrap the raw C++ pointer in an External so it can be referenced
+  // from within JavaScript.
+  Handle<External> map_ptr = External::New(point);
+
+  // Store the map pointer in the JavaScript wrapper.
+  result->SetInternalField(0, map_ptr);
   return handle_scope.Close(result);
 }
