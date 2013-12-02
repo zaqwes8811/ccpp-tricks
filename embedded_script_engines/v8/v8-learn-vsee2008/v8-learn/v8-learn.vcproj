@@ -213,6 +213,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\v8_api_test.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\v8_wrapper.cc"
 				>
 			</File>
