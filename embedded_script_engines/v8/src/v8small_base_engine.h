@@ -30,7 +30,7 @@ class V8SmallBaseEngine {
       Handle<String> source,
 			SmallBase* database,
       V8SmallBase* v8database);  
-	bool Process(std::string* request);
+	bool Process();
  protected:
   V8SmallBaseEngine(
     Isolate* isolate, 
@@ -45,7 +45,7 @@ class V8SmallBaseEngine {
 	bool ExecuteScript(Handle<String> script);
 	Handle<Object> WrapVar(SmallBase* obj);
 	bool InstallVars(SmallBase* opts, SmallBase* output);	
-	Handle<Object> WrapRequest(std::string* request); 
+	Handle<Object> WrapRequest(); 
 	Handle<ObjectTemplate> MakeRequestTemplate (Isolate* isolate);
 
  private:

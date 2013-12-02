@@ -66,8 +66,8 @@ TEST(SmallBaseEngine, Create) {
 	StringHttpRequest request("/", "localhost", "google.net", "firefox");
 
 	//EXPECT_NE(true, engine->Process(NULL));
-	engine->Process(NULL);
-	engine->Process(NULL);
+	engine->Process();
+	engine->Process();
 	
 
   delete engine;

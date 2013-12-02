@@ -115,7 +115,7 @@ Handle<ObjectTemplate> V8SmallBaseEngine::MakeRequestTemplate(
   // Again, return the result through the current handle scope.
   return handle_scope.Close(result);
 }
-Handle<Object> V8SmallBaseEngine::WrapRequest(std::string* request) {
+Handle<Object> V8SmallBaseEngine::WrapRequest() {
   // Handle scope for temporary handles.
   HandleScope handle_scope(GetIsolate());
 
@@ -130,14 +130,16 @@ Handle<Object> V8SmallBaseEngine::WrapRequest(std::string* request) {
 
   // Create an empty http request wrapper.
   Handle<Object> result = templ->NewInstance();
+	//std::string requestt = " ";
+	//std::string* request = request;
 
   // Wrap the raw C++ pointer in an External so it can be referenced
   // from within JavaScript.
   // "JS not handle!"
-  Handle<External> request_ptr = External::New(request);
+  //Handle<External> request_ptr = External::New(request);
 
   // Store the request pointer in the JavaScript wrapper.
-  result->SetInternalField(0, request_ptr);
+//  result->SetInternalField(0, request_ptr);
 
   // Return the result through the current handle scope.  Since each
   // of these handles will go away when the handle scope is deleted
@@ -147,7 +149,7 @@ Handle<Object> V8SmallBaseEngine::WrapRequest(std::string* request) {
 }
 
 
-bool V8SmallBaseEngine::Process(std::string* request) {
+bool V8SmallBaseEngine::Process() {
   // Create a handle scope to keep the temporary object references.
   HandleScope handle_scope(GetIsolate());
 
@@ -159,7 +161,7 @@ bool V8SmallBaseEngine::Process(std::string* request) {
   Context::Scope context_scope(context);
 
   // Wrap the C++ request object in a JavaScript wrapper
-	Handle<Object> request_obj = WrapRequest(request);
+	Handle<Object> request_obj = WrapRequest();
 
   // Set up an exception handler before calling the Process function
   TryCatch try_catch;
