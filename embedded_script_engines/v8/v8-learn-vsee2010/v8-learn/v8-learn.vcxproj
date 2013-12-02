@@ -107,6 +107,7 @@
     <ClCompile Include="..\..\src\v8_wrapper.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\point\palette_engine.h" />
     <ClInclude Include="..\..\src\point\point_engines.h" />
     <ClInclude Include="..\..\src\test_extended\process_test_ext.h" />
   </ItemGroup>

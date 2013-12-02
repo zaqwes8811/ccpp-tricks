@@ -64,5 +64,8 @@
     <ClInclude Include="..\..\src\point\point_engines.h">
       <Filter>src\point</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\point\palette_engine.h">
+      <Filter>src\point</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

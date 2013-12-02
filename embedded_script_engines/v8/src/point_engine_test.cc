@@ -109,6 +109,7 @@ TEST(PointEngine, Create) {
   // Engine
   PointV8Engine* engine = new PointV8EngineImplWithPersistent(
       isolate, source, &v8_point);
+  engine->RunWithRealPoint(&point_real);
 
   EXPECT_EQ(199, point_real.x_);
   EXPECT_EQ(42, point_real.y_);
