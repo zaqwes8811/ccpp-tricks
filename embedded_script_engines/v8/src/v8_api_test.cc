@@ -23,15 +23,23 @@ using v8::PropertyCallbackInfo;
 https://code.google.com/p/v8/issues/detail?id=389
 */
 
-static int array[32];
+const int kArraySize = 32;
+static int array[kArraySize];
 
 void ArrayIndexGetter(
     uint32_t index,
     const PropertyCallbackInfo<Value>& info) 
   {
+  if (index < kArraySize) {
+    v8::Local<v8::Object> self = info.Holder();
+    info.GetReturnValue().Set(v8::Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
 }
 
 TEST(V8, Indexed) {
+  array[0] = 10;
   // Get the default Isolate created at startup.
   Isolate* isolate = Isolate::GetCurrent();
 
@@ -47,11 +55,26 @@ TEST(V8, Indexed) {
   Context::Scope context_scope(context);
 
   ///@Workspace
+  // Blueprint
+  Handle<ObjectTemplate> blueprint = ObjectTemplate::New();
+  blueprint->SetInternalFieldCount(1);
+  blueprint->SetIndexedPropertyHandler(ArrayIndexGetter);
+
+  // Wrap
+  Handle<Object> wrap = blueprint->NewInstance();
+
+  // Put link
+  Handle<External> v8_array = External::New(array);
+
+  // Store the map pointer in the JavaScript wrapper.
+  wrap->SetInternalField(0, v8_array);
+
+  context->Global()->Set(String::New("v8_array"), wrap);
 
 
   ///@RunScript
   // Create a string containing the JavaScript source code.
-  Handle<String> source = String::New("log('Hello' + ', World!');");
+  Handle<String> source = String::New("log(v8_array[0]);log(v8_array[32]);");
 
   // Compile the source code.
   Handle<Script> script = Script::Compile(source);
