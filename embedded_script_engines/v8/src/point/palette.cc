@@ -59,19 +59,13 @@ Handle<Object> V8Palette::Forge(Palette* palette) {
     own_blueprint_.Reset(isolate_, raw_template);
   }
 
-  // Можно оборачивать реальный объект
-  // Сперва нужно сделать пустую обертку
-  // Create an empty map wrapper.
   Handle<ObjectTemplate> templ =
       Local<ObjectTemplate>::New(isolate_, own_blueprint_);
+
   Handle<Object> result = templ->NewInstance();
-
-  // Wrap the raw C++ pointer in an External so it can be referenced
-  // from within JavaScript.
   Handle<External> map_ptr = External::New(palette);
-
-  // Store the map pointer in the JavaScript wrapper.
   result->SetInternalField(0, map_ptr);
+
   return handle_scope.Close(result);
 }
 
@@ -84,16 +78,12 @@ void V8Palette::ArrayIndexGetter(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-
-    // Возвращает точку!
     int* palette = static_cast<int*>(ptr);
-
     info.GetReturnValue().Set(v8::Number::New(palette[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
   }
 }
-
 
 //@HardObjects
 void V8Palette::GetPointValue(
@@ -129,16 +119,8 @@ void V8Palette::GetIntArrayValue(
       int_array_blueprint_);
 
   Handle<Object> instance = templ->NewInstance();
-
-  // Wrap the raw C++ pointer in an External so it can be referenced
-  // from within JavaScript.
   Handle<External> point_handle = External::New(palette->array_);
-
-  // Store the map pointer in the JavaScript wrapper.
   instance->SetInternalField(0, point_handle);
-
-  // Вот как вернуть объект!?
-  // Похоже объект не тот!
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
@@ -153,27 +135,16 @@ void V8Palette::GetPointsArrayValue(
   // Возвращает точку!
   Palette* palette = static_cast<Palette*>(ptr);
 
-  // Нужно обернуть и вернуть
-  // Нужно плучить V8Palette или сделать новый хэндлер
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(), 
       point_array_blueprint_);
 
   Handle<Object> instance = templ->NewInstance();
-
-  // Wrap the raw C++ pointer in an External so it can be referenced
-  // from within JavaScript.
   Handle<External> point_handle = External::New(palette->point_array);
-
-  // Store the map pointer in the JavaScript wrapper.
   instance->SetInternalField(0, point_handle);
-
-  // Вот как вернуть объект!?
-  // Похоже объект не тот!
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 //@HardObjects
-
 
 void V8Palette::PointArrayIndexGetter(
     uint32_t index,
@@ -184,12 +155,15 @@ void V8Palette::PointArrayIndexGetter(
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
 
-    // FAILURE!!
-    Palette* palette = static_cast<Palette*>(ptr);
-    Point* point = &palette->point_array[index];
+    // FAILURE!! не то что нужно!
+    // На сколько ж стремный язык...
+    //Palette* palette = static_cast<Palette*>(ptr);
+    // Массив!! Это массив!! Очень стремно и очень важно!
+    Point* point = static_cast<Point*>(ptr);
+    //Point* point = &palette->point_array[index];
 
     V8Point v8_point(Isolate::GetCurrent());
-    info.GetReturnValue().Set<v8::Object>(v8_point.Forge(point, Context::GetCurrent()));
+    info.GetReturnValue().Set<v8::Object>(v8_point.Forge(&point[index], Context::GetCurrent()));
   } else {
     info.GetReturnValue().Set(Undefined());
   }

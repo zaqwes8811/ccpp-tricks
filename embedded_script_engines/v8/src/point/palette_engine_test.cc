@@ -21,10 +21,10 @@ TEST(V8, Palette) {
   ///@Objects
   Palette palette;
   palette.array_[0] = 100;
-  palette.point_array[1].x_ = 100;
+  palette.point_array[0].x_ = 110;
 
   // Engine
   PaletteEngine engine(isolate, source, &palette);
 
-  EXPECT_EQ(10, palette.point_array[1].x_);
+  EXPECT_EQ(10, palette.point_array[0].x_);
 }
