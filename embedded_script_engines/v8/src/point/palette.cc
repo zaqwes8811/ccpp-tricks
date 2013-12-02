@@ -7,13 +7,12 @@ v8::Persistent<v8::ObjectTemplate> V8Palette::point_array_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::int_array_blueprint_;
 Persistent<ObjectTemplate> V8Palette::own_blueprint_;
 
-V8Palette::V8Palette(
-    Isolate* isolate,
-    Persistent<Context>* context) : isolate_(isolate), context_(context)
-  { 
+V8Palette::V8Palette(Isolate* isolate) : isolate_(isolate) { 
   // Нужно создать Persistent!
   HandleScope handle_scope(isolate);
-  Context::Scope scope(isolate, *context);
+  Context::Scope scope(isolate->GetCurrentContext());
+
+  // Вот их похоже нужно создавать здесь
   // Шаблон массива
   if (int_array_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
@@ -35,7 +34,7 @@ V8Palette::V8Palette(
 
 v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint() {
   HandleScope handle_scope(isolate_);
-  Context::Scope scope(isolate_, *context_);
+  Context::Scope scope(isolate_->GetCurrentContext());
 
   Handle<ObjectTemplate> result = ObjectTemplate::New();
   result->SetInternalFieldCount(1);
@@ -50,7 +49,7 @@ v8::Handle<v8::ObjectTemplate> V8Palette::MakeBlueprint() {
 
 Handle<Object> V8Palette::Forge(Palette* palette) {
   HandleScope handle_scope(isolate_);
-  Context::Scope scope(isolate_, *context_);
+  Context::Scope scope(isolate_->GetCurrentContext());
 
   if (own_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
@@ -74,14 +73,6 @@ Handle<Object> V8Palette::Forge(Palette* palette) {
   // Store the map pointer in the JavaScript wrapper.
   result->SetInternalField(0, map_ptr);
   return handle_scope.Close(result);
-}
-
-void V8Palette::ArrayIndexSetter(
-    uint32_t index,
-    Local<Value> value,
-    const PropertyCallbackInfo<Value>& info) 
-  { 
-
 }
 
 void V8Palette::ArrayIndexGetter(
@@ -181,7 +172,6 @@ void V8Palette::GetPointsArrayValue(
   // Похоже объект не тот!
   info.GetReturnValue().Set<v8::Object>(instance);
 }
-
 //@HardObjects
 
 

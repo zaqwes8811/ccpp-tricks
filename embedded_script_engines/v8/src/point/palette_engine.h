@@ -37,7 +37,7 @@ class PaletteEngine {
     // within it.
     Context::Scope context_scope(GetIsolate(), context_);
 
-    V8Palette v8_palette(isolate, &context_);
+    V8Palette v8_palette(isolate);
 
     //@Point
     // Install

@@ -23,7 +23,7 @@ public:
   // Args:
   //   Похоже должен знать о Isolate and Context.
   //   Или все-таки контекст должен быть свой.
-  V8Palette(Isolate* isolate, Persistent<Context>* context);
+  V8Palette(Isolate* isolate);
 
   // About:
   //   Getters complex objects.
@@ -44,7 +44,7 @@ public:
   static void ArrayIndexSetter(
       uint32_t index,
       Local<Value> value,
-      const PropertyCallbackInfo<Value>& info);
+      const PropertyCallbackInfo<Value>& info) { }
 
   // Point Palette::point_array[MAX_SIZE];
   static void GetPointsArrayValue(
@@ -75,7 +75,6 @@ private:
   // Сам объект
   static Persistent<ObjectTemplate> own_blueprint_;
   Isolate* const isolate_;
-  Persistent<Context>* const context_;
   // Тоже будит видимым - нужно для композиции.
   v8::Handle<v8::ObjectTemplate> MakeBlueprint();
 };
