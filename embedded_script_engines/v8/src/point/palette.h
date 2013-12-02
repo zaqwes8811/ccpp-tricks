@@ -23,43 +23,34 @@ public:
   V8Palette(
       Palette* palette,  
       Isolate* isolate,
-      Persistent<Context>* context) : palette_(palette), isolate_(isolate), context_(context) 
-    { 
-    // Нужно создать Persistent!
-    HandleScope handle_scope(isolate_);
+      Persistent<Context>* context);
 
-    Context::Scope scope(isolate_, *context_);
-    if (point_blueprint_.IsEmpty()) {
-      V8Point point;
-      Handle<ObjectTemplate> raw_template = 
-          point.CreateBlueprint(isolate, context_);
-
-      // Сохраняем, но похоже можно и текущим пользоваться
-      point_blueprint_.Reset(isolate, raw_template);
-    }
-
-    ///@Point
-    // Можно оборачивать реальный объект
-    // Сперва нужно сделать пустую обертку
-    // Create an empty map wrapper.
-    Handle<ObjectTemplate> templ =
-        Local<ObjectTemplate>::New(isolate, point_blueprint_);
-    Handle<Object> result = templ->NewInstance();
-
-    // Wrap the raw C++ pointer in an External so it can be referenced
-    // from within JavaScript.
-    Handle<External> map_ptr = External::New(&this->palette_->point_);
-
-    // Store the map pointer in the JavaScript wrapper.
-    result->SetInternalField(0, map_ptr);
-
-    if (point_field_.IsEmpty()) {
-      point_field_.Reset(isolate, result);
-    }
-    //return handle_scope.Close(result);
+  static void GetPointX(Local<String> name,
+                 const PropertyCallbackInfo<Value>& info) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    //&(static_cast<V8Palette*>(ptr)->point_field_)
+    //info.GetReturnValue().Set();
   }
 
-private:
+  v8::Handle<Object> MakeBlueprint(
+      v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
+    {
+    HandleScope handle_scope(isolate);
+
+    Context::Scope scope(isolate, *context);
+
+    Handle<ObjectTemplate> result = ObjectTemplate::New();
+    result->SetInternalFieldCount(1);
+
+    // Connect getter/setter
+    result->SetAccessor(String::New("point"), GetPointX);
+
+    return handle_scope.Close(result);
+  }
+
+//private:
   Isolate* isolate_;
   Persistent<Context>* context_;
 
@@ -71,5 +62,5 @@ private:
   v8::Persistent<v8::Object> point_field_;
 
   // Все что нужно для работы с массивом точек.
-  v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
+  //v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
 };

@@ -159,32 +159,3 @@ TEST(PointEngine, Create) {
 
   delete engine;
 }
-
-/*
-TEST(PointEngine, CreateFree) {
-  v8::V8::InitializeICU();
-  string file = "..\\scripts\\point.js";
-  EXPECT_NE(true, file.empty());
-
-  Isolate* isolate = Isolate::GetCurrent();
-
-  // ¬сегда нужно создать - это как бы свой стек дл€ V8
-  HandleScope scope(isolate);
-
-  Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
-
-  // Point
-  V8Point v8_point;
-  Point point_real(1, 2);
-
-  // Engine
-  PointV8Engine* engine = PointV8EngineImplNoPersistent::CreateForOwn(
-      isolate, source, &v8_point);
-  engine->RunWithRealPoint(&point_real);
-
-  EXPECT_EQ(199, point_real.x_);
-  EXPECT_EQ(42, point_real.y_);
-
-  delete engine;
-}*/
