@@ -44,7 +44,5 @@ class V8WrapperImpl : public V8Wrapper {
 
 	static void Open(const FunctionCallbackInfo<Value>& args);
 	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();
-	
-
 };
 }

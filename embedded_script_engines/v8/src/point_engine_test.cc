@@ -76,11 +76,9 @@ void PointV8EngineImplWithPersistent::RunWithRealPoint(Point* real_point) {
 
   //@Point
   // Install
-  Handle<Object> output_obj = v8_point_->ForgePoint(
+  Handle<Object> output_obj = v8_point_->Forge(
       real_point, 
-      GetIsolate(), 
-      &point_template_,
-      &context_);
+      isolate_->GetCurrentContext());
   context->Global()->Set(String::New("point_zero"), output_obj);
 
   //@Point
@@ -105,13 +103,12 @@ TEST(PointEngine, Create) {
   EXPECT_NE(true, source.IsEmpty());
 
   // Point
-  V8Point v8_point;
   Point point_real(1, 2);
+  V8Point v8_point(isolate);
 
   // Engine
   PointV8Engine* engine = new PointV8EngineImplWithPersistent(
       isolate, source, &v8_point);
-  engine->RunWithRealPoint(&point_real);
 
   EXPECT_EQ(199, point_real.x_);
   EXPECT_EQ(42, point_real.y_);

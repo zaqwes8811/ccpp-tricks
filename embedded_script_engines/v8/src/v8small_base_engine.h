@@ -30,7 +30,7 @@ class V8SmallBaseEngine {
       Handle<String> source,
 			SmallBase* database,
       V8SmallBase* v8database);  
-
+	bool Process();
  protected:
   V8SmallBaseEngine(
     Isolate* isolate, 
@@ -44,7 +44,9 @@ class V8SmallBaseEngine {
 	void Log(const char* event);
 	bool ExecuteScript(Handle<String> script);
 	Handle<Object> WrapVar(SmallBase* obj);
-	bool InstallVars(SmallBase* opts, SmallBase* output);
+	bool InstallVars(SmallBase* opts, SmallBase* output);	
+	Handle<Object> WrapRequest(); 
+	Handle<ObjectTemplate> MakeRequestTemplate (Isolate* isolate);
 
  private:
   Isolate* GetIsolate() { return isolate_; }
@@ -59,6 +61,7 @@ class V8SmallBaseEngine {
   //
   // При экспонировании похоже не нужно.
   Persistent<Context> context_;
+	Persistent<Function> process_;
 
   // Может и не нужно будет
   V8SmallBase* temp_;
@@ -66,6 +69,7 @@ class V8SmallBaseEngine {
 
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;
+	static Persistent<ObjectTemplate> request_template_;
 };
 
 //Persistent<ObjectTemplate> V8SmallBaseEngine::point_template_;

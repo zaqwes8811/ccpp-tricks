@@ -96,6 +96,8 @@
     <ClCompile Include="..\..\src\launcher_process.cc" />
     <ClCompile Include="..\..\src\point.cc" />
     <ClCompile Include="..\..\src\point\engine_cut_persistents.cc" />
+    <ClCompile Include="..\..\src\point\palette.cc" />
+    <ClCompile Include="..\..\src\point\palette_engine_test.cc" />
     <ClCompile Include="..\..\src\point_engine_test.cc" />
     <ClCompile Include="..\..\src\process.cc" />
     <ClCompile Include="..\..\src\process_test.cc" />
