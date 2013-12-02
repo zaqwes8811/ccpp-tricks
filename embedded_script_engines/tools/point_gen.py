@@ -115,6 +115,10 @@ def main():
     source = utils.ReadFile(header_file_name)
 
     if True:
+        temp = """
+
+
+        """
         # han
         type_and_var_list = extract_var_declaration(source)
 

@@ -5,7 +5,7 @@ namespace scenarios {
 V8SmallBaseEngine* V8SmallBaseEngine::CreateForOwn(
     Isolate* isolate, 
     Handle<String> source,
-		SmallBase* database,
+		::tmitter_web_service::DataBase* database,
     V8SmallBase* v8_database) {
   V8SmallBaseEngine* engine = new V8SmallBaseEngine(isolate, source, database, v8_database);
   engine->Initialize();
@@ -17,8 +17,8 @@ void V8SmallBaseEngine::Log(const char* event) {
   printf("Logged: %s\n", event);
 }
 
-bool V8SmallBaseEngine::InstallVars(SmallBase* database,
-																		SmallBase* database_output) {
+bool V8SmallBaseEngine::InstallVars(::tmitter_web_service::DataBase* database,
+																		::tmitter_web_service::DataBase* database_output) {
   HandleScope handle_scope(GetIsolate());
 
   // Wrap the map object in a JavaScript wrapper
@@ -38,7 +38,7 @@ bool V8SmallBaseEngine::InstallVars(SmallBase* database,
 }
 
 
-Handle<Object> V8SmallBaseEngine::WrapVar(SmallBase* obj) {
+Handle<Object> V8SmallBaseEngine::WrapVar(::tmitter_web_service::DataBase* obj) {
   // Handle scope for temporary handles.
   HandleScope handle_scope(GetIsolate());
 
@@ -187,7 +187,7 @@ bool V8SmallBaseEngine::Process() {
 bool V8SmallBaseEngine::Initialize() {
 	//vamp
 	
-	SmallBase* database_output = new SmallBase(0);
+	::tmitter_web_service::DataBase* database_output = new ::tmitter_web_service::DataBase();
 
   HandleScope handle_scope(GetIsolate());
 
@@ -215,7 +215,7 @@ bool V8SmallBaseEngine::Initialize() {
   Context::Scope context_scope(context);
 	
 	// test log
-	cout << "value in C++ to run " << database_->temp_ << endl;
+	//cout << "value in C++ to run " << database_->temp_ << endl;
 
 	// Run...
 	if (!InstallVars(database_, database_output))
@@ -226,7 +226,7 @@ bool V8SmallBaseEngine::Initialize() {
     return false;
 
 	// test log
-	cout << "value in C++ after run " << database_->temp_ << endl;
+//	cout << "value in C++ after run " << database_->temp_ << endl;
 
 	Handle<String> process_name = String::New("Process");
 

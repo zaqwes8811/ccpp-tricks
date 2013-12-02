@@ -82,6 +82,21 @@ public:
 	int currentQueryIndex_;    // number SNMP events in Queue
 	"""
 
+class_transmit_code = """
+
+    int PABTotal_
+	int total_bcl_
+	int excitersTotal_
+	int DBTotal_
+	int transmitterID___
+	int terminal_amps_per_block___
+	int sizeBlockPreampParams_
+	int sizeBlockTerminalAmpParams_
+	int sizeBlockBCNParams_
+	int sizeBlockDBParams_
+	int sizeBlockModParams_
+
+"""
 
 def removeComments(transmittingCode):
     deletingString = ""
@@ -180,12 +195,12 @@ def getFuncName(name):
 
 def make_scalar_getter(type, name):
     result = \
-"\n" + "static void v8_get_" + getFuncName(name) + """(Local<String> name,
+"\n" + "static void v8_get_" + name + """(Local<String> name,
     const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  """ + transmitSignedUnsignedTypes(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
+  """ + transmitSignedUnsignedTypes(type) + " value = static_cast<SmallBase*>(ptr)->" + name + ''';
   info.GetReturnValue().Set(''' + transmitCTypeToV8(type, "get") + """::New(value));
 }
 """
@@ -194,12 +209,12 @@ def make_scalar_getter(type, name):
 
 def make_scalar_setter(type, name):
     result = \
-"\n" + "static void v8_set_" + getFuncName(name) + '''(Local<String> property, Local<Value> value,
+"\n" + "static void v8_set_" + name + '''(Local<String> property, Local<Value> value,
     const PropertyCallbackInfo<void>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  static_cast<''' + "DataBase" + "*>(ptr)->" + name + "= value->" + transmitCTypeToV8(type, "set") \
+  static_cast<''' + "SmallBase" + "*>(ptr)->" + name + "= value->" + transmitCTypeToV8(type, "set") \
   + "Value();" + '''
 }
 '''
