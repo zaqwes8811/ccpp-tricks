@@ -29,32 +29,36 @@ public:
   //   Getters complex objects.
 
   // Point Palette::point_;
+  // В данном случае по сути конечная. Далее доступ через аккссесоры Point
   static void GetPointValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
 
   // int Palette::array_[MAX_SIZE]
+  // Промежуточная точка
   static void GetIntArrayValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
+
+  // Конечные точки
   static void ArrayIndexGetter(
       uint32_t index,
       const PropertyCallbackInfo<Value>& info);
-
   static void ArrayIndexSetter(
       uint32_t index,
       Local<Value> value,
       const PropertyCallbackInfo<Value>& info) { }
 
   // Point Palette::point_array[MAX_SIZE];
+  // Промежуточная точка
   static void GetPointsArrayValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
 
+  /// В данном случае по сути конечные. Далее доступ через аккссесоры Point
   static void PointArrayIndexGetter(
       uint32_t index,
       const PropertyCallbackInfo<Value>& info);
-
   static void PointArrayIndexSetter(
       uint32_t index,
       Local<Value> value,

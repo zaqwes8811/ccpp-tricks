@@ -31,7 +31,8 @@ void V8Point::SetPointX(Local<String> property, Local<Value> value,
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  static_cast<Point*>(ptr)->x_ = value->Int32Value();
+  Point* point = static_cast<Point*>(ptr);
+  point->x_ = value->Int32Value();
 }
 
 void V8Point::GetPointY(Local<String> name, 

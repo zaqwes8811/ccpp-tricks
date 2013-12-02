@@ -132,7 +132,7 @@ void V8Palette::GetIntArrayValue(
 
   // Wrap the raw C++ pointer in an External so it can be referenced
   // from within JavaScript.
-  Handle<External> point_handle = External::New(&palette->array_);
+  Handle<External> point_handle = External::New(palette->array_);
 
   // Store the map pointer in the JavaScript wrapper.
   instance->SetInternalField(0, point_handle);
@@ -163,7 +163,7 @@ void V8Palette::GetPointsArrayValue(
 
   // Wrap the raw C++ pointer in an External so it can be referenced
   // from within JavaScript.
-  Handle<External> point_handle = External::New(&palette->array_);
+  Handle<External> point_handle = External::New(palette->point_array);
 
   // Store the map pointer in the JavaScript wrapper.
   instance->SetInternalField(0, point_handle);
@@ -184,7 +184,7 @@ void V8Palette::PointArrayIndexGetter(
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
 
-    // Возвращает точку!
+    // FAILURE!!
     Palette* palette = static_cast<Palette*>(ptr);
     Point* point = &palette->point_array[index];
 

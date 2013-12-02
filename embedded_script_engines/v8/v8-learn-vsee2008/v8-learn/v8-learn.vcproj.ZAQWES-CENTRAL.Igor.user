@@ -11,7 +11,7 @@
 			<DebugSettings
 				Command="$(TargetPath)"
 				WorkingDirectory="$(SolutionDir)"
-				CommandArguments=""
+				CommandArguments="--gtest_filter=V8.Pa*"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"
