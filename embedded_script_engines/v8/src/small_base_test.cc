@@ -63,6 +63,11 @@ TEST(SmallBaseEngine, Create) {
 
 		isolate, source, database, &v8_smalldb);
 
+	StringHttpRequest request("/", "localhost", "google.net", "firefox");
+
+	//EXPECT_NE(true, engine->Process(NULL));
+	engine->Process(NULL);
+	engine->Process(NULL);
 	
 
   delete engine;
