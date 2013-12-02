@@ -181,18 +181,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\point.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\point_engine_test.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\point_expose_test.cc"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\process.cc"
 				>
 			</File>
@@ -249,6 +237,18 @@
 				</File>
 				<File
 					RelativePath="..\..\src\point\palette_engine_test.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\point.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\point_engine_test.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\point_expose_test.cc"
 					>
 				</File>
 			</Filter>

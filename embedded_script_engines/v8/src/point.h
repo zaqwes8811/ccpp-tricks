@@ -7,6 +7,7 @@
 // Point x y
 class Point {
   public:
+  Point() : x_(1), y_(2) { }
   Point(int x, int y) : x_(x), y_(y) { }
   int x_, y_;
   int array[32];
