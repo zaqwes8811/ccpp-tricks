@@ -25,23 +25,36 @@ public:
       Isolate* isolate,
       Persistent<Context>* context);
 
-  static void GetPointValue(Local<String> name,
-                 const PropertyCallbackInfo<Value>& info) {
+  static void GetPointValue(
+      Local<String> name,
+      const PropertyCallbackInfo<Value>& info) 
+    {
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
 
     // Возвращает точку!
-    //V8Palette* palette = static_cast<V8Palette*>(ptr);
-    Point* point = static_cast<Point*>(ptr);
+    Palette* palette = static_cast<Palette*>(ptr);
+
+    // Нужно плучить V8Palette или сделать новый хэндлер
+    Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(Isolate::GetCurrent(), point_blueprint_);
+    Handle<Object> result = templ->NewInstance();
+
+    // Wrap the raw C++ pointer in an External so it can be referenced
+    // from within JavaScript.
+    Handle<External> map_ptr = External::New(&palette->point_);
+
+    // Store the map pointer in the JavaScript wrapper.
+    result->SetInternalField(0, map_ptr);
 
     // Вот как вернуть объект!?
     // Похоже объект не тот!
-    //info.GetReturnValue().Set<v8::Object>(palette->point_field_);
+    info.GetReturnValue().Set<v8::Object>(result);
   }
 
   v8::Handle<v8::ObjectTemplate> MakeBlueprint(
-      v8::Isolate* isolate, v8::Persistent<v8::Context>* context);
+      v8::Isolate* isolate, 
+      v8::Persistent<v8::Context>* context);
 
   Handle<Object> ForgePalette(
       Palette* palette,
@@ -57,9 +70,7 @@ public:
   Palette* palette_;
 
   // Все что нужно для работы с точкой.
-  v8::Persistent<v8::ObjectTemplate> point_blueprint_;
-  v8::Persistent<v8::Object> point_field_;
-  //v8::Persistent<v8::Object> v8_point_field_;
+  static v8::Persistent<v8::ObjectTemplate> point_blueprint_;
 
   // Все что нужно для работы с массивом точек.
   //v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;

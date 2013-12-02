@@ -10,4 +10,4 @@ for (var key in that) {
 //point_zero.x = 199;
 //point_zero.y = 42;
 //log(point_zero.x);
-log(palette.point);
+log(palette.point.x);
