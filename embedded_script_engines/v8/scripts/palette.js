@@ -12,3 +12,4 @@ for (var key in that) {
 //log(point_zero.x);
 log(palette.point.x);
 log(palette.int_array[0]);
+log(palette.points_array[1].x);

@@ -84,6 +84,7 @@ TEST(V8, Palette) {
   ///@Objects
   Palette palette;
   palette.array_[0] = 100;
+  palette.point_array[1].x_ = 100;
 
   // Engine
   PaletteEngine engine(isolate, source, &palette);

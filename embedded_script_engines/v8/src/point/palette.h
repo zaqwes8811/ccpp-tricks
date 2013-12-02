@@ -12,25 +12,30 @@ class Palette {
   Palette() {}
   int array_[MAX_SIZE];
   Point point_;
-  Point array[MAX_SIZE];
+  Point point_array[MAX_SIZE];
 };
 
 using namespace v8;
 
+//@NoThreadSafe
 class V8Palette {
 public:
   // Args:
   //   Похоже должен знать о Isolate and Context.
   //   Или все-таки контекст должен быть свой.
-  V8Palette(
-      Isolate* isolate,
-      Persistent<Context>* context);
+  V8Palette(Isolate* isolate, Persistent<Context>* context);
 
+  // About:
+  //   Getters complex objects.
   static void GetPointValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
 
-  static void V8Palette::GetIntArrayValue(
+  static void GetIntArrayValue(
+      Local<String> name,
+      const PropertyCallbackInfo<Value>& info);
+
+  static void GetPointsArrayValue(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info);
 
@@ -44,10 +49,22 @@ public:
       Local<Value> value,
       const PropertyCallbackInfo<Value>& info);
 
-  v8::Handle<v8::ObjectTemplate> MakeBlueprint(
-      v8::Isolate* isolate, 
-      v8::Persistent<v8::Context>* context);
+  static void PointArrayIndexGetter(
+      uint32_t index,
+      const PropertyCallbackInfo<Value>& info);
 
+  static void PointArrayIndexSetter(
+      uint32_t index,
+      Local<Value> value,
+      const PropertyCallbackInfo<Value>& info) 
+    {
+  
+  }
+
+  // Работа с массивом точек.
+
+  // About:
+  //   Make this root object.
   Handle<Object> ForgePalette(
       Palette* palette,
       Isolate* isolate, 
@@ -58,6 +75,15 @@ public:
   // Все что нужно для работы с точкой.
   static v8::Persistent<v8::ObjectTemplate> point_blueprint_;
 
-  // Все что нужно для работы с массивом точек.
+  // Просто массив int.
+  static v8::Persistent<v8::ObjectTemplate> int_array_blueprint_;
+
+  // Массив точек.
   static v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
+
+//private:  
+  // Тоже будит видимым - нужно для композиции.
+  v8::Handle<v8::ObjectTemplate> MakeBlueprint(
+      v8::Isolate* isolate, 
+      v8::Persistent<v8::Context>* context);
 };
