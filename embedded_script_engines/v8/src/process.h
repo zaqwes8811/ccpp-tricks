@@ -163,3 +163,8 @@ int ObjectToInt(Local<Value> value);
 
 bool ExecuteScript(Handle<String> script, Isolate* isolate);
 
+v8::Handle<v8::ObjectTemplate> ArrayMakeBlueprint(
+    Isolate* isolate,
+    IndexedPropertyGetterCallback getter,
+    IndexedPropertySetterCallback setter);
+

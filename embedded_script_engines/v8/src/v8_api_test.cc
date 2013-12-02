@@ -77,9 +77,8 @@ TEST(V8, Indexed) {
 
   ///@Workspace
   // Blueprint
-  Handle<ObjectTemplate> blueprint = ObjectTemplate::New();
-  blueprint->SetInternalFieldCount(1);
-  blueprint->SetIndexedPropertyHandler(ArrayIndexGetter, ArrayIndexSetter);
+  Handle<ObjectTemplate> blueprint = 
+      ArrayMakeBlueprint(isolate, ArrayIndexGetter, ArrayIndexSetter);
 
   // Wrap
   Handle<Object> wrap = blueprint->NewInstance();
@@ -91,7 +90,6 @@ TEST(V8, Indexed) {
   wrap->SetInternalField(0, v8_array);
 
   context->Global()->Set(String::New("v8_array"), wrap);
-
 
   ///@RunScript
   // Create a string containing the JavaScript source code.
