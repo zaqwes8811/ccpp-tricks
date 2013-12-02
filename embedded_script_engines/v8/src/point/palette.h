@@ -30,8 +30,9 @@ public:
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    //&(static_cast<V8Palette*>(ptr)->point_field_)
-    //info.GetReturnValue().Set();
+
+    // Вот как вернуть объект!?
+    info.GetReturnValue().Set(&(static_cast<V8Palette*>(ptr)->point_field_));
   }
 
   v8::Handle<Object> MakeBlueprint(
