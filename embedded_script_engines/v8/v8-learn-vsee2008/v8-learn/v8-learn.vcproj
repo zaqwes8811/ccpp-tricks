@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components\app-server-linux&quot;;&quot;C:\home\haneda\tmitter-web-service-win\to-inner-reuse&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components&quot;;&quot;C:\home\haneda\in-the-vicinity-cc\embedded_script_engines&quot;;&quot;C:\home\haneda\in-the-vicinity-cc\embedded_script_engines\v8\src&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;..\..\..\components\app-server-linux&quot;;&quot;..\..\..\to-inner-reuse&quot;;..\..\..\components;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -210,6 +210,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\small_base_test.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8_api_test.cc"
 				>
 			</File>
 			<File

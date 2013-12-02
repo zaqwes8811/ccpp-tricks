@@ -527,5 +527,10 @@ string ObjectToString(Local<Value> value) {
 }
 
 
+int ObjectToInt(Local<Value> value) {
+  return value->ToObject()->Int32Value();
+}
+
+
 
 
