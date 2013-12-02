@@ -8,9 +8,11 @@
 
 class Palette {
  public:
+  static const int MAX_SIZE = 32;
   Palette() {}
+  int array_[MAX_SIZE];
   Point point_;
-  Point array[32];
+  Point array[MAX_SIZE];
 };
 
 using namespace v8;
@@ -21,36 +23,26 @@ public:
   //   Похоже должен знать о Isolate and Context.
   //   Или все-таки контекст должен быть свой.
   V8Palette(
-      Palette* palette,  
       Isolate* isolate,
       Persistent<Context>* context);
 
   static void GetPointValue(
       Local<String> name,
-      const PropertyCallbackInfo<Value>& info) 
-    {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
+      const PropertyCallbackInfo<Value>& info);
 
-    // Возвращает точку!
-    Palette* palette = static_cast<Palette*>(ptr);
+  static void V8Palette::GetIntArrayValue(
+      Local<String> name,
+      const PropertyCallbackInfo<Value>& info);
 
-    // Нужно плучить V8Palette или сделать новый хэндлер
-    Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(Isolate::GetCurrent(), point_blueprint_);
-    Handle<Object> result = templ->NewInstance();
+  // Работа с конечным массивом
+  static void ArrayIndexGetter(
+      uint32_t index,
+      const PropertyCallbackInfo<Value>& info);
 
-    // Wrap the raw C++ pointer in an External so it can be referenced
-    // from within JavaScript.
-    Handle<External> map_ptr = External::New(&palette->point_);
-
-    // Store the map pointer in the JavaScript wrapper.
-    result->SetInternalField(0, map_ptr);
-
-    // Вот как вернуть объект!?
-    // Похоже объект не тот!
-    info.GetReturnValue().Set<v8::Object>(result);
-  }
+  static void ArrayIndexSetter(
+      uint32_t index,
+      Local<Value> value,
+      const PropertyCallbackInfo<Value>& info);
 
   v8::Handle<v8::ObjectTemplate> MakeBlueprint(
       v8::Isolate* isolate, 
@@ -62,16 +54,10 @@ public:
       Persistent<Context>* context,
       Persistent<ObjectTemplate>* blueprint);
 
-//private:
-  Isolate* isolate_;
-  Persistent<Context>* context_;
-
-  // Real data
-  Palette* palette_;
-
+public:
   // Все что нужно для работы с точкой.
   static v8::Persistent<v8::ObjectTemplate> point_blueprint_;
 
   // Все что нужно для работы с массивом точек.
-  //v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
+  static v8::Persistent<v8::ObjectTemplate> point_array_blueprint_;
 };
