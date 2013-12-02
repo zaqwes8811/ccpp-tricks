@@ -159,6 +159,7 @@ void LogCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
 // Convert a JavaScript string to a std::string.  To not bother too
 // much with string encodings we just use ascii.
 string ObjectToString(Local<Value> value);
+int ObjectToInt(Local<Value> value);
 
 bool ExecuteScript(Handle<String> script, Isolate* isolate);
 

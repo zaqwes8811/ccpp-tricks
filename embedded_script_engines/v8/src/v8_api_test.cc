@@ -43,20 +43,20 @@ void ArrayIndexSetter(
     uint32_t index,
     Local<Value> value,
     const PropertyCallbackInfo<Value>& info) 
-  {
-
-  /*
+  { 
   if (index < kArraySize) {
     v8::Local<v8::Object> self = info.Holder();
     Handle<External> field = Handle<External>::Cast(self->GetInternalField(0));
     void* ptr = field->Value();
-    int* array = static_cast<int*>(ptr);
-    array[index] = v8::value->
+    int* array_tmp = static_cast<int*>(ptr);
+    
+    // Как извлечь значение?
+    array_tmp[index] = ObjectToInt(value);
 
-    info.GetReturnValue().Set(v8::Number::New(array[index]));
+    info.GetReturnValue().Set(v8::Number::New(array_tmp[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
-  }*/
+  }
 }
 
 TEST(V8, Indexed) {
@@ -95,7 +95,8 @@ TEST(V8, Indexed) {
 
   ///@RunScript
   // Create a string containing the JavaScript source code.
-  Handle<String> source = String::New("log(v8_array[0]);log(v8_array[32]);v8_array[0] = 11;");
+  Handle<String> source = String::New("log(v8_array[0]);log(v8_array[32]);v8_array[1] = 11;log(v8_array[1]);");
+  EXPECT_EQ(11, array[1]);
 
   // Compile the source code.
   Handle<Script> script = Script::Compile(source);

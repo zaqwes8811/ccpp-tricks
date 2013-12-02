@@ -526,11 +526,10 @@ string ObjectToString(Local<Value> value) {
   return string(*utf8_value);
 }
 
-/*
-string ObjectToInt(Local<Value> value) {
-  v8::IntUtf8Value utf8_value(value);
-  return string(*utf8_value);
-}*/
+
+int ObjectToInt(Local<Value> value) {
+  return value->ToObject()->Int32Value();
+}
 
 
 
