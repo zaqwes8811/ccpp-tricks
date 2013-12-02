@@ -31,58 +31,20 @@ public:
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
 
+    V8Palette* palette = static_cast<V8Palette*>(ptr);
+
     // Вот как вернуть объект!?
-    info.GetReturnValue().Set<v8::Object>(static_cast<V8Palette*>(ptr)->point_field_);
+    info.GetReturnValue().Set<v8::Object>(palette->point_field_);
   }
 
   v8::Handle<v8::ObjectTemplate> MakeBlueprint(
-      v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
-    {
-    HandleScope handle_scope(isolate);
-
-    Context::Scope scope(isolate, *context);
-
-    Handle<ObjectTemplate> result = ObjectTemplate::New();
-    result->SetInternalFieldCount(1);
-
-    // Connect getter/setter
-    result->SetAccessor(String::New("point"), GetPointX);
-
-    return handle_scope.Close(result);
-  }
+      v8::Isolate* isolate, v8::Persistent<v8::Context>* context);
 
   Handle<Object> ForgePalette(
       Palette* palette,
       Isolate* isolate, 
       Persistent<Context>* context,
-      Persistent<ObjectTemplate>* blueprint) 
-    {
-    HandleScope handle_scope(isolate);
-    Context::Scope scope(isolate, *context);
-
-    if (blueprint->IsEmpty()) {
-      Handle<ObjectTemplate> raw_template = 
-          this->MakeBlueprint(isolate, context);
-
-      // Сохраняем, но похоже можно и текущим пользоваться
-      blueprint->Reset(isolate, raw_template);
-    }
-
-    // Можно оборачивать реальный объект
-    // Сперва нужно сделать пустую обертку
-    // Create an empty map wrapper.
-    Handle<ObjectTemplate> templ =
-        Local<ObjectTemplate>::New(isolate, *blueprint);
-    Handle<Object> result = templ->NewInstance();
-
-    // Wrap the raw C++ pointer in an External so it can be referenced
-    // from within JavaScript.
-    Handle<External> map_ptr = External::New(palette);
-
-    // Store the map pointer in the JavaScript wrapper.
-    result->SetInternalField(0, map_ptr);
-    return handle_scope.Close(result);
-  }
+      Persistent<ObjectTemplate>* blueprint);
 
 //private:
   Isolate* isolate_;
