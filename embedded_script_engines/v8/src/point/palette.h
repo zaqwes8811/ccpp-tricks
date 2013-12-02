@@ -32,10 +32,10 @@ public:
     void* ptr = wrap->Value();
 
     // Вот как вернуть объект!?
-    info.GetReturnValue().Set(&(static_cast<V8Palette*>(ptr)->point_field_));
+    info.GetReturnValue().Set<v8::Object>(static_cast<V8Palette*>(ptr)->point_field_);
   }
 
-  v8::Handle<Object> MakeBlueprint(
+  v8::Handle<v8::ObjectTemplate> MakeBlueprint(
       v8::Isolate* isolate, v8::Persistent<v8::Context>* context) 
     {
     HandleScope handle_scope(isolate);
