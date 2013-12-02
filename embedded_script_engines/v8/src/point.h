@@ -29,4 +29,8 @@ public:
      v8::Local<v8::String> property, 
      v8::Local<v8::Value> value,
      const v8::PropertyCallbackInfo<void>& info);
+
+  // Array blueprint
+  // GetReturnValue().Set(Persistent&);
 };
+

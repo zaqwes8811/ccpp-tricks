@@ -236,6 +236,18 @@
 				RelativePath="..\..\src\virtual_machine.cc"
 				>
 			</File>
+			<Filter
+				Name="around_point"
+				>
+				<File
+					RelativePath="..\..\src\point\palette.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\point\palette.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="tools"
