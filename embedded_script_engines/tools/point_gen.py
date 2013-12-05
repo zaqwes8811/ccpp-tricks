@@ -64,6 +64,7 @@ class ScalarVariableField(object):
                                               self.class_name_)
 
         if field_type not in self.V8_GETTER_RECODER_:
+            print field_type
             return "Map not found"
 
         template = 'void v8_setter_' + field_name + '(\r\n' + \
@@ -114,22 +115,7 @@ def main():
     #header_file_name = 'test-data/database.h'
     source = utils.ReadFile(header_file_name)
 
-    if True:
-        temp = """
-
-    int PABTotal_
-	int total_bcl_
-	int excitersTotal_
-	int DBTotal_
-	int transmitterID___
-	int terminal_amps_per_block___
-	int sizeBlockPreampParams_
-	int sizeBlockTerminalAmpParams_
-	int sizeBlockBCNParams_
-	int sizeBlockDBParams_
-	int sizeBlockModParams_
-
-        """
+    if False:
         # han
         type_and_var_list = extract_var_declaration(source)
 

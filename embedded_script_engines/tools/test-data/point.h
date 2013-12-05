@@ -2,8 +2,8 @@ class Point {
   public:
    Point(int x, int y) : x_(x),
         y_(y) { }
-   int xsdfsdfsdf_;
-   int ysddf_;
+   int x_;
+   int y_;
    //const int* ptr;  // нужно быть внимательным! Var...name  это только int!
    std::string name_;  // Возможно для V8 нужно еще пребразовывать в const char*
    char zorro_;
