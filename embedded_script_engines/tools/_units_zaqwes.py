@@ -40,8 +40,8 @@ class ScalarVariableField(object):
         self.variable_node_ = variable_node
 
         # Регистрируем типы
-        self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String'}
-        self.V8_SETTER_RECODER_ = {'int': 'Int32', 'std::string': 'String'}
+        self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
+        self.V8_SETTER_RECODER_ = {'int': 'Int32', 'std::string': 'String', 'bool': 'Boolean'}
 
     def get_wrapper_class_name(self):
         return 'ForgeV8' + self.class_name_ + 's'

@@ -33,6 +33,10 @@ class ForgeV8unknowns {
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
+  static void ForgeV8unknowns::v8_getter_failsReseted_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
   static void ForgeV8unknowns::v8_getter_currentQueryIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);

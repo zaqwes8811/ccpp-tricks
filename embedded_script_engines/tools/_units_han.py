@@ -52,7 +52,8 @@ class Holder(object):
             }
         }
         """
-        result = ""
+        result = []
+        filter_regex = "bool""|int""|vector<""|string""|char"
 
         for line in code_lines:
             # Фильтрация кода
@@ -70,15 +71,16 @@ class Holder(object):
                     and "private" not in line \
                     and "protected" not in line \
                     and "using" not in line:
-                pattern = re.compile("bool""|int""|vector<""|string""|char")
+                pattern = re.compile(filter_regex)
                 search_result = pattern.search(line)
                 if search_result:
                     line_copy = line
                     line_copy = line_copy.lstrip().rstrip()
                     line_copy = remove_cc_comments(line_copy)
                     line_copy = delete_double_spaces(line_copy)
-                    result += line_copy + '\n'
-        return result
+                    result.append(line_copy)
+
+        return '\n'.join(result)
 
     @staticmethod
     def extract_var_declaration(source):

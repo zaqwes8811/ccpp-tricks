@@ -54,6 +54,17 @@ void ForgeV8unknowns::v8_getter_typeControl_(
   info.GetReturnValue().Set(String::New(value));
 }
 
+void ForgeV8unknowns::v8_getter_failsReseted_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<unknown*>(ptr)->failsReseted_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
 void ForgeV8unknowns::v8_getter_currentQueryIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
