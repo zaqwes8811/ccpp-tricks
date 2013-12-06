@@ -47,7 +47,7 @@ def main():
     write_source(header_name, code)
     code = make_source(impls, header_name)
 
-    def append_maker_bp_and_forge(code_result):
+    def append_maker_bp_and_forge(code_result, class_name):
         # Add code
         # Need be impl.
         code_result.append('\r\n// TODO: It need be impl. manual')
@@ -64,6 +64,9 @@ def main():
     for var in vars_:
         var_name = var.variable_node_.name
         if var_name == '???':
+            # Возникает, если поля - массивы.
+            # Но если размер задан - он присоединяется к имени, и для 2D тоже
+            #   потом их не разделить.
             if var.variable_node_.type.array:
                 print var.variable_node_.type.modifiers[0]
                 print var.variable_node_.type.name
