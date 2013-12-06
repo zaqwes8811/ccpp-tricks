@@ -93,6 +93,7 @@ def extract_variable_declaration(source, header_file_name):
     Returns:
         [VarField0, ...]
     """
+    result = []
     builder = ast.BuilderFromSource(source, header_file_name)
     try:
         for node in builder.Generate():
@@ -105,11 +106,13 @@ def extract_variable_declaration(source, header_file_name):
                         # это не скаляр и сеттер будет другим https://developers.google.com/v8/embed
                         #else
                         #check what happened
-                        yield ScalarVariableField(node.name, record)
+                        result.append(ScalarVariableField(node.name, record))
+        return result
     except KeyboardInterrupt:
-        return
+        return None
     except Exception as e:
-        pass
+        return None
+
 
 
 def make_header(impl_local, header):
@@ -135,7 +138,7 @@ def make_header(impl_local, header):
                        'v8::Isolate* isolate,\r\n      ' +
                        'v8::Persistent<v8::ObjectTemplate>* blueprint);\r\n')
     code_result.append('  // TODO: It need be impl. manual')
-    code_result.append('  v8::Handle<v8::ObjectTemplate> MakeBlueprint_NI();\r\n')
+    code_result.append('  v8::Handle<v8::ObjectTemplate> MakeBlueprint_NI(v8::Isolate* isolate);\r\n')
 
     for impl in impl_local:
         code_result.append('  static ' + impl[0])
@@ -166,16 +169,7 @@ def make_source(impls_local, header_name):
     code_result.append('using v8::Integer;')
     code_result.append('using v8::String;')
 
-    # Need be impl.
-    code_result.append('\r\n// TODO: It need be impl. manual')
-    code_result.append('v8::Handle<v8::Object> '+class_name+'::Forge_NI(\r\n      '
-                       'Point* point, \r\n      ' +
-                       'v8::Isolate* isolate,\r\n      ' +
-                       'v8::Persistent<v8::ObjectTemplate>* blueprint) { \r\n\r\n}\r\n')
-    code_result.append('// TODO: It need be impl. manual')
-    code_result.append('v8::Handle<v8::ObjectTemplate> '+class_name+'::MakeBlueprint_NI() { \r\n\r\n}\r\n')
-
     for impl in impls_local:
-        code_result.append(impl[0])
+        code_result.append(impl[0]+'\r\n')
 
     return code_result

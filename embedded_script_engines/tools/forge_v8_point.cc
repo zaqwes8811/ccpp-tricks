@@ -19,20 +19,6 @@ using v8::Isolate;
 using v8::Persistent;
 using v8::Integer;
 using v8::String;
-
-// TODO: It need be impl. manual
-v8::Handle<v8::Object> ForgeV8Points::Forge_NI(
-      Point* point, 
-      v8::Isolate* isolate,
-      v8::Persistent<v8::ObjectTemplate>* blueprint) { 
-
-}
-
-// TODO: It need be impl. manual
-v8::Handle<v8::ObjectTemplate> ForgeV8Points::MakeBlueprint_NI() { 
-
-}
-
 void ForgeV8Points::v8_getter_x_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
@@ -43,6 +29,7 @@ void ForgeV8Points::v8_getter_x_(
   int value = static_cast<Point*>(ptr)->x_;
   info.GetReturnValue().Set(Integer::New(value));
 }
+
 void ForgeV8Points::v8_getter_y_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 

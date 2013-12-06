@@ -26,13 +26,13 @@ def main():
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
-    vars = extract_variable_declaration(source, header_file_name)
+    vars_ = extract_variable_declaration(source, header_file_name)
 
     #if
     # Make V8 view
     impls = []
     declarations = []
-    for elem in vars:
+    for elem in vars_:
         i, d = elem.make_scalar_getter()
         if d:
             impls.append((i, elem.get_wrapper_class_name()))
@@ -44,6 +44,25 @@ def main():
     header_name = 'forge_v8_point.h'
     write_source(header_name, code)
     code = make_source(impls, header_name)
+
+    def append_maker_bp_and_forge(code_result):
+        # Add code
+        # Need be impl.
+        code_result.append('\r\n// TODO: It need be impl. manual')
+        code_result.append('v8::Handle<v8::Object> '+class_name+'::Forge_NI(\r\n      '
+                           'Point* point, \r\n      ' +
+                           'v8::Isolate* isolate,\r\n      ' +
+                           'v8::Persistent<v8::ObjectTemplate>* blueprint) { \r\n\r\n}\r\n')
+        code_result.append('// TODO: It need be impl. manual')
+
+        impl_maker_blueprint = '{ \r\n\r\n}'
+        code_result.append('v8::Handle<v8::ObjectTemplate> '+class_name+'::MakeBlueprint_NI(v8::Isolate* isolate) '+
+                           impl_maker_blueprint+'\r\n')
+
+    for var in vars_:
+        print var
+
+    # Итоговый исходник
     write_source('forge_v8_point.cc', code)
 
 

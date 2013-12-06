@@ -19,7 +19,7 @@ class ForgeV8Points {
       v8::Persistent<v8::ObjectTemplate>* blueprint);
 
   // TODO: It need be impl. manual
-  v8::Handle<v8::ObjectTemplate> MakeBlueprint_NI();
+  v8::Handle<v8::ObjectTemplate> MakeBlueprint_NI(v8::Isolate* isolate);
 
   static void ForgeV8Points::v8_getter_x_(
     v8::Local<v8::String> name,
