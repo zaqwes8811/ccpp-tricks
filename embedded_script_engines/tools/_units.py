@@ -12,6 +12,9 @@ class ScalarVariableField(object):
     About:
     """
 
+    def __str__(self):
+        return str(self.class_name_)
+
     def __init__(self, class_name, variable_node):
         #if not isinstance(variable_node, ast.VariableDeclaration):
         #    raise Exception("Only scalar field support support!")

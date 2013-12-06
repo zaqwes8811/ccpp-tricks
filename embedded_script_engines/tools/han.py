@@ -35,7 +35,6 @@ class Indicator(object):
             return None
 
 if __name__ == '__main__':
-    #header_file_name = '../v8/src/point.h'
     header_file_name = './test-data/han_test_.h'
     source = utils.ReadFile(header_file_name)
 

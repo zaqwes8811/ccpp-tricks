@@ -12,6 +12,7 @@ from _units import extract_variable_declaration
 from _units import make_header
 from _units import make_source
 import han
+import _units_han
 
 
 def write_source(file_name, code):
@@ -24,11 +25,13 @@ def write_source(file_name, code):
 
 def main():
     header_file_name = '../v8/src/point.h'
-    #header_file_name = './test-data/point.h'
+    header_file_name = './test-data/han_purged_test.h'
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
-    vars_ = extract_variable_declaration(source, header_file_name)
+    #vars_ = extract_variable_declaration(source, header_file_name)
+    vars_ = _units_han.extract_variable_declaration(source)
+
 
     #if
     # Make V8 view

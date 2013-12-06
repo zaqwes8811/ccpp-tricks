@@ -301,3 +301,18 @@ def make_scalars_and_accessors_with_formating(type_and_var_list):
 # 0 - вывод без массивов!
 # 1 - вывод с массивами (по умолчанию 0)
 check_array_print = 0
+
+
+def extract_variable_declaration(source):
+    """
+    Args:
+        source - string with code
+    """
+    from _units import ScalarVariableField
+    type_and_var_list = extract_var_declaration(source)
+    result = []
+    for var in type_and_var_list:
+        print var
+        result.append(ScalarVariableField('unknown', VarDeclaration(*var)))
+
+    return result
