@@ -27,7 +27,9 @@ private:
 	void ParseTerminalAmpliferParams(int number, int n,
 		const uchar *ptrSourceArray);
 	void ParseParamsBCL(int number, const uchar *ptrSourceArray);
-	void ParseParamsDB(int number, const uchar* ptrSourceArray);
+	void ParseParamsDB(
+	    //int number,  // сбивается
+	    const uchar* ptrSourceArray);
 
 	//DANGER_ANALOG_NO_FOUND
 	void ProcessExciterAnalog(uchar number, const uchar* ptrSourceArray);

@@ -25,7 +25,7 @@ def write_source(file_name, code):
 
 def main():
     header_file_name = '../v8/src/point.h'
-    header_file_name = './test-data/han_purged_test.h'
+    header_file_name = './test-data/real_test_file.h'
     source = utils.ReadFile(header_file_name)
 
     # zaqwes

@@ -3,9 +3,15 @@
 # std
 import re
 
+# App
+from _utils import remove_cc_comments, delete_double_spaces
+
 # ПЕЧАТАТЬ ЛИ МАССИВЫ?????
 # 0 - нет
 # 1 - да
+check_array_print = 0
+# 0 - вывод без массивов!
+# 1 - вывод с массивами (по умолчанию 0)
 check_array_print = 0
 
 
@@ -19,43 +25,49 @@ class VarDeclaration(object):
         self.name = name
 
 
-print("\n")
-"""
-var Point = function() {
-}
+def extract_var_declaration(source):
+    """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
-var pointInstance = new Point();
-"""
+    class {
+        // Work
+        Type var;
+        Type function();
 
+        Type function(
+            Type0 var);
 
-def removeComments(transmittingCode):
-    deletingString = ""
-    regular = re.compile('\/\/.*')
-    searchResult = regular.search(transmittingCode)
-    if searchResult:
-        deletingString = searchResult.group()
-        #print searchResult.group()
-    return transmittingCode.replace(deletingString, "")
+        // Don't work
+        Type<Type<
+            Var> var;
+        Type function(
+            Type1 var,
+            Type0 var);
 
-def delete_double_spaces(transmittedString):
-    return transmittedString.replace("  ", " ")
-
-# возвращает строку, в которой содержится все пары тип + имя переменной
-def extract_var_declaration(class_transmit_code_):
+    }
+    """
     result = ""
-    for i in class_transmit_code_.split('\n'):
-        if '(' not in i and ")" not in i and "{" not in i and "}" not in i \
-            and "#" not in i \
-            and "public:" not in i \
-            and "private" not in i \
-            and "protected" not in i \
-            and "using" not in i:
-            p = re.compile("bool""|int""|vector<""|string""|char")
-            m = p.search(i)
-            if m:
-                i = removeComments(i)
-                i = delete_double_spaces(i)
-                result = result + i + '\n'
+    code_lines = source.split('\n')
+    for line in code_lines:
+
+        # Может негенерить много ошибок
+        if '(' not in line \
+                and ")" not in line \
+                and ";" in line \
+                and "{" not in line \
+                and "}" not in line \
+                and "#" not in line \
+                and "public:" not in line \
+                and "private" not in line \
+                and "protected" not in line \
+                and "using" not in line:
+            pattern = re.compile("bool""|int""|vector<""|string""|char")
+            search_result = pattern.search(line)
+            if search_result:
+                line_copy = line
+                line_copy = line_copy.lstrip().rstrip()
+                line_copy = remove_cc_comments(line_copy)
+                line_copy = delete_double_spaces(line_copy)
+                result += line_copy + '\n'
     return getTypeAndVarList(result)
 
 
@@ -86,7 +98,7 @@ def getTypeAndVarList(declaration_string):
                     result.append((var_type, var_name))
             else:
                 var_type = record
-    # Bug was here
+                # Bug was here
     return result
 
 
@@ -285,8 +297,7 @@ def make_scalars_and_accessors_with_formating(type_and_var_list):
     for elem in type_and_var_list:
         result = result + make_getter_and_setter_add(*elem) + "\n"
 
-    result = result + """
-}"""
+    result += """\r\n}"""
 
     result = result.replace('\n\n', '\n')
 
@@ -299,10 +310,6 @@ def make_scalars_and_accessors_with_formating(type_and_var_list):
 
     return result
 
-# 0 - вывод без массивов!
-# 1 - вывод с массивами (по умолчанию 0)
-check_array_print = 0
-
 
 def extract_variable_declaration(source):
     """
@@ -310,6 +317,7 @@ def extract_variable_declaration(source):
         source - string with code
     """
     from _units import ScalarVariableField
+
     type_and_var_list = extract_var_declaration(source)
     result = []
     for var in type_and_var_list:
