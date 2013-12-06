@@ -1,18 +1,15 @@
 # coding: utf-8
-import re  # регулярные выражения
 
 # std
-import sys
 
 # Third_party
 from generator.cpp import utils
 
 # App
-from _units_zaqwes import extract_variable_declaration
-from _units_zaqwes import make_header
-from _units_zaqwes import make_source
-import han
-import _units_han
+from zaqwes._units_zaqwes import extract_variable_declaration
+from zaqwes._units_zaqwes import make_header
+from zaqwes._units_zaqwes import make_source
+from _h_parser import Holder, VarDeclaration
 
 
 def write_source(file_name, code):
@@ -30,7 +27,7 @@ def main():
 
     # zaqwes
     #vars_ = extract_variable_declaration(source, header_file_name)
-    vars_ = _units_han.extract_variable_declaration(source)
+    vars_ = extract_variable_declaration(source)
 
     #if
     # Make V8 view
@@ -55,6 +52,21 @@ def main():
 
     # Итоговый исходник
     write_source('forge_v8_point.cc', code)
+
+
+def extract_variable_declaration(source):
+    """
+    Args:
+        source - string with code
+    """
+    from zaqwes._units_zaqwes import ScalarVariableField
+
+    type_and_var_list = Holder.extract_var_declaration(source)
+    result = []
+    for var in type_and_var_list:
+        result.append(ScalarVariableField('unknown', VarDeclaration(*var)))
+
+    return result
 
 
 if __name__ == '__main__':

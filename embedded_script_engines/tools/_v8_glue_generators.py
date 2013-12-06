@@ -3,8 +3,6 @@
 # std
 import re
 
-
-
 # ПЕЧАТАТЬ ЛИ МАССИВЫ?????
 # 0 - нет
 # 1 - да
@@ -14,36 +12,35 @@ check_array_print = 0
 check_array_print = 0
 
 
+class V8Decoders(object):
+    @staticmethod
+    def cpp_type_to_v8(var_type, accessor_type):
+        result = ""
+        if accessor_type == "get":
+            if var_type == "int" \
+                    or var_type == "uint" \
+                    or var_type == "char" \
+                    or var_type == "uchar":
+                result = "Integer"
+        if accessor_type == "set":
+            if var_type == "int" \
+                    or var_type == "uint" \
+                    or var_type == "uchar" \
+                    or var_type == "char":
+                result = "Int32"
+        if var_type == "bool":
+            result = "Boolean"
+        if "string" in var_type:
+            result = "v8::String"
+        return result
 
-
-def transmitCTypeToV8(type, typeFunc):
-    result = ""
-    if typeFunc == "get":
-        if type == "int" or type == "uint" \
-            or type == "char" \
-            or type == "uchar":
-            result = "Integer"
-    if typeFunc == "set":
-        if type == "int" or type == "uint" \
-            or type == "uchar" \
-            or type == "char":
-            result = "Int32"
-    if type == "bool":
-        result = "Boolean"
-        #bad
-        #if type == "string" or type == "std::string":
-        #result == "v8::String"
-    if "string" in type:
-        result = "v8::String"
-    return result
-
-
-def transmitSignedUnsignedTypes(type):
-    if type == "uchar":
-        return "unsigned char"
-    if type == "uint":
-        return "unsigned int"
-    return type
+    @staticmethod
+    def transmitSignedUnsignedTypes(type):
+        if type == "uchar":
+            return "unsigned char"
+        if type == "uint":
+            return "unsigned int"
+        return type
 
 
 def getFuncName(name):
@@ -58,8 +55,8 @@ def make_scalar_getter(type, name):
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  """ + transmitSignedUnsignedTypes(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
-  info.GetReturnValue().Set(''' + transmitCTypeToV8(type, "get") + """::New(value));
+  """ + V8Decoders.transmitSignedUnsignedTypes(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
+  info.GetReturnValue().Set(''' + V8Decoders.cpp_type_to_v8(type, "get") + """::New(value));
 }
 """
     return clear_result(ArrayOrNotArray(result, name, type, "get"))
@@ -73,7 +70,7 @@ def make_scalar_setter(type, name):
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  static_cast<''' + "DataBase" + "*>(ptr)->" + name + "= value->" + transmitCTypeToV8(type, "set") \
+  static_cast<''' + "DataBase" + "*>(ptr)->" + name + "= value->" + V8Decoders.cpp_type_to_v8(type, "set") \
         + "Value();" + '''
 }
 '''
@@ -224,17 +221,3 @@ def make_scalars_and_accessors_with_formating(type_and_var_list):
 
     return result
 
-
-def extract_variable_declaration(source):
-    """
-    Args:
-        source - string with code
-    """
-    from _units_zaqwes import ScalarVariableField
-
-    type_and_var_list = Holder.extract_var_declaration(source)
-    result = []
-    for var in type_and_var_list:
-        result.append(ScalarVariableField('unknown', VarDeclaration(*var)))
-
-    return result
