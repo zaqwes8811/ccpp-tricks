@@ -11,6 +11,7 @@
 #include "point.h"
 #include "v8_wrapper.h"
 #include "virtual_machine.h"
+#include "point/forge_v8_points.h"
 
 
 TEST(V8, ProcessTop) {

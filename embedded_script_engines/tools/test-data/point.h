@@ -1,3 +1,8 @@
+
+// C++
+#include <string>
+#include <vector>
+
 class Point {
   public:
    Point(int x, int y) : x_(x),
@@ -10,6 +15,6 @@ class Point {
 
    // пока считает за скаляры
    std::vector<std::string> vector_values;
-   Vector values_range;
+   //Vector values_range;
    //int array[42];  // Replace to vector!!
 };

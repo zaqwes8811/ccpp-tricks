@@ -1,5 +1,7 @@
 #include "point.h"
 
+#include "point/forge_v8_points.h"
+
 using v8::Value;
 using v8::Handle;
 using v8::Local;
@@ -71,6 +73,9 @@ v8::Handle<v8::Object> V8Point::Forge(Point* point, v8::Handle<v8::Context> cont
   HandleScope handle_scope(isolate_);
   Context::Scope scope(isolate_->GetCurrentContext());
 
+  // “.е. мы создаем шаблон в заданном конексте?
+  // TODO: ѕохоже на баг. ¬озможно не про€вл€лс€ из-за того, что использовали
+  //   только один контекст.
   if (own_blueprint_.IsEmpty()) {
     Handle<ObjectTemplate> raw_template = 
         this->MakeBlueprint();
