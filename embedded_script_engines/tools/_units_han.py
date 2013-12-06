@@ -8,6 +8,17 @@ import re
 # 1 - да
 check_array_print = 0
 
+
+class VarDeclaration(object):
+    class Type(object):
+        def __init__(self, type_name):
+            self.name = type_name
+
+    def __init__(self, type_name, name):
+        self.type = VarDeclaration.Type(type_name)
+        self.name = name
+
+
 print("\n")
 """
 var Point = function() {
@@ -26,9 +37,8 @@ def removeComments(transmittingCode):
         #print searchResult.group()
     return transmittingCode.replace(deletingString, "")
 
-#print removeComments(class_transmit_code)
 
-def deleteDoubleSpaces(transmittedString):
+def delete_double_spaces(transmittedString):
     return transmittedString.replace("  ", " ")
 
 # возвращает строку, в которой содержится все пары тип + имя переменной
@@ -45,7 +55,7 @@ def extract_var_declaration(class_transmit_code_):
             m = p.search(i)
             if m:
                 i = removeComments(i)
-                i = deleteDoubleSpaces(i)
+                i = delete_double_spaces(i)
                 result = result + i + '\n'
     return getTypeAndVarList(result)
 
