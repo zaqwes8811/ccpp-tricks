@@ -11,8 +11,9 @@
 #include "small_base.h"
 #include "v8small_base.h"
 #include "v8small_base_engine.h"
-#include "app-server-linux/in_memory_storage/emitter/emitter.h"
-#include "in_memory_storage/sampler.h" 
+//#include "app-server-linux/in_memory_storage/emitter/emitter.h"
+#include "in-memory-storages/linux_version/abstract_in_memory_storage.h"
+#include "in-memory-storages/linux_version/sampler.h" 
 // C++
 #include <string>
 
@@ -42,16 +43,20 @@ using v8::Persistent;
 using ::scenarios::SmallBase;
 using ::scenarios::V8SmallBase;
 using ::scenarios::V8SmallBaseEngine;
-using ::emitter::EmitterImpl;
-using ::tmitter_web_service::DataBase;
+using ::in_memory_storages::InMemoryStorage;
+//using ::emitter::EmitterImpl;
+typedef ::tmitter_web_service::InMemoryStorageImpl DataBase;
 
+using ::tmitter_web_service::InMemoryStorageImpl;
+typedef ::tmitter_web_service::InMemoryStorageImpl EmitterImpl;
 TEST(SmallBaseEngine, Create) {
   v8::V8::InitializeICU();
   //string file = "..\\scripts\\test_extended.js";
 	string file = "..\\scripts\\script_small_base_engine_test.js";
   EXPECT_NE(true, file.empty());
 	//SmallBase* database = new SmallBase(0);
-	DataBase* database = new DataBase();
+	//DataBase* database = new DataBase();
+	InMemoryStorageImpl database;
   Isolate* isolate = Isolate::GetCurrent();
 
   // ¬сегда нужно создать - это как бы свой стек дл€ V8
@@ -67,7 +72,7 @@ TEST(SmallBaseEngine, Create) {
   // Engine
   V8SmallBaseEngine* engine = V8SmallBaseEngine::CreateForOwn(
 
-		isolate, source, database, &v8_smalldb);
+		isolate, source, &database, &v8_smalldb);
 
 	StringHttpRequest request("/", "localhost", "google.net", "firefox");
 
@@ -76,13 +81,14 @@ TEST(SmallBaseEngine, Create) {
 	engine->Process();
 
 //	DataBase database;
+	
 	EmitterImpl emitter(database);
 	//emitter.emitCfg();
 	//emitter.emitAll();
 
-	ASSERT_NO_THROW(emitter.emitCfg());	
+	ASSERT_NO_THROW(emitter.emitConfiguration());	
 	
-	ASSERT_NO_THROW(emitter.emitAll());
+	ASSERT_NO_THROW(emitter.emitAllParams());
 	//std::cout << database->PABTotal_ << std::endl;
 	/*database.total_bcl_ = 4;
 	database.excitersTotal_ = 3;
