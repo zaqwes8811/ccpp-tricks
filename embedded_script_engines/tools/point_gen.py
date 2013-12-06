@@ -22,7 +22,7 @@ def write_source(file_name, code):
 
 
 def main():
-    header_file_name = 'test-data/point.h'
+    header_file_name = '../v8/src/point.h'
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
@@ -40,7 +40,7 @@ def main():
         else:
             print i
 
-    code = make_header(declarations)
+    code = make_header(declarations, 'point.h')
     header_name = 'forge_v8_point.h'
     write_source(header_name, code)
     code = make_source(impls, header_name)

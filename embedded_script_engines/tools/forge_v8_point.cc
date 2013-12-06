@@ -3,11 +3,30 @@
 //#include "app/config.h"  // TODO: Need impl.
 #include "forge_v8_point.h"  // TODO: Need connect real.
 
+// C++
+#include <string>
+
+using std::string;
+
+using v8::Object;
+using v8::Handle;
+using v8::Local;
+using v8::Value;
+using v8::ObjectTemplate;
+using v8::External;
+using v8::Context;
+using v8::Isolate;
+using v8::Persistent;
+using v8::Integer;
+using v8::String;
+
 // TODO: It need be impl. manual
 v8::Handle<v8::Object> ForgeV8Points::Forge_NI(
       Point* point, 
-      v8::Isolate* isolate
-      v8::Persistent<v8::ObjectTemplate>* blueprint);
+      v8::Isolate* isolate,
+      v8::Persistent<v8::ObjectTemplate>* blueprint) { 
+
+}
 
 // TODO: It need be impl. manual
 v8::Handle<v8::ObjectTemplate> ForgeV8Points::MakeBlueprint_NI() { 
@@ -33,14 +52,4 @@ void ForgeV8Points::v8_getter_y_(
   void* ptr = wrap->Value();
   int value = static_cast<Point*>(ptr)->y_;
   info.GetReturnValue().Set(Integer::New(value));
-}
-void ForgeV8Points::v8_getter_name_(
-    v8::Local<v8::String> name,
-    const v8::PropertyCallbackInfo<v8::Value>& info) 
-  {
-  Local<Object> self = info.Holder();
-  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-  void* ptr = wrap->Value();
-  std::string value = static_cast<Point*>(ptr)->name_;
-  info.GetReturnValue().Set(String::New(value));
 }

@@ -1,5 +1,8 @@
 #pragma once 
 
+// C++
+#include <string>
+
 // Other
 #include <v8.h>
 
@@ -9,7 +12,9 @@ class Point {
   public:
   Point() : x_(1), y_(2) { }
   Point(int x, int y) : x_(x), y_(y) { }
-  int x_, y_;
+  int x_;
+  int y_;
+  //std::string name_;  // Пока нельзя!
 };
 
 class V8Point {

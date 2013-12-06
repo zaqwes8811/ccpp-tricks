@@ -284,6 +284,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="auto"
+				>
+				<File
+					RelativePath="..\..\..\tools\forge_v8_point.cc"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath="..\..\src\launcher_process.cc"
