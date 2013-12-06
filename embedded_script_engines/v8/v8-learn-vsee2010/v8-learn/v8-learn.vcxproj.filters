@@ -8,6 +8,9 @@
     <Filter Include="tools">
       <UniqueIdentifier>{b36b8744-a796-43dc-b3e1-2658118091bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\point">
+      <UniqueIdentifier>{23123664-1838-40dd-be51-fae19d1c8d0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc">
@@ -44,10 +47,16 @@
     <ClCompile Include="..\..\src\point_engine_test.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\point\engine_cut_persistents.cc">
+      <Filter>src\point</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\test_extended\process_test_ext.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\point\point_engines.h">
+      <Filter>src\point</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

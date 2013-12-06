@@ -1,47 +1,37 @@
-// C++
-#include <string>
 
 // Other
-#include <gtest/gtest.h>
-#include <v8.h>
+#include "v8.h"
 
 // App
-#include "process.h"
-#include "point.h"
 #include "point/point_engines.h"
 
-using std::string;
-
-using v8::Isolate;
-using v8::String;
-using v8::Handle;
-using v8::HandleScope;
-
-using v8::Context;
-using v8::Persistent;
-
-
-
-class PointV8EngineImplWithPersistent : public PointV8Engine {
+/*
+class PointV8EngineImplNoPersistent : public PointV8Engine {
  public:
   static PointV8Engine* CreateForOwn(
       Isolate* isolate, 
-      Handle<String> source) 
+      Handle<String> source,
+      V8Point* point) 
     {
-    PointV8Engine* engine = new PointV8EngineImplWithPersistent(isolate, source);
+    PointV8Engine* engine = new PointV8EngineImplNoPersistent(isolate, source, point);
     return engine;
   }
+  
 
  protected:
-  PointV8EngineImplWithPersistent(Isolate* isolate, Handle<String> source) 
-    : isolate_(isolate), source_(source) { }
+  PointV8EngineImplNoPersistent(
+    Isolate* isolate, 
+    Handle<String> source,
+    V8Point* point) 
+    : isolate_(isolate), source_(source), point_(point) { }
 
- public:
+public:
   virtual void RunWithRealPoint(Point* real_point) {
     HandleScope handle_scope(GetIsolate());
 
     // Create a template for the global object where we set the
     // built-in global functions.
+    // Похоже сюда пихаем и нашу точку
     Handle<ObjectTemplate> global = ObjectTemplate::New();
 
     // Expose logger
@@ -57,11 +47,11 @@ class PointV8EngineImplWithPersistent : public PointV8Engine {
     // destructor.
     v8::Handle<v8::Context> context = 
         Context::New(GetIsolate(), NULL, global);
-    context_.Reset(GetIsolate(), context);
+    //context_.Reset(GetIsolate(), context);
 
     // Enter the new context so all the following operations take place
     // within it.
-    Context::Scope context_scope(GetIsolate(), context_);
+    Context::Scope context_scope(context);
 
     //@Point
     // Install
@@ -86,20 +76,20 @@ class PointV8EngineImplWithPersistent : public PointV8Engine {
   // При экспонировании похоже не нужно.
   Persistent<Context> context_;
 
+  // Может и не нужно будет
+  V8Point* point_;
+
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;
+
 
   // Спутано с Persistent - поэтому пока wrap-функция не вынести в V8Point
   // Но вынести ее можно и нужно. Может быть проблема со scope/context
   virtual Handle<Object> WrapPoint(Point* point) {
     HandleScope handle_scope(GetIsolate());
-
-    Context::Scope scope(GetIsolate(), context_);
-
-    V8Point v8_point(isolate_);
     if (point_template_.IsEmpty()) {
       Handle<ObjectTemplate> raw_template = 
-          v8_point.MakeBlueprint();
+          point_->CreateBlueprint(GetIsolate());
 
       // Сохраняем, но похоже можно и текущим пользоваться
       point_template_.Reset(GetIsolate(), raw_template);
@@ -122,32 +112,4 @@ class PointV8EngineImplWithPersistent : public PointV8Engine {
   }
 };
 
-//Persistent<ObjectTemplate> PointV8EngineImplNoPersistent::point_template_;
-Persistent<ObjectTemplate> PointV8EngineImplWithPersistent::point_template_;
-
-TEST(PointEngine, Create) {
-  v8::V8::InitializeICU();
-  string file = "..\\scripts\\point.js";
-  EXPECT_NE(true, file.empty());
-
-  Isolate* isolate = Isolate::GetCurrent();
-
-  // Всегда нужно создать - это как бы свой стек для V8
-  HandleScope scope(isolate);
-
-  Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
-
-  // Point
-  Point point_real(1, 2);
-
-  // Engine
-  PointV8Engine* engine = 
-      PointV8EngineImplWithPersistent::CreateForOwn(isolate, source);
-  engine->RunWithRealPoint(&point_real);
-
-  EXPECT_EQ(199, point_real.x_);
-  EXPECT_EQ(42, point_real.y_);
-
-  delete engine;
-}
+*/

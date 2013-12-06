@@ -5,10 +5,11 @@ namespace scenarios {
 V8SmallBaseEngine* V8SmallBaseEngine::CreateForOwn(
     Isolate* isolate, 
     Handle<String> source,
-		SmallBase* database,
+		::tmitter_web_service::DataBase* database,
     V8SmallBase* v8_database) {
   V8SmallBaseEngine* engine = new V8SmallBaseEngine(isolate, source, database, v8_database);
   engine->Initialize();
+	
   return engine;
 }
 
@@ -16,8 +17,8 @@ void V8SmallBaseEngine::Log(const char* event) {
   printf("Logged: %s\n", event);
 }
 
-bool V8SmallBaseEngine::InstallVars(SmallBase* database,
-																		SmallBase* database_output) {
+bool V8SmallBaseEngine::InstallVars(::tmitter_web_service::DataBase* database,
+																		::tmitter_web_service::DataBase* database_output) {
   HandleScope handle_scope(GetIsolate());
 
   // Wrap the map object in a JavaScript wrapper
@@ -37,7 +38,7 @@ bool V8SmallBaseEngine::InstallVars(SmallBase* database,
 }
 
 
-Handle<Object> V8SmallBaseEngine::WrapVar(SmallBase* obj) {
+Handle<Object> V8SmallBaseEngine::WrapVar(::tmitter_web_service::DataBase* obj) {
   // Handle scope for temporary handles.
   HandleScope handle_scope(GetIsolate());
 
@@ -69,6 +70,7 @@ Handle<Object> V8SmallBaseEngine::WrapVar(SmallBase* obj) {
 }
 
 
+
 bool V8SmallBaseEngine::ExecuteScript(Handle<String> script) {
   HandleScope handle_scope(GetIsolate());
 
@@ -96,14 +98,96 @@ bool V8SmallBaseEngine::ExecuteScript(Handle<String> script) {
   }
   return true;
 }
+//vamp
+Handle<ObjectTemplate> V8SmallBaseEngine::MakeRequestTemplate(
+    Isolate* isolate) {
+  HandleScope handle_scope(isolate);
+
+  Handle<ObjectTemplate> result = ObjectTemplate::New();
+  result->SetInternalFieldCount(1);
+
+  // Add accessors for each of the fields of the request.
+  //result->SetAccessor(String::NewSymbol("path"), GetPath);
+  //result->SetAccessor(String::NewSymbol("referrer"), GetReferrer);
+  //result->SetAccessor(String::NewSymbol("host"), GetHost);
+  //result->SetAccessor(String::NewSymbol("userAgent"), GetUserAgent);
+
+  // Again, return the result through the current handle scope.
+  return handle_scope.Close(result);
+}
+Handle<Object> V8SmallBaseEngine::WrapRequest() {
+  // Handle scope for temporary handles.
+  HandleScope handle_scope(GetIsolate());
+
+  // Fetch the template for creating JavaScript http request wrappers.
+  // It only has to be created once, which we do on demand.
+  if (request_template_.IsEmpty()) {
+    Handle<ObjectTemplate> raw_template = MakeRequestTemplate(GetIsolate());
+    request_template_.Reset(GetIsolate(), raw_template);
+  }
+  Handle<ObjectTemplate> templ =
+      Local<ObjectTemplate>::New(GetIsolate(), request_template_);
+
+  // Create an empty http request wrapper.
+  Handle<Object> result = templ->NewInstance();
+	//std::string requestt = " ";
+	//std::string* request = request;
+
+  // Wrap the raw C++ pointer in an External so it can be referenced
+  // from within JavaScript.
+  // "JS not handle!"
+  //Handle<External> request_ptr = External::New(request);
+
+  // Store the request pointer in the JavaScript wrapper.
+//  result->SetInternalField(0, request_ptr);
+
+  // Return the result through the current handle scope.  Since each
+  // of these handles will go away when the handle scope is deleted
+  // we need to call Close to let one, the result, escape into the
+  // outer handle scope.
+  return handle_scope.Close(result);
+}
 
 
+bool V8SmallBaseEngine::Process() {
+  // Create a handle scope to keep the temporary object references.
+  HandleScope handle_scope(GetIsolate());
+
+  v8::Local<v8::Context> context =
+      v8::Local<v8::Context>::New(GetIsolate(), context_);
+
+  // Enter this processor's context so all the remaining operations
+  // take place there
+  Context::Scope context_scope(context);
+
+  // Wrap the C++ request object in a JavaScript wrapper
+	Handle<Object> request_obj = WrapRequest();
+
+  // Set up an exception handler before calling the Process function
+  TryCatch try_catch;
+
+  // TOTH: in JavaScript function may be connected to exist objects
+  // Invoke the process function, giving the global object as !!'this'!!
+  // and one argument, the request.
+  const int argc = 1;
+  Handle<Value> argv[argc] = { request_obj };
+  v8::Local<v8::Function> process =
+      v8::Local<v8::Function>::New(GetIsolate(), process_);
+  Handle<Value> result = process->Call(context->Global(), argc, argv);
+  if (result.IsEmpty()) {
+    String::Utf8Value error(try_catch.Exception());
+    Log(*error);
+    return false;
+  } else {
+    return true;
+  }	
+}
 
 // main func
 bool V8SmallBaseEngine::Initialize() {
 	//vamp
 	
-	SmallBase* database_output = new SmallBase(0);
+	::tmitter_web_service::DataBase* database_output = new ::tmitter_web_service::DataBase();
 
   HandleScope handle_scope(GetIsolate());
 
@@ -131,7 +215,7 @@ bool V8SmallBaseEngine::Initialize() {
   Context::Scope context_scope(context);
 	
 	// test log
-	cout << "value in C++ to run " << database_->temp_ << endl;
+	//cout << "value in C++ to run " << database_->temp_ << endl;
 
 	// Run...
 	if (!InstallVars(database_, database_output))
@@ -142,11 +226,25 @@ bool V8SmallBaseEngine::Initialize() {
     return false;
 
 	// test log
-	cout << "value in C++ after run " << database_->temp_ << endl;
+//	cout << "value in C++ after run " << database_->temp_ << endl;
+
+	Handle<String> process_name = String::New("Process");
+
+	Handle<Value> process_val = context->Global()->Get(process_name);
+
+	if (!process_val->IsFunction()) return false;
+
+	Handle<Function> process_fun = Handle<Function>::Cast(process_val);
+
+//	Process();
+
+	process_.Reset(GetIsolate(), process_fun);
+
+
 
 }
 
-
+Persistent<ObjectTemplate> V8SmallBaseEngine::request_template_;
 Persistent<ObjectTemplate> V8SmallBaseEngine::point_template_;
 
 }

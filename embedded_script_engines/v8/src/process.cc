@@ -527,5 +527,20 @@ string ObjectToString(Local<Value> value) {
 }
 
 
+int ObjectToInt(Local<Value> value) {
+  return value->ToObject()->Int32Value();
+}
+
+v8::Handle<v8::ObjectTemplate> ArrayMakeBlueprint(
+    Isolate* isolate,
+    IndexedPropertyGetterCallback getter,
+    IndexedPropertySetterCallback setter) {
+  HandleScope scope(isolate);
+  Handle<ObjectTemplate> blueprint = ObjectTemplate::New();
+  blueprint->SetInternalFieldCount(1);
+  blueprint->SetIndexedPropertyHandler(getter, setter);
+  return scope.Close(blueprint);
+}
+
 
 
