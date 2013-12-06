@@ -32,7 +32,6 @@ def main():
     #vars_ = extract_variable_declaration(source, header_file_name)
     vars_ = _units_han.extract_variable_declaration(source)
 
-
     #if
     # Make V8 view
     impls = []

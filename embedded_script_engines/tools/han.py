@@ -1,6 +1,8 @@
 # coding: utf-8
 import re
 
+# http://habrahabr.ru/post/204476/
+
 # Other
 from generator.cpp import utils
 

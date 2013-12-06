@@ -30,24 +30,35 @@ void ForgeV8unknowns::v8_getter_lengthAllParams___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_HLTypeCodesQuerySTL(
+void ForgeV8unknowns::v8_getter_counterDebug___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  std::string value = static_cast<unknown*>(ptr)->HLTypeCodesQuerySTL;
+  int value = static_cast<unknown*>(ptr)->counterDebug___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void ForgeV8unknowns::v8_getter_typeControl_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  std::string value = static_cast<unknown*>(ptr)->typeControl_;
   info.GetReturnValue().Set(String::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_printPABInPowerOk_[kMaxPABs](
+void ForgeV8unknowns::v8_getter_currentQueryIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  int value = static_cast<unknown*>(ptr)->printPABInPowerOk_[kMaxPABs];
+  int value = static_cast<unknown*>(ptr)->currentQueryIndex_;
   info.GetReturnValue().Set(Integer::New(value));
 }

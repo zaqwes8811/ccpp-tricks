@@ -57,6 +57,8 @@ def extract_var_declaration(class_transmit_code_):
                 i = removeComments(i)
                 i = delete_double_spaces(i)
                 result = result + i + '\n'
+
+    print result
     return getTypeAndVarList(result)
 
 
@@ -70,22 +72,24 @@ def PreparingToGetTypeAndVarList(transmittingString):
     return transmittingString
 
 
-def getTypeAndVarList(typeAndVarStrings):
-    tempString = ""
+def getTypeAndVarList(declaration_string):
+    folded_string = PreparingToGetTypeAndVarList(declaration_string)
+
+    folded_string = folded_string.rstrip().lstrip()
+    declarations = folded_string.split(' ')
+
     result = []
-    type = ""
-    name = ""
-    index = 0
-    tempString = PreparingToGetTypeAndVarList(typeAndVarStrings)
-    for splitted_string in tempString.split(' '):
-        if splitted_string != "":
-            if index % 2 != 0:
-                type = splitted_string
-                if (name != "") and type != "":
-                    result.append((type, name))
+    var_type = ""
+    # Bug was here
+    for index, record in enumerate(declarations):
+        if record:
+            if index % 2:
+                var_name = record
+                if var_type and var_name:
+                    result.append((var_type, var_name))
             else:
-                name = splitted_string
-        index += 1
+                var_type = record
+    # Bug was here
     return result
 
 
@@ -312,7 +316,6 @@ def extract_variable_declaration(source):
     type_and_var_list = extract_var_declaration(source)
     result = []
     for var in type_and_var_list:
-        print var
         result.append(ScalarVariableField('unknown', VarDeclaration(*var)))
 
     return result

@@ -25,11 +25,15 @@ class ForgeV8unknowns {
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ForgeV8unknowns::v8_getter_HLTypeCodesQuerySTL(
+  static void ForgeV8unknowns::v8_getter_counterDebug___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ForgeV8unknowns::v8_getter_printPABInPowerOk_[kMaxPABs](
+  static void ForgeV8unknowns::v8_getter_typeControl_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  static void ForgeV8unknowns::v8_getter_currentQueryIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
