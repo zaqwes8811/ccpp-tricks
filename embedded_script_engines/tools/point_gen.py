@@ -23,6 +23,7 @@ def write_source(file_name, code):
 
 def main():
     header_file_name = '../v8/src/point.h'
+    #header_file_name = './test-data/point.h'
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
@@ -32,6 +33,7 @@ def main():
     # Make V8 view
     impls = []
     declarations = []
+
     for elem in vars_:
         i, d = elem.make_scalar_getter()
         if d:
@@ -60,7 +62,15 @@ def main():
                            impl_maker_blueprint+'\r\n')
 
     for var in vars_:
-        print var.variable_node_.name
+        var_name = var.variable_node_.name
+        if var_name == '???':
+            if var.variable_node_.type.array:
+                print var.variable_node_.type.modifiers[0]
+                print var.variable_node_.type.name
+            print var.variable_node_
+        else:
+            # Scalars
+            print var_name
 
     # Итоговый исходник
     write_source('forge_v8_point.cc', code)
