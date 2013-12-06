@@ -85,9 +85,33 @@ class Holder(object):
     @staticmethod
     def extract_var_declaration(source):
         code_lines = source.split('\n')
-        result = Holder.first_filtration(code_lines)
-        type_name_list = make_type_value_list(result)
+        declaration_string = Holder.first_filtration(code_lines)
+
+        # Похоже вся магия здесь
+        folded_string = PreparingToGetTypeAndVarList(declaration_string)
+
+        # Похоже на итоговую запаковку
+        type_name_list = Holder.make_type_value_list(folded_string)
         return type_name_list
+
+    @staticmethod
+    def make_type_value_list(folded_string):
+        folded_string = folded_string.rstrip().lstrip()
+        declarations = folded_string.split(' ')
+
+        result = []
+        var_type = ""
+        # Bug was here
+        for index, record in enumerate(declarations):
+            if record:
+                if index % 2:
+                    var_name = record
+                    if var_type and var_name:
+                        result.append((var_type, var_name))
+                else:
+                    var_type = record
+                    # Bug was here
+        return result
 
 
 def PreparingToGetTypeAndVarList(transmittingString):
@@ -100,25 +124,7 @@ def PreparingToGetTypeAndVarList(transmittingString):
     return transmittingString
 
 
-def make_type_value_list(declaration_string):
-    folded_string = PreparingToGetTypeAndVarList(declaration_string)
 
-    folded_string = folded_string.rstrip().lstrip()
-    declarations = folded_string.split(' ')
-
-    result = []
-    var_type = ""
-    # Bug was here
-    for index, record in enumerate(declarations):
-        if record:
-            if index % 2:
-                var_name = record
-                if var_type and var_name:
-                    result.append((var_type, var_name))
-            else:
-                var_type = record
-                # Bug was here
-    return result
 
 
 def transmitCTypeToV8(type, typeFunc):
