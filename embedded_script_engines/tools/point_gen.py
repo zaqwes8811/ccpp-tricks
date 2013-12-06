@@ -13,6 +13,14 @@ from _units import make_header
 from _units import make_source
 
 
+def write_source(file_name, code):
+    f = open(file_name, 'w')
+    f.write(('\r\n'.join(code))
+        .replace('\r', '@')
+        .replace('@', ''))
+    f.close()
+
+
 def main():
     header_file_name = 'test-data/point.h'
     source = utils.ReadFile(header_file_name)
@@ -32,18 +40,11 @@ def main():
         else:
             print i
 
-
-
-    _code = make_header(declarations)
-    f = open('forge_v8_point.h', 'w')
-    f.write(('\r\n'.join(_code))
-        .replace('\r', '@')
-        .replace('@', ''))
-    f.close()
-
-    _code = make_source(impls)
-    for line in _code:
-        print line
+    code = make_header(declarations)
+    header_name = 'forge_v8_point.h'
+    write_source(header_name, code)
+    code = make_source(impls, header_name)
+    write_source('forge_v8_point.cc', code)
 
 
 

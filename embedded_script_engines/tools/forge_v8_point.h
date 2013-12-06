@@ -19,15 +19,15 @@ class ForgeV8Points {
   // TODO: It need be impl. manual
   v8::Handle<v8::ObjectTemplate> MakeBlueprint_NI();
 
-  static void v8_getter_x_(
+  static void ForgeV8Points::v8_getter_x_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void v8_getter_y_(
+  static void ForgeV8Points::v8_getter_y_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void v8_getter_name_(
+  static void ForgeV8Points::v8_getter_name_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
