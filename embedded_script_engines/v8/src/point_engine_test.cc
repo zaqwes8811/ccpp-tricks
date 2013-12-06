@@ -9,6 +9,7 @@
 #include "process.h"
 #include "point.h"
 #include "point/point_engines.h"
+#include "point/forge_v8_points.h"
 
 using std::string;
 

@@ -212,6 +212,10 @@
 				Name="around_point"
 				>
 				<File
+					RelativePath="..\..\src\point\forge_v8_points.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\point\palette.cc"
 					>
 				</File>

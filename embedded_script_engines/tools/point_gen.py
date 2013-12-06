@@ -60,7 +60,7 @@ def main():
                            impl_maker_blueprint+'\r\n')
 
     for var in vars_:
-        print var
+        print var.variable_node_.name
 
     # Итоговый исходник
     write_source('forge_v8_point.cc', code)

@@ -1,5 +1,7 @@
 #include "point.h"
 
+#include "point/forge_v8_points.h"
+
 using v8::Value;
 using v8::Handle;
 using v8::Local;
