@@ -27,7 +27,7 @@ class VarDeclaration(object):
 
 class Holder(object):
     @staticmethod
-    def extract_var_declaration(source):
+    def first_filtration(code_lines):
         """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
         class {
@@ -53,7 +53,7 @@ class Holder(object):
         }
         """
         result = ""
-        code_lines = source.split('\n')
+
         for line in code_lines:
             # Фильтрация кода
             # Может негенерить много ошибок
@@ -78,8 +78,14 @@ class Holder(object):
                     line_copy = remove_cc_comments(line_copy)
                     line_copy = delete_double_spaces(line_copy)
                     result += line_copy + '\n'
+        return result
 
-        return make_type_value_list(result)
+    @staticmethod
+    def extract_var_declaration(source):
+        code_lines = source.split('\n')
+        result = Holder.first_filtration(code_lines)
+        type_name_list = make_type_value_list(result)
+        return type_name_list
 
 
 def PreparingToGetTypeAndVarList(transmittingString):
