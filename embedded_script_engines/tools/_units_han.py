@@ -88,21 +88,26 @@ class Holder(object):
         declaration_string = Holder.first_filtration(code_lines)
 
         # Похоже вся магия здесь
-        folded_string = PreparingToGetTypeAndVarList(declaration_string)
+        folded_string = Holder.end_filtration(declaration_string)
 
         # Похоже на итоговую запаковку
         type_name_list = Holder.make_type_value_list(folded_string)
         return type_name_list
 
     @staticmethod
+    def remove_lr_spaces(string):
+        return string.rstrip().lstrip()
+
+    @staticmethod
     def make_type_value_list(folded_string):
-        folded_string = folded_string.rstrip().lstrip()
+        folded_string = Holder.remove_lr_spaces(folded_string)
         declarations = folded_string.split(' ')
 
         result = []
         var_type = ""
         # Bug was here
         for index, record in enumerate(declarations):
+            record = Holder.remove_lr_spaces(record)
             if record:
                 if index % 2:
                     var_name = record
@@ -113,17 +118,16 @@ class Holder(object):
                     # Bug was here
         return result
 
-
-def PreparingToGetTypeAndVarList(transmittingString):
-    transmittingString = transmittingString.replace('\t', " ") \
-        .replace(';', "") \
-        .replace('\n\t', " ") \
-        .replace("  ", " ") \
-        .replace('\n', " ")
-    transmittingString = transmittingString.replace("  ", " ")
-    return transmittingString
-
-
+    @staticmethod
+    def end_filtration(declaration_string):
+        declaration_string = declaration_string\
+            .replace('\t', " ") \
+            .replace(';', "") \
+            .replace('\n\t', " ") \
+            .replace("  ", " ") \
+            .replace('\n', " ")
+        declaration_string = delete_double_spaces(declaration_string)
+        return declaration_string
 
 
 
