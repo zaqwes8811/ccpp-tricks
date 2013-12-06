@@ -31,7 +31,8 @@ def extract_var_declaration(source):
     class {
         // Work
         Type var;
-        Type function();
+        Type function(Type var);
+        Type var[SOME];
 
         Type function(
             Type0 var);
@@ -43,13 +44,20 @@ def extract_var_declaration(source):
             Type1 var,
             Type0 var);
 
+        // May be not work
+        Type function() {
+
+        }
     }
     """
     result = ""
     code_lines = source.split('\n')
     for line in code_lines:
-
+        # Фильтрация кода
         # Может негенерить много ошибок
+        # Можно внутри класса разбить так.
+        # Сперва вытянуть в строку.
+        # Затем разбить ;/:/ и только потом отфильтровать.
         if '(' not in line \
                 and ")" not in line \
                 and ";" in line \
@@ -68,7 +76,8 @@ def extract_var_declaration(source):
                 line_copy = remove_cc_comments(line_copy)
                 line_copy = delete_double_spaces(line_copy)
                 result += line_copy + '\n'
-    return getTypeAndVarList(result)
+
+    return make_type_value_list(result)
 
 
 def PreparingToGetTypeAndVarList(transmittingString):
@@ -81,7 +90,7 @@ def PreparingToGetTypeAndVarList(transmittingString):
     return transmittingString
 
 
-def getTypeAndVarList(declaration_string):
+def make_type_value_list(declaration_string):
     folded_string = PreparingToGetTypeAndVarList(declaration_string)
 
     folded_string = folded_string.rstrip().lstrip()
