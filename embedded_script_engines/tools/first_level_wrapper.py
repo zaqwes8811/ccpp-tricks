@@ -57,7 +57,6 @@ def main():
     write_source('forge_v8_point.cc', code)
 
 
-
 if __name__ == '__main__':
     main()
 

@@ -187,6 +187,7 @@ def make_source(impls_local, header_name):
     code_result.append('using v8::Persistent;')
     code_result.append('using v8::Integer;')
     code_result.append('using v8::String;')
+    code_result.append('\r\n')
 
     for impl in impls_local:
         code_result.append(impl[0] + '\r\n')
