@@ -11,6 +11,23 @@ class ScalarVariableField(object):
     """
     About:
     """
+    def is_array(self):
+        """
+        About:
+            vector vec;
+            int array[]
+        """
+        result = False
+        if '[' in self.variable_node_.name or 'vector' in self.variable_node_.type.name:
+            result = True
+
+        return result
+
+    def get_array_size(self):
+        if self.is_array():
+            return 0
+        else:
+            return None
 
     def __str__(self):
         return str(self.class_name_)

@@ -38,12 +38,15 @@ def main():
     declarations = []
 
     for elem in vars_:
-        i, d = elem.make_scalar_getter()
-        if d:
-            impls.append((i, elem.get_wrapper_class_name()))
-            declarations.append((d, elem.get_wrapper_class_name()))
+        if elem.is_array():
+            pass
         else:
-            print i
+            i, d = elem.make_scalar_getter()
+            if d:
+                impls.append((i, elem.get_wrapper_class_name()))
+                declarations.append((d, elem.get_wrapper_class_name()))
+            else:
+                print i
 
     code = make_header(declarations, 'point.h')
     header_name = 'forge_v8_point.h'

@@ -37,7 +37,6 @@ def removeComments(transmittingCode):
         #print searchResult.group()
     return transmittingCode.replace(deletingString, "")
 
-
 def delete_double_spaces(transmittedString):
     return transmittedString.replace("  ", " ")
 
@@ -57,8 +56,6 @@ def extract_var_declaration(class_transmit_code_):
                 i = removeComments(i)
                 i = delete_double_spaces(i)
                 result = result + i + '\n'
-
-    print result
     return getTypeAndVarList(result)
 
 

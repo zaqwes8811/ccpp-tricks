@@ -13,37 +13,14 @@ from _units_han import make_scalar_getter, make_scalar_setter
 from _units_han import make_array_index_setter
 
 
-class Indicator(object):
-    def __init__(self, var_type, var_name):
-        self.type_ = var_type
-        self.name_ = var_name
-
-    def is_array(self):
-        """
-        About:
-            vector vec;
-            int array[]
-        """
-        result = False
-        if '[' in self.name_ or 'vector' in self.type_:
-            result = True
-
-        return result
-
-    def get_array_size(self):
-        if self.is_array():
-            return 0
-        else:
-            return None
-
 if __name__ == '__main__':
     header_file_name = './test-data/han_test_.h'
     source = utils.ReadFile(header_file_name)
 
     type_and_var_list = extract_var_declaration(source)
 
-    for var in type_and_var_list:
-        Indicator(*var)
+    #for var in type_and_var_list:
+    #    Indicator(*var)
 
     # такой будет вывод, когда подключим все массивы и функции
     if False:
