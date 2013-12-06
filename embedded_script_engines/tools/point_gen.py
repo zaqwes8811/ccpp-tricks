@@ -23,16 +23,50 @@ def main():
         d, i = elem.make_scalar_getter()
         if i:
             declarations.append(d)
-            impls.append(i)
+            impls.append((i, elem.get_wrapper_class_name()))
         else:
             print d
 
-    for impl in impls:
-        print impl
+    def make_wrapper_class(impl_local):
+        code_result = []
+        class_name = 'Forge' + impl_local[0][1] + 's'
+        code_result.append('// Other')
+        code_result.append('#include <v8.h>\r\n')
+        code_result.append('//@StateLess\r\nclass'+class_name+' {')
+        code_result.append(' public:')
+
+
+        # Лучше передавать указатель, но тогда это не обертка, а генератор
+        code_result.append(
+            '  ' + class_name + '() { }\r\n')
+        code_result.append('  // TODO: It need be impl. manual')
+        code_result.append('  v8::Handle<v8::Object> Forge(\r\n      '
+                           'Point* point, \r\n      ' +
+                           'v8::Isolate* isolate\r\n      ' +
+                           'v8::Persistent<v8::ObjectTemplate>* blueprint);\r\n')
+        code_result.append('  // TODO: It need be impl. manual')
+        code_result.append('  v8::Handle<v8::ObjectTemplate> MakeBlueprint();\r\n')
+
+        for impl in impl_local:
+            code_result.append('  static ' + impl[0])
+
+        #code_result.append(' private:')
+        #code_result.append('  v8::Isolate* const isolate_;')
+        #code_result.append('  v8::Persistent<v8::ObjectTemplate> own_blueprint_;')
+        code_result.append('};')
+        return code_result
+
+
+    #for impl in impls:
+    #    print impl
+
+    _code = make_wrapper_class(impls)
+    for line in _code:
+        print line
 
 
         #print(elem.make_scalar_setter())
-    #elif Dart
+        #elif Dart
 
 
 if __name__ == '__main__':

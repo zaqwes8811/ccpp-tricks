@@ -20,6 +20,9 @@ class ScalarVariableField(object):
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String'}
         self.V8_SETTER_RECODER_ = {'int': 'Int32', 'std::string': 'String'}
 
+    def get_wrapper_class_name(self):
+        return 'V8'+self.class_name_
+
     def make_scalar_getter(self):
         """
         About:
