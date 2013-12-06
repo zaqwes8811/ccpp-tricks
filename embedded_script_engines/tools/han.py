@@ -8,16 +8,17 @@ from generator.cpp import utils
 
 # App
 from _units_han import make_array_getter, make_array_index_getter, make_scalars_and_accessors_with_formating
-from _units_han import extract_var_declaration, make_getter_and_setter_add
+from _units_han import make_getter_and_setter_add
 from _units_han import make_scalar_getter, make_scalar_setter
 from _units_han import make_array_index_setter
+from _units_han import Holder
 
 
 if __name__ == '__main__':
     header_file_name = './test-data/han_test_.h'
     source = utils.ReadFile(header_file_name)
 
-    type_and_var_list = extract_var_declaration(source)
+    type_and_var_list = Holder.extract_var_declaration(source)
 
     #for var in type_and_var_list:
     #    Indicator(*var)

@@ -25,59 +25,61 @@ class VarDeclaration(object):
         self.name = name
 
 
-def extract_var_declaration(source):
-    """ Возвращает строку, в которой содержится все пары тип + имя переменной
+class Holder(object):
+    @staticmethod
+    def extract_var_declaration(source):
+        """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
-    class {
-        // Work
-        Type var;
-        Type function(Type var);
-        Type var[SOME];
+        class {
+            // Work
+            Type var;
+            Type function(Type var);
+            Type var[SOME];
 
-        Type function(
-            Type0 var);
+            Type function(
+                Type0 var);
 
-        // Don't work
-        Type<Type<
-            Var> var;
-        Type function(
-            Type1 var,
-            Type0 var);
+            // Don't work
+            Type<Type<
+                Var> var;
+            Type function(
+                Type1 var,
+                Type0 var);
 
-        // May be not work
-        Type function() {
+            // May be not work
+            Type function() {
 
+            }
         }
-    }
-    """
-    result = ""
-    code_lines = source.split('\n')
-    for line in code_lines:
-        # Фильтрация кода
-        # Может негенерить много ошибок
-        # Можно внутри класса разбить так.
-        # Сперва вытянуть в строку.
-        # Затем разбить ;/:/ и только потом отфильтровать.
-        if '(' not in line \
-                and ")" not in line \
-                and ";" in line \
-                and "{" not in line \
-                and "}" not in line \
-                and "#" not in line \
-                and "public:" not in line \
-                and "private" not in line \
-                and "protected" not in line \
-                and "using" not in line:
-            pattern = re.compile("bool""|int""|vector<""|string""|char")
-            search_result = pattern.search(line)
-            if search_result:
-                line_copy = line
-                line_copy = line_copy.lstrip().rstrip()
-                line_copy = remove_cc_comments(line_copy)
-                line_copy = delete_double_spaces(line_copy)
-                result += line_copy + '\n'
+        """
+        result = ""
+        code_lines = source.split('\n')
+        for line in code_lines:
+            # Фильтрация кода
+            # Может негенерить много ошибок
+            # Можно внутри класса разбить так.
+            # Сперва вытянуть в строку.
+            # Затем разбить ;/:/ и только потом отфильтровать.
+            if '(' not in line \
+                    and ")" not in line \
+                    and ";" in line \
+                    and "{" not in line \
+                    and "}" not in line \
+                    and "#" not in line \
+                    and "public:" not in line \
+                    and "private" not in line \
+                    and "protected" not in line \
+                    and "using" not in line:
+                pattern = re.compile("bool""|int""|vector<""|string""|char")
+                search_result = pattern.search(line)
+                if search_result:
+                    line_copy = line
+                    line_copy = line_copy.lstrip().rstrip()
+                    line_copy = remove_cc_comments(line_copy)
+                    line_copy = delete_double_spaces(line_copy)
+                    result += line_copy + '\n'
 
-    return make_type_value_list(result)
+        return make_type_value_list(result)
 
 
 def PreparingToGetTypeAndVarList(transmittingString):
@@ -325,9 +327,9 @@ def extract_variable_declaration(source):
     Args:
         source - string with code
     """
-    from _units import ScalarVariableField
+    from _units_zaqwes import ScalarVariableField
 
-    type_and_var_list = extract_var_declaration(source)
+    type_and_var_list = Holder.extract_var_declaration(source)
     result = []
     for var in type_and_var_list:
         result.append(ScalarVariableField('unknown', VarDeclaration(*var)))
