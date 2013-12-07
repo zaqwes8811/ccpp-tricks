@@ -23,28 +23,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="first_level_wrapper.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="first_level_wrapper.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="22" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="1411">
+            <state line="39" column="27" selection-start="865" selection-end="865" vertical-scroll-proportion="0.37883008" vertical-offset="391" max-vertical-offset="1411">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="han_with_arrays_look_like.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/han_with_arrays_look_like.py">
+      <file leaf-file-name="with_arrays.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/with_arrays.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="352" column="16" selection-start="11914" selection-end="11914" vertical-scroll-proportion="1.1436464" vertical-offset="5363" max-vertical-offset="6205">
+            <state line="346" column="44" selection-start="11632" selection-end="11632" vertical-scroll-proportion="0.0" vertical-offset="5500" max-vertical-offset="6205">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="han_no_arrays_look_like.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/han_no_arrays_look_like.py">
+      <file leaf-file-name="with_arrays_also.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trash/with_arrays_also.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="4136" max-vertical-offset="4692">
+            <state line="246" column="25" selection-start="7672" selection-end="7672" vertical-scroll-proportion="0.0" vertical-offset="3974" max-vertical-offset="4692">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_v8_glue_generators.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_v8_glue_generators.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3893">
               <folding />
             </state>
           </provider>
@@ -67,8 +76,8 @@
         <option value="$PROJECT_DIR$/han.py" />
         <option value="$PROJECT_DIR$/_units_han.py" />
         <option value="$PROJECT_DIR$/_v8_glue_generators.py" />
-        <option value="$PROJECT_DIR$/first_level_wrapper.py" />
         <option value="$PROJECT_DIR$/han_with_arrays_look_like.py" />
+        <option value="$PROJECT_DIR$/first_level_wrapper.py" />
       </list>
     </option>
   </component>
@@ -104,26 +113,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v8" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.2 (D:/Python27/python.exe) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="v8" />
@@ -150,18 +142,17 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -170,6 +161,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\odata" />
+      <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\trash" />
       <recent name="D:\home\lugansky-igor\in-the-vicinity-cc\embedded_script_engines\tools\haneda" />
       <recent name="D:\home\lugansky-igor\in-the-vicinity-cc\embedded_script_engines\tools\zaqwes" />
     </key>
@@ -346,17 +339,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.6705069" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.85714287" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32949308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14285715" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -381,19 +374,40 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="22" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="1411">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/with_arrays.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="352" column="16" selection-start="11914" selection-end="11914" vertical-scroll-proportion="0.0" vertical-offset="5363" max-vertical-offset="6205">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trash/with_arrays_also.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="4136" max-vertical-offset="4692">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="22" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/han_with_arrays_look_like.py">
+    <entry file="file://$PROJECT_DIR$/with_arrays.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="352" column="16" selection-start="11914" selection-end="11914" vertical-scroll-proportion="0.0" vertical-offset="5984" max-vertical-offset="6205">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/han_no_arrays_look_like.py">
+    <entry file="file://$PROJECT_DIR$/trash/with_arrays_also.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="4136" max-vertical-offset="4692">
           <folding />
@@ -407,14 +421,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/han_with_arrays_look_like.py">
+    <entry file="file://$PROJECT_DIR$/with_arrays.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="4437" max-vertical-offset="6205">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/han_no_arrays_look_like.py">
+    <entry file="file://$PROJECT_DIR$/trash/with_arrays_also.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="3846" max-vertical-offset="4692">
           <folding />
@@ -428,23 +442,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_v8_glue_generators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/with_arrays.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="346" column="44" selection-start="11632" selection-end="11632" vertical-scroll-proportion="0.0" vertical-offset="5500" max-vertical-offset="6205">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trash/with_arrays_also.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="246" column="25" selection-start="7672" selection-end="7672" vertical-scroll-proportion="0.0" vertical-offset="3974" max-vertical-offset="4692">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="22" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/han_no_arrays_look_like.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="3846" max-vertical-offset="4692">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/han_with_arrays_look_like.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="352" column="16" selection-start="11914" selection-end="11914" vertical-scroll-proportion="1.1436464" vertical-offset="5363" max-vertical-offset="6205">
+        <state line="39" column="27" selection-start="865" selection-end="865" vertical-scroll-proportion="0.37883008" vertical-offset="391" max-vertical-offset="1411">
           <folding />
         </state>
       </provider>

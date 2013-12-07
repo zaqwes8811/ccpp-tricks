@@ -48,12 +48,12 @@ def main():
                 print i
 
     code = make_header(declarations, 'point.h')
-    header_name = 'forge_v8_point.h'
+    header_name = 'odata/forge_v8_point.h'
     write_source(header_name, code)
     code = make_source(impls, header_name)
 
     # Итоговый исходник
-    write_source('forge_v8_point.cc', code)
+    write_source('odata/forge_v8_point.cc', code)
 
 
 def extract_variable_declaration(source):
