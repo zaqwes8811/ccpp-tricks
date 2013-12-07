@@ -81,19 +81,21 @@ class Util_(object):
                    + check_array_print + " != 0 or 1, default = 0"
 
 
-def make_array_index_getter_sample(var_type, name):
-    result = "static void v8_get_array_index_" + Util_.get_fun_name_by_array_types(name)[0] + \
-             """(uint32_t index,	const PropertyCallbackInfo<Value>& info) {
-  if (index < """ + Util_.get_fun_name_by_array_types(name)[1] + """) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* """ + "database" + """ = static_cast<int*>(ptr);
-    info.GetReturnValue().Set( """ + "v8::Number::New(database[index])" + """);
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}"""
+def make_array_index_getter_sample(var_type, var_name):
+    result = "static void v8_get_array_index_" \
+             + Util_.get_fun_name_by_array_types(var_name)[0] + \
+             '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
+             '  if (index < ' \
+             + Util_.get_fun_name_by_array_types(var_name)[1] + ') {\n' + \
+             '    v8::Local<v8::Object> self = info.Holder();\n' + \
+             '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+             '    void* ptr = wrap->Value();\n' + \
+             '    int* ' + "database" + ' = static_cast<int*>(ptr);\n' + \
+             '    info.GetReturnValue().Set(' + "v8::Number::New(database[index])" + ');\n' + \
+             '  } else {\n' + \
+             '    info.GetReturnValue().Set(Undefined());\n' + \
+             '  }\n' + \
+             '}\n'
     return result
 
 
@@ -128,7 +130,8 @@ def make_array_index_setter(type, name):
 
 
 def make_array_getter(type, name):
-    result = "static void v8_get_array_" + Util_.get_fun_name_by_array_types(name)[0] + """(
+    result = "static void v8_get_array_" \
+             + Util_.get_fun_name_by_array_types(name)[0] + """(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
@@ -139,7 +142,8 @@ def make_array_getter(type, name):
     Isolate::GetCurrent(),
     var_array_blueprint_);
   Handle<Object> instance = templ->NewInstance();
-  Handle<External> array_handle = External::New(database->""" + Util_.get_fun_name_by_array_types(name)[0] + """);
+  Handle<External> array_handle = External::New(database->""" \
+             + Util_.get_fun_name_by_array_types(name)[0] + """);
   instance->SetInternalField(0, array_handle);
   info.GetReturnValue().Set<v8::Object>(instance);
 }"""
@@ -170,9 +174,6 @@ def make_getter_and_setter_add(type, name):
                  + Util_.get_fun_name_by_array_types(name)[0] + \
                  ", v8_set_array_index_" + Util_.get_fun_name_by_array_types(name)[0] + ");"
     return result
-
-
-
 
 
 # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
