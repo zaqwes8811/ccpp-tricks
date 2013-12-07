@@ -11,7 +11,7 @@ http://workware.net.au/papers/embedded-scripting.pdf !!
 tcl http://jim.tcl.tk/index.html/doc/www/www/index.html
 
 Jim-Tcl!
-
+ 
 В основном до armv7
 
 Deamonds:
