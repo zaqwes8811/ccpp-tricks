@@ -7,10 +7,10 @@ import re
 from generator.cpp import utils
 
 # App
-from _v8_glue_generators import make_array_getter, make_array_index_getter, make_scalars_and_accessors_with_formating
-from _v8_glue_generators import make_getter_and_setter_add
-from _v8_glue_generators import make_scalar_getter, make_scalar_setter
-from _v8_glue_generators import make_array_index_setter
+from _v8_glue_generators_deprecated import make_array_getter, make_array_index_getter, make_scalars_and_accessors_with_formating
+from _v8_glue_generators_deprecated import make_getter_and_setter_add
+from _v8_glue_generators_deprecated import make_scalar_getter, make_scalar_setter
+from _v8_glue_generators_deprecated import make_array_index_setter
 from _h_parser import Holder
 
 
