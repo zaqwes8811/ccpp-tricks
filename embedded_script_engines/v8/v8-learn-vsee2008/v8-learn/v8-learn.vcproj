@@ -184,14 +184,6 @@
 				Name="other_deprecated"
 				>
 				<File
-					RelativePath="..\..\src\js_request.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\js_request.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\v8_wrapper.cc"
 					>
 				</File>
@@ -211,10 +203,6 @@
 			<Filter
 				Name="around_point"
 				>
-				<File
-					RelativePath="..\..\src\point\forge_v8_points.h"
-					>
-				</File>
 				<File
 					RelativePath="..\..\src\point\palette.cc"
 					>
@@ -244,50 +232,14 @@
 					>
 				</File>
 			</Filter>
-			<Filter
-				Name="trash"
+		</Filter>
+		<Filter
+			Name="tools"
+			>
+			<File
+				RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
 				>
-				<File
-					RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\process.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\process_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\test_extended\process_test_ext.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\test_extended\process_test_ext_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_api_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_wrapper.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_wrapper_db.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\virtual_machine.cc"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="auto"
-				>
-			</Filter>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\src\launcher_process.cc"

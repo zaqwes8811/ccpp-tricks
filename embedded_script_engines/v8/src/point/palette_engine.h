@@ -10,8 +10,7 @@ class PaletteEngine {
       Isolate* isolate,
       Handle<String> source,
       Palette* palette) 
-        : isolate_(isolate), source_(source)
-    {
+        : isolate_(isolate), source_(source) {
     HandleScope handle_scope(GetIsolate());
 
     // Create a template for the global object where we set the
@@ -47,7 +46,7 @@ class PaletteEngine {
 
     //@Point
     // Run Script
-    bool success = ExecuteScript(source_, isolate_, &context_);
+    bool success = ExecuteScript(source_, isolate_);
   }
 
  private:
