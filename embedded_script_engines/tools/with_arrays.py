@@ -130,12 +130,12 @@ class V8ArraysWrapper(object):
             return ""
 
     @staticmethod
-    def make_array_index_getter(type, name):
-        return V8ArraysWrapper.make_array_index_getter_func(type, name)
+    def make_array_index_getter(var_type, name):
+        return V8ArraysWrapper.make_array_index_getter_func(var_type, name)
 
     @staticmethod
-    def make_array_index_setter(type, name):
-        return V8ArraysWrapper.make_array_index_setter_func(type, name)
+    def make_array_index_setter(var_type, name):
+        return V8ArraysWrapper.make_array_index_setter_func(var_type, name)
 
     @staticmethod
     def make_array_getter(var_type, var_name):
@@ -151,7 +151,7 @@ class V8ArraysWrapper(object):
                  '    Isolate::GetCurrent(),' + \
                  '    var_array_blueprint_);' + \
                  '  Handle<Object> instance = templ->NewInstance();' + \
-                 '  Handle<External> array_handle = External::New(database->' + \
+                 '  Handle<External> array_handle = External::New(database->' \
                  + Util_.get_fun_name_by_array_types(var_name)[0] + ');' + \
                  '  instance->SetInternalField(0, array_handle);' + \
                  '  info.GetReturnValue().Set<v8::Object>(instance);' + \
@@ -179,28 +179,27 @@ class V8ArraysWrapper(object):
         return result
 
 
-# ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
-# еще добавил формирование функции CreateBlueprint
-def make_scalars_and_accessors_with_formating(type_and_var_list):
-    result = """v8::Handle<v8::ObjectTemplate> CreateBlueprint(
-      v8::Isolate* isolate) {
-"""
-    for elem in type_and_var_list:
-        result = result + V8ArraysWrapper.make_getter_and_setter_add(*elem) + "\n"
+    # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
+    # еще добавил формирование функции CreateBlueprint
+    @staticmethod
+    def make_scalars_and_accessors_with_formating(type_and_var_list):
+        result = 'v8::Handle<v8::ObjectTemplate> CreateBlueprint(' + \
+                 '      v8::Isolate* isolate) {\n'
+        for elem in type_and_var_list:
+            result = result + V8ArraysWrapper.make_getter_and_setter_add(*elem) + "\n"
 
-    result = result + """
-}"""
+        result += '\n}'
 
-    result = result.replace('\n\n', '\n')
+        result = result.replace('\n\n', '\n')
 
-    for elem in type_and_var_list:
-        result = result + V8ScalarWrappers.make_scalar_getter(*elem) + V8ScalarWrappers.make_scalar_setter(*elem)
+        for elem in type_and_var_list:
+            result = result + V8ScalarWrappers.make_scalar_getter(*elem) + V8ScalarWrappers.make_scalar_setter(*elem)
 
-    result = result.replace('\n ', '\n')
-    result = result.replace('\n\n', '\n').replace('\n\n}', '\n}')
-    result = result.replace("}\n", "}\n\n").replace("\n\n\n", "\n\n")
+        result = result.replace('\n ', '\n')
+        result = result.replace('\n\n', '\n').replace('\n\n}', '\n}')
+        result = result.replace("}\n", "}\n\n").replace("\n\n\n", "\n\n")
 
-    return result
+        return result
 
 
 if __name__ == '__main__':
@@ -217,7 +216,7 @@ if __name__ == '__main__':
     else:
     # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
         # scalars and accessors in blueprint
-        print(make_scalars_and_accessors_with_formating(type_and_var_list))
+        print(V8ArraysWrapper.make_scalars_and_accessors_with_formating(type_and_var_list))
         # arrays
         for elem in type_and_var_list:
             print(V8ArraysWrapper.make_array_index_getter(*elem))
