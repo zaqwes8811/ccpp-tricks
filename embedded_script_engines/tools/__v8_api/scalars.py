@@ -5,7 +5,7 @@ __author__ = 'Igor'
 import sys
 
 # App
-from __v8_api.name_mapper import V8Decoders
+import __v8_api.name_mapper as name_mapper
 from __utils import Util
 
 
@@ -19,9 +19,9 @@ class V8ScalarWrappers(object):
             '    Local<Object> self = info.Holder();\n' + \
             '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
             '    void* ptr = wrap->Value();\n' + \
-            '    ' + V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" \
+            '    ' + name_mapper.V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" \
             + name + ';\n' + \
-            '    info.GetReturnValue().Set(' + V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}\n'
+            '    info.GetReturnValue().Set(' + name_mapper.V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}\n'
         return Util.clear_result(Util.is_array_(result, name, var_type, "get"))
 
     @staticmethod
@@ -34,7 +34,7 @@ class V8ScalarWrappers(object):
             '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
             '    void* ptr = wrap->Value();\n' + \
             '    static_cast<''' + "DataBase" + "*>(ptr)->" + var_name + "= value->" \
-            + V8Decoders.cpp_type_to_v8(var_type, "set") + 'Value(); ' + \
+            + name_mapper.V8Decoders.cpp_type_to_v8(var_type, "set") + 'Value(); ' + \
             '\n}\n'
         return Util.clear_result(Util.is_array_(result, var_name, var_type, "set"))
 

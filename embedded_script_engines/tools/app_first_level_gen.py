@@ -21,8 +21,8 @@ def main():
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
-    #vars_ = extract_variable_declaration(source, header_file_name)
-    vars_ = __cpp_code_parsers.header_parser.extract_variable_declaration(source)
+    vars_ = __cpp_code_parsers.header_parser.extract_variable_declaration(source, header_file_name)
+    #vars_ = __cpp_code_parsers.header_parser.extract_variable_declaration(source)
 
     #if
     # Make V8 view

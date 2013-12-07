@@ -3,7 +3,7 @@ __author__ = 'Igor'
 
 # App
 from __utils import Util
-from __v8_api.scalars import V8ScalarWrappers
+import __v8_api.scalars as scalars
 
 
 class V8ArraysWrapper(object):
@@ -107,7 +107,8 @@ class V8ArraysWrapper(object):
         result = result.replace('\n\n', '\n')
 
         for elem in type_and_var_list:
-            result = result + V8ScalarWrappers.make_scalar_getter(*elem) + V8ScalarWrappers.make_scalar_setter(*elem)
+            result = result + scalars.V8ScalarWrappers.make_scalar_getter(*elem) \
+                     + scalars.V8ScalarWrappers.make_scalar_setter(*elem)
 
         result = result.replace('\n ', '\n')
         result = result.replace('\n\n', '\n').replace('\n\n}', '\n}')

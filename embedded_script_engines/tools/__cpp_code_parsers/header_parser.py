@@ -8,6 +8,8 @@ from generator.cpp import ast
 
 # App
 from __utils import remove_cc_comments, delete_double_spaces
+from __v8_api.scalars import ScalarVariableField
+
 
 class VarDeclaration(object):
     class Type(object):
