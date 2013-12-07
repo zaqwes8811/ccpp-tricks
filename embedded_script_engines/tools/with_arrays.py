@@ -19,29 +19,29 @@ class V8ScalarWrappers(object):
     @staticmethod
     def make_scalar_getter(var_type, name):
         result = \
-            '\nstatic void v8_get_' + Util_.get_fun_name_by_array_types(name)[0] + '(Local<String> name,' + \
-            '    const PropertyCallbackInfo<Value>& info) {' + \
-            '  Local<Object> self = info.Holder();' + \
-            '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));' + \
-            '  void* ptr = wrap->Value();' + \
-            '  ' + V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" \
-            + name + ';' + \
-            '  info.GetReturnValue().Set(' + V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}'
+            '\nstatic void v8_get_' + Util_.get_fun_name_by_array_types(name)[0] + \
+            '(\n      Local<String> name,\n' + \
+            '      const PropertyCallbackInfo<Value>& info) \n    {\n' + \
+            '    Local<Object> self = info.Holder();\n' + \
+            '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+            '    void* ptr = wrap->Value();\n' + \
+            '    ' + V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" \
+            + name + ';\n' + \
+            '    info.GetReturnValue().Set(' + V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}\n'
         return Util_.clear_result(Util_.is_array_(result, name, var_type, "get"))
 
     @staticmethod
     def make_scalar_setter(var_type, var_name):
         result = \
             "\n" + "static void v8_set_" + Util_.get_fun_name_by_array_types(var_name)[0] \
-            + '(Local<String> property, Local<Value> value,' + \
-            '    const PropertyCallbackInfo<void>& info) {' + \
-            '  Local<Object> self = info.Holder();' + \
-            '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));' + \
-            '  void* ptr = wrap->Value();' + \
-            '  static_cast<''' + "DataBase" + "*>(ptr)->" + var_name + "= value->" \
-            + V8Decoders.cpp_type_to_v8(var_type, "set") + \
-            '        "Value(); ' + \
-            '}'
+            + '(\n      Local<String> property, \n      Local<Value> value,\n' + \
+            '      const PropertyCallbackInfo<void>& info) \n    {\n' + \
+            '    Local<Object> self = info.Holder();\n' + \
+            '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+            '    void* ptr = wrap->Value();\n' + \
+            '    static_cast<''' + "DataBase" + "*>(ptr)->" + var_name + "= value->" \
+            + V8Decoders.cpp_type_to_v8(var_type, "set") + 'Value(); ' + \
+            '\n}\n'
         return Util_.clear_result(Util_.is_array_(result, var_name, var_type, "set"))
 
 
@@ -109,11 +109,11 @@ class V8ArraysWrapper(object):
 
     @staticmethod
     def make_array_index_setter_sample(var_type, var_name):
-        result = "static void v8_set_array_index_" + Util_.get_fun_name_by_array_types(var_name)[0] + '(' + \
-                 '  uint32_t index,' + \
-                 '  Local<Value> value,' + \
-                 '    const PropertyCallbackInfo<Value>& info) {' + \
-                 '}'
+        result = "static void v8_set_array_index_" + Util_.get_fun_name_by_array_types(var_name)[0] + '(\n' + \
+                 '  uint32_t index,\n' + \
+                 '  Local<Value> value,\n' + \
+                 '    const PropertyCallbackInfo<Value>& info) {\n' + \
+                 '}\n'
         return result
 
     @staticmethod
@@ -141,21 +141,21 @@ class V8ArraysWrapper(object):
     def make_array_getter(var_type, var_name):
         result = "static void v8_get_array_" \
                  + Util_.get_fun_name_by_array_types(var_name)[0] + '(' + \
-                 '      Local<String> name,' + \
-                 '      const PropertyCallbackInfo<Value>& info) {' + \
-                 '  Local<Object> self = info.Holder();' + \
-                 '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));' + \
-                 '  void* ptr = wrap->Value();' + \
-                 '  SmallBase* database = static_cast<SmallBase*>(ptr);' + \
-                 '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(' + \
-                 '    Isolate::GetCurrent(),' + \
-                 '    var_array_blueprint_);' + \
-                 '  Handle<Object> instance = templ->NewInstance();' + \
+                 '      Local<String> name,\n' + \
+                 '      const PropertyCallbackInfo<Value>& info) {\n' + \
+                 '  Local<Object> self = info.Holder();\n' + \
+                 '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+                 '  void* ptr = wrap->Value();\n' + \
+                 '  SmallBase* database = static_cast<SmallBase*>(ptr);\n' + \
+                 '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(\n' + \
+                 '    Isolate::GetCurrent(),\n' + \
+                 '    var_array_blueprint_);\n' + \
+                 '  Handle<Object> instance = templ->NewInstance();\n' + \
                  '  Handle<External> array_handle = External::New(database->' \
-                 + Util_.get_fun_name_by_array_types(var_name)[0] + ');' + \
-                 '  instance->SetInternalField(0, array_handle);' + \
-                 '  info.GetReturnValue().Set<v8::Object>(instance);' + \
-                 '}'
+                 + Util_.get_fun_name_by_array_types(var_name)[0] + ');\n' + \
+                 '  instance->SetInternalField(0, array_handle);\n' + \
+                 '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
+                 '}\n'
         if "[" in var_name:
             return result
         else:
@@ -171,11 +171,11 @@ class V8ArraysWrapper(object):
         if "[" in name:
             result = "\n" + \
                      '  result->SetAccessor(String::New(\"' + \
-                     '                 ' + Util_.get_fun_name_by_array_types(name)[0] + "\"), v8_get_array_" + \
-                     '                 ' + Util_.get_fun_name_by_array_types(name)[0] + ');' + \
+                     Util_.get_fun_name_by_array_types(name)[0] + "\"), v8_get_array_" + \
+                     Util_.get_fun_name_by_array_types(name)[0] + ');\n' + \
                      '  result->SetIndexedPropertyHandler(v8_get_array_index_' \
-                     '                 ' + Util_.get_fun_name_by_array_types(name)[0] + \
-                     '                 , v8_set_array_index_' + Util_.get_fun_name_by_array_types(name)[0] + ");"
+                     + Util_.get_fun_name_by_array_types(name)[0] + \
+                     ', v8_set_array_index_' + Util_.get_fun_name_by_array_types(name)[0] + ");"
         return result
 
 
@@ -183,7 +183,7 @@ class V8ArraysWrapper(object):
     # еще добавил формирование функции CreateBlueprint
     @staticmethod
     def make_scalars_and_accessors_with_formating(type_and_var_list):
-        result = 'v8::Handle<v8::ObjectTemplate> CreateBlueprint(' + \
+        result = 'v8::Handle<v8::ObjectTemplate> CreateBlueprint(\n' + \
                  '      v8::Isolate* isolate) {\n'
         for elem in type_and_var_list:
             result = result + V8ArraysWrapper.make_getter_and_setter_add(*elem) + "\n"
@@ -203,24 +203,27 @@ class V8ArraysWrapper(object):
 
 
 if __name__ == '__main__':
-    class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
-    type_and_var_list = Holder.extract_var_declaration(class_transmit_code)
-    # такой будет вывод, когда подключим все массивы и функции
-    if False:
-        for elem in type_and_var_list:
-            print(V8ArraysWrapper.make_getter_and_setter_add(*elem))
+    def main():
+        class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
+        type_and_var_list = Holder.extract_var_declaration(class_transmit_code)
+        # такой будет вывод, когда подключим все массивы и функции
+        if False:
+            for elem in type_and_var_list:
+                print(V8ArraysWrapper.make_getter_and_setter_add(*elem))
 
-        for elem in type_and_var_list:
-            print(V8ScalarWrappers.make_scalar_getter(*elem))
-            print(V8ScalarWrappers.make_scalar_setter(*elem))
-    else:
-    # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
-        # scalars and accessors in blueprint
-        print(V8ArraysWrapper.make_scalars_and_accessors_with_formating(type_and_var_list))
-        # arrays
-        for elem in type_and_var_list:
-            print(V8ArraysWrapper.make_array_index_getter(*elem))
-            print(V8ArraysWrapper.make_array_index_setter(*elem))
-            print(V8ArraysWrapper.make_array_getter(*elem))
+            for elem in type_and_var_list:
+                print(V8ScalarWrappers.make_scalar_getter(*elem))
+                print(V8ScalarWrappers.make_scalar_setter(*elem))
+        else:
+        # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
+            # scalars and accessors in blueprint
+            print(V8ArraysWrapper.make_scalars_and_accessors_with_formating(type_and_var_list))
+            # arrays
+            for elem in type_and_var_list:
+                print(V8ArraysWrapper.make_array_index_getter(*elem))
+                print(V8ArraysWrapper.make_array_index_setter(*elem))
+                print(V8ArraysWrapper.make_array_getter(*elem))
+
+    main()
 
 
