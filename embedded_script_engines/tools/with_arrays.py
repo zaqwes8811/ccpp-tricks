@@ -27,7 +27,7 @@ class V8ScalarWrappers(object):
             '  ' + V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" \
             + name + ';' + \
             '  info.GetReturnValue().Set(' + V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}'
-        return clear_result(Util_.is_array_(result, name, var_type, "get"))
+        return Util_.clear_result(Util_.is_array_(result, name, var_type, "get"))
 
     @staticmethod
     def make_scalar_setter(var_type, var_name):
@@ -42,7 +42,7 @@ class V8ScalarWrappers(object):
             + V8Decoders.cpp_type_to_v8(var_type, "set") + \
             '        "Value(); ' + \
             '}'
-        return clear_result(Util_.is_array_(result, var_name, var_type, "set"))
+        return Util_.clear_result(Util_.is_array_(result, var_name, var_type, "set"))
 
 
 class Util_(object):
@@ -80,58 +80,67 @@ class Util_(object):
             return "error: bad logic (in make_scalar_getter) or " \
                    + check_array_print + " != 0 or 1, default = 0"
 
-
-def make_array_index_getter_sample(var_type, var_name):
-    result = "static void v8_get_array_index_" \
-             + Util_.get_fun_name_by_array_types(var_name)[0] + \
-             '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
-             '  if (index < ' \
-             + Util_.get_fun_name_by_array_types(var_name)[1] + ') {\n' + \
-             '    v8::Local<v8::Object> self = info.Holder();\n' + \
-             '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
-             '    void* ptr = wrap->Value();\n' + \
-             '    int* ' + "database" + ' = static_cast<int*>(ptr);\n' + \
-             '    info.GetReturnValue().Set(' + "v8::Number::New(database[index])" + ');\n' + \
-             '  } else {\n' + \
-             '    info.GetReturnValue().Set(Undefined());\n' + \
-             '  }\n' + \
-             '}\n'
-    return result
+    @staticmethod
+    def clear_result(result):
+        result = result.replace('\n ', '\n').replace("\n\n\n", "")
+        result = result.replace('\n\n', '\n').replace('\n\n}', '\n}')
+        result = result.replace("}\n", "}\n\n").replace("}\n\n}", "}\n}").replace("}\n\n\n", "}\n\n")
+        return result
 
 
-def make_array_index_setter_sample(var_type, name):
-    result = "static void v8_set_array_index_" + Util_.get_fun_name_by_array_types(name)[0] + """(
-  uint32_t index,
-  Local<Value> value,
-  const PropertyCallbackInfo<Value>& info) {
-}"""
-    return result
+class V8ArraysWrapper(object):
+    @staticmethod
+    def make_array_index_getter_sample(var_type, var_name):
+        result = "static void v8_get_array_index_" \
+                 + Util_.get_fun_name_by_array_types(var_name)[0] + \
+                 '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
+                 '  if (index < ' \
+                 + Util_.get_fun_name_by_array_types(var_name)[1] + ') {\n' + \
+                 '    v8::Local<v8::Object> self = info.Holder();\n' + \
+                 '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+                 '    void* ptr = wrap->Value();\n' + \
+                 '    int* ' + "database" + ' = static_cast<int*>(ptr);\n' + \
+                 '    info.GetReturnValue().Set(' + "v8::Number::New(database[index])" + ');\n' + \
+                 '  } else {\n' + \
+                 '    info.GetReturnValue().Set(Undefined());\n' + \
+                 '  }\n' + \
+                 '}\n'
+        return result
 
+    @staticmethod
+    def make_array_index_setter_sample(var_type, var_name):
+        result = "static void v8_set_array_index_" + Util_.get_fun_name_by_array_types(var_name)[0] + '(' + \
+                 '  uint32_t index,' + \
+                 '  Local<Value> value,' + \
+                 '    const PropertyCallbackInfo<Value>& info) {' + \
+                 '}'
+        return result
 
-def make_array_index_getter_func(type, name):
-    if "[" in name:
-        return make_array_index_getter_sample(type, name)
-    return ""
-
-
-def make_array_index_setter_func(type, name):
-    if "[" in name:
-        return make_array_index_setter_sample(type, name)
-    else:
+    @staticmethod
+    def make_array_index_getter_func(var_type, name):
+        if "[" in name:
+            return V8ArraysWrapper.make_array_index_getter_sample(var_type, name)
         return ""
 
+    @staticmethod
+    def make_array_index_setter_func(var_type, name):
+        if "[" in name:
+            return V8ArraysWrapper.make_array_index_setter_sample(var_type, name)
+        else:
+            return ""
 
-def make_array_index_getter(type, name):
-    return make_array_index_getter_func(type, name)
+    @staticmethod
+    def make_array_index_getter(type, name):
+        return V8ArraysWrapper.make_array_index_getter_func(type, name)
+
+    @staticmethod
+    def make_array_index_setter(type, name):
+        return V8ArraysWrapper.make_array_index_setter_func(type, name)
 
 
-def make_array_index_setter(type, name):
-    return make_array_index_setter_func(type, name)
-
-
-def make_array_getter(type, name):
+def make_array_getter(var_type, var_name):
     result = "static void v8_get_array_" \
-             + Util_.get_fun_name_by_array_types(name)[0] + """(
+             + Util_.get_fun_name_by_array_types(var_name)[0] + """(
       Local<String> name,
       const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
@@ -143,21 +152,14 @@ def make_array_getter(type, name):
     var_array_blueprint_);
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(database->""" \
-             + Util_.get_fun_name_by_array_types(name)[0] + """);
+             + Util_.get_fun_name_by_array_types(var_name)[0] + """);
   instance->SetInternalField(0, array_handle);
   info.GetReturnValue().Set<v8::Object>(instance);
 }"""
-    if "[" in name:
+    if "[" in var_name:
         return result
     else:
         return ""
-
-
-def clear_result(result):
-    result = result.replace('\n ', '\n').replace("\n\n\n", "")
-    result = result.replace('\n\n', '\n').replace('\n\n}', '\n}')
-    result = result.replace("}\n", "}\n\n").replace("}\n\n}", "}\n}").replace("}\n\n\n", "}\n\n")
-    return result
 
 
 def make_getter_and_setter_add(type, name):
@@ -217,8 +219,8 @@ if __name__ == '__main__':
         print(make_scalars_and_accessors_with_formating(type_and_var_list))
         # arrays
         for elem in type_and_var_list:
-            print(make_array_index_getter(*elem))
-            print(make_array_index_setter(*elem))
+            print(V8ArraysWrapper.make_array_index_getter(*elem))
+            print(V8ArraysWrapper.make_array_index_setter(*elem))
             print(make_array_getter(*elem))
 
 
