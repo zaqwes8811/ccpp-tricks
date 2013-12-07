@@ -10,14 +10,16 @@
 
 // app
 #include "v8small_base.h"
-#include "small_base.h"
+#include "in-memory-storages/linux_version/sampler.h" 
+#include "in-memory-storages/linux_version/abstract_in_memory_storage.h"
 
 using namespace v8;
-using ::scenarios::SmallBase;
+using ::tmitter_web_service::InMemoryStorageImpl;
+using ::in_memory_storages::InMemoryStorage;
 using ::scenarios::V8SmallBase;
 using ::std::cout;
 using std::endl;
-//typedef ::tmitter_web_service::DataBase SmallBase;
+//typedef ::tmitter_web_service::InMemoryStorageImpl SmallBase;
 namespace scenarios {
 
 
@@ -29,14 +31,14 @@ class V8SmallBaseEngine {
       Isolate* isolate, 
       Handle<String> source,
 		//	SmallBase* database,
-			::tmitter_web_service::DataBase*,
+			::tmitter_web_service::InMemoryStorageImpl*,
       V8SmallBase* v8database);  
 	bool Process();
  protected:
   V8SmallBaseEngine(
     Isolate* isolate, 
     Handle<String> source,
-		::tmitter_web_service::DataBase* const database,
+		::tmitter_web_service::InMemoryStorageImpl* const database,
     V8SmallBase* temp) 
 				: isolate_(isolate), source_(source), database_(database), temp_(temp) { }
 
@@ -44,8 +46,8 @@ class V8SmallBaseEngine {
 
 	void Log(const char* event);
 	bool ExecuteScript(Handle<String> script);
-	Handle<Object> WrapVar(::tmitter_web_service::DataBase* obj);
-	bool InstallVars(::tmitter_web_service::DataBase* opts, ::tmitter_web_service::DataBase* output);	
+	Handle<Object> WrapVar(::tmitter_web_service::InMemoryStorageImpl* obj);
+	bool InstallVars(::tmitter_web_service::InMemoryStorageImpl* opts, ::tmitter_web_service::InMemoryStorageImpl* output);	
 	Handle<Object> WrapRequest(); 
 	Handle<ObjectTemplate> MakeRequestTemplate (Isolate* isolate);
 
@@ -66,7 +68,7 @@ class V8SmallBaseEngine {
 
   // Может и не нужно будет
   V8SmallBase* temp_;
-	::tmitter_web_service::DataBase* const database_;
+	::tmitter_web_service::InMemoryStorageImpl* const database_;
 
   // Blueprints
   static Persistent<ObjectTemplate> point_template_;

@@ -236,10 +236,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\point.cc"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\point_engine_test.cc"
 					>
 				</File>
@@ -291,10 +287,6 @@
 			<Filter
 				Name="auto"
 				>
-				<File
-					RelativePath="..\..\..\tools\forge_v8_point.cc"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<File

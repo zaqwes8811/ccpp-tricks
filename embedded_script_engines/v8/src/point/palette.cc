@@ -105,8 +105,7 @@ void V8Palette::GetPointValue(
 
 void V8Palette::GetIntArrayValue(
       Local<String> name,
-      const PropertyCallbackInfo<Value>& info) 
-  {
+      const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();

@@ -8,15 +8,19 @@
 
 // app
 //#include "small_base.h"
-#include "in_memory_storage/sampler.h" 
-using ::tmitter_web_service::DataBase;
+#include "in-memory-storages/linux_version/sampler.h" 
+#include "in-memory-storages/linux_version/abstract_in_memory_storage.h"
+using ::tmitter_web_service::InMemoryStorageImpl;
 //using ::scenarios::SmallBase;
-typedef ::tmitter_web_service::DataBase SmallBase;
+
+typedef ::tmitter_web_service::InMemoryStorageImpl SmallBase;
 using namespace v8;
 namespace scenarios {
 class V8SmallBase {
  public:
 	V8SmallBase() {}
+
+	static v8::Persistent<v8::ObjectTemplate> var_array_blueprint_;
 
   v8::Handle<v8::ObjectTemplate> CreateBlueprint(
       v8::Isolate* isolate);
@@ -26,6 +30,51 @@ class V8SmallBase {
   static void SetTemp_(v8::Local<v8::String> property, v8::Local<v8::Value> value,
                  const v8::PropertyCallbackInfo<void>& info); 
 */	
+	
+	//uchar bcl_TR1[kMaxBCLs]; 
+//array ------------------ array --------------------- array ------------------------ array
+	static void v8_get_array_bcl_TR1(
+      Local<String> name,
+      const PropertyCallbackInfo<Value>& info) {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+
+  // Возвращает точку!
+	
+  InMemoryStorageImpl* database = static_cast<InMemoryStorageImpl*>(ptr);
+
+  // Нужно обернуть и вернуть
+  // Нужно плучить V8Palette или сделать новый хэндлер
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(), 
+      var_array_blueprint_);
+
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> point_handle = External::New(database->bcl_TR1);
+  instance->SetInternalField(0, point_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
+}
+
+	void v8_get_array_index_bcl_TR1(
+    uint32_t index,
+		const PropertyCallbackInfo<Value>& info) {  ]
+	//InMemoryStorageImpl* database = static_cast<InMemoryStorageImpl*>(ptr);
+	int max_size;
+	max_size = db_->kMaxBCLs;
+	
+  if (index < max_size) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* palette = static_cast<int*>(ptr);
+    info.GetReturnValue().Set(v8::Number::New(palette[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+	// \array -------------------- \array --------------------- \array ---------
 	static void V8Get_idx_oned_etv_(Local<String> name,
 								 const PropertyCallbackInfo<Value>& info) {
 		Local<Object> self = info.Holder();
