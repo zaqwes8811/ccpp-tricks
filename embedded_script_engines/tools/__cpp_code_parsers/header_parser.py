@@ -8,7 +8,7 @@ from generator.cpp import ast
 
 # App
 from __utils import remove_cc_comments, delete_double_spaces
-from __v8_api.scalars import ScalarVariableField
+from __v8_api import scalars
 
 
 class VarDeclaration(object):
@@ -150,7 +150,7 @@ def extract_variable_declaration(source, header_file_name):
                         # это не скаляр и сеттер будет другим https://developers.google.com/v8/embed
                         #else
                         #check what happened
-                        result.append(ScalarVariableField(node.name, record))
+                        result.append(scalars.ScalarVariableField(node.name, record))
         return result
     except KeyboardInterrupt:
         return None
