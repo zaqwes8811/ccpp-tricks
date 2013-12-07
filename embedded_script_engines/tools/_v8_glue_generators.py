@@ -35,7 +35,7 @@ class V8Decoders(object):
         return result
 
     @staticmethod
-    def transmitSignedUnsignedTypes(type):
+    def unroll_unsigned_typedefs(type):
         if type == "uchar":
             return "unsigned char"
         if type == "uint":
@@ -55,7 +55,7 @@ def make_scalar_getter(type, name):
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  """ + V8Decoders.transmitSignedUnsignedTypes(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
+  """ + V8Decoders.unroll_unsigned_typedefs(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
   info.GetReturnValue().Set(''' + V8Decoders.cpp_type_to_v8(type, "get") + """::New(value));
 }
 """
