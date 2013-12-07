@@ -137,45 +137,46 @@ class V8ArraysWrapper(object):
     def make_array_index_setter(type, name):
         return V8ArraysWrapper.make_array_index_setter_func(type, name)
 
+    @staticmethod
+    def make_array_getter(var_type, var_name):
+        result = "static void v8_get_array_" \
+                 + Util_.get_fun_name_by_array_types(var_name)[0] + '(' + \
+                 '      Local<String> name,' + \
+                 '      const PropertyCallbackInfo<Value>& info) {' + \
+                 '  Local<Object> self = info.Holder();' + \
+                 '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));' + \
+                 '  void* ptr = wrap->Value();' + \
+                 '  SmallBase* database = static_cast<SmallBase*>(ptr);' + \
+                 '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(' + \
+                 '    Isolate::GetCurrent(),' + \
+                 '    var_array_blueprint_);' + \
+                 '  Handle<Object> instance = templ->NewInstance();' + \
+                 '  Handle<External> array_handle = External::New(database->' + \
+                 + Util_.get_fun_name_by_array_types(var_name)[0] + ');' + \
+                 '  instance->SetInternalField(0, array_handle);' + \
+                 '  info.GetReturnValue().Set<v8::Object>(instance);' + \
+                 '}'
+        if "[" in var_name:
+            return result
+        else:
+            return ""
 
-def make_array_getter(var_type, var_name):
-    result = "static void v8_get_array_" \
-             + Util_.get_fun_name_by_array_types(var_name)[0] + """(
-      Local<String> name,
-      const PropertyCallbackInfo<Value>& info) {
-  Local<Object> self = info.Holder();
-  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-  void* ptr = wrap->Value();
-  SmallBase* database = static_cast<SmallBase*>(ptr);
-  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
-    Isolate::GetCurrent(),
-    var_array_blueprint_);
-  Handle<Object> instance = templ->NewInstance();
-  Handle<External> array_handle = External::New(database->""" \
-             + Util_.get_fun_name_by_array_types(var_name)[0] + """);
-  instance->SetInternalField(0, array_handle);
-  info.GetReturnValue().Set<v8::Object>(instance);
-}"""
-    if "[" in var_name:
+    @staticmethod
+    def make_getter_and_setter_add(var_type, name):
+        # for scalars
+        result = "  result->SetAccessor(String::New(\"" + name + "\"), v8_get_" + name + ", v8_set_" + name + ");"
+        result = Util_.is_array_(result, name, var_type, "add")
+
+        # for arrays
+        if "[" in name:
+            result = "\n" + \
+                     '  result->SetAccessor(String::New(\"' + \
+                     '                 ' + Util_.get_fun_name_by_array_types(name)[0] + "\"), v8_get_array_" + \
+                     '                 ' + Util_.get_fun_name_by_array_types(name)[0] + ');' + \
+                     '  result->SetIndexedPropertyHandler(v8_get_array_index_' \
+                     '                 ' + Util_.get_fun_name_by_array_types(name)[0] + \
+                     '                 , v8_set_array_index_' + Util_.get_fun_name_by_array_types(name)[0] + ");"
         return result
-    else:
-        return ""
-
-
-def make_getter_and_setter_add(type, name):
-    # for scalars
-    result = "  result->SetAccessor(String::New(\"" + name + "\"), v8_get_" + name + ", v8_set_" + name + ");"
-    result = Util_.is_array_(result, name, type, "add")
-    # for arrays
-    if "[" in name:
-        result = "\n" + """
-  result->SetAccessor(String::New(\"""" \
-                 + Util_.get_fun_name_by_array_types(name)[0] + "\"), v8_get_array_" \
-                 + Util_.get_fun_name_by_array_types(name)[0] + """);
-  result->SetIndexedPropertyHandler(v8_get_array_index_""" \
-                 + Util_.get_fun_name_by_array_types(name)[0] + \
-                 ", v8_set_array_index_" + Util_.get_fun_name_by_array_types(name)[0] + ");"
-    return result
 
 
 # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
@@ -185,7 +186,7 @@ def make_scalars_and_accessors_with_formating(type_and_var_list):
       v8::Isolate* isolate) {
 """
     for elem in type_and_var_list:
-        result = result + make_getter_and_setter_add(*elem) + "\n"
+        result = result + V8ArraysWrapper.make_getter_and_setter_add(*elem) + "\n"
 
     result = result + """
 }"""
@@ -208,7 +209,7 @@ if __name__ == '__main__':
     # такой будет вывод, когда подключим все массивы и функции
     if False:
         for elem in type_and_var_list:
-            print(make_getter_and_setter_add(*elem))
+            print(V8ArraysWrapper.make_getter_and_setter_add(*elem))
 
         for elem in type_and_var_list:
             print(V8ScalarWrappers.make_scalar_getter(*elem))
@@ -221,6 +222,6 @@ if __name__ == '__main__':
         for elem in type_and_var_list:
             print(V8ArraysWrapper.make_array_index_getter(*elem))
             print(V8ArraysWrapper.make_array_index_setter(*elem))
-            print(make_array_getter(*elem))
+            print(V8ArraysWrapper.make_array_getter(*elem))
 
 
