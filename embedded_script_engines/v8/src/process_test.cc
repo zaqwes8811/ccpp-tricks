@@ -1,3 +1,5 @@
+#include "tests_config.h"
+
 // C++
 #include <string>
 #include <map>
@@ -11,7 +13,9 @@
 #include "point.h"
 #include "v8_wrapper.h"
 #include "virtual_machine.h"
-#include "point/forge_v8_points.h"
+
+using std::string;
+
 
 
 TEST(V8, ProcessTop) {
@@ -25,20 +29,22 @@ TEST(V8, ProcessTop) {
     StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
   };
   int argc = 2;
-  char* argv[] = {"", "..\\scripts\\count-hosts.js"};
+  string path = kPathToTestScripts+string("count-hosts.js");
+  const char* p = path.c_str();
+  const char* argv[] = {"", p};
 
   v8::V8::InitializeICU();
   map<string, string> options;
   string file;
   ParseOptions(argc, argv, options, &file);
-  EXPECT_NE(true, file.empty());
+  ASSERT_NE(true, file.empty());
 
   //> V8
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   //> Own
   JsHttpRequestProcessor processor(isolate, source);
@@ -56,7 +62,9 @@ TEST(V8, ProcessTopOne) {
     StringHttpRequest("/process.cc", "localhost", "google.com", "firefox")
   };
   int argc = 2;
-  char* argv[] = {"", "..\\scripts\\count-hosts.js"};
+  string path = kPathToTestScripts+string("count-hosts.js");
+  const char* p = path.c_str();
+  const char* argv[] = {"", p};
 
   v8::V8::InitializeICU();
   map<string, string> options;
@@ -82,7 +90,9 @@ TEST(V8, ProcessTopOne) {
 
 TEST(V8, ProcessOne) {
   int argc = 2;
-  char* argv[] = {"", "..\\scripts\\test.js"};
+  string path = kPathToTestScripts+string("count-hosts.js");
+  const char* p = path.c_str();
+  const char* argv[] = {"", p};
 
   v8::V8::InitializeICU();
   map<string, string> options;
@@ -95,7 +105,7 @@ TEST(V8, ProcessOne) {
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   JsHttpRequestProcessor processor(isolate, source);
   
@@ -108,7 +118,7 @@ TEST(V8, ProcessOne) {
   PrintMap(&output);
 }
 
-TEST(V8, RunFreeFuncFromJS) {
+TEST(V8, ProcessRunFreeFuncFromJS) {
   // Get the default Isolate created at startup.
   Isolate* isolate = Isolate::GetCurrent();
 
@@ -132,10 +142,10 @@ TEST(V8, RunFreeFuncFromJS) {
   Context::Scope context_scope(context);
 
   // Можно запускать скрипт
-  string file = "..\\scripts\\free_fuc_call_test.js";
+  string file = kPathToTestScripts+string("free_fuc_call_test.js");
 
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   TryCatch try_catch;
 
@@ -165,9 +175,11 @@ TEST(V8, CallJSFuncReturnArraySlots) {
   EXPECT_EQ(true, false);
 }*/
 
-TEST(V8, WrapRequest) {
+TEST(V8, ProcessWrapRequest) {
   int argc = 2;
-  char* argv[] = {"", "..\\scripts\\test.js"};
+  string path = kPathToTestScripts+string("count-hosts.js");
+  const char* p = path.c_str();
+  const char* argv[] = {"", p};
 
   v8::V8::InitializeICU();
   map<string, string> options;
@@ -180,7 +192,7 @@ TEST(V8, WrapRequest) {
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   JsHttpRequestProcessor processor(isolate, source);
 
@@ -195,7 +207,7 @@ TEST(V8, WrapRequest) {
 
 // http://create.tpsitulsa.com/blog/2009/01/29/v8-objects/
 // ! 
-TEST(V8, CreateCppObjectInsideJS) {
+TEST(V8, ProcessCreateCppObjectInsideJS) {
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -231,6 +243,7 @@ TEST(V8, IfFieldIsArray) {
 
 }
 
+/*
 TEST(V8, Han) {
 	using ::scenarios::V8WrapperImpl;
 	using scenarios::dblite;
@@ -239,5 +252,5 @@ TEST(V8, Han) {
 
 	wrapper->runScript();
 }
-
+*/
 
