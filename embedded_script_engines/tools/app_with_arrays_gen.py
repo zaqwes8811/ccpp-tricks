@@ -15,7 +15,7 @@ if __name__ == '__main__':
         # такой будет вывод, когда подключим все массивы и функции
         if False:
             for elem in type_and_var_list:
-                print(vectors.V8ArraysWrapper.make_getter_and_setter_add(*elem))
+                print(vectors.V8ArraysWrapper.connect_getters_and_setters(*elem))
 
             for elem in type_and_var_list:
                 print(scalars.V8ScalarWrappers.make_scalar_getter(*elem))
@@ -27,9 +27,9 @@ if __name__ == '__main__':
             print(vectors.V8ArraysWrapper.make_scalars_and_accessors_with_formating(type_and_var_list))
             # arrays
             for elem in type_and_var_list:
-                print(vectors.V8ArraysWrapper.make_array_index_getter(*elem))
-                print(vectors.V8ArraysWrapper.make_array_index_setter(*elem))
-                print(array_wrapper.make_array_getter(*elem))
+                print(vectors.V8ArraysWrapper.do_last_level_getter_by_idx_int(*elem))
+                print(vectors.V8ArraysWrapper.do_last_level_setter_by_idx_NI(*elem))
+                print(array_wrapper.do_zero_level_getter(*elem))
 
     main()
 
