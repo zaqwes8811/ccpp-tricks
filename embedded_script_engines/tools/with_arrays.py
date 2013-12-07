@@ -13,37 +13,33 @@ from _v8_name_mapper import V8Decoders
 check_array_print = 0
 
 
-def getFuncName(name):
-    nameCapitalized = name.capitalize()
-    return name.replace("_", "").replace(name[0], nameCapitalized[0]);
+class V8ScalarWrappers(object):
+    @staticmethod
+    def make_scalar_getter(var_type, name):
+        result = \
+            '\nstatic void v8_get_' + get_fun_name_by_array_types(name)[0] + '(Local<String> name,' + \
+            '    const PropertyCallbackInfo<Value>& info) {' + \
+            '  Local<Object> self = info.Holder();' + \
+            '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));' + \
+            '  void* ptr = wrap->Value();' + \
+            '  ' + V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" + name + ';' + \
+            '  info.GetReturnValue().Set(' + V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}'
+        return clear_result(ArrayOrNotArray(result, name, var_type, "get"))
 
-
-def make_scalar_getter(type, name):
-    result = \
-        "\n" + "static void v8_get_" + get_fun_name_by_array_types(name)[0] + """(Local<String> name,
-    const PropertyCallbackInfo<Value>& info) {
-  Local<Object> self = info.Holder();
-  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-  void* ptr = wrap->Value();
-  """ + V8Decoders.unroll_unsigned_typedefs(type) + " value = static_cast<Point*>(ptr)->" + name + ''';
-  info.GetReturnValue().Set(''' + V8Decoders.cpp_type_to_v8(type, "get") + """::New(value));
-}
-"""
-    return clear_result(ArrayOrNotArray(result, name, type, "get"))
-
-
-def make_scalar_setter(type, name):
-    result = \
-        "\n" + "static void v8_set_" + get_fun_name_by_array_types(name)[0] + '''(Local<String> property, Local<Value> value,
-    const PropertyCallbackInfo<void>& info) {
-  Local<Object> self = info.Holder();
-  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-  void* ptr = wrap->Value();
-  static_cast<''' + "DataBase" + "*>(ptr)->" + name + "= value->" + V8Decoders.cpp_type_to_v8(type, "set") \
-        + "Value();" + '''
-}
-'''
-    return clear_result(ArrayOrNotArray(result, name, type, "set"))
+    @staticmethod
+    def make_scalar_setter(var_type, var_name):
+        result = \
+            "\n" + "static void v8_set_" + get_fun_name_by_array_types(var_name)[0] \
+            + '(Local<String> property, Local<Value> value,' + \
+            '    const PropertyCallbackInfo<void>& info) {' + \
+            '  Local<Object> self = info.Holder();' + \
+            '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));' + \
+            '  void* ptr = wrap->Value();' + \
+            '  static_cast<''' + "DataBase" + "*>(ptr)->" + var_name + "= value->" \
+            + V8Decoders.cpp_type_to_v8(var_type, "set") + \
+            '        "Value(); ' + \
+            '}'
+        return clear_result(ArrayOrNotArray(result, var_name, var_type, "set"))
 
 
 def get_fun_name_by_array_types(name):
@@ -57,8 +53,9 @@ def get_fun_name_by_array_types(name):
     return result, index.replace("[", "").replace("]", "")
 
 
-def make_array_index_getter_sample(type, name):
-    result = "static void v8_get_array_index_" + get_fun_name_by_array_types(name)[0] + """(uint32_t index,	const PropertyCallbackInfo<Value>& info) {
+def make_array_index_getter_sample(var_type, name):
+    result = "static void v8_get_array_index_" + get_fun_name_by_array_types(name)[0] + \
+             """(uint32_t index,	const PropertyCallbackInfo<Value>& info) {
   if (index < """ + get_fun_name_by_array_types(name)[1] + """) {
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
@@ -72,7 +69,7 @@ def make_array_index_getter_sample(type, name):
     return result
 
 
-def make_array_index_setter_sample(type, name):
+def make_array_index_setter_sample(var_type, name):
     result = "static void v8_set_array_index_" + get_fun_name_by_array_types(name)[0] + """(
   uint32_t index,
   Local<Value> value,
@@ -179,7 +176,7 @@ def make_scalars_and_accessors_with_formating(type_and_var_list):
     result = result.replace('\n\n', '\n')
 
     for elem in type_and_var_list:
-        result = result + make_scalar_getter(*elem) + make_scalar_setter(*elem)
+        result = result + V8ScalarWrappers.make_scalar_getter(*elem) + V8ScalarWrappers.make_scalar_setter(*elem)
 
     result = result.replace('\n ', '\n')
     result = result.replace('\n\n', '\n').replace('\n\n}', '\n}')
@@ -200,8 +197,8 @@ if __name__ == '__main__':
             print(make_getter_and_setter_add(*elem))
 
         for elem in type_and_var_list:
-            print(make_scalar_getter(*elem))
-            print(make_scalar_setter(*elem))
+            print(V8ScalarWrappers.make_scalar_getter(*elem))
+            print(V8ScalarWrappers.make_scalar_setter(*elem))
     else:
     # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
         # scalars and accessors in blueprint
