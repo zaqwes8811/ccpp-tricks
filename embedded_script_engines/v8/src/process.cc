@@ -427,10 +427,8 @@ StringHttpRequest::StringHttpRequest(const string& path,
 
 ///@Functions
 
-bool ExecuteScript(Handle<String> script, Isolate* isolate, v8::Persistent<Context>* context) {
+bool ExecuteScript(Handle<String> script, Isolate* isolate) {
   HandleScope handle_scope(isolate);
-
-  Context::Scope scope(isolate, *context);
 
   // We're just about to compile the script; set up an error handler to
   // catch any exceptions the script might throw.
@@ -496,7 +494,7 @@ bool ProcessEntries(HttpRequestProcessor* processor, int count,
 }
 
 void ParseOptions(int argc,
-                  char* argv[],
+                  const char* argv[],
                   map<string, string>& options,
                   string* file) {
   for (int i = 1; i < argc; i++) {

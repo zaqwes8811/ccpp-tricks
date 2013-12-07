@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;..\..\..\..\third_party\fused-src&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;&quot;..\..\..\components\app-server-linux&quot;;&quot;..\..\..\to-inner-reuse&quot;;..\..\..\components;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;C:\home\haneda\tmitter-web-service-win\components\app-server-linux&quot;;&quot;C:\home\haneda\tmitter-web-service-win\components&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -172,6 +172,38 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\..\..\..\components\in-memory-storages\linux_version\emitter\emitter.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\components\in-memory-storages\linux_version\emitter\emitter_test.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\components\in-memory-storages\linux_version\sampler.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\components\in-memory-storages\linux_version\service_storage_engines.cc"
+				>
+			</File>
+			<Filter
+				Name="main_filter"
+				>
+				<File
+					RelativePath="..\..\src\small_base_test.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\v8small_base_.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\v8small_base_engine_.cc"
+					>
+				</File>
+			</Filter>
 			<Filter
 				Name="v8_examples"
 				>
@@ -212,10 +244,6 @@
 				Name="around_point"
 				>
 				<File
-					RelativePath="..\..\src\point\forge_v8_points.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\point\palette.cc"
 					>
 				</File>
@@ -248,54 +276,46 @@
 					>
 				</File>
 			</Filter>
-			<Filter
-				Name="trash"
+		</Filter>
+		<Filter
+			Name="tools"
+			>
+			<File
+				RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
 				>
-				<File
-					RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\process.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\process_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\test_extended\process_test_ext.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\test_extended\process_test_ext_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_api_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_wrapper.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_wrapper_db.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\virtual_machine.cc"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="auto"
+			</File>
+			<File
+				RelativePath="..\..\src\process.cc"
 				>
-				<File
-					RelativePath="..\..\..\tools\forge_v8_point.cc"
-					>
-				</File>
-			</Filter>
+			</File>
+			<File
+				RelativePath="..\..\src\process_test.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\test_extended\process_test_ext.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\test_extended\process_test_ext_test.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8_api_test.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8_wrapper.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\v8_wrapper_db.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\virtual_machine.cc"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\src\launcher_process.cc"
