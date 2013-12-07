@@ -24,10 +24,10 @@ class V8ArraysWrapper(object):
     """
     def __init__(self, var_type, var_name):
         self.var_type_ = var_name
-        pass
+        self.util_ = app_utils.Util()
 
     @staticmethod
-    def do_last_level_getter_by_idx_int(var_type, var_name):
+    def do_last_level_getter_by_idx(var_type, var_name):
         result = ""
         if V8ArraysWrapper.is_array_name(var_name):
             result = 'static void '+LAST_LEVEL_GETTER_ \
@@ -70,7 +70,7 @@ class V8ArraysWrapper(object):
         result = ""
         if V8ArraysWrapper.is_array_name(var_name):
             result = 'static void ' + ZERO_LEVEL_GETTER_ \
-                     + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
+                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
                      '      Local<String> name,\n' + \
                      '      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
                      '  Local<Object> self = info.Holder();\n' + \
@@ -82,7 +82,7 @@ class V8ArraysWrapper(object):
                      '      var_array_blueprint_);\n' + \
                      '  Handle<Object> instance = templ->NewInstance();\n' + \
                      '  Handle<External> array_handle = External::New(database->' \
-                     + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + ');\n' + \
+                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + ');\n' + \
                      '  instance->SetInternalField(0, array_handle);\n' + \
                      '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
                      '}\n'
@@ -114,13 +114,15 @@ class V8ArraysWrapper(object):
         # еще добавил формирование функции CreateBlueprint
         result = 'v8::Handle<v8::ObjectTemplate> CreateBlueprint(\n' + \
                  '      v8::Isolate* isolate) {\n'
+
         for elem in type_and_var_list:
-            result = result + V8ArraysWrapper.connect_getters_and_setters(*elem) + "\n"
+            result += V8ArraysWrapper.connect_getters_and_setters(*elem) + "\n"
 
         result += '\n}'
 
         result = result.replace('\n\n', '\n')
 
+        # Все ж стирается!?
         for elem in type_and_var_list:
             result = result + scalars.V8ScalarWrappers.make_scalar_getter(*elem) \
                      + scalars.V8ScalarWrappers.make_scalar_setter(*elem)
