@@ -5,8 +5,8 @@ from generator.cpp import utils
 
 # App
 from _h_parser import Holder
-from _v8_scalars import V8ScalarWrappers
-from _v8_vectors import V8ArraysWrapper
+from _v8_api.scalars import V8ScalarWrappers
+from _v8_api.vectors import V8ArraysWrapper
 
 if __name__ == '__main__':
     def main():

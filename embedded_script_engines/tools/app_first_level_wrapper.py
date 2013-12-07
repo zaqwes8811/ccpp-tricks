@@ -1,16 +1,15 @@
 # coding: utf-8
 
 # std
-import sys
 
 
 # Third_party
 from generator.cpp import utils
 
 # App
-from zaqwes._units_zaqwes import extract_variable_declaration
-from zaqwes._units_zaqwes import make_header
-from zaqwes._units_zaqwes import make_source
+from _v8_api._units_zaqwes import extract_variable_declaration
+from _v8_api._units_zaqwes import make_header
+from _v8_api._units_zaqwes import make_source
 from _h_parser import Holder, VarDeclaration
 
 
@@ -61,7 +60,7 @@ def extract_variable_declaration(source):
     Args:
         source - string with code
     """
-    from zaqwes._units_zaqwes import ScalarVariableField
+    from _v8_api._units_zaqwes import ScalarVariableField
 
     type_and_var_list = Holder.extract_var_declaration(source)
     result = []

@@ -4,7 +4,7 @@
 import re
 
 # App
-from _v8_name_mapper import V8Decoders
+from _v8_api.name_mapper import V8Decoders
 
 # Печатать массивы?
 # 0 - вывод без массивов!
