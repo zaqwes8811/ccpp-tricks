@@ -89,8 +89,12 @@ class Util_(object):
 
 
 class V8ArraysWrapper(object):
+    def __init__(self, var_type, var_name):
+        self.var_type_ = var_name
+        pass
+
     @staticmethod
-    def make_array_index_getter_sample(var_type, var_name):
+    def __do_array_index_getter_sample(var_type, var_name):
         result = "static void v8_get_array_index_" \
                  + Util_.get_fun_name_by_array_types(var_name)[0] + \
                  '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
@@ -108,7 +112,7 @@ class V8ArraysWrapper(object):
         return result
 
     @staticmethod
-    def make_array_index_setter_sample(var_type, var_name):
+    def __do_array_index_setter_sample(var_type, var_name):
         result = "static void v8_set_array_index_" + Util_.get_fun_name_by_array_types(var_name)[0] + '(\n' + \
                  '  uint32_t index,\n' + \
                  '  Local<Value> value,\n' + \
@@ -119,26 +123,26 @@ class V8ArraysWrapper(object):
     @staticmethod
     def make_array_index_getter_func(var_type, name):
         if "[" in name:
-            return V8ArraysWrapper.make_array_index_getter_sample(var_type, name)
+            return V8ArraysWrapper.__do_array_index_getter_sample(var_type, name)
         return ""
 
     @staticmethod
-    def make_array_index_setter_func(var_type, name):
+    def __do_array_index_setter(var_type, name):
         if "[" in name:
-            return V8ArraysWrapper.make_array_index_setter_sample(var_type, name)
+            return V8ArraysWrapper.__do_array_index_setter_sample(var_type, name)
         else:
             return ""
 
+    #@Public:
     @staticmethod
     def make_array_index_getter(var_type, name):
         return V8ArraysWrapper.make_array_index_getter_func(var_type, name)
 
     @staticmethod
     def make_array_index_setter(var_type, name):
-        return V8ArraysWrapper.make_array_index_setter_func(var_type, name)
+        return V8ArraysWrapper.__do_array_index_setter(var_type, name)
 
-    @staticmethod
-    def make_array_getter(var_type, var_name):
+    def make_array_getter(self, var_type, var_name):
         result = "static void v8_get_array_" \
                  + Util_.get_fun_name_by_array_types(var_name)[0] + '(' + \
                  '      Local<String> name,\n' + \
@@ -215,14 +219,15 @@ if __name__ == '__main__':
                 print(V8ScalarWrappers.make_scalar_getter(*elem))
                 print(V8ScalarWrappers.make_scalar_setter(*elem))
         else:
-        # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
+            array_wrapper = V8ArraysWrapper(0, 0)
+            # временный вывод, где удалены пустые строки, в которых должны быть обернуты массивы
             # scalars and accessors in blueprint
             print(V8ArraysWrapper.make_scalars_and_accessors_with_formating(type_and_var_list))
             # arrays
             for elem in type_and_var_list:
                 print(V8ArraysWrapper.make_array_index_getter(*elem))
                 print(V8ArraysWrapper.make_array_index_setter(*elem))
-                print(V8ArraysWrapper.make_array_getter(*elem))
+                print(array_wrapper.make_array_getter(*elem))
 
     main()
 
