@@ -5,8 +5,8 @@ from generator.cpp import utils
 
 # App
 from __cpp_code_parsers import header_parser
-from __v8_api import scalars
-from __v8_api import vectors
+from _v8_api import scalars
+from _v8_api import vectors
 
 if __name__ == '__main__':
     def main():

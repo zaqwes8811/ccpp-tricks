@@ -2,8 +2,8 @@
 __author__ = 'Igor'
 
 # App
-from __utils import Util
-import __v8_api.scalars as scalars
+import app_utils
+from _v8_api import scalars
 
 
 class V8ArraysWrapper(object):
@@ -12,17 +12,17 @@ class V8ArraysWrapper(object):
         pass
 
     @staticmethod
-    def __do_array_index_getter_sample(var_type, var_name):
+    def __do_getter_by_idx_int(var_type, var_name, class_name='database'):
         result = "static void v8_get_array_index_" \
-                 + Util.get_fun_name_by_array_types(var_name)[0] + \
+                 + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + \
                  '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
                  '  if (index < ' \
-                 + Util.get_fun_name_by_array_types(var_name)[1] + ') {\n' + \
+                 + app_utils.Util.build_accessor_name_by_array_name(var_name)[1] + ') {\n' + \
                  '    v8::Local<v8::Object> self = info.Holder();\n' + \
                  '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                  '    void* ptr = wrap->Value();\n' + \
-                 '    int* ' + "database" + ' = static_cast<int*>(ptr);\n' + \
-                 '    info.GetReturnValue().Set(' + "v8::Number::New(database[index])" + ');\n' + \
+                 '    int* array = static_cast<int*>(ptr);\n' + \
+                 '    info.GetReturnValue().Set(v8::Number::New(array[index])' + ');\n' + \
                  '  } else {\n' + \
                  '    info.GetReturnValue().Set(Undefined());\n' + \
                  '  }\n' + \
@@ -30,8 +30,9 @@ class V8ArraysWrapper(object):
         return result
 
     @staticmethod
-    def __do_array_index_setter_sample(var_type, var_name):
-        result = "static void v8_set_array_index_" + Util.get_fun_name_by_array_types(var_name)[0] + '(\n' + \
+    def __do_setter_by_idx_NI(var_type, var_name):
+        result = "static void v8_set_array_index_" \
+                 + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
                  '  uint32_t index,\n' + \
                  '  Local<Value> value,\n' + \
                  '    const PropertyCallbackInfo<Value>& info) {\n' + \
@@ -42,19 +43,19 @@ class V8ArraysWrapper(object):
     @staticmethod
     def make_array_index_getter(var_type, name):
         if "[" in name:
-            return V8ArraysWrapper.__do_array_index_getter_sample(var_type, name)
+            return V8ArraysWrapper.__do_getter_by_idx_int(var_type, name)
         return ""
 
     @staticmethod
     def make_array_index_setter(var_type, name):
         if "[" in name:
-            return V8ArraysWrapper.__do_array_index_setter_sample(var_type, name)
+            return V8ArraysWrapper.__do_setter_by_idx_NI(var_type, name)
         else:
             return ""
 
     def make_array_getter(self, var_type, var_name):
         result = "static void v8_get_array_" \
-                 + Util.get_fun_name_by_array_types(var_name)[0] + '(' + \
+                 + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + '(' + \
                  '      Local<String> name,\n' + \
                  '      const PropertyCallbackInfo<Value>& info) {\n' + \
                  '  Local<Object> self = info.Holder();\n' + \
@@ -66,7 +67,7 @@ class V8ArraysWrapper(object):
                  '    var_array_blueprint_);\n' + \
                  '  Handle<Object> instance = templ->NewInstance();\n' + \
                  '  Handle<External> array_handle = External::New(database->' \
-                 + Util.get_fun_name_by_array_types(var_name)[0] + ');\n' + \
+                 + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + ');\n' + \
                  '  instance->SetInternalField(0, array_handle);\n' + \
                  '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
                  '}\n'
@@ -79,24 +80,23 @@ class V8ArraysWrapper(object):
     def make_getter_and_setter_add(var_type, name):
         # for scalars
         result = "  result->SetAccessor(String::New(\"" + name + "\"), v8_get_" + name + ", v8_set_" + name + ");"
-        result = Util.is_array_(result, name, var_type, "add")
+        result = app_utils.Util.is_array(result, name, var_type, "add")
 
         # for arrays
         if "[" in name:
             result = "\n" + \
                      '  result->SetAccessor(String::New(\"' + \
-                     Util.get_fun_name_by_array_types(name)[0] + "\"), v8_get_array_" + \
-                     Util.get_fun_name_by_array_types(name)[0] + ');\n' + \
+                     app_utils.Util.build_accessor_name_by_array_name(name)[0] + "\"), v8_get_array_" + \
+                     app_utils.Util.build_accessor_name_by_array_name(name)[0] + ');\n' + \
                      '  result->SetIndexedPropertyHandler(v8_get_array_index_' \
-                     + Util.get_fun_name_by_array_types(name)[0] + \
-                     ', v8_set_array_index_' + Util.get_fun_name_by_array_types(name)[0] + ");"
+                     + app_utils.Util.build_accessor_name_by_array_name(name)[0] + \
+                     ', v8_set_array_index_' + app_utils.Util.build_accessor_name_by_array_name(name)[0] + ");"
         return result
 
-
-    # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
-    # еще добавил формирование функции CreateBlueprint
     @staticmethod
     def make_scalars_and_accessors_with_formating(type_and_var_list):
+        # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
+        # еще добавил формирование функции CreateBlueprint
         result = 'v8::Handle<v8::ObjectTemplate> CreateBlueprint(\n' + \
                  '      v8::Isolate* isolate) {\n'
         for elem in type_and_var_list:

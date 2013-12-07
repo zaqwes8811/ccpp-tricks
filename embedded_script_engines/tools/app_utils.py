@@ -27,8 +27,8 @@ def delete_double_spaces(string):
 
 class Util(object):
     @staticmethod
-    def get_fun_name_by_array_types(name):
-        result = name
+    def build_accessor_name_by_array_name(var_name):
+        result = var_name
         index = ""
         regular = re.compile('\[.*')
         search_result = regular.search(result)
@@ -39,7 +39,7 @@ class Util(object):
         return result, index
 
     @staticmethod
-    def is_array_(result, name, var_type, function_type):
+    def is_array(result, name, var_type, accessor_type):
         # 0 - нет
         # 1 - да
         # 0 - вывод без массивов!
@@ -56,13 +56,14 @@ class Util(object):
                 return result
             else:
                 return result
-        if function_type == "add":
+
+        if accessor_type == "add":
             return "error: bad logic (in make_getter_and_setter_add) or " \
                    + check_array_print + " != 0 or 1, default = 0"
-        if function_type == "set":
+        if accessor_type == "set":
             return "error: bad logic (in make_scalar_setter) or " \
                    + check_array_print + " != 0 or 1, default = 0"
-        if function_type == "get":
+        if accessor_type == "get":
             return "error: bad logic (in make_scalar_getter) or " \
                    + check_array_print + " != 0 or 1, default = 0"
 

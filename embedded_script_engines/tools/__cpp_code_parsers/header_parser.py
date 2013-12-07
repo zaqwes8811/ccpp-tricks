@@ -7,8 +7,8 @@ import re
 from generator.cpp import ast
 
 # App
-from __utils import remove_cc_comments, delete_double_spaces
-from __v8_api import scalars
+import app_utils
+from _v8_api import scalars
 
 
 class VarDeclaration(object):
@@ -72,8 +72,8 @@ class Holder(object):
                 if search_result:
                     line_copy = line
                     line_copy = line_copy.lstrip().rstrip()
-                    line_copy = remove_cc_comments(line_copy)
-                    line_copy = delete_double_spaces(line_copy)
+                    line_copy = app_utils.remove_cc_comments(line_copy)
+                    line_copy = app_utils.delete_double_spaces(line_copy)
                     result.append(line_copy)
 
         return '\n'.join(result)
@@ -122,7 +122,7 @@ class Holder(object):
             .replace('\n\t', " ") \
             .replace("  ", " ") \
             .replace('\n', " ")
-        declaration_string = delete_double_spaces(declaration_string)
+        declaration_string = app_utils.delete_double_spaces(declaration_string)
         return declaration_string
 
 

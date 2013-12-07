@@ -5,38 +5,40 @@ __author__ = 'Igor'
 import sys
 
 # App
-from __v8_api import name_mapper
-import __utils as util
+from _v8_api import name_mapper
+import app_utils as util
 
 
 class V8ScalarWrappers(object):
     @staticmethod
-    def make_scalar_getter(var_type, name):
+    def make_scalar_getter(accessor_type, name):
         result = \
-            '\nstatic void v8_get_' + util.Util.get_fun_name_by_array_types(name)[0] + \
+            '\nstatic void v8_get_' + util.Util.build_accessor_name_by_array_name(name)[0] + \
             '(\n      Local<String> name,\n' + \
             '      const PropertyCallbackInfo<Value>& info) \n    {\n' + \
             '    Local<Object> self = info.Holder();\n' + \
             '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
             '    void* ptr = wrap->Value();\n' + \
-            '    ' + name_mapper.V8Decoders.unroll_unsigned_typedefs(var_type) + " value = static_cast<Point*>(ptr)->" \
+            '    ' + name_mapper.V8Decoders.unroll_unsigned_typedefs(accessor_type) \
+            + " value = static_cast<Point*>(ptr)->" \
             + name + ';\n' + \
-            '    info.GetReturnValue().Set(' + name_mapper.V8Decoders.cpp_type_to_v8(var_type, "get") + '::New(value));\n}\n'
-        return util.Util.clear_result(util.Util.is_array_(result, name, var_type, "get"))
+            '    info.GetReturnValue().Set(' + name_mapper.V8Decoders.cpp_type_to_v8(accessor_type, "get") \
+            + '::New(value));\n}\n'
+        return util.Util.clear_result(util.Util.is_array(result, name, accessor_type, "get"))
 
     @staticmethod
-    def make_scalar_setter(var_type, var_name):
+    def make_scalar_setter(accessor_type, var_name):
         result = \
-            "\n" + "static void v8_set_" + util.Util.get_fun_name_by_array_types(var_name)[0] \
+            "\n" + "static void v8_set_" + util.Util.build_accessor_name_by_array_name(var_name)[0] \
             + '(\n      Local<String> property, \n      Local<Value> value,\n' + \
             '      const PropertyCallbackInfo<void>& info) \n    {\n' + \
             '    Local<Object> self = info.Holder();\n' + \
             '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
             '    void* ptr = wrap->Value();\n' + \
             '    static_cast<''' + "DataBase" + "*>(ptr)->" + var_name + "= value->" \
-            + name_mapper.V8Decoders.cpp_type_to_v8(var_type, "set") + 'Value(); ' + \
+            + name_mapper.V8Decoders.cpp_type_to_v8(accessor_type, "set") + 'Value(); ' + \
             '\n}\n'
-        return util.Util.clear_result(util.Util.is_array_(result, var_name, var_type, "set"))
+        return util.Util.clear_result(util.Util.is_array(result, var_name, accessor_type, "set"))
 
 
 # zaqwes
