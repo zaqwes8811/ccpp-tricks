@@ -4,74 +4,15 @@ import re  # регулярные выражения
 # Other
 from generator.cpp import utils
 
+# App
+from _h_parser import Holder, VarDeclaration
+
 __author__ = 'TekScope_Local_Admin'
 
 # ПЕЧАТАТЬ ЛИ МАССИВЫ?????
 # 0 - нет
 # 1 - да
 check_array_print = 0
-
-def removeComments(transmittingCode):
-    deletingString = ""
-    regular = re.compile('\/\/.*')
-    searchResult = regular.search(transmittingCode)
-    if searchResult:
-        deletingString = searchResult.group()
-        #print searchResult.group()
-    return transmittingCode.replace(deletingString, "")
-
-#print removeComments(class_transmit_code)
-
-def deleteDoubleSpaces(transmittedString):
-    return transmittedString.replace("  ", " ")
-
-# возвращает строку, в которой содержится все пары тип + имя переменной
-def extract_var_declaration(class_transmit_code_):
-    result = ""
-    for i in class_transmit_code_.split('\n'):
-        if '(' not in i and ")" not in i and "{" not in i and "}" not in i \
-            and "#" not in i \
-            and "public:" not in i \
-            and "private" not in i \
-            and "protected" not in i \
-            and "using" not in i:
-            p = re.compile("bool""|int""|vector<""|string""|char")
-            m = p.search(i)
-            if m:
-                i = removeComments(i)
-                i = deleteDoubleSpaces(i)
-                result = result + i + '\n'
-    return getTypeAndVarList(result)
-
-
-def PreparingToGetTypeAndVarList(transmittingString):
-    transmittingString = transmittingString.replace('\t', " ") \
-        .replace(';', "") \
-        .replace('\n\t', " ") \
-        .replace("  ", " ") \
-        .replace('\n', " ")
-    transmittingString = transmittingString.replace("  ", " ")
-    return transmittingString
-
-
-def getTypeAndVarList(typeAndVarStrings):
-    tempString = ""
-    result = []
-    type = ""
-    name = ""
-    index = 0
-    tempString = PreparingToGetTypeAndVarList(typeAndVarStrings)
-    for splitted_string in tempString.split(' '):
-        if splitted_string != "":
-            if index % 2 != 0:
-                type = splitted_string
-                if (name != "") and type != "":
-                    result.append((type, name))
-            else:
-                name = splitted_string
-        index = index + 1
-    return result
-
 
 def transmitCTypeToV8(type, typeFunc):
     result = ""
@@ -267,7 +208,7 @@ check_array_print = 0
 
 if __name__ == '__main__':
     class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
-    type_and_var_list = extract_var_declaration(class_transmit_code)
+    type_and_var_list = Holder.extract_var_declaration(class_transmit_code)
     # такой будет вывод, когда подключим все массивы и функции
     if False:
         for elem in type_and_var_list:
