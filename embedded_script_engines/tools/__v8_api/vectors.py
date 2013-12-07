@@ -2,8 +2,8 @@
 __author__ = 'Igor'
 
 # App
-from _utils import Util
-from _v8_api.scalars import V8ScalarWrappers
+from __utils import Util
+from __v8_api.scalars import V8ScalarWrappers
 
 
 class V8ArraysWrapper(object):

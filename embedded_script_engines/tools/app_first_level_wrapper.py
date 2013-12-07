@@ -7,18 +7,12 @@
 from generator.cpp import utils
 
 # App
-from _v8_api._units_zaqwes import extract_variable_declaration
-from _v8_api._units_zaqwes import make_header
-from _v8_api._units_zaqwes import make_source
-from _h_parser import Holder, VarDeclaration
-
-
-def write_source(file_name, code):
-    f = open(file_name, 'w')
-    f.write(('\r\n'.join(code))
-            .replace('\r', '@')
-            .replace('@', ''))
-    f.close()
+import __cpp_code_parsers.header_parser
+import __v8_api.scalars
+from __v8_api.scalars import make_source
+from __v8_api.scalars import ScalarVariableField
+from __cpp_code_parsers.header_parser import Holder, VarDeclaration
+import __utils
 
 
 def main():
@@ -28,7 +22,7 @@ def main():
 
     # zaqwes
     #vars_ = extract_variable_declaration(source, header_file_name)
-    vars_ = extract_variable_declaration(source)
+    vars_ = __cpp_code_parsers.header_parser.extract_variable_declaration(source)
 
     #if
     # Make V8 view
@@ -46,13 +40,13 @@ def main():
             else:
                 print i
 
-    code = make_header(declarations, 'point.h')
+    code = __v8_api.scalars.make_header(declarations, 'point.h')
     header_name = 'odata/forge_v8_point.h'
-    write_source(header_name, code)
+    __utils.write_source(header_name, code)
     code = make_source(impls, header_name)
 
     # Итоговый исходник
-    write_source('odata/forge_v8_point.cc', code)
+    __utils.write_source('odata/forge_v8_point.cc', code)
 
 
 def extract_variable_declaration(source):
@@ -60,8 +54,6 @@ def extract_variable_declaration(source):
     Args:
         source - string with code
     """
-    from _v8_api._units_zaqwes import ScalarVariableField
-
     type_and_var_list = Holder.extract_var_declaration(source)
     result = []
     for var in type_and_var_list:
