@@ -7,8 +7,8 @@ import re
 def write_source(file_name, code):
     f = open(file_name, 'w')
     f.write(('\r\n'.join(code))
-            .replace('\r', '@')
-            .replace('@', ''))
+    .replace('\r', '@')
+    .replace('@', ''))
     f.close()
 
 
@@ -23,6 +23,7 @@ def remove_cc_comments(string):
 
 def delete_double_spaces(string):
     return string.replace("  ", " ")
+
 
 class Util(object):
     @staticmethod

@@ -40,7 +40,6 @@ class V8ScalarWrappers(object):
 
 
 # zaqwes
-
 class ScalarVariableField(object):
     """
     About:
