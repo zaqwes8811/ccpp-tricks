@@ -494,7 +494,7 @@ bool ProcessEntries(HttpRequestProcessor* processor, int count,
 }
 
 void ParseOptions(int argc,
-                  char* argv[],
+                  const char* argv[],
                   map<string, string>& options,
                   string* file) {
   for (int i = 1; i < argc; i++) {

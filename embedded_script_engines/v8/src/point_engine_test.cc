@@ -1,3 +1,5 @@
+#include "tests_config.h"
+
 // C++
 #include <string>
 
@@ -19,8 +21,6 @@ using v8::HandleScope;
 
 using v8::Context;
 using v8::Persistent;
-
-
 
 class PointV8EngineImplWithPersistent : public PointV8Engine {
  public:
@@ -122,12 +122,11 @@ class PointV8EngineImplWithPersistent : public PointV8Engine {
   }
 };
 
-//Persistent<ObjectTemplate> PointV8EngineImplNoPersistent::point_template_;
 Persistent<ObjectTemplate> PointV8EngineImplWithPersistent::point_template_;
 
 TEST(PointEngine, Create) {
   v8::V8::InitializeICU();
-  string file = "..\\scripts\\point.js";
+  string file = kPathToTestScripts+string("point.js");
   EXPECT_NE(true, file.empty());
 
   Isolate* isolate = Isolate::GetCurrent();
@@ -136,7 +135,7 @@ TEST(PointEngine, Create) {
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   // Point
   Point point_real(1, 2);

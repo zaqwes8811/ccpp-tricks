@@ -150,7 +150,7 @@ void PrintMap(map<string, string>* m);
 bool ProcessEntries(HttpRequestProcessor* processor, int count,
                     StringHttpRequest* reqs);
 void ParseOptions(int argc,
-                  char* argv[],
+                  const char* argv[],
                   map<string, string>& options,
                   string* file);
 

@@ -9,7 +9,12 @@ class Point {
   public:
   Point() : x_(1), y_(2) { }
   Point(int x, int y) : x_(x), y_(y) { }
-  int x_, y_;
+  int x_;
+  int y_;
+  //std::vector<int> rgb_;
+  
+  // cppclean failed here.
+  //std::vector<vector<int>> rgb_add_;
 };
 
 class V8Point {
