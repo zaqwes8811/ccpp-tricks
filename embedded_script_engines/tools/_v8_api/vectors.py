@@ -110,13 +110,10 @@ class V8ArraysWrapper(object):
     @staticmethod
     def get_array_name(var_name):
         result = var_name
-        index = ""
         regular = re.compile('\[.*')
         search_result = regular.search(result)
         if search_result:
             result = result.replace(search_result.group(), "")
-            index = search_result.group()
-        index = index.replace("[", "").replace("]", "")
         return result
 
     @staticmethod
@@ -126,10 +123,10 @@ class V8ArraysWrapper(object):
         regular = re.compile('\[.*')
         search_result = regular.search(result)
         if search_result:
-            result = result.replace(search_result.group(), "")
             index = search_result.group()
         index = index.replace("[", "").replace("]", "")
         return index
+
 
 class BuilderArrayWrapper(object):
     def __init__(self, type_and_var_list):
