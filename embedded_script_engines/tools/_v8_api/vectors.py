@@ -78,14 +78,25 @@ class V8ArraysWrapper(object):
                '}\n'
 
     @is_array
-    def do_last_level_setter_by_idx_NI(self):
+    def do_last_level_setter_by_idx(self):
         # .lower()
         return 'static void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
                + self.get_array_name(self.var_name_) + '(\n' + \
                '  uint32_t index,\n' + \
                '  Local<Value> value,\n' + \
                '    const PropertyCallbackInfo<Value>& info) {\n' + \
+               'if (index < kMaxBCLs) {\n' + \
+               '  Local<Object> self = info.Holder();\n' + \
+               '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+               '  void* ptr = wrap->Value();\n' + \
+               '  int* database = static_cast<int*>(ptr);\n' + \
+               '  database[index] = value->Int32Value();  \n' + \
+               '  info.GetReturnValue().Set(v8::Number::New(database[index]));\n' + \
+               '} else {\n' + \
+               '  info.GetReturnValue().Set(Undefined());\n' + \
+               '}' + \
                '}\n'
+
 
     @is_array
     def do_zero_level_getter(self):
@@ -203,28 +214,28 @@ class BuilderArrayWrapper(object):
                '      v8::Isolate* isolate)'
 
     def make_blueprint_header(self):
-        return '  static v8::Handle<v8::ObjectTemplate> '+self.__make_blueprint_header()+';'
+        return '  static v8::Handle<v8::ObjectTemplate> ' + self.__make_blueprint_header() + ';'
 
     def __make_new_header(self):
-        return 'New('+self.class_name_+'* database, v8::Isolate *isolate)'
+        return 'New(' + self.class_name_ + '* database, v8::Isolate *isolate)'
 
     def make_new_header(self):
-        return '  static v8::Handle<v8::Object> '+self.__make_new_header()+';'
+        return '  static v8::Handle<v8::Object> ' + self.__make_new_header() + ';'
 
     def make_new_method(self):
-        return 'Handle<Object> V8'+self.class_name_+'::'+self.__make_new_header()+' {\n' + \
-            '  HandleScope handle_scope(isolate);\n' + \
-            '  Context::Scope scope(isolate->GetCurrentContext());\n' + \
-            '\n' + \
-            '  Handle<ObjectTemplate> raw_template = \n' + \
-            '      CreateOwnBlueprint(isolate);    \n' + \
-            '\n' + \
-            '  Handle<ObjectTemplate> templ =\n' + \
-            '      Local<ObjectTemplate>::New(isolate, raw_template);\n' + \
-            '\n' + \
-            '  Handle<Object> result = templ->NewInstance();\n' + \
-            '  Handle<External> map_ptr = External::New(database);\n' + \
-            '\n' + \
-            '  result->SetInternalField(0, map_ptr);\n' + \
-            '  return handle_scope.Close(result);\n' + \
-            '}\n'
+        return 'Handle<Object> V8' + self.class_name_ + '::' + self.__make_new_header() + ' {\n' + \
+               '  HandleScope handle_scope(isolate);\n' + \
+               '  Context::Scope scope(isolate->GetCurrentContext());\n' + \
+               '\n' + \
+               '  Handle<ObjectTemplate> raw_template = \n' + \
+               '      CreateOwnBlueprint(isolate);    \n' + \
+               '\n' + \
+               '  Handle<ObjectTemplate> templ =\n' + \
+               '      Local<ObjectTemplate>::New(isolate, raw_template);\n' + \
+               '\n' + \
+               '  Handle<Object> result = templ->NewInstance();\n' + \
+               '  Handle<External> map_ptr = External::New(database);\n' + \
+               '\n' + \
+               '  result->SetInternalField(0, map_ptr);\n' + \
+               '  return handle_scope.Close(result);\n' + \
+               '}\n'
