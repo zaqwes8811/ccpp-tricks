@@ -13,7 +13,7 @@ if __name__ == '__main__':
         class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
         type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
         expended = []
-        class_name = "IMS"
+        class_name = "V8IMS"
         for record in type_and_var_list:
             updated = list(record)
             updated.append(class_name)
@@ -38,6 +38,7 @@ if __name__ == '__main__':
         header_code.append('  //$ZeroLevelAccessors')
         for impl in builder.get_zero_level_accessors_header():
             header_code.append(impl)
+            print impl
 
         header_code.append('  //$LastLevelAccessors')
         for impl in builder.get_last_level_accessors_header():
@@ -51,6 +52,17 @@ if __name__ == '__main__':
         app_utils.write_source(header_name, header_code)
 
         # source
+        source_name = 'odata/arrays.cc'
+        source_code = []
+
+        source_code.append(builder.make_blueprint())
+
+        source_code.append('  //$LastLevelAccessors')
+        for impl in builder.get_last_level_accessors_src():
+            source_code.append(impl)
+
+        # Write
+        app_utils.write_source(source_name, source_code)
 
     main()
 

@@ -46,12 +46,14 @@ class V8ArraysWrapper(object):
         self.class_name_ = class_name
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 
+    @is_array
     def make_last_level_getter_declaration(self):
         return LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
                '(\n' \
                '      uint32_t index, \n' \
                '      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
+    @is_array
     def make_zero_level_getter_declaration(self):
         return ZERO_LEVEL_GETTER_ \
                + self.get_array_name(self.var_name_) + '(\n' + \
@@ -60,7 +62,7 @@ class V8ArraysWrapper(object):
 
     @is_array
     def do_last_level_getter_by_idx(self):
-        return 'void V8' + self.class_name_ + '::' \
+        return 'void ' + self.class_name_ + '::' \
                + self.make_last_level_getter_declaration() \
                + '\n  {\n' + \
                '  if (index < ' \
@@ -78,14 +80,14 @@ class V8ArraysWrapper(object):
     @is_array
     def do_last_level_setter_by_idx_NI(self):
         # .lower()
-        return 'static void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
+        return 'static void ' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
                + self.get_array_name(self.var_name_) + '(\n' + \
                '  uint32_t index,\n' + \
                '  Local<Value> value,\n' + \
                '    const PropertyCallbackInfo<Value>& info) {\n' + \
                '}\n'
 
-    #@is_array
+    @is_array
     def do_zero_level_getter(self):
         return 'void ' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
@@ -163,16 +165,17 @@ class BuilderArrayWrapper(object):
     def get_zero_level_accessors_header(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
-            yield '  static void '+array_wrapper.make_zero_level_getter_declaration()+';\n'
+            name = array_wrapper.make_zero_level_getter_declaration()
+            if name:
+                yield '  static void '+name+';\n'
 
-    """
     # arrays
-    print '// Source'
-    for elem in type_and_var_list:
-        array_wrapper = vectors.V8ArraysWrapper(*elem)
-        getter = array_wrapper.do_last_level_getter_by_idx()
-        if getter:
-            print getter"""
+    def get_last_level_accessors_src(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = V8ArraysWrapper(*elem)
+            getter = array_wrapper.do_last_level_getter_by_idx()
+            if getter:
+                yield getter
 
     def get_last_level_accessors_header(self):
         for elem in self.type_and_var_list_:
