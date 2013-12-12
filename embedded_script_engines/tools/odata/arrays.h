@@ -4,31 +4,31 @@
 // Other
 #include <v8.h>
 
-class V8IMS {
+class V8DataBase {
  public:
   //$ZeroLevelAccessors
   static void ZLGetter_printPABLock_(
-      v8::Local<String> name,
+      v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   static void ZLGetter_printPABLockEvent_(
-      v8::Local<String> name,
+      v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   static void ZLGetter_printPABNoInPower_(
-      v8::Local<String> name,
+      v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   static void ZLGetter_printPABNoInPowerEvent_(
-      v8::Local<String> name,
+      v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   static void ZLGetter_printPABUnlock_(
-      v8::Local<String> name,
+      v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   static void ZLGetter_printPABInPowerOk_(
-      v8::Local<String> name,
+      v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   //$LastLevelAccessors

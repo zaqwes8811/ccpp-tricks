@@ -13,7 +13,7 @@ if __name__ == '__main__':
         class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
         type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
         expended = []
-        class_name = "V8IMS"
+        class_name = "DataBase"
         for record in type_and_var_list:
             updated = list(record)
             updated.append(class_name)
@@ -31,14 +31,13 @@ if __name__ == '__main__':
         header_code.append('// Other')
         header_code.append('#include <v8.h>')
         header_code.append('')
-        header_code.append('class '+class_name+' {')
+        header_code.append('class V8'+class_name+' {')
         header_code.append(' public:')
 
         builder = vectors.BuilderArrayWrapper(expended)
         header_code.append('  //$ZeroLevelAccessors')
         for impl in builder.get_zero_level_accessors_header():
             header_code.append(impl)
-            print impl
 
         header_code.append('  //$LastLevelAccessors')
         for impl in builder.get_last_level_accessors_header():
@@ -54,11 +53,22 @@ if __name__ == '__main__':
         # source
         source_name = 'odata/arrays.cc'
         source_code = []
-
+        source_code.append('#include "arrays.h"')
+        source_code.append('')
+        source_code.append('using v8::String;')
+        source_code.append('using v8::String;')
+        source_code.append('using v8::String;')
+        source_code.append('using v8::String;')
+        source_code.append('using v8::String;')
+        source_code.append('')
         source_code.append(builder.make_blueprint())
 
-        source_code.append('  //$LastLevelAccessors')
+        source_code.append('//$LastLevelAccessors')
         for impl in builder.get_last_level_accessors_src():
+            source_code.append(impl)
+
+        source_code.append('//$ZeroLevelAccessors')
+        for impl in builder.get_zero_level_accessors_src():
             source_code.append(impl)
 
         # Write

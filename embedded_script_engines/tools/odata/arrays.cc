@@ -1,6 +1,18 @@
-v8::Handle<v8::ObjectTemplate> CreateBlueprint(
+#include "arrays.h"
+
+using v8::String;
+using v8::String;
+using v8::String;
+using v8::String;
+using v8::String;
+
+v8::Handle<v8::ObjectTemplate> V8DataBase::CreateOwnBlueprint(
       v8::Isolate* isolate) 
   {
+  HandleScope handle_scope(isolate);
+
+  Handle<ObjectTemplate> result = ObjectTemplate::New();
+  result->SetInternalFieldCount(1);
   result->SetAccessor(
       String::New("printPABLock_"), 
       ZLGetter_printPABLock_);
@@ -22,8 +34,8 @@ v8::Handle<v8::ObjectTemplate> CreateBlueprint(
 
   return handle_scope.Close(result);
 }
-  //$LastLevelAccessors
-void V8IMS::LLGetterByIdx_printPABLock_(
+//$LastLevelAccessors
+void V8DataBase::LLGetterByIdx_printPABLock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -38,7 +50,7 @@ void V8IMS::LLGetterByIdx_printPABLock_(
   }
 }
 
-void V8IMS::LLGetterByIdx_printPABLockEvent_(
+void V8DataBase::LLGetterByIdx_printPABLockEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -53,7 +65,7 @@ void V8IMS::LLGetterByIdx_printPABLockEvent_(
   }
 }
 
-void V8IMS::LLGetterByIdx_printPABNoInPower_(
+void V8DataBase::LLGetterByIdx_printPABNoInPower_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -68,7 +80,7 @@ void V8IMS::LLGetterByIdx_printPABNoInPower_(
   }
 }
 
-void V8IMS::LLGetterByIdx_printPABNoInPowerEvent_(
+void V8DataBase::LLGetterByIdx_printPABNoInPowerEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -83,7 +95,7 @@ void V8IMS::LLGetterByIdx_printPABNoInPowerEvent_(
   }
 }
 
-void V8IMS::LLGetterByIdx_printPABUnlock_(
+void V8DataBase::LLGetterByIdx_printPABUnlock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -98,7 +110,7 @@ void V8IMS::LLGetterByIdx_printPABUnlock_(
   }
 }
 
-void V8IMS::LLGetterByIdx_printPABInPowerOk_(
+void V8DataBase::LLGetterByIdx_printPABInPowerOk_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -111,4 +123,125 @@ void V8IMS::LLGetterByIdx_printPABInPowerOk_(
   } else {
     info.GetReturnValue().Set(Undefined());
   }
+}
+
+//$ZeroLevelAccessors
+void V8DataBase::ZLGetter_printPABLock_(
+      v8::Local<v8::String> name,
+      const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(),
+      ArrayMakeBlueprint(
+          Isolate::GetCurrent(), 
+          LLGetterByIdx_printPABLock_,
+          LLSetterByIdx_printPABLock_));
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> array_handle = External::New(danger_real_ptr->printPABLock_);
+  instance->SetInternalField(0, array_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
+}
+
+void V8DataBase::ZLGetter_printPABLockEvent_(
+      v8::Local<v8::String> name,
+      const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(),
+      ArrayMakeBlueprint(
+          Isolate::GetCurrent(), 
+          LLGetterByIdx_printPABLockEvent_,
+          LLSetterByIdx_printPABLockEvent_));
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> array_handle = External::New(danger_real_ptr->printPABLockEvent_);
+  instance->SetInternalField(0, array_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
+}
+
+void V8DataBase::ZLGetter_printPABNoInPower_(
+      v8::Local<v8::String> name,
+      const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(),
+      ArrayMakeBlueprint(
+          Isolate::GetCurrent(), 
+          LLGetterByIdx_printPABNoInPower_,
+          LLSetterByIdx_printPABNoInPower_));
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> array_handle = External::New(danger_real_ptr->printPABNoInPower_);
+  instance->SetInternalField(0, array_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
+}
+
+void V8DataBase::ZLGetter_printPABNoInPowerEvent_(
+      v8::Local<v8::String> name,
+      const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(),
+      ArrayMakeBlueprint(
+          Isolate::GetCurrent(), 
+          LLGetterByIdx_printPABNoInPowerEvent_,
+          LLSetterByIdx_printPABNoInPowerEvent_));
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> array_handle = External::New(danger_real_ptr->printPABNoInPowerEvent_);
+  instance->SetInternalField(0, array_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
+}
+
+void V8DataBase::ZLGetter_printPABUnlock_(
+      v8::Local<v8::String> name,
+      const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(),
+      ArrayMakeBlueprint(
+          Isolate::GetCurrent(), 
+          LLGetterByIdx_printPABUnlock_,
+          LLSetterByIdx_printPABUnlock_));
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> array_handle = External::New(danger_real_ptr->printPABUnlock_);
+  instance->SetInternalField(0, array_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
+}
+
+void V8DataBase::ZLGetter_printPABInPowerOk_(
+      v8::Local<v8::String> name,
+      const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
+      Isolate::GetCurrent(),
+      ArrayMakeBlueprint(
+          Isolate::GetCurrent(), 
+          LLGetterByIdx_printPABInPowerOk_,
+          LLSetterByIdx_printPABInPowerOk_));
+  Handle<Object> instance = templ->NewInstance();
+  Handle<External> array_handle = External::New(danger_real_ptr->printPABInPowerOk_);
+  instance->SetInternalField(0, array_handle);
+  info.GetReturnValue().Set<v8::Object>(instance);
 }

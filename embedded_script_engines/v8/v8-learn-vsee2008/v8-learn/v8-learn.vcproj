@@ -232,6 +232,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="auto"
+				>
+				<File
+					RelativePath="..\..\..\tools\odata\arrays.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\tools\odata\arrays.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="tools"

@@ -57,12 +57,12 @@ class V8ArraysWrapper(object):
     def make_zero_level_getter_declaration(self):
         return ZERO_LEVEL_GETTER_ \
                + self.get_array_name(self.var_name_) + '(\n' + \
-               '      v8::Local<String> name,\n' + \
+               '      v8::Local<v8::String> name,\n' + \
                '      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
     def do_last_level_getter_by_idx(self):
-        return 'void ' + self.class_name_ + '::' \
+        return 'void V8' + self.class_name_ + '::' \
                + self.make_last_level_getter_declaration() \
                + '\n  {\n' + \
                '  if (index < ' \
@@ -80,7 +80,7 @@ class V8ArraysWrapper(object):
     @is_array
     def do_last_level_setter_by_idx_NI(self):
         # .lower()
-        return 'static void ' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
+        return 'static void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
                + self.get_array_name(self.var_name_) + '(\n' + \
                '  uint32_t index,\n' + \
                '  Local<Value> value,\n' + \
@@ -89,7 +89,7 @@ class V8ArraysWrapper(object):
 
     @is_array
     def do_zero_level_getter(self):
-        return 'void ' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
+        return 'void V8' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
                '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                '  void* ptr = wrap->Value();\n' + \
@@ -143,8 +143,13 @@ class BuilderArrayWrapper(object):
     def make_blueprint(self):
         # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
         # еще добавил формирование функции CreateBlueprint
-        result = 'v8::Handle<v8::ObjectTemplate> CreateBlueprint(\n' + \
+        result = 'v8::Handle<v8::ObjectTemplate> V8' + self.type_and_var_list_[0][2] + '::CreateOwnBlueprint(\n' + \
                  '      v8::Isolate* isolate) \n  {\n'
+
+        result += '  HandleScope handle_scope(isolate);\n' \
+                  + '\n  Handle<ObjectTemplate> result = ObjectTemplate::New();\n' \
+                  + '  result->SetInternalFieldCount(1);\n'
+
         for elem in self.type_and_var_list_:
             connect = V8ArraysWrapper(*elem).connect_getters_and_setters()
             if connect:
@@ -160,14 +165,16 @@ class BuilderArrayWrapper(object):
     def get_zero_level_accessors_src(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
-            array_wrapper.do_zero_level_getter()
+            code = array_wrapper.do_zero_level_getter()
+            if code:
+                yield code
 
     def get_zero_level_accessors_header(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
             name = array_wrapper.make_zero_level_getter_declaration()
             if name:
-                yield '  static void '+name+';\n'
+                yield '  static void ' + name + ';\n'
 
     # arrays
     def get_last_level_accessors_src(self):
@@ -182,4 +189,4 @@ class BuilderArrayWrapper(object):
             array_wrapper = V8ArraysWrapper(*elem)
             getter_declaration = array_wrapper.make_last_level_getter_declaration()
             if getter_declaration:
-                yield '  static void '+getter_declaration+';\n'
+                yield '  static void ' + getter_declaration + ';\n'
