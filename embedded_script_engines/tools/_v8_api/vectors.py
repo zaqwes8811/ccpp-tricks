@@ -89,6 +89,11 @@ class V8ArraysWrapper(object):
 
     @is_array
     def do_zero_level_getter(self):
+        '''
+
+        ',\n' + \
+               '          ' + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + \
+        '''
         return 'void V8' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
                '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
@@ -98,8 +103,8 @@ class V8ArraysWrapper(object):
                '      Isolate::GetCurrent(),\n' + \
                '      ArrayMakeBlueprint(\n' + \
                '          Isolate::GetCurrent(), \n' + \
-               '          ' + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + ',\n' + \
-               '          ' + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + "));\n" + \
+               '          ' + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
+               "));\n" + \
                '  Handle<Object> instance = templ->NewInstance();\n' + \
                '  Handle<External> array_handle = External::New(danger_real_ptr->' \
                + self.get_array_name(self.var_name_) + ');\n' + \
@@ -190,3 +195,11 @@ class BuilderArrayWrapper(object):
             getter_declaration = array_wrapper.make_last_level_getter_declaration()
             if getter_declaration:
                 yield '  static void ' + getter_declaration + ';\n'
+
+    @staticmethod
+    def __make_blueprint_header():
+        return 'CreateOwnBlueprint(\n' + \
+               '      v8::Isolate* isolate)'
+
+    def make_blueprint_header(self):
+        return '  v8::Handle<v8::ObjectTemplate> '+self.__make_blueprint_header()+';'

@@ -14,6 +14,7 @@ if __name__ == '__main__':
         type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
         expended = []
         class_name = "DataBase"
+
         for record in type_and_var_list:
             updated = list(record)
             updated.append(class_name)
@@ -22,6 +23,7 @@ if __name__ == '__main__':
         # Targets
         header_name = 'odata/arrays.h'
         directive = header_name.replace('/', '_').replace('.', '_').upper()+'_'
+        builder = vectors.BuilderArrayWrapper(expended)
 
         # header
         header_code = []
@@ -31,10 +33,11 @@ if __name__ == '__main__':
         header_code.append('// Other')
         header_code.append('#include <v8.h>')
         header_code.append('')
+        header_code.append('#include "real_test_file.h"')
         header_code.append('class V8'+class_name+' {')
         header_code.append(' public:')
-
-        builder = vectors.BuilderArrayWrapper(expended)
+        header_code.append(builder.make_blueprint_header())
+        header_code.append('')
         header_code.append('  //$ZeroLevelAccessors')
         for impl in builder.get_zero_level_accessors_header():
             header_code.append(impl)
@@ -56,10 +59,17 @@ if __name__ == '__main__':
         source_code.append('#include "arrays.h"')
         source_code.append('')
         source_code.append('using v8::String;')
-        source_code.append('using v8::String;')
-        source_code.append('using v8::String;')
-        source_code.append('using v8::String;')
-        source_code.append('using v8::String;')
+        source_code.append('using v8::ObjectTemplate;')
+        source_code.append('using v8::Object;')
+        source_code.append('using v8::HandleScope;')
+        source_code.append('using v8::Handle;')
+        source_code.append('using v8::Local;')
+        source_code.append('using v8::Value;')
+        source_code.append('using v8::External;')
+        source_code.append('using v8::Isolate;')
+        source_code.append('using v8::Number;')
+        source_code.append('using v8::Undefined;')
+
         source_code.append('')
         source_code.append(builder.make_blueprint())
 

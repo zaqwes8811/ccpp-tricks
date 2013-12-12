@@ -4,8 +4,12 @@
 // Other
 #include <v8.h>
 
+#include "real_test_file.h"
 class V8DataBase {
  public:
+  v8::Handle<v8::ObjectTemplate> CreateOwnBlueprint(
+      v8::Isolate* isolate);
+
   //$ZeroLevelAccessors
   static void ZLGetter_printPABLock_(
       v8::Local<v8::String> name,

@@ -1,10 +1,16 @@
 #include "arrays.h"
 
 using v8::String;
-using v8::String;
-using v8::String;
-using v8::String;
-using v8::String;
+using v8::ObjectTemplate;
+using v8::Object;
+using v8::HandleScope;
+using v8::Handle;
+using v8::Local;
+using v8::Value;
+using v8::External;
+using v8::Isolate;
+using v8::Number;
+using v8::Undefined;
 
 v8::Handle<v8::ObjectTemplate> V8DataBase::CreateOwnBlueprint(
       v8::Isolate* isolate) 
@@ -138,8 +144,7 @@ void V8DataBase::ZLGetter_printPABLock_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_printPABLock_,
-          LLSetterByIdx_printPABLock_));
+          LLGetterByIdx_printPABLock_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->printPABLock_);
   instance->SetInternalField(0, array_handle);
@@ -158,8 +163,7 @@ void V8DataBase::ZLGetter_printPABLockEvent_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_printPABLockEvent_,
-          LLSetterByIdx_printPABLockEvent_));
+          LLGetterByIdx_printPABLockEvent_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->printPABLockEvent_);
   instance->SetInternalField(0, array_handle);
@@ -178,8 +182,7 @@ void V8DataBase::ZLGetter_printPABNoInPower_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_printPABNoInPower_,
-          LLSetterByIdx_printPABNoInPower_));
+          LLGetterByIdx_printPABNoInPower_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->printPABNoInPower_);
   instance->SetInternalField(0, array_handle);
@@ -198,8 +201,7 @@ void V8DataBase::ZLGetter_printPABNoInPowerEvent_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_printPABNoInPowerEvent_,
-          LLSetterByIdx_printPABNoInPowerEvent_));
+          LLGetterByIdx_printPABNoInPowerEvent_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->printPABNoInPowerEvent_);
   instance->SetInternalField(0, array_handle);
@@ -218,8 +220,7 @@ void V8DataBase::ZLGetter_printPABUnlock_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_printPABUnlock_,
-          LLSetterByIdx_printPABUnlock_));
+          LLGetterByIdx_printPABUnlock_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->printPABUnlock_);
   instance->SetInternalField(0, array_handle);
@@ -238,8 +239,7 @@ void V8DataBase::ZLGetter_printPABInPowerOk_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_printPABInPowerOk_,
-          LLSetterByIdx_printPABInPowerOk_));
+          LLGetterByIdx_printPABInPowerOk_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->printPABInPowerOk_);
   instance->SetInternalField(0, array_handle);
