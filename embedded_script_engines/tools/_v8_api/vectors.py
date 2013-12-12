@@ -26,15 +26,14 @@ class V8ArraysWrapper(object):
         self.var_type_ = var_name
         self.util_ = app_utils.Util()
 
-    @staticmethod
-    def do_last_level_getter_by_idx(var_type, var_name):
+    def do_last_level_getter_by_idx(self, var_type, var_name):
         result = ""
-        if V8ArraysWrapper.is_array_name(var_name):
+        if self.is_array_name(var_name):
             result = 'static void '+LAST_LEVEL_GETTER_ \
-                     + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + \
+                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + \
                      '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
                      '  if (index < ' \
-                     + app_utils.Util.build_accessor_name_by_array_name(var_name)[1] + ') {\n' + \
+                     + self.util_.build_accessor_name_by_array_name(var_name)[1] + ') {\n' + \
                      '    v8::Local<v8::Object> self = info.Holder();\n' + \
                      '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                      '    void* ptr = wrap->Value();\n' + \
@@ -46,14 +45,12 @@ class V8ArraysWrapper(object):
                      '}\n'
         return result
 
-    @staticmethod
-    def is_array_name(var_name_local):
+    def is_array_name(self, var_name_local):
         return "[" in var_name_local
 
-    @staticmethod
-    def do_last_level_setter_by_idx_NI(var_type, var_name):
+    def do_last_level_setter_by_idx_NI(self, var_type, var_name):
         result = ""
-        if V8ArraysWrapper.is_array_name(var_name):
+        if self.is_array_name(var_name):
             # .lower()
             result = 'static void '+LAST_LEVEL_GETTER_ \
                      + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
@@ -68,7 +65,7 @@ class V8ArraysWrapper(object):
         About: Setter не нужен в нашем случае
         """
         result = ""
-        if V8ArraysWrapper.is_array_name(var_name):
+        if self.is_array_name(var_name):
             result = 'static void ' + ZERO_LEVEL_GETTER_ \
                      + self.util_.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
                      '      Local<String> name,\n' + \
@@ -89,15 +86,14 @@ class V8ArraysWrapper(object):
         return result
 
 
-    @staticmethod
-    def connect_getters_and_setters(var_type, var_name):
+    def connect_getters_and_setters(self, var_type, var_name):
         # for scalars
         result = "  result->SetAccessor(String::New(\"" + var_name + "\"), v8_get_" \
                  + var_name + ", v8_set_" + var_name + ");"
         result = app_utils.Util.is_array(result, var_name, var_type, "add")
 
         # for arrays
-        if V8ArraysWrapper.is_array_name(var_name):
+        if self.is_array_name(var_name):
             # Затираем, если что-то было по скалярам
             result = "\n" + \
                      '  result->SetAccessor(String::New(\"' + \
@@ -116,7 +112,7 @@ class V8ArraysWrapper(object):
                  '      v8::Isolate* isolate) {\n'
 
         for elem in type_and_var_list:
-            result += V8ArraysWrapper.connect_getters_and_setters(*elem) + "\n"
+            result += V8ArraysWrapper(None, None).connect_getters_and_setters(*elem) + "\n"
 
         result += '\n}'
 

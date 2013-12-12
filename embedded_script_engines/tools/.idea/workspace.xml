@@ -23,67 +23,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app_first_level_gen.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_first_level_gen.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="16" selection-end="16" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app_utils.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="36" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0" vertical-offset="290" max-vertical-offset="1394">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app_with_arrays_gen.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="app_with_arrays_gen.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="13" selection-start="795" selection-end="795" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="714">
+            <state line="30" column="56" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.66169155" vertical-offset="111" max-vertical-offset="714">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="name_mapper.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_v8_api/name_mapper.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="13" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header_parser.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/__cpp_code_parsers/header_parser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2771">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vectors.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="vectors.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="32" selection-start="3059" selection-end="3059" vertical-scroll-proportion="1.5920398" vertical-offset="349" max-vertical-offset="2380">
+            <state line="50" column="45" selection-start="1820" selection-end="1820" vertical-scroll-proportion="0.0" vertical-offset="496" max-vertical-offset="2312">
               <folding>
                 <element signature="e#43#59#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scalars.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_v8_api/scalars.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="53" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="3944">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -106,7 +61,6 @@
         <option value="$PROJECT_DIR$/app_first_level_wrapper.py" />
         <option value="$PROJECT_DIR$/__utils.py" />
         <option value="$PROJECT_DIR$/__v8_api/vectors.py" />
-        <option value="$PROJECT_DIR$/app_with_arrays_gen.py" />
         <option value="$PROJECT_DIR$/__v8_api/scalars.py" />
         <option value="$PROJECT_DIR$/app_first_level_gen.py" />
         <option value="$PROJECT_DIR$/__cpp_code_parsers/header_parser.py" />
@@ -114,6 +68,7 @@
         <option value="$PROJECT_DIR$/_v8_api/scalars.py" />
         <option value="$PROJECT_DIR$/app_utils.py" />
         <option value="$PROJECT_DIR$/_v8_api/vectors.py" />
+        <option value="$PROJECT_DIR$/app_with_arrays_gen.py" />
       </list>
     </option>
   </component>
@@ -196,13 +151,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/with_arrays.py" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/with_arrays.py" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -414,17 +369,17 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.7246544" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27534562" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27534562" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -442,6 +397,13 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/_v8_api/scalars.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="53" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="3944">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app_first_level_gen.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="0" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1258">
@@ -507,30 +469,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_first_level_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="16" selection-end="16" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_v8_api/name_mapper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="795" selection-end="795" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="36" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0" vertical-offset="290" max-vertical-offset="1394">
           <folding />
         </state>
       </provider>
@@ -542,12 +483,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="36" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0" vertical-offset="290" max-vertical-offset="1394">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_first_level_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="16" selection-end="16" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="32" selection-start="3059" selection-end="3059" vertical-scroll-proportion="1.5920398" vertical-offset="349" max-vertical-offset="2380">
+        <state line="50" column="45" selection-start="1820" selection-end="1820" vertical-scroll-proportion="0.0" vertical-offset="496" max-vertical-offset="2312">
           <folding>
             <element signature="e#43#59#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="56" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.66169155" vertical-offset="111" max-vertical-offset="714">
+          <folding />
         </state>
       </provider>
     </entry>
