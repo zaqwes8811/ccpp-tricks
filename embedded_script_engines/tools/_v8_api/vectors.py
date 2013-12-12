@@ -126,3 +126,6 @@ class BuilderArrayWrapper(object):
         result += '}'
 
         return result
+
+    def make_resets_persistent_array_handles(self):
+        pass
