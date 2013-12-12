@@ -27,18 +27,6 @@ def delete_double_spaces(string):
 
 class Util(object):
     @staticmethod
-    def build_accessor_name_by_array_name(var_name):
-        result = var_name
-        index = ""
-        regular = re.compile('\[.*')
-        search_result = regular.search(result)
-        if search_result:
-            result = result.replace(search_result.group(), "")
-            index = search_result.group()
-        index = index.replace("[", "").replace("]", "")
-        return result, index
-
-    @staticmethod
     def is_array(result, name, var_type, accessor_type):
         # 0 - нет
         # 1 - да

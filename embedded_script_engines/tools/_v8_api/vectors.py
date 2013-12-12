@@ -1,6 +1,9 @@
 # coding: utf-8
 __author__ = 'Igor'
 
+# std
+import re
+
 # App
 import app_utils
 from _v8_api import scalars
@@ -44,7 +47,7 @@ class V8ArraysWrapper(object):
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 
     def make_last_level_getter_declaration(self):
-        return LAST_LEVEL_GETTER_ + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + \
+        return LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
                '(\n      uint32_t index, \n      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
@@ -53,7 +56,7 @@ class V8ArraysWrapper(object):
                + self.make_last_level_getter_declaration() \
                + '\n  {\n' + \
                '  if (index < ' \
-               + self.util_.build_accessor_name_by_array_name(self.var_name_)[1] + ') {\n' + \
+               + self.get_idx_threshold(self.var_name_) + ') {\n' + \
                '    v8::Local<v8::Object> self = info.Holder();\n' + \
                '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                '    void* ptr = wrap->Value();\n' + \
@@ -68,7 +71,7 @@ class V8ArraysWrapper(object):
     def do_last_level_setter_by_idx_NI(self):
         # .lower()
         return 'static void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
-               + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + '(\n' + \
+               + self.get_array_name(self.var_name_) + '(\n' + \
                '  uint32_t index,\n' + \
                '  Local<Value> value,\n' + \
                '    const PropertyCallbackInfo<Value>& info) {\n' + \
@@ -77,7 +80,7 @@ class V8ArraysWrapper(object):
     @is_array
     def do_zero_level_getter(self):
         return 'static void ' + ZERO_LEVEL_GETTER_ \
-               + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + '(\n' + \
+               + self.get_array_name(self.var_name_) + '(\n' + \
                '      Local<String> name,\n' + \
                '      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
@@ -89,7 +92,7 @@ class V8ArraysWrapper(object):
                '      var_array_blueprint_);\n' + \
                '  Handle<Object> instance = templ->NewInstance();\n' + \
                '  Handle<External> array_handle = External::New(database->' \
-               + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + ');\n' + \
+               + self.get_array_name(self.var_name_) + ');\n' + \
                '  instance->SetInternalField(0, array_handle);\n' + \
                '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
                '}\n'
@@ -98,12 +101,35 @@ class V8ArraysWrapper(object):
     def connect_getters_and_setters(self):
         # Затираем, если что-то было по скалярам
         return '  result->SetAccessor(String::New(\"' + \
-               self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + "\"), " + ZERO_LEVEL_GETTER_ + \
-               self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + ');\n' + \
+               self.get_array_name(self.var_name_) + "\"), " + ZERO_LEVEL_GETTER_ + \
+               self.get_array_name(self.var_name_) + ');\n' + \
                '  result->SetIndexedPropertyHandler(' \
-               + LAST_LEVEL_GETTER_ + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + ',' \
-               + LAST_LEVEL_SETTER_ + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + ");"
+               + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + ',' \
+               + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + ");"
 
+    @staticmethod
+    def get_array_name(var_name):
+        result = var_name
+        index = ""
+        regular = re.compile('\[.*')
+        search_result = regular.search(result)
+        if search_result:
+            result = result.replace(search_result.group(), "")
+            index = search_result.group()
+        index = index.replace("[", "").replace("]", "")
+        return result
+
+    @staticmethod
+    def get_idx_threshold(var_name):
+        result = var_name
+        index = ""
+        regular = re.compile('\[.*')
+        search_result = regular.search(result)
+        if search_result:
+            result = result.replace(search_result.group(), "")
+            index = search_result.group()
+        index = index.replace("[", "").replace("]", "")
+        return index
 
 class BuilderArrayWrapper(object):
     def __init__(self, type_and_var_list):
