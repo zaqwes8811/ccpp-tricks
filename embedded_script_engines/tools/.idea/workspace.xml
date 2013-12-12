@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="vectors.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="vectors.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="24" selection-start="4597" selection-end="4597" vertical-scroll-proportion="0.74804384" vertical-offset="1528" max-vertical-offset="4488">
+            <state line="137" column="40" selection-start="5633" selection-end="5633" vertical-scroll-proportion="0.0" vertical-offset="3322" max-vertical-offset="4420">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,16 @@
       <file leaf-file-name="app_with_arrays_gen.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="36" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.0" vertical-offset="297" max-vertical-offset="1836">
+            <state line="26" column="23" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="2006">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sampler.h" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test-data/sampler.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="210" column="31" selection-start="5444" selection-end="5444" vertical-scroll-proportion="0.5197368" vertical-offset="3333" max-vertical-offset="8670">
               <folding />
             </state>
           </provider>
@@ -78,7 +87,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app_with_arrays.py" />
         <option value="$PROJECT_DIR$/__v8_api/_units_zaqwes.py" />
         <option value="$PROJECT_DIR$/__v8_api/zaqwes.py" />
         <option value="$PROJECT_DIR$/app_first_level_wrapper.py" />
@@ -92,8 +100,9 @@
         <option value="$PROJECT_DIR$/app_utils.py" />
         <option value="$PROJECT_DIR$/odata/arrays.cc" />
         <option value="$PROJECT_DIR$/test-data/real_test_file.h" />
-        <option value="$PROJECT_DIR$/app_with_arrays_gen.py" />
         <option value="$PROJECT_DIR$/_v8_api/vectors.py" />
+        <option value="$PROJECT_DIR$/test-data/sampler.h" />
+        <option value="$PROJECT_DIR$/app_with_arrays_gen.py" />
       </list>
     </option>
   </component>
@@ -389,18 +398,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.766129" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5852535" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23387097" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41474655" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -422,13 +431,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="44" selection-start="5000" selection-end="5000" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="2091">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_v8_api/scalars.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="19" selection-start="1669" selection-end="1669" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="3910">
@@ -520,16 +522,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
+    <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="36" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.0" vertical-offset="297" max-vertical-offset="1836">
+        <state line="137" column="40" selection-start="5633" selection-end="5633" vertical-scroll-proportion="0.0" vertical-offset="3322" max-vertical-offset="4420">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
+    <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="24" selection-start="4597" selection-end="4597" vertical-scroll-proportion="0.74804384" vertical-offset="1528" max-vertical-offset="4488">
+        <state line="26" column="23" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="2006">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-data/sampler.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="210" column="31" selection-start="5444" selection-end="5444" vertical-scroll-proportion="0.5197368" vertical-offset="3333" max-vertical-offset="8670">
           <folding />
         </state>
       </provider>

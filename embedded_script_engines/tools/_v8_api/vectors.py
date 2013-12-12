@@ -102,10 +102,6 @@ class V8ArraysWrapper(object):
 
     @is_array
     def do_zero_level_getter(self):
-        '''
-
-
-        '''
         return 'void V8' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
                '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
