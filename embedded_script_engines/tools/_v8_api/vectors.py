@@ -24,9 +24,11 @@ class V8ArraysWrapper(object):
     """
 
     def __init__(self, var_type, var_name):
-        self.var_type_ = var_name
+        self.var_type_ = var_type
+        self.var_name_ = var_name
         self.util_ = app_utils.Util()
         self.class_name_ = "Web"
+        self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 
     def make_last_level_getter_declaration(self, var_name):
         result = 'void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
@@ -35,17 +37,17 @@ class V8ArraysWrapper(object):
 
         return result
 
-    def do_last_level_getter_by_idx(self, var_type, var_name):
+    def do_last_level_getter_by_idx(self):
         result = ""
-        if self.is_array_name(var_name):
-            result = self.make_last_level_getter_declaration(var_name) + '\n  {\n' + \
+        if self.is_array_name(self.var_name_):
+            result = self.make_last_level_getter_declaration(self.var_name_) + '\n  {\n' + \
                      '  if (index < ' \
-                     + self.util_.build_accessor_name_by_array_name(var_name)[1] + ') {\n' + \
+                     + self.util_.build_accessor_name_by_array_name(self.var_name_)[1] + ') {\n' + \
                      '    v8::Local<v8::Object> self = info.Holder();\n' + \
                      '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                      '    void* ptr = wrap->Value();\n' + \
-                     '    int* array = static_cast<int*>(ptr);\n' + \
-                     '    info.GetReturnValue().Set(v8::Number::New(array[index])' + ');\n' + \
+                     '    '+self.var_type_+'* array = static_cast<'+self.var_type_+'*>(ptr);\n' + \
+                     '    info.GetReturnValue().Set('+'Number'+'::New(array[index])' + ');\n' + \
                      '  } else {\n' + \
                      '    info.GetReturnValue().Set(Undefined());\n' + \
                      '  }\n' + \
@@ -81,7 +83,7 @@ class V8ArraysWrapper(object):
                      '  Local<Object> self = info.Holder();\n' + \
                      '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                      '  void* ptr = wrap->Value();\n' + \
-                     '  SmallBase* database = static_cast<SmallBase*>(ptr);\n' + \
+                     '  '+self.class_name_+'* database = static_cast<SmallBase*>(ptr);\n' + \
                      '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(\n' + \
                      '      Isolate::GetCurrent(),\n' + \
                      '      var_array_blueprint_);\n' + \
@@ -119,6 +121,7 @@ class V8ArraysWrapper(object):
                  '      v8::Isolate* isolate) {\n'
 
         for elem in type_and_var_list:
+            print elem
             result += V8ArraysWrapper(None, None).connect_getters_and_setters(*elem) + "\n"
 
         result += '\n}'
