@@ -28,8 +28,8 @@ if __name__ == '__main__':
             # arrays
             for elem in type_and_var_list:
                 print(vectors.V8ArraysWrapper(None, None).do_last_level_getter_by_idx(*elem))
-                print(vectors.V8ArraysWrapper(None, None).do_last_level_setter_by_idx_NI(*elem))
-                print(array_wrapper.do_zero_level_getter(*elem))
+                #print(vectors.V8ArraysWrapper(None, None).do_last_level_setter_by_idx_NI(*elem))
+                #print(array_wrapper.do_zero_level_getter(*elem))
 
     main()
 

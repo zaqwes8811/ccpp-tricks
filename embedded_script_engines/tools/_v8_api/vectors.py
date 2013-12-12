@@ -6,8 +6,8 @@ import app_utils
 from _v8_api import scalars
 
 # Последняя точка
-LAST_LEVEL_GETTER_ = "last_level_getter_by_idx_"
-LAST_LEVEL_SETTER_ = "last_level_setter_by_idx_"
+LAST_LEVEL_GETTER_ = "LastLevelGetterByIdx_"
+LAST_LEVEL_SETTER_ = "LastLevelSetterByIdx_"
 
 # По обращению к массиву без []
 ZERO_LEVEL_GETTER_ = "zero_level_getter_"
@@ -22,16 +22,23 @@ class V8ArraysWrapper(object):
             any array[][];
             any array[];
     """
+
     def __init__(self, var_type, var_name):
         self.var_type_ = var_name
         self.util_ = app_utils.Util()
+        self.class_name_ = "Web"
+
+    def make_last_level_getter_declaration(self, var_name):
+        result = 'void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
+                 + self.util_.build_accessor_name_by_array_name(var_name)[0] + \
+                 '(\n      uint32_t index, \n      const v8::PropertyCallbackInfo<v8::Value>& info)'
+
+        return result
 
     def do_last_level_getter_by_idx(self, var_type, var_name):
         result = ""
         if self.is_array_name(var_name):
-            result = 'static void '+LAST_LEVEL_GETTER_ \
-                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + \
-                     '(\n      uint32_t index, \n      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
+            result = self.make_last_level_getter_declaration(var_name) + '\n  {\n' + \
                      '  if (index < ' \
                      + self.util_.build_accessor_name_by_array_name(var_name)[1] + ') {\n' + \
                      '    v8::Local<v8::Object> self = info.Holder();\n' + \
@@ -45,15 +52,16 @@ class V8ArraysWrapper(object):
                      '}\n'
         return result
 
-    def is_array_name(self, var_name_local):
+    @staticmethod
+    def is_array_name(var_name_local):
         return "[" in var_name_local
 
     def do_last_level_setter_by_idx_NI(self, var_type, var_name):
         result = ""
         if self.is_array_name(var_name):
             # .lower()
-            result = 'static void '+LAST_LEVEL_GETTER_ \
-                     + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
+            result = 'static void ' + LAST_LEVEL_GETTER_ \
+                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
                      '  uint32_t index,\n' + \
                      '  Local<Value> value,\n' + \
                      '    const PropertyCallbackInfo<Value>& info) {\n' + \
@@ -85,23 +93,22 @@ class V8ArraysWrapper(object):
                      '}\n'
         return result
 
-
     def connect_getters_and_setters(self, var_type, var_name):
         # for scalars
         result = "  result->SetAccessor(String::New(\"" + var_name + "\"), v8_get_" \
                  + var_name + ", v8_set_" + var_name + ");"
-        result = app_utils.Util.is_array(result, var_name, var_type, "add")
+        result = self.util_.is_array(result, var_name, var_type, "add")
 
         # for arrays
         if self.is_array_name(var_name):
             # Затираем, если что-то было по скалярам
             result = "\n" + \
                      '  result->SetAccessor(String::New(\"' + \
-                     app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + "\"), " + ZERO_LEVEL_GETTER_ + \
-                     app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + ');\n' + \
+                     self.util_.build_accessor_name_by_array_name(var_name)[0] + "\"), " + ZERO_LEVEL_GETTER_ + \
+                     self.util_.build_accessor_name_by_array_name(var_name)[0] + ');\n' + \
                      '  result->SetIndexedPropertyHandler(' \
-                     + LAST_LEVEL_GETTER_ + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + ',' \
-                     + LAST_LEVEL_SETTER_ + app_utils.Util.build_accessor_name_by_array_name(var_name)[0] + ");"
+                     + LAST_LEVEL_GETTER_ + self.util_.build_accessor_name_by_array_name(var_name)[0] + ',' \
+                     + LAST_LEVEL_SETTER_ + self.util_.build_accessor_name_by_array_name(var_name)[0] + ");"
         return result
 
     @staticmethod
