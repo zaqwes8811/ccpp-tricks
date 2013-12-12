@@ -38,6 +38,8 @@ if __name__ == '__main__':
         header_code.append(' public:')
         header_code.append(builder.make_blueprint_header())
         header_code.append('')
+        header_code.append(builder.make_new_header())
+        header_code.append('')
         header_code.append('  //$ZeroLevelAccessors')
         for impl in builder.get_zero_level_accessors_header():
             header_code.append(impl)
@@ -73,6 +75,8 @@ if __name__ == '__main__':
 
         source_code.append('')
         source_code.append(builder.make_blueprint())
+        source_code.append('')
+        source_code.append(builder.make_new_method())
 
         source_code.append('//$LastLevelAccessors')
         for impl in builder.get_last_level_accessors_src():

@@ -41,6 +41,24 @@ v8::Handle<v8::ObjectTemplate> V8DataBase::CreateOwnBlueprint(
 
   return handle_scope.Close(result);
 }
+
+Handle<Object> V8DataBase::New(DataBase* database, v8::Isolate *isolate) {
+  HandleScope handle_scope(isolate);
+  Context::Scope scope(isolate->GetCurrentContext());
+
+  Handle<ObjectTemplate> raw_template = 
+      CreateOwnBlueprint(isolate);    
+
+  Handle<ObjectTemplate> templ =
+      Local<ObjectTemplate>::New(isolate, raw_template);
+
+  Handle<Object> result = templ->NewInstance();
+  Handle<External> map_ptr = External::New(database);
+
+  result->SetInternalField(0, map_ptr);
+  return handle_scope.Close(result);
+}
+
 //$LastLevelAccessors
 void V8DataBase::LLGetterByIdx_printPABLock_(
       uint32_t index, 

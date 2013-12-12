@@ -7,8 +7,10 @@
 #include "real_test_file.h"
 class V8DataBase {
  public:
-  v8::Handle<v8::ObjectTemplate> CreateOwnBlueprint(
+  static v8::Handle<v8::ObjectTemplate> CreateOwnBlueprint(
       v8::Isolate* isolate);
+
+  static v8::Handle<v8::Object> New(DataBase* database, v8::Isolate *isolate);
 
   //$ZeroLevelAccessors
   static void ZLGetter_printPABLock_(

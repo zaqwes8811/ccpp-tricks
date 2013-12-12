@@ -143,12 +143,13 @@ class V8ArraysWrapper(object):
 class BuilderArrayWrapper(object):
     def __init__(self, type_and_var_list):
         self.type_and_var_list_ = type_and_var_list
+        self.class_name_ = self.type_and_var_list_[0][2]
 
     #@is_array
     def make_blueprint(self):
         # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
         # еще добавил формирование функции CreateBlueprint
-        result = 'v8::Handle<v8::ObjectTemplate> V8' + self.type_and_var_list_[0][2] + '::CreateOwnBlueprint(\n' + \
+        result = 'v8::Handle<v8::ObjectTemplate> V8' + self.class_name_ + '::CreateOwnBlueprint(\n' + \
                  '      v8::Isolate* isolate) \n  {\n'
 
         result += '  HandleScope handle_scope(isolate);\n' \
@@ -202,4 +203,28 @@ class BuilderArrayWrapper(object):
                '      v8::Isolate* isolate)'
 
     def make_blueprint_header(self):
-        return '  v8::Handle<v8::ObjectTemplate> '+self.__make_blueprint_header()+';'
+        return '  static v8::Handle<v8::ObjectTemplate> '+self.__make_blueprint_header()+';'
+
+    def __make_new_header(self):
+        return 'New('+self.class_name_+'* database, v8::Isolate *isolate)'
+
+    def make_new_header(self):
+        return '  static v8::Handle<v8::Object> '+self.__make_new_header()+';'
+
+    def make_new_method(self):
+        return 'Handle<Object> V8'+self.class_name_+'::'+self.__make_new_header()+' {\n' + \
+            '  HandleScope handle_scope(isolate);\n' + \
+            '  Context::Scope scope(isolate->GetCurrentContext());\n' + \
+            '\n' + \
+            '  Handle<ObjectTemplate> raw_template = \n' + \
+            '      CreateOwnBlueprint(isolate);    \n' + \
+            '\n' + \
+            '  Handle<ObjectTemplate> templ =\n' + \
+            '      Local<ObjectTemplate>::New(isolate, raw_template);\n' + \
+            '\n' + \
+            '  Handle<Object> result = templ->NewInstance();\n' + \
+            '  Handle<External> map_ptr = External::New(database);\n' + \
+            '\n' + \
+            '  result->SetInternalField(0, map_ptr);\n' + \
+            '  return handle_scope.Close(result);\n' + \
+            '}\n'
