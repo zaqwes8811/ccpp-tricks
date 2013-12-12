@@ -5,12 +5,12 @@ typedef unsigned char uchar;
 typedef unsigned int uint;
 class DataBase {
 public:
-  bool printPABLock_[kMaxPABs];
-  bool printPABLockEvent_[kMaxPABs];
-  bool printPABNoInPower_[kMaxPABs];
-  uchar printPABNoInPowerEvent_[kMaxPABs];
-  uint printPABUnlock_[kMaxPABs];
-  bool printPABInPowerOk_[kMaxPABs];
+  bool locks_[kMaxPABs];
+  bool lock_events_[kMaxPABs];
+  bool no_in_powers_[kMaxPABs];
+  uchar no_in_power_events_[kMaxPABs];
+  uint unlocks_[kMaxPABs];
+  bool power_is_ok_[kMaxPABs];
 };
 
 #endif  // HELLO_HELLO_

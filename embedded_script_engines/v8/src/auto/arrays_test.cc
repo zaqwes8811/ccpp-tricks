@@ -39,7 +39,7 @@ TEST(ArrayAuto, Base) {
 
   // Our objs
   DataBase database;
-  database.printPABUnlock_[0] = 10;
+  database.unlocks_[0] = 10;
 
   //@Point
   // Install

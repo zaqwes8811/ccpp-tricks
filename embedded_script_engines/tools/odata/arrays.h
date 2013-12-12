@@ -13,52 +13,52 @@ class V8DataBase {
   static v8::Handle<v8::Object> New(DataBase* database, v8::Isolate *isolate);
 
   //$ZeroLevelAccessors
-  static void ZLGetter_printPABLock_(
+  static void ZLGetter_locks_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZLGetter_printPABLockEvent_(
+  static void ZLGetter_lock_events_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZLGetter_printPABNoInPower_(
+  static void ZLGetter_no_in_powers_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZLGetter_printPABNoInPowerEvent_(
+  static void ZLGetter_no_in_power_events_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZLGetter_printPABUnlock_(
+  static void ZLGetter_unlocks_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZLGetter_printPABInPowerOk_(
+  static void ZLGetter_power_is_ok_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   //$LastLevelAccessors
-  static void LLGetterByIdx_printPABLock_(
+  static void LLGetterByIdx_locks_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LLGetterByIdx_printPABLockEvent_(
+  static void LLGetterByIdx_lock_events_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LLGetterByIdx_printPABNoInPower_(
+  static void LLGetterByIdx_no_in_powers_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LLGetterByIdx_printPABNoInPowerEvent_(
+  static void LLGetterByIdx_no_in_power_events_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LLGetterByIdx_printPABUnlock_(
+  static void LLGetterByIdx_unlocks_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LLGetterByIdx_printPABInPowerOk_(
+  static void LLGetterByIdx_power_is_ok_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
