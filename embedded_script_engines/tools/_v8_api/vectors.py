@@ -179,14 +179,14 @@ class BuilderArrayWrapper(object):
 
         return result
 
-    def get_zero_level_accessors_src(self):
+    def get_zero_level_setters_src(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
             code = array_wrapper.do_zero_level_getter()
             if code:
                 yield code
 
-    def get_zero_level_accessors_header(self):
+    def get_zero_level_getters_header(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
             name = array_wrapper.make_zero_level_getter_declaration()
@@ -194,19 +194,26 @@ class BuilderArrayWrapper(object):
                 yield '  static void ' + name + ';\n'
 
     # arrays
-    def get_last_level_accessors_src(self):
+    def get_last_level_getters_src(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
             getter = array_wrapper.do_last_level_getter_by_idx()
             if getter:
                 yield getter
 
-    def get_last_level_accessors_header(self):
+    def get_last_level_getters_header(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
             getter_declaration = array_wrapper.make_last_level_getter_declaration()
             if getter_declaration:
                 yield '  static void ' + getter_declaration + ';\n'
+
+    def get_last_level_setters_src(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = V8ArraysWrapper(*elem)
+            setter = array_wrapper.do_last_level_setter_by_idx()
+            if setter:
+                yield setter
 
     @staticmethod
     def __make_blueprint_header():
