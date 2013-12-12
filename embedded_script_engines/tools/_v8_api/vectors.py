@@ -163,7 +163,7 @@ class BuilderArrayWrapper(object):
     def get_zero_level_accessors_header(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
-            yield '  static void '+array_wrapper.make_zero_level_getter_declaration()
+            yield '  static void '+array_wrapper.make_zero_level_getter_declaration()+';\n'
 
     """
     # arrays
@@ -172,13 +172,11 @@ class BuilderArrayWrapper(object):
         array_wrapper = vectors.V8ArraysWrapper(*elem)
         getter = array_wrapper.do_last_level_getter_by_idx()
         if getter:
-            print getter
+            print getter"""
 
-
-    print '// Header'
-    for elem in type_and_var_list:
-        array_wrapper = vectors.V8ArraysWrapper(*elem)
-        getter_declaration = array_wrapper.make_last_level_getter_declaration()
-        if getter_declaration:
-            print '  static void '+getter_declaration+';'
-            print"""
+    def get_last_level_accessors_header(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = V8ArraysWrapper(*elem)
+            getter_declaration = array_wrapper.make_last_level_getter_declaration()
+            if getter_declaration:
+                yield '  static void '+getter_declaration+';\n'

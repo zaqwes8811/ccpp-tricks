@@ -5,18 +5,47 @@ from generator.cpp import utils
 
 # App
 from __cpp_code_parsers import header_parser
-from _v8_api import scalars
 from _v8_api import vectors
+import app_utils
 
 if __name__ == '__main__':
     def main():
         class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
         type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
 
+        # Targets
+        header_name = 'odata/arrays.h'
+        directive = header_name.replace('/', '_').replace('.', '_').upper()+'_'
+
+        # header
+        header_code = []
+        header_code.append('#ifndef '+directive)
+        header_code.append('#define '+directive)
+        header_code.append('')
+        header_code.append('// Other')
+        header_code.append('#include <v8.h>')
+        header_code.append('')
+        header_code.append('class Web {')
+        header_code.append(' public:')
+
         builder = vectors.BuilderArrayWrapper(type_and_var_list)
 
+        header_code.append('  //$ZeroLevelAccessors')
         for impl in builder.get_zero_level_accessors_header():
-            print impl
+            header_code.append(impl)
+
+        header_code.append('  //$LastLevelAccessors')
+        for impl in builder.get_last_level_accessors_header():
+            header_code.append(impl)
+
+
+        header_code.append('};')
+        header_code.append('#endif  // '+directive)
+
+        # Write
+        app_utils.write_source(header_name, header_code)
+
+        # source
 
     main()
 
