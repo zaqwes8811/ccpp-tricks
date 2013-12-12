@@ -26,9 +26,7 @@ if __name__ == '__main__':
                     '*' in type_var
             if not bad:
                 expended.append(updated)
-                print updated
-
-        return
+                #print updated
 
         # Targets
         header_name = 'odata/arrays.h'

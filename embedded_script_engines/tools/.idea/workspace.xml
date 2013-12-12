@@ -26,34 +26,7 @@
       <file leaf-file-name="vectors.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_v8_api/vectors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="40" selection-start="5633" selection-end="5633" vertical-scroll-proportion="0.0" vertical-offset="3322" max-vertical-offset="4420">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app_with_arrays_gen.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="23" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="2006">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sampler.h" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test-data/sampler.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="210" column="31" selection-start="5444" selection-end="5444" vertical-scroll-proportion="0.5197368" vertical-offset="3333" max-vertical-offset="8670">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arrays.cc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odata/arrays.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="0" selection-start="1793" selection-end="1793" vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="6375">
+            <state line="137" column="40" selection-start="5633" selection-end="5633" vertical-scroll-proportion="0.0" vertical-offset="2557" max-vertical-offset="4420">
               <folding />
             </state>
           </provider>
@@ -68,10 +41,37 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="app_with_arrays_gen.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="0" selection-start="877" selection-end="877" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1972">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header_parser.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__cpp_code_parsers/header_parser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="107" column="0" selection-start="3157" selection-end="3157" vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="2873">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="arrays.h" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/odata/arrays.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="0" selection-start="2555" selection-end="2555" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1734">
+            <state line="2072" column="26" selection-start="63503" selection-end="63503" vertical-scroll-proportion="0.0" vertical-offset="34680" max-vertical-offset="35326">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arrays.cc" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/odata/arrays.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8577" column="0" selection-start="303797" selection-end="303797" vertical-scroll-proportion="294.67844" vertical-offset="3774" max-vertical-offset="145911">
               <folding />
             </state>
           </provider>
@@ -94,7 +94,6 @@
         <option value="$PROJECT_DIR$/__v8_api/vectors.py" />
         <option value="$PROJECT_DIR$/__v8_api/scalars.py" />
         <option value="$PROJECT_DIR$/app_first_level_gen.py" />
-        <option value="$PROJECT_DIR$/__cpp_code_parsers/header_parser.py" />
         <option value="$PROJECT_DIR$/_v8_api/name_mapper.py" />
         <option value="$PROJECT_DIR$/_v8_api/scalars.py" />
         <option value="$PROJECT_DIR$/app_utils.py" />
@@ -102,6 +101,7 @@
         <option value="$PROJECT_DIR$/test-data/real_test_file.h" />
         <option value="$PROJECT_DIR$/_v8_api/vectors.py" />
         <option value="$PROJECT_DIR$/test-data/sampler.h" />
+        <option value="$PROJECT_DIR$/__cpp_code_parsers/header_parser.py" />
         <option value="$PROJECT_DIR$/app_with_arrays_gen.py" />
       </list>
     </option>
@@ -175,7 +175,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test-data" />
+              <option name="myItemId" value="odata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="__cpp_code_parsers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -398,7 +412,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -409,7 +423,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41474655" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41474655" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -452,13 +466,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__cpp_code_parsers/header_parser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2771">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_v8_api/name_mapper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
@@ -494,13 +501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odata/arrays.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="0" selection-start="2555" selection-end="2555" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1734">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odata/forge_v8_point.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="14" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="850">
@@ -515,9 +515,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odata/arrays.cc">
+    <entry file="file://$PROJECT_DIR$/__cpp_code_parsers/header_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="0" selection-start="1793" selection-end="1793" vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="6375">
+        <state line="107" column="0" selection-start="3157" selection-end="3157" vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="2873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-data/sampler.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="205" column="0" selection-start="5331" selection-end="5331" vertical-scroll-proportion="0.33333334" vertical-offset="3333" max-vertical-offset="8670">
           <folding />
         </state>
       </provider>
@@ -531,14 +538,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app_with_arrays_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="23" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="2006">
+        <state line="29" column="0" selection-start="877" selection-end="877" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1972">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test-data/sampler.h">
+    <entry file="file://$PROJECT_DIR$/odata/arrays.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="31" selection-start="5444" selection-end="5444" vertical-scroll-proportion="0.5197368" vertical-offset="3333" max-vertical-offset="8670">
+        <state line="2072" column="26" selection-start="63503" selection-end="63503" vertical-scroll-proportion="0.0" vertical-offset="34680" max-vertical-offset="35326">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odata/arrays.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8577" column="0" selection-start="303797" selection-end="303797" vertical-scroll-proportion="294.67844" vertical-offset="3774" max-vertical-offset="145911">
           <folding />
         </state>
       </provider>

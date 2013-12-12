@@ -97,7 +97,14 @@ class Holder(object):
     @staticmethod
     def make_type_value_list(folded_string):
         folded_string = Holder.remove_lr_spaces(folded_string)
-        declarations = folded_string.split(' ')
+
+        intermediate = []
+        for at in folded_string.split(';'):
+            pair = Holder.remove_lr_spaces(at)
+            if not ('*' in pair or '=' in pair or 'const' in pair or 'static' in pair or pair.count('[') > 1):
+                intermediate.append(pair)
+
+        declarations = ' '.join(intermediate).split(' ')
 
         result = []
         var_type = ""
@@ -118,7 +125,6 @@ class Holder(object):
     def end_filtration(declaration_string):
         declaration_string = declaration_string\
             .replace('\t', " ") \
-            .replace(';', "") \
             .replace('\n\t', " ") \
             .replace("  ", " ") \
             .replace('\n', " ")
