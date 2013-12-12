@@ -13,7 +13,7 @@ LAST_LEVEL_GETTER_ = "LastLevelGetterByIdx_"
 LAST_LEVEL_SETTER_ = "LastLevelSetterByIdx_"
 
 # По обращению к массиву без []
-ZERO_LEVEL_GETTER_ = "zero_level_getter_"
+ZERO_LEVEL_GETTER_ = "ZeroLevelGetter_"
 
 
 def is_array(method_to_decorate):
@@ -48,7 +48,15 @@ class V8ArraysWrapper(object):
 
     def make_last_level_getter_declaration(self):
         return LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
-               '(\n      uint32_t index, \n      const v8::PropertyCallbackInfo<v8::Value>& info)'
+               '(\n' \
+               '      uint32_t index, \n' \
+               '      const v8::PropertyCallbackInfo<v8::Value>& info)'
+
+    def make_zero_level_getter_declaration(self):
+        return ZERO_LEVEL_GETTER_ \
+               + self.get_array_name(self.var_name_) + '(\n' + \
+               '      v8::Local<String> name,\n' + \
+               '      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
     def do_last_level_getter_by_idx(self):
@@ -77,21 +85,21 @@ class V8ArraysWrapper(object):
                '    const PropertyCallbackInfo<Value>& info) {\n' + \
                '}\n'
 
-    @is_array
+    #@is_array
     def do_zero_level_getter(self):
-        return 'static void ' + ZERO_LEVEL_GETTER_ \
-               + self.get_array_name(self.var_name_) + '(\n' + \
-               '      Local<String> name,\n' + \
-               '      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
+        return 'void ' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
                '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                '  void* ptr = wrap->Value();\n' + \
-               '  ' + self.class_name_ + '* database = static_cast<SmallBase*>(ptr);\n' + \
+               '  ' + self.class_name_ + '* danger_real_ptr = static_cast<' + self.class_name_ + '*>(ptr);\n' + \
                '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(\n' + \
                '      Isolate::GetCurrent(),\n' + \
-               '      var_array_blueprint_);\n' + \
+               '      ArrayMakeBlueprint(\n' + \
+               '          Isolate::GetCurrent(), \n' + \
+               '          ' + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + ',\n' + \
+               '          ' + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + "));\n" + \
                '  Handle<Object> instance = templ->NewInstance();\n' + \
-               '  Handle<External> array_handle = External::New(database->' \
+               '  Handle<External> array_handle = External::New(danger_real_ptr->' \
                + self.get_array_name(self.var_name_) + ');\n' + \
                '  instance->SetInternalField(0, array_handle);\n' + \
                '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
@@ -100,12 +108,9 @@ class V8ArraysWrapper(object):
     @is_array
     def connect_getters_and_setters(self):
         # Затираем, если что-то было по скалярам
-        return '  result->SetAccessor(String::New(\"' + \
-               self.get_array_name(self.var_name_) + "\"), " + ZERO_LEVEL_GETTER_ + \
-               self.get_array_name(self.var_name_) + ');\n' + \
-               '  result->SetIndexedPropertyHandler(' \
-               + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + ',' \
-               + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + ");"
+        return '  result->SetAccessor(\n      String::New(\"' + \
+               self.get_array_name(self.var_name_) + "\"), \n      " + ZERO_LEVEL_GETTER_ + \
+               self.get_array_name(self.var_name_) + ');'
 
     @staticmethod
     def get_array_name(var_name):

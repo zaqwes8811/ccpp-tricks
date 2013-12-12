@@ -44,9 +44,9 @@ if __name__ == '__main__':
                     print '  static void '+getter_declaration+';'
                     print"""
 
-            #for
-                #print(vectors.V8ArraysWrapper(None, None).do_last_level_setter_by_idx_NI(*elem))
-                #print(array_wrapper.do_zero_level_getter(*elem))
+            for elem in type_and_var_list:
+                array_wrapper = vectors.V8ArraysWrapper(*elem)
+                print array_wrapper.do_zero_level_getter()
 
     main()
 
