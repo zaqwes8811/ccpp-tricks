@@ -12,6 +12,12 @@ if __name__ == '__main__':
     def main():
         class_transmit_code = utils.ReadFile('./test-data/real_test_file.h')
         type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
+        expended = []
+        class_name = "IMS"
+        for record in type_and_var_list:
+            updated = list(record)
+            updated.append(class_name)
+            expended.append(updated)
 
         # Targets
         header_name = 'odata/arrays.h'
@@ -25,11 +31,10 @@ if __name__ == '__main__':
         header_code.append('// Other')
         header_code.append('#include <v8.h>')
         header_code.append('')
-        header_code.append('class Web {')
+        header_code.append('class '+class_name+' {')
         header_code.append(' public:')
 
-        builder = vectors.BuilderArrayWrapper(type_and_var_list)
-
+        builder = vectors.BuilderArrayWrapper(expended)
         header_code.append('  //$ZeroLevelAccessors')
         for impl in builder.get_zero_level_accessors_header():
             header_code.append(impl)
@@ -38,7 +43,7 @@ if __name__ == '__main__':
         for impl in builder.get_last_level_accessors_header():
             header_code.append(impl)
 
-
+        # Static
         header_code.append('};')
         header_code.append('#endif  // '+directive)
 

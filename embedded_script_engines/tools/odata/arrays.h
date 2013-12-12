@@ -4,7 +4,7 @@
 // Other
 #include <v8.h>
 
-class Web {
+class IMS {
  public:
   //$ZeroLevelAccessors
   static void ZLGetter_lengthAllParams___(

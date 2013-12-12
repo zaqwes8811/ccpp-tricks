@@ -39,11 +39,11 @@ class V8ArraysWrapper(object):
             any array[];
     """
 
-    def __init__(self, var_type, var_name):
+    def __init__(self, var_type, var_name, class_name):
         self.var_type_ = var_type
         self.var_name_ = var_name
         self.util_ = app_utils.Util()
-        self.class_name_ = "Web"
+        self.class_name_ = class_name
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 
     def make_last_level_getter_declaration(self):
