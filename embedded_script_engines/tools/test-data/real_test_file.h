@@ -1,3 +1,5 @@
+#ifndef HELLO_HELLO_
+#define HELLO_HELLO_
 #define kMaxPABs 10
 typedef unsigned char uchar;
 typedef unsigned int uint;
@@ -10,3 +12,5 @@ public:
   uint printPABUnlock_[kMaxPABs];
   bool printPABInPowerOk_[kMaxPABs];
 };
+
+#endif  // HELLO_HELLO_

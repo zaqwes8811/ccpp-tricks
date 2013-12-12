@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;..\..\..\..\third_party\fused-src&quot;;&quot;..\..\embedded_script_engines\tools\test-data&quot;;&quot;..\..\..\tools\test-data&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;..\..\..\..\third_party\fused-src&quot;;&quot;..\..\embedded_script_engines\tools\test-data&quot;;&quot;..\..\..\tools\test-data&quot;;..\..\..\tools\odata"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -241,6 +241,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\tools\odata\arrays.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\auto\arrays_test.cc"
 					>
 				</File>
 				<File
