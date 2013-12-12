@@ -1,7 +1,7 @@
 #define foreach_ BOOST_FOREACH
 #define foreach_r_ BOOST_REVERSE_FOREACH
 
-
+#define kMaxPABs 10
 typedef unsigned char uchar;
 typedef unsigned int uint;
 class DataBase {

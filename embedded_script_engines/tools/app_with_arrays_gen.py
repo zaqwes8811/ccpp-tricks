@@ -57,6 +57,7 @@ if __name__ == '__main__':
         source_name = 'odata/arrays.cc'
         source_code = []
         source_code.append('#include "arrays.h"')
+        source_code.append('#include "process.h"')
         source_code.append('')
         source_code.append('using v8::String;')
         source_code.append('using v8::ObjectTemplate;')

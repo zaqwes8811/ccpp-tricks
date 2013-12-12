@@ -1,4 +1,5 @@
 #include "arrays.h"
+#include "process.h"
 
 using v8::String;
 using v8::ObjectTemplate;
