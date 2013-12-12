@@ -13,6 +13,16 @@ LAST_LEVEL_SETTER_ = "LastLevelSetterByIdx_"
 ZERO_LEVEL_GETTER_ = "zero_level_getter_"
 
 
+def is_array(method_to_decorate):
+    def wrapper(self):
+        if self.is_array_name(self.var_name_):
+            return method_to_decorate(self)
+        else:
+            return "Not array", self.var_name_
+
+    return wrapper
+
+
 class V8ArraysWrapper(object):
     """
     Constraints:
@@ -31,77 +41,65 @@ class V8ArraysWrapper(object):
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 
     def make_last_level_getter_declaration(self, var_name):
-        result = 'void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
-                 + self.util_.build_accessor_name_by_array_name(var_name)[0] + \
-                 '(\n      uint32_t index, \n      const v8::PropertyCallbackInfo<v8::Value>& info)'
+        return 'void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
+               + self.util_.build_accessor_name_by_array_name(var_name)[0] + \
+               '(\n      uint32_t index, \n      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
-        return result
-
+    @is_array
     def do_last_level_getter_by_idx(self):
-        result = ""
-        if self.is_array_name(self.var_name_):
-            result = self.make_last_level_getter_declaration(self.var_name_) + '\n  {\n' + \
-                     '  if (index < ' \
-                     + self.util_.build_accessor_name_by_array_name(self.var_name_)[1] + ') {\n' + \
-                     '    v8::Local<v8::Object> self = info.Holder();\n' + \
-                     '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
-                     '    void* ptr = wrap->Value();\n' + \
-                     '    '+self.var_type_+'* array = static_cast<'+self.var_type_+'*>(ptr);\n' + \
-                     '    info.GetReturnValue().Set('+'Number'+'::New(array[index])' + ');\n' + \
-                     '  } else {\n' + \
-                     '    info.GetReturnValue().Set(Undefined());\n' + \
-                     '  }\n' + \
-                     '}\n'
-        return result
+        return self.make_last_level_getter_declaration(self.var_name_) \
+               + '\n  {\n' + \
+               '  if (index < ' \
+               + self.util_.build_accessor_name_by_array_name(self.var_name_)[1] + ') {\n' + \
+               '    v8::Local<v8::Object> self = info.Holder();\n' + \
+               '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+               '    void* ptr = wrap->Value();\n' + \
+               '    ' + self.var_type_ + '* array = static_cast<' + self.var_type_ + '*>(ptr);\n' + \
+               '    info.GetReturnValue().Set(' + 'Number' + '::New(array[index])' + ');\n' + \
+               '  } else {\n' + \
+               '    info.GetReturnValue().Set(Undefined());\n' + \
+               '  }\n' + \
+               '}\n'
 
     @staticmethod
     def is_array_name(var_name_local):
         return "[" in var_name_local
 
-    def do_last_level_setter_by_idx_NI(self, var_type, var_name):
-        result = ""
-        if self.is_array_name(var_name):
-            # .lower()
-            result = 'static void ' + LAST_LEVEL_GETTER_ \
-                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
-                     '  uint32_t index,\n' + \
-                     '  Local<Value> value,\n' + \
-                     '    const PropertyCallbackInfo<Value>& info) {\n' + \
-                     '}\n'
-        return result
+    @is_array
+    def do_last_level_setter_by_idx_NI(self):
+        # .lower()
+        return 'static void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
+               + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + '(\n' + \
+               '  uint32_t index,\n' + \
+               '  Local<Value> value,\n' + \
+               '    const PropertyCallbackInfo<Value>& info) {\n' + \
+               '}\n'
 
-    def do_zero_level_getter(self, var_type, var_name):
+    @is_array
+    def do_zero_level_getter(self):
         """
         About: Setter не нужен в нашем случае
         """
-        result = ""
-        if self.is_array_name(var_name):
-            result = 'static void ' + ZERO_LEVEL_GETTER_ \
-                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + '(\n' + \
-                     '      Local<String> name,\n' + \
-                     '      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
-                     '  Local<Object> self = info.Holder();\n' + \
-                     '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
-                     '  void* ptr = wrap->Value();\n' + \
-                     '  '+self.class_name_+'* database = static_cast<SmallBase*>(ptr);\n' + \
-                     '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(\n' + \
-                     '      Isolate::GetCurrent(),\n' + \
-                     '      var_array_blueprint_);\n' + \
-                     '  Handle<Object> instance = templ->NewInstance();\n' + \
-                     '  Handle<External> array_handle = External::New(database->' \
-                     + self.util_.build_accessor_name_by_array_name(var_name)[0] + ');\n' + \
-                     '  instance->SetInternalField(0, array_handle);\n' + \
-                     '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
-                     '}\n'
+        result = 'static void ' + ZERO_LEVEL_GETTER_ \
+                 + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + '(\n' + \
+                 '      Local<String> name,\n' + \
+                 '      const PropertyCallbackInfo<Value>& info) \n  {\n' + \
+                 '  Local<Object> self = info.Holder();\n' + \
+                 '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+                 '  void* ptr = wrap->Value();\n' + \
+                 '  ' + self.class_name_ + '* database = static_cast<SmallBase*>(ptr);\n' + \
+                 '  Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(\n' + \
+                 '      Isolate::GetCurrent(),\n' + \
+                 '      var_array_blueprint_);\n' + \
+                 '  Handle<Object> instance = templ->NewInstance();\n' + \
+                 '  Handle<External> array_handle = External::New(database->' \
+                 + self.util_.build_accessor_name_by_array_name(self.var_name_)[0] + ');\n' + \
+                 '  instance->SetInternalField(0, array_handle);\n' + \
+                 '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
+                 '}\n'
         return result
 
     def connect_getters_and_setters(self, var_type, var_name):
-        # for scalars
-        result = "  result->SetAccessor(String::New(\"" + var_name + "\"), v8_get_" \
-                 + var_name + ", v8_set_" + var_name + ");"
-        result = self.util_.is_array(result, var_name, var_type, "add")
-
-        # for arrays
         if self.is_array_name(var_name):
             # Затираем, если что-то было по скалярам
             result = "\n" + \
@@ -111,6 +109,10 @@ class V8ArraysWrapper(object):
                      '  result->SetIndexedPropertyHandler(' \
                      + LAST_LEVEL_GETTER_ + self.util_.build_accessor_name_by_array_name(var_name)[0] + ',' \
                      + LAST_LEVEL_SETTER_ + self.util_.build_accessor_name_by_array_name(var_name)[0] + ");"
+        else:
+            result = "  result->SetAccessor(String::New(\"" + var_name + "\"), v8_get_" \
+                     + var_name + ", v8_set_" + var_name + ");"
+            result = self.util_.is_array(result, var_name, var_type, "add")
         return result
 
     @staticmethod
