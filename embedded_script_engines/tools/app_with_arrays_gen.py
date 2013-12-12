@@ -40,8 +40,12 @@ if __name__ == '__main__':
         header_code.append('')
         header_code.append(builder.make_new_header())
         header_code.append('')
-        header_code.append('  //$ZeroLevelAccessors')
+        header_code.append('  //$ZeroLevelGetters')
         for impl in builder.get_zero_level_getters_header():
+            header_code.append(impl)
+
+        header_code.append('  //$LastLevelSetters')
+        for impl in builder.get_last_level_setters_header():
             header_code.append(impl)
 
         header_code.append('  //$LastLevelAccessors')
@@ -78,12 +82,16 @@ if __name__ == '__main__':
         source_code.append('')
         source_code.append(builder.make_new_method())
 
-        source_code.append('//$LastLevelAccessors')
+        source_code.append('//$LastLevelGetters')
         for impl in builder.get_last_level_getters_src():
             source_code.append(impl)
 
-        source_code.append('//$ZeroLevelAccessors')
-        for impl in builder.get_zero_level_setters_src():
+        source_code.append('//$LastLevelSetters')
+        for impl in builder.get_last_level_setters_src():
+            source_code.append(impl)
+
+        source_code.append('//$ZeroLevelGetters')
+        for impl in builder.get_zero_level_getters_src():
             source_code.append(impl)
 
         # Write

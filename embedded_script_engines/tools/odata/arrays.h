@@ -12,7 +12,7 @@ class V8DataBase {
 
   static v8::Handle<v8::Object> New(DataBase* database, v8::Isolate *isolate);
 
-  //$ZeroLevelAccessors
+  //$ZeroLevelGetters
   static void ZLGetter_locks_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
@@ -36,6 +36,37 @@ class V8DataBase {
   static void ZLGetter_power_is_ok_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  //$LastLevelSetters
+  static void LLSetterByIdx_locks_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  static void LLSetterByIdx_lock_events_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  static void LLSetterByIdx_no_in_powers_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  static void LLSetterByIdx_no_in_power_events_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  static void LLSetterByIdx_unlocks_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
+
+  static void LLSetterByIdx_power_is_ok_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
 
   //$LastLevelAccessors
   static void LLGetterByIdx_locks_(

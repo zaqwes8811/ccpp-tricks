@@ -65,8 +65,7 @@ class V8ArraysWrapper(object):
         return 'void V8' + self.class_name_ + '::' \
                + self.make_last_level_getter_declaration() \
                + '\n  {\n' + \
-               '  if (index < ' \
-               + self.get_idx_threshold(self.var_name_) + ') {\n' + \
+               '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \
                '    v8::Local<v8::Object> self = info.Holder();\n' + \
                '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                '    void* ptr = wrap->Value();\n' + \
@@ -78,32 +77,34 @@ class V8ArraysWrapper(object):
                '}\n'
 
     @is_array
+    def make_last_level_setter_declaration(self):
+        return LAST_LEVEL_SETTER_ \
+               + self.get_array_name(self.var_name_) + '(\n' + \
+               '    uint32_t index,\n' + \
+               '    v8::Local<v8::Value> value,\n' + \
+               '    const v8::PropertyCallbackInfo<v8::Value>& info)'
+
+    @is_array
     def do_last_level_setter_by_idx(self):
         # .lower()
-        return 'static void V8' + self.class_name_ + '::' + LAST_LEVEL_GETTER_ \
-               + self.get_array_name(self.var_name_) + '(\n' + \
-               '  uint32_t index,\n' + \
-               '  Local<Value> value,\n' + \
-               '    const PropertyCallbackInfo<Value>& info) {\n' + \
-               'if (index < kMaxBCLs) {\n' + \
-               '  Local<Object> self = info.Holder();\n' + \
-               '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
-               '  void* ptr = wrap->Value();\n' + \
-               '  int* database = static_cast<int*>(ptr);\n' + \
-               '  database[index] = value->Int32Value();  \n' + \
-               '  info.GetReturnValue().Set(v8::Number::New(database[index]));\n' + \
-               '} else {\n' + \
-               '  info.GetReturnValue().Set(Undefined());\n' + \
-               '}' + \
+        return 'void V8' + self.class_name_ + '::' + self.make_last_level_setter_declaration() + ' {\n' + \
+               '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \
+               '    Local<Object> self = info.Holder();\n' + \
+               '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
+               '    void* ptr = wrap->Value();\n' + \
+               '    ' + self.var_type_ + '* danger_array = static_cast<' + self.var_type_ + '*>(ptr);\n' + \
+               '    danger_array[index] = value->' + 'Int32Value' + '();  \n' + \
+               '    info.GetReturnValue().Set(v8::' + 'Number' + '::New(danger_array[index]));\n' + \
+               '  } else {\n' + \
+               '    info.GetReturnValue().Set(Undefined());\n' + \
+               '  }\n' + \
                '}\n'
-
 
     @is_array
     def do_zero_level_getter(self):
         '''
 
-        ',\n' + \
-               '          ' + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + \
+
         '''
         return 'void V8' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
@@ -115,6 +116,8 @@ class V8ArraysWrapper(object):
                '      ArrayMakeBlueprint(\n' + \
                '          Isolate::GetCurrent(), \n' + \
                '          ' + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
+               ',\n' + \
+               '          ' + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + \
                "));\n" + \
                '  Handle<Object> instance = templ->NewInstance();\n' + \
                '  Handle<External> array_handle = External::New(danger_real_ptr->' \
@@ -179,7 +182,7 @@ class BuilderArrayWrapper(object):
 
         return result
 
-    def get_zero_level_setters_src(self):
+    def get_zero_level_getters_src(self):
         for elem in self.type_and_var_list_:
             array_wrapper = V8ArraysWrapper(*elem)
             code = array_wrapper.do_zero_level_getter()
@@ -214,6 +217,13 @@ class BuilderArrayWrapper(object):
             setter = array_wrapper.do_last_level_setter_by_idx()
             if setter:
                 yield setter
+
+    def get_last_level_setters_header(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = V8ArraysWrapper(*elem)
+            setter_declaration = array_wrapper.make_last_level_setter_declaration()
+            if setter_declaration:
+                yield '  static void ' + setter_declaration + ';\n'
 
     @staticmethod
     def __make_blueprint_header():

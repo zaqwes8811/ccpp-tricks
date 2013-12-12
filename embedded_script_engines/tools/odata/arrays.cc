@@ -59,7 +59,7 @@ Handle<Object> V8DataBase::New(DataBase* database, v8::Isolate *isolate) {
   return handle_scope.Close(result);
 }
 
-//$LastLevelAccessors
+//$LastLevelGetters
 void V8DataBase::LLGetterByIdx_locks_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
@@ -68,7 +68,7 @@ void V8DataBase::LLGetterByIdx_locks_(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    bool* array = static_cast<bool*>(ptr);
+    int* array = static_cast<int*>(ptr);
     info.GetReturnValue().Set(Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
@@ -83,7 +83,7 @@ void V8DataBase::LLGetterByIdx_lock_events_(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    bool* array = static_cast<bool*>(ptr);
+    int* array = static_cast<int*>(ptr);
     info.GetReturnValue().Set(Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
@@ -98,7 +98,7 @@ void V8DataBase::LLGetterByIdx_no_in_powers_(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    bool* array = static_cast<bool*>(ptr);
+    int* array = static_cast<int*>(ptr);
     info.GetReturnValue().Set(Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
@@ -113,7 +113,7 @@ void V8DataBase::LLGetterByIdx_no_in_power_events_(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    uchar* array = static_cast<uchar*>(ptr);
+    int* array = static_cast<int*>(ptr);
     info.GetReturnValue().Set(Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
@@ -128,7 +128,7 @@ void V8DataBase::LLGetterByIdx_unlocks_(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    uint* array = static_cast<uint*>(ptr);
+    int* array = static_cast<int*>(ptr);
     info.GetReturnValue().Set(Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
@@ -143,14 +143,111 @@ void V8DataBase::LLGetterByIdx_power_is_ok_(
     v8::Local<v8::Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    bool* array = static_cast<bool*>(ptr);
+    int* array = static_cast<int*>(ptr);
     info.GetReturnValue().Set(Number::New(array[index]));
   } else {
     info.GetReturnValue().Set(Undefined());
   }
 }
 
-//$ZeroLevelAccessors
+//$LastLevelSetters
+void V8DataBase::LLSetterByIdx_locks_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxPABs) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8DataBase::LLSetterByIdx_lock_events_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxPABs) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8DataBase::LLSetterByIdx_no_in_powers_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxPABs) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8DataBase::LLSetterByIdx_no_in_power_events_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxPABs) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8DataBase::LLSetterByIdx_unlocks_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxPABs) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8DataBase::LLSetterByIdx_power_is_ok_(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxPABs) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+//$ZeroLevelGetters
 void V8DataBase::ZLGetter_locks_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
@@ -163,7 +260,8 @@ void V8DataBase::ZLGetter_locks_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_locks_));
+          LLGetterByIdx_locks_,
+          LLSetterByIdx_locks_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->locks_);
   instance->SetInternalField(0, array_handle);
@@ -182,7 +280,8 @@ void V8DataBase::ZLGetter_lock_events_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_lock_events_));
+          LLGetterByIdx_lock_events_,
+          LLSetterByIdx_lock_events_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->lock_events_);
   instance->SetInternalField(0, array_handle);
@@ -201,7 +300,8 @@ void V8DataBase::ZLGetter_no_in_powers_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_no_in_powers_));
+          LLGetterByIdx_no_in_powers_,
+          LLSetterByIdx_no_in_powers_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->no_in_powers_);
   instance->SetInternalField(0, array_handle);
@@ -220,7 +320,8 @@ void V8DataBase::ZLGetter_no_in_power_events_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_no_in_power_events_));
+          LLGetterByIdx_no_in_power_events_,
+          LLSetterByIdx_no_in_power_events_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->no_in_power_events_);
   instance->SetInternalField(0, array_handle);
@@ -239,7 +340,8 @@ void V8DataBase::ZLGetter_unlocks_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_unlocks_));
+          LLGetterByIdx_unlocks_,
+          LLSetterByIdx_unlocks_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->unlocks_);
   instance->SetInternalField(0, array_handle);
@@ -258,7 +360,8 @@ void V8DataBase::ZLGetter_power_is_ok_(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
           Isolate::GetCurrent(), 
-          LLGetterByIdx_power_is_ok_));
+          LLGetterByIdx_power_is_ok_,
+          LLSetterByIdx_power_is_ok_));
   Handle<Object> instance = templ->NewInstance();
   Handle<External> array_handle = External::New(danger_real_ptr->power_is_ok_);
   instance->SetInternalField(0, array_handle);
