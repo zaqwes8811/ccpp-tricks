@@ -9,11 +9,11 @@ import app_utils
 from _v8_api import scalars
 
 # Последняя точка
-LAST_LEVEL_GETTER_ = "LastLevelGetterByIdx_"
-LAST_LEVEL_SETTER_ = "LastLevelSetterByIdx_"
+LAST_LEVEL_GETTER_ = "LLGetterByIdx_"
+LAST_LEVEL_SETTER_ = "LLSetterByIdx_"
 
 # По обращению к массиву без []
-ZERO_LEVEL_GETTER_ = "ZeroLevelGetter_"
+ZERO_LEVEL_GETTER_ = "ZLGetter_"
 
 
 def is_array(method_to_decorate):

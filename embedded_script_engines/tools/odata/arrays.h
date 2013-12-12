@@ -7,116 +7,116 @@
 class Web {
  public:
   //$ZeroLevelAccessors
-  static void ZeroLevelGetter_lengthAllParams___(
+  static void ZLGetter_lengthAllParams___(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_counterDebug___(
+  static void ZLGetter_counterDebug___(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_stringMsgsQuerySTL(
+  static void ZLGetter_stringMsgsQuerySTL(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_LLTypeCodesQuerySTL(
+  static void ZLGetter_LLTypeCodesQuerySTL(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_HLTypeCodesQuerySTL(
+  static void ZLGetter_HLTypeCodesQuerySTL(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_typeControl_(
+  static void ZLGetter_typeControl_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_failsReseted_(
+  static void ZLGetter_failsReseted_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_printPABLock_(
+  static void ZLGetter_printPABLock_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_printPABLockEvent_(
+  static void ZLGetter_printPABLockEvent_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_printPABNoInPower_(
+  static void ZLGetter_printPABNoInPower_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_printPABNoInPowerEvent_(
+  static void ZLGetter_printPABNoInPowerEvent_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_printPABUnlock_(
+  static void ZLGetter_printPABUnlock_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_printPABInPowerOk_(
+  static void ZLGetter_printPABInPowerOk_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void ZeroLevelGetter_currentQueryIndex_(
+  static void ZLGetter_currentQueryIndex_(
       v8::Local<String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
   //$LastLevelAccessors
-  static void LastLevelGetterByIdx_lengthAllParams___(
+  static void LLGetterByIdx_lengthAllParams___(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_counterDebug___(
+  static void LLGetterByIdx_counterDebug___(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_stringMsgsQuerySTL(
+  static void LLGetterByIdx_stringMsgsQuerySTL(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_LLTypeCodesQuerySTL(
+  static void LLGetterByIdx_LLTypeCodesQuerySTL(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_HLTypeCodesQuerySTL(
+  static void LLGetterByIdx_HLTypeCodesQuerySTL(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_typeControl_(
+  static void LLGetterByIdx_typeControl_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_failsReseted_(
+  static void LLGetterByIdx_failsReseted_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_printPABLock_(
+  static void LLGetterByIdx_printPABLock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_printPABLockEvent_(
+  static void LLGetterByIdx_printPABLockEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_printPABNoInPower_(
+  static void LLGetterByIdx_printPABNoInPower_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_printPABNoInPowerEvent_(
+  static void LLGetterByIdx_printPABNoInPowerEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_printPABUnlock_(
+  static void LLGetterByIdx_printPABUnlock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_printPABInPowerOk_(
+  static void LLGetterByIdx_printPABInPowerOk_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void LastLevelGetterByIdx_currentQueryIndex_(
+  static void LLGetterByIdx_currentQueryIndex_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
