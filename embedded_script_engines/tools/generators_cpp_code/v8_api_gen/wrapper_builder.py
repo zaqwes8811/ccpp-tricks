@@ -13,7 +13,7 @@ class BuilderArrayWrapper(object):
         self.source_ = source
 
     #@is_array
-    def make_blueprint(self):
+    def blueprint_method_impl(self):
         # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
         # еще добавил формирование функции CreateBlueprint
         result = 'v8::Handle<v8::ObjectTemplate> V8' + self.class_name_ + '::CreateOwnBlueprint(\n' + \
@@ -35,14 +35,14 @@ class BuilderArrayWrapper(object):
 
         return result
 
-    def get_zero_level_getters_src(self):
+    def zero_level_getters_impl(self):
         for elem in self.type_and_var_list_:
             array_wrapper = vectors.V8ArraysWrapper(*elem)
             code = array_wrapper.do_zero_level_getter()
             if code:
                 yield code
 
-    def get_zero_level_getters_header(self):
+    def zero_level_getters_decl(self):
         for elem in self.type_and_var_list_:
             array_wrapper = vectors.V8ArraysWrapper(*elem)
             name = array_wrapper.make_zero_level_getter_declaration()

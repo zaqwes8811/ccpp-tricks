@@ -26,7 +26,7 @@
       <file leaf-file-name="wrapper_builder.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="0" selection-start="3241" selection-end="3241" vertical-scroll-proportion="0.4750594" vertical-offset="1028" max-vertical-offset="2278">
+            <state line="43" column="0" selection-start="1590" selection-end="1590" vertical-scroll-proportion="0.62589073" vertical-offset="204" max-vertical-offset="2278">
               <folding>
                 <element signature="e#23#73#0" expanded="true" />
               </folding>
@@ -64,7 +64,7 @@
       <file leaf-file-name="maker_sources.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="0" selection-start="2297" selection-end="2297" vertical-scroll-proportion="0.0" vertical-offset="997" max-vertical-offset="2533">
+            <state line="79" column="0" selection-start="2291" selection-end="2291" vertical-scroll-proportion="0.0" vertical-offset="997" max-vertical-offset="2533">
               <folding>
                 <element signature="e#22#50#0" expanded="true" />
               </folding>
@@ -574,7 +574,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="0" selection-start="2297" selection-end="2297" vertical-scroll-proportion="0.0" vertical-offset="997" max-vertical-offset="2533">
+        <state line="79" column="0" selection-start="2291" selection-end="2291" vertical-scroll-proportion="0.0" vertical-offset="997" max-vertical-offset="2533">
           <folding>
             <element signature="e#22#50#0" expanded="true" />
           </folding>
@@ -597,7 +597,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="0" selection-start="3241" selection-end="3241" vertical-scroll-proportion="0.4750594" vertical-offset="1028" max-vertical-offset="2278">
+        <state line="43" column="0" selection-start="1590" selection-end="1590" vertical-scroll-proportion="0.62589073" vertical-offset="204" max-vertical-offset="2278">
           <folding>
             <element signature="e#23#73#0" expanded="true" />
           </folding>

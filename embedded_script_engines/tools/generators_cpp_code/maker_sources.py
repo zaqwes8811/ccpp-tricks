@@ -53,7 +53,7 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
     code.append(builder.new_method_decl())
     code.append('')
     code.append('  //$ZeroLevelGetters')
-    for impl in builder.get_zero_level_getters_header():
+    for impl in builder.zero_level_getters_decl():
         code.append(impl)
 
     code.append('  //$LastLevelSetters')
@@ -99,7 +99,7 @@ def make_source_file(pair, builder):
     code.append('')
     code.append('namespace tmitter_web_service {')
 
-    code.append(builder.make_blueprint())
+    code.append(builder.blueprint_method_impl())
     code.append('')
     code.append(builder.new_method_impl())
 
@@ -112,7 +112,7 @@ def make_source_file(pair, builder):
         code.append(impl)
 
     code.append('//$ZeroLevelGetters')
-    for impl in builder.get_zero_level_getters_src():
+    for impl in builder.zero_level_getters_impl():
         code.append(impl)
     code.append('}')
     return code
