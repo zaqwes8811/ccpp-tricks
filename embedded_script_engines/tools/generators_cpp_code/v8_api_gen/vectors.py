@@ -6,7 +6,6 @@ import re
 
 # App
 import utils_local
-from _v8_api import scalars
 
 # Последняя точка
 LAST_LEVEL_GETTER_ = "LLGetterByIdx_"

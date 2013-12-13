@@ -7,8 +7,8 @@ import re
 from generator.cpp import ast
 
 # App
+from generators_cpp_code.v8_api_gen import scalars
 import utils_local
-from _v8_api import scalars
 
 
 class VarDeclaration(object):

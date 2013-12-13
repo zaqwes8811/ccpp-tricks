@@ -5,7 +5,7 @@ __author__ = 'Igor'
 import sys
 
 # App
-from _v8_api import name_mapper
+from generators_cpp_code.v8_api_gen import name_mapper
 import utils_local as util
 
 

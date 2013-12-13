@@ -4,19 +4,19 @@
 from generator.cpp import utils
 
 # App
-from __cpp_code_parsers import header_parser
-from _v8_api import scalars
+from generators_cpp_code.v8_api_gen import scalars
+from parsers_cpp_code import header_parser
 import utils_local
 
 
 def main():
     header_file_name = '../v8/src/point.h'
-    header_file_name = './test-data/real_test_file.h'
+    header_file_name = './idata/real_test_file.h'
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
     vars_ = header_parser.extract_variable_declaration(source, header_file_name)
-    #vars_ = __cpp_code_parsers.header_parser.extract_variable_declaration(source)
+    #vars_ = parsers_cpp_code.header_parser.extract_variable_declaration(source)
 
     #if
     # Make V8 view

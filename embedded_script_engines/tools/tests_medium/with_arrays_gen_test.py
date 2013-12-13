@@ -4,29 +4,33 @@
 from generator.cpp import utils
 
 # App
-from __cpp_code_parsers import header_parser
-from _v8_api import vectors
+from parsers_cpp_code import header_parser
+from generators_cpp_code.v8_api_gen import vectors
 import utils_local
 
 if __name__ == '__main__':
     def main():
-        class_transmit_code = utils.ReadFile('./test-data/sampler.h')
-        type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
-        expended = []
-        class_name = "DataBase"
+        class_transmit_code = utils.ReadFile('./idata/sampler.h')
 
-        for record in type_and_var_list:
-            updated = list(record)
-            updated.append(class_name)
-            type_var = updated[0]
-            bad = 'vector' in updated[0] or \
-                  'string' in updated[0] or \
-                  'static' in updated[0] or \
-                  '=' in updated[0] or \
-                    '*' in type_var
-            if not bad:
-                expended.append(updated)
-                #print updated
+        def get_declarations_from_header():
+            type_and_var_list = header_parser.Holder.extract_var_declaration(class_transmit_code)
+            result = []
+            class_name = "DataBase"
+
+            for record in type_and_var_list:
+                updated = list(record)
+                updated.append(class_name)
+                type_var = updated[0]
+                bad = 'vector' in updated[0] or \
+                      'string' in updated[0] or \
+                      'static' in updated[0] or \
+                      '=' in updated[0] or \
+                        '*' in type_var
+                if not bad:
+                    result.append(updated)
+            return result, class_name
+
+        expended, class_name = get_declarations_from_header()
 
         # Targets
         header_name = 'odata/arrays.h'
