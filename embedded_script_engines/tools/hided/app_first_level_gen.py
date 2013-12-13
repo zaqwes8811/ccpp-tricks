@@ -6,7 +6,7 @@ from generator.cpp import utils
 # App
 from __cpp_code_parsers import header_parser
 from _v8_api import scalars
-import app_utils
+import utils_local
 
 
 def main():
@@ -36,11 +36,11 @@ def main():
 
     code = scalars.make_header(declarations, 'point.h')
     header_name = 'odata/forge_v8_point.h'
-    app_utils.write_source(header_name, code)
+    utils_local.write_source(header_name, code)
     code = scalars.make_source(impls, header_name)
 
     # Итоговый исходник
-    app_utils.write_source('odata/forge_v8_point.cc', code)
+    utils_local.write_source('odata/forge_v8_point.cc', code)
 
 
 def extract_variable_declaration(source):

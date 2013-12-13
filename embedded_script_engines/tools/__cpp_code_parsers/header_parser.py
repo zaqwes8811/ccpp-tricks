@@ -7,7 +7,7 @@ import re
 from generator.cpp import ast
 
 # App
-import app_utils
+import utils_local
 from _v8_api import scalars
 
 
@@ -72,8 +72,8 @@ class Holder(object):
                 if search_result:
                     line_copy = line
                     line_copy = line_copy.lstrip().rstrip()
-                    line_copy = app_utils.remove_cc_comments(line_copy)
-                    line_copy = app_utils.delete_double_spaces(line_copy)
+                    line_copy = utils_local.remove_cc_comments(line_copy)
+                    line_copy = utils_local.delete_double_spaces(line_copy)
                     result.append(line_copy)
 
         return '\n'.join(result)
@@ -128,7 +128,7 @@ class Holder(object):
             .replace('\n\t', " ") \
             .replace("  ", " ") \
             .replace('\n', " ")
-        declaration_string = app_utils.delete_double_spaces(declaration_string)
+        declaration_string = utils_local.delete_double_spaces(declaration_string)
         return declaration_string
 
 

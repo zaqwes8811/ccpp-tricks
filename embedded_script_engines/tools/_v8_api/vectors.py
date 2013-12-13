@@ -5,7 +5,7 @@ __author__ = 'Igor'
 import re
 
 # App
-import app_utils
+import utils_local
 from _v8_api import scalars
 
 # Последняя точка
@@ -42,7 +42,7 @@ class V8ArraysWrapper(object):
     def __init__(self, var_type, var_name, class_name):
         self.var_type_ = var_type
         self.var_name_ = var_name
-        self.util_ = app_utils.Util()
+        self.util_ = utils_local.Util()
         self.class_name_ = class_name
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 

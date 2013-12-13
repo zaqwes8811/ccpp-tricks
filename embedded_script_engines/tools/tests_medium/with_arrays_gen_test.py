@@ -6,7 +6,7 @@ from generator.cpp import utils
 # App
 from __cpp_code_parsers import header_parser
 from _v8_api import vectors
-import app_utils
+import utils_local
 
 if __name__ == '__main__':
     def main():
@@ -65,7 +65,7 @@ if __name__ == '__main__':
         header_code.append('#endif  // ' + directive)
 
         # Write
-        app_utils.write_source(header_name, header_code)
+        utils_local.write_source(header_name, header_code)
 
         # source
         source_name = 'odata/arrays.cc'
@@ -103,7 +103,7 @@ if __name__ == '__main__':
             source_code.append(impl)
 
         # Write
-        app_utils.write_source(source_name, source_code)
+        utils_local.write_source(source_name, source_code)
 
     main()
 

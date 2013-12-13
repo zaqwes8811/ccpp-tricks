@@ -6,7 +6,7 @@ import sys
 
 # App
 from _v8_api import name_mapper
-import app_utils as util
+import utils_local as util
 
 
 class V8ScalarWrappers(object):
