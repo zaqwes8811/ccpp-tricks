@@ -15,7 +15,7 @@ def main():
     class_name = "SomeThing"
 
     dec_wrappers = header_parser.extract_variable_declaration_own(source, class_name)
-    code = scalars.do_scalar_setter_decl(dec_wrappers)
+    code = scalars.do_scalar_setter_impl(dec_wrappers)
     for line in code:
         print line
 

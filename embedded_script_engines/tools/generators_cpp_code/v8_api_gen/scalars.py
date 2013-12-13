@@ -76,14 +76,12 @@ class ScalarVariableField(object):
 
         # Регистрируем типы
         self.V8_GETTER_RECODER_ = {'int': 'Integer',
-                                   'std::string': 'String',
                                    'uint': 'Integer',
                                    'uchar': 'Integer',
                                    'bool': 'Boolean'}
         self.V8_SETTER_RECODER_ = {'int': 'Int32',
                                    'uint': 'Int32',
                                    'uchar': 'Int32',
-                                   'std::string': 'String',
                                    'bool': 'Boolean'}
 
     def get_wrapper_class_name(self):
@@ -134,7 +132,7 @@ class ScalarVariableField(object):
                                               self.class_name_)
 
         if field_type not in self.V8_GETTER_RECODER_:
-            return "Map not found"
+            return "Map not found", None
 
         template = make_setter_header(field_name)+' \r\n' + \
                    '  {\r\n' + \
@@ -190,3 +188,31 @@ def do_scalar_setter_decl(dec_wrappers):
 
     code = wrap_scalar_setters_header(declarations)
     return code
+
+
+def do_scalar_setter_impl(dec_wrappers, class_name):
+    # zaqwes
+    impls = []
+    for elem in dec_wrappers:
+        if not elem.is_array():
+            impl, d = elem.make_scalar_setter()
+            if d:
+                impls.append('void V8'+class_name+'::'+impl+'\n')
+            else:
+                print impl
+
+    return impls
+
+
+def do_scalar_getter_impl(dec_wrappers, class_name):
+    # zaqwes
+    impls = []
+    for elem in dec_wrappers:
+        if not elem.is_array():
+            impl, d = elem.make_scalar_getter()
+            if d:
+                impls.append('void V8'+class_name+'::'+impl+'\n')
+            else:
+                print impl
+
+    return impls

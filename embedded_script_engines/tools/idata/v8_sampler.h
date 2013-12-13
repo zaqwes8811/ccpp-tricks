@@ -2080,10 +2080,6 @@ class V8InMemoryStorageImpl {
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void V8ScalarGetter_typeControl_(
-    v8::Local<v8::String> name,
-    const v8::PropertyCallbackInfo<v8::Value>& info);
-
   static void V8ScalarGetter_failsReseted_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
@@ -2470,10 +2466,6 @@ class V8InMemoryStorageImpl {
         const v8::PropertyCallbackInfo<void>& info);
 
   static void V8ScalarSetter_counterDebug___(
-        v8::Local<v8::String> property, v8::Local<v8::Value> value,
-        const v8::PropertyCallbackInfo<void>& info);
-
-  static void V8ScalarSetter_typeControl_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info);
 

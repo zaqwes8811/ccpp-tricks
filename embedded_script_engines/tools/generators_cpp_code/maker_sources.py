@@ -114,6 +114,15 @@ def make_source_file(pair, builder):
     code.append('//$ZeroLevelGetters')
     for impl in builder.zero_level_getters_impl():
         code.append(impl)
+
+    code.append('  //$ScalarGetters')
+    for impl in builder.scalar_getters_impl():
+        code.append(impl)
+
+    code.append('  //$ScalarSetters')
+    for impl in builder.scalar_setters_impl():
+        code.append(impl)
+
     code.append('}')
     return code
 

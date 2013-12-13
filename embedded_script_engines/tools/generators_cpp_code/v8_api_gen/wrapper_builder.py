@@ -126,4 +126,19 @@ class BuilderArrayWrapper(object):
         code = scalars.do_scalar_setter_decl(dec_wrappers)
         return code
 
+    def scalar_getters_impl(self):
+        dec_wrappers = header_parser.extract_variable_declaration_own(
+            self.source_, self.class_name_)
+
+        code = scalars.do_scalar_getter_impl(dec_wrappers, self.class_name_)
+        return code
+
+    def scalar_setters_impl(self):
+        dec_wrappers = header_parser.extract_variable_declaration_own(
+            self.source_, self.class_name_)
+
+        code = scalars.do_scalar_setter_impl(dec_wrappers, self.class_name_)
+        return code
+
+
 

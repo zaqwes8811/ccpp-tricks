@@ -8577,4 +8577,2043 @@ void V8InMemoryStorageImpl::ZLGetter_iBDFRW(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
+  //$ScalarGetters
+void V8InMemoryStorageImpl::V8ScalarGetter_lengthAllParams___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->lengthAllParams___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_counterDebug___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->counterDebug___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failsReseted_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->failsReseted_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_currentQueryIndex_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->currentQueryIndex_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_powerOkTTgr_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->powerOkTTgr_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_needPrintFullPower_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->needPrintFullPower_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_needPrintOkPower_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->needPrintOkPower_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_FRWOkTTgr_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->FRWOkTTgr_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_needPrintFullFRW_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->needPrintFullFRW_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_needPrintOkFRW_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->needPrintOkFRW_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ctrlModeTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ctrlModeTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_typeLoadTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->typeLoadTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_tmitterLockTgrVar___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->tmitterLockTgrVar___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_tmitterOnTgrVar___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->tmitterOnTgrVar___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_powHalfModeTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->powHalfModeTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_istreamTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->istreamTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_outSynTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->outSynTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_statusTmitterTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->statusTmitterTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_type_tm_digital_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->type_tm_digital_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibWork_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibWork_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_exciterLock_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->exciterLock_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibPowAmpLock_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibPowAmpLock_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_idx_oned_etv_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->idx_oned_etv_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_idx_oned_etv_q_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->idx_oned_etv_q_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibRadioMode_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibRadioMode_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_transmitterReady_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->transmitterReady_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failNet_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->failNet_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failBallast_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->failBallast_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failFRW_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->failFRW_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failCoolling_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->failCoolling_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibVtv(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibVtv;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalD_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->failsTotalD_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalQ_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->failsTotalQ_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalQQ_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->failsTotalQQ_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibRS485(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibRS485;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibI2C(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibI2C;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_channalValuePacked_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->channalValuePacked_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iChannel(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iChannel;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iChannelSetup(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iChannelSetup;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibPower(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibPower;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_realPowerRepresent___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->realPowerRepresent___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibValueFRW(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibValueFRW;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_FRWValue___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->FRWValue___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSoundLock(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibSoundLock;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSU2St(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->ibSU2St;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_failBallast_Power(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->failBallast_Power;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iBallastPower(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iBallastPower;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_transmitterAddress___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->transmitterAddress___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iMaxTemre(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iMaxTemre;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iMaxStatus(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iMaxStatus;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_new_max_temperature_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->new_max_temperature_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iNewMaxStatus(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iNewMaxStatus;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_connecton_state___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->connecton_state___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_snmp_connecton_status___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->snmp_connecton_status___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_transmitter_number_to_set_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->transmitter_number_to_set_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_fixedAlrmRecordIndex_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->fixedAlrmRecordIndex_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_hasMsgForSnmp_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->hasMsgForSnmp_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_statusRecordIndex_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->statusRecordIndex_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_newFailOccure_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->newFailOccure_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_currentMWFCode_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->currentMWFCode_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_currentAliveFaWa___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<InMemoryStorageImpl*>(ptr)->currentAliveFaWa___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_FRWOk_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->FRWOk_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_temperatureWasOk_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  bool value = static_cast<InMemoryStorageImpl*>(ptr)->temperatureWasOk_;
+  info.GetReturnValue().Set(Boolean::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_counterFailsAndWarns_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->counterFailsAndWarns_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iUsedTime(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iUsedTime;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_iUsedReserv(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->iUsedReserv;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_lengthCfgAnswer(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->lengthCfgAnswer;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_nominalPower___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->nominalPower___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_numExcitersPack_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->numExcitersPack_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_excitersTotal_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  int value = static_cast<InMemoryStorageImpl*>(ptr)->excitersTotal_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibNumPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibNumPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_PABTotal_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->PABTotal_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibNumPAinPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibNumPAinPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_terminal_amps_per_block___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->terminal_amps_per_block___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibNumBCV(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibNumBCV;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_current_nominal_power(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->current_nominal_power;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_total_bcl_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->total_bcl_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibNUMDB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibNUMDB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_DBTotal_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->DBTotal_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBMod(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBMod;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockModParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockModParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBPAPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBPAPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockTerminalAmpParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockTerminalAmpParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBPrAPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBPrAPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockPreampParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockPreampParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBBCV(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBBCV;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockBCNParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockBCNParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibEventStringSize(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibEventStringSize;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeEventsString_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeEventsString_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibFailStringSize(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibFailStringSize;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeFailsString_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeFailsString_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeDB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->ibSizeDB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockDBParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockDBParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_transmitterID___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->transmitterID___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_exciterType_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->exciterType_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+void V8InMemoryStorageImpl::V8ScalarGetter_countReservedTransmitters_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<InMemoryStorageImpl*>(ptr)->countReservedTransmitters_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+  //$ScalarSetters
+void V8InMemoryStorageImpl::V8ScalarSetter_lengthAllParams___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->lengthAllParams___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_counterDebug___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->counterDebug___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failsReseted_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failsReseted_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_currentQueryIndex_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->currentQueryIndex_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_powerOkTTgr_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->powerOkTTgr_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_needPrintFullPower_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->needPrintFullPower_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_needPrintOkPower_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->needPrintOkPower_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_FRWOkTTgr_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->FRWOkTTgr_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_needPrintFullFRW_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->needPrintFullFRW_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_needPrintOkFRW_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->needPrintOkFRW_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ctrlModeTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ctrlModeTgrVar_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_typeLoadTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->typeLoadTgrVar_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_tmitterLockTgrVar___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->tmitterLockTgrVar___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_tmitterOnTgrVar___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->tmitterOnTgrVar___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_powHalfModeTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->powHalfModeTgrVar_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_istreamTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->istreamTgrVar_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_outSynTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->outSynTgrVar_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_statusTmitterTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->statusTmitterTgrVar_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_type_tm_digital_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->type_tm_digital_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibWork_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibWork_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_exciterLock_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->exciterLock_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibPowAmpLock_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibPowAmpLock_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_idx_oned_etv_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->idx_oned_etv_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_idx_oned_etv_q_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->idx_oned_etv_q_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibRadioMode_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibRadioMode_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_transmitterReady_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->transmitterReady_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failNet_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failNet_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failBallast_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failBallast_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failFRW_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failFRW_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failCoolling_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failCoolling_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibPAB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibVtv(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibVtv = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalD_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failsTotalD_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalQ_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failsTotalQ_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalQQ_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failsTotalQQ_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibRS485(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibRS485 = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibI2C(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibI2C = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_channalValuePacked_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->channalValuePacked_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iChannel(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iChannel = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iChannelSetup(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iChannelSetup = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibPower(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibPower = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_realPowerRepresent___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->realPowerRepresent___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibValueFRW(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibValueFRW = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_FRWValue___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->FRWValue___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSoundLock(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSoundLock = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSU2St(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSU2St = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_failBallast_Power(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->failBallast_Power = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iBallastPower(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iBallastPower = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_transmitterAddress___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->transmitterAddress___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iMaxTemre(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iMaxTemre = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iMaxStatus(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iMaxStatus = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_new_max_temperature_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->new_max_temperature_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iNewMaxStatus(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iNewMaxStatus = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_connecton_state___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->connecton_state___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_snmp_connecton_status___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->snmp_connecton_status___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_transmitter_number_to_set_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->transmitter_number_to_set_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_fixedAlrmRecordIndex_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->fixedAlrmRecordIndex_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_hasMsgForSnmp_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->hasMsgForSnmp_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_statusRecordIndex_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->statusRecordIndex_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_newFailOccure_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->newFailOccure_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_currentMWFCode_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->currentMWFCode_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_currentAliveFaWa___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->currentAliveFaWa___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_FRWOk_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->FRWOk_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_temperatureWasOk_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->temperatureWasOk_ = value->BooleanValue();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_counterFailsAndWarns_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->counterFailsAndWarns_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iUsedTime(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iUsedTime = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_iUsedReserv(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->iUsedReserv = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_lengthCfgAnswer(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->lengthCfgAnswer = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_nominalPower___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->nominalPower___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_numExcitersPack_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->numExcitersPack_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_excitersTotal_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->excitersTotal_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibNumPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibNumPAB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_PABTotal_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->PABTotal_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibNumPAinPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibNumPAinPAB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_terminal_amps_per_block___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->terminal_amps_per_block___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibNumBCV(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibNumBCV = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_current_nominal_power(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->current_nominal_power = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_total_bcl_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->total_bcl_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibNUMDB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibNUMDB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_DBTotal_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->DBTotal_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBMod(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBMod = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockModParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockModParams_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBPAPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBPAPAB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockTerminalAmpParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockTerminalAmpParams_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBPrAPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBPrAPAB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockPreampParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockPreampParams_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBBCV(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBBCV = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockBCNParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockBCNParams_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibEventStringSize(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibEventStringSize = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeEventsString_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeEventsString_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibFailStringSize(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibFailStringSize = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeFailsString_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeFailsString_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeDB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->ibSizeDB = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockDBParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockDBParams_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_transmitterID___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->transmitterID___ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_exciterType_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->exciterType_ = value->Int32Value();
+}
+
+void V8InMemoryStorageImpl::V8ScalarSetter_countReservedTransmitters_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<InMemoryStorageImpl*>(ptr)->countReservedTransmitters_ = value->Int32Value();
+}
+
 }
