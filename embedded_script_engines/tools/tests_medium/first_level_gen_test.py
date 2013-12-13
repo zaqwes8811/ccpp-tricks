@@ -10,13 +10,23 @@ import utils_local
 
 
 def main():
-    header_file_name = '../v8/src/point.h'
-    header_file_name = './idata/real_test_file.h'
+    def extract_variable_declaration(source_):
+        """
+        Args:
+            source - string with code
+        """
+        type_and_var_list = header_parser.Holder.extract_var_declaration(source_)
+        result = []
+        for var in type_and_var_list:
+            result.append(scalars.ScalarVariableField('unknown', header_parser.VarDeclaration(*var)))
+
+        return result
+
+    header_file_name = 'idata/sampler.h'
     source = utils.ReadFile(header_file_name)
 
     # zaqwes
-    vars_ = header_parser.extract_variable_declaration(source, header_file_name)
-    #vars_ = parsers_cpp_code.header_parser.extract_variable_declaration(source)
+    vars_ = extract_variable_declaration(source)
 
     #if
     # Make V8 view
@@ -25,7 +35,7 @@ def main():
 
     for elem in vars_:
         if elem.is_array():
-            pass
+            print 'is array'
         else:
             i, d = elem.make_scalar_getter()
             if d:
@@ -41,19 +51,6 @@ def main():
 
     # Итоговый исходник
     utils_local.write_source('odata/forge_v8_point.cc', code)
-
-
-def extract_variable_declaration(source):
-    """
-    Args:
-        source - string with code
-    """
-    type_and_var_list = header_parser.Holder.extract_var_declaration(source)
-    result = []
-    for var in type_and_var_list:
-        result.append(scalars.ScalarVariableField('unknown', header_parser.VarDeclaration(*var)))
-
-    return result
 
 
 if __name__ == '__main__':

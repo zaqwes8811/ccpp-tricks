@@ -23,13 +23,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="maker_sources.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="maker_sources.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="0" selection-start="3217" selection-end="3217" vertical-scroll-proportion="0.36849925" vertical-offset="1639" max-vertical-offset="2380">
+            <state line="115" column="0" selection-start="3391" selection-end="3391" vertical-scroll-proportion="0.0" vertical-offset="1639" max-vertical-offset="2380">
               <folding>
                 <element signature="e#22#50#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="first_level_gen_test.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests_medium/first_level_gen_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="0" selection-start="673" selection-end="673" vertical-scroll-proportion="0.08108108" vertical-offset="388" max-vertical-offset="1105">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -44,7 +53,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/__v8_api/vectors.py" />
         <option value="$PROJECT_DIR$/__v8_api/scalars.py" />
         <option value="$PROJECT_DIR$/app_first_level_gen.py" />
         <option value="$PROJECT_DIR$/_v8_api/name_mapper.py" />
@@ -60,6 +68,7 @@
         <option value="$PROJECT_DIR$/generate_v8_wrap.py" />
         <option value="$PROJECT_DIR$/idata/v8_sampler.cc" />
         <option value="$PROJECT_DIR$/generators_cpp_code/maker_sources.py" />
+        <option value="$PROJECT_DIR$/tests_medium/first_level_gen_test.py" />
       </list>
     </option>
   </component>
@@ -123,7 +132,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="idata" />
+              <option name="myItemId" value="odata" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -136,7 +145,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/generate_v8_wrap.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests_medium/first_level_gen_test.py" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -149,14 +158,14 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\tests_medium" />
+      <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools" />
       <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\generators_cpp_code" />
       <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\hided" />
-      <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\tests_medium" />
       <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\__cpp_code_parsers" />
-      <recent name="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\_v8_api" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Cmd runner">
+  <component name="RunManager" selected="Python.First level gen">
     <configuration default="true" type="tests" factoryName="py.test">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -290,7 +299,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="v8" />
-      <option name="SCRIPT_NAME" value="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\hided\app_first_level_gen.py" />
+      <option name="SCRIPT_NAME" value="D:\home\lugansky-igor\github\in-the-vicinity-cc\embedded_script_engines\tools\tests_medium\first_level_gen_test.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -332,10 +341,29 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <list size="3">
+    <configuration default="false" name="First level gen" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:/Python27/python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v8" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_medium/first_level_gen_test.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.First level" />
       <item index="1" class="java.lang.String" itemvalue="Python.With arrays" />
       <item index="2" class="java.lang.String" itemvalue="Python.Cmd runner" />
+      <item index="3" class="java.lang.String" itemvalue="Python.First level gen" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -373,11 +401,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.8052995" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.797235" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19470046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20276497" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -409,13 +437,6 @@
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="77" column="8" selection-start="2761" selection-end="2849" vertical-scroll-proportion="0.23817864" vertical-offset="1173" max-vertical-offset="3944">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hided/app_first_level_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="12" selection-start="330" selection-end="330" vertical-scroll-proportion="0.5027726" vertical-offset="0" max-vertical-offset="1156">
           <folding />
         </state>
       </provider>
@@ -504,10 +525,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="0" selection-start="3217" selection-end="3217" vertical-scroll-proportion="0.36849925" vertical-offset="1639" max-vertical-offset="2380">
+        <state line="115" column="0" selection-start="3391" selection-end="3391" vertical-scroll-proportion="0.0" vertical-offset="1639" max-vertical-offset="2380">
           <folding>
             <element signature="e#22#50#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests_medium/first_level_gen_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="0" selection-start="673" selection-end="673" vertical-scroll-proportion="0.08108108" vertical-offset="388" max-vertical-offset="1105">
+          <folding />
         </state>
       </provider>
     </entry>
