@@ -1,5 +1,5 @@
-#ifndef ODATA_ARRAYS_H_
-#define ODATA_ARRAYS_H_
+#ifndef IDATA\V8_SAMPLER_H_
+#define IDATA\V8_SAMPLER_H_
 
 // Other
 #include <v8.h>
@@ -2070,4 +2070,4 @@ class V8DataBase {
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
 };
-#endif  // ODATA_ARRAYS_H_
+#endif  // IDATA\V8_SAMPLER_H_
