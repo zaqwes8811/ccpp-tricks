@@ -121,7 +121,7 @@ class ScalarVariableField(object):
 
         return template, make_getter_header(field_name) + ';\r\n'
 
-    # BUGS!!
+    # BUGS!! Нужно тоже пропустить через регистратор!!
     def setter_name(self):
         return 'V8ScalarSetter_'+self.variable_node_.name
 

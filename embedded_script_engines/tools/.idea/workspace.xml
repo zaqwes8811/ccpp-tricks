@@ -55,7 +55,7 @@
       <file leaf-file-name="scalars.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="12" selection-start="4778" selection-end="4778" vertical-scroll-proportion="0.4533762" vertical-offset="1809" max-vertical-offset="4097">
+            <state line="123" column="54" selection-start="4820" selection-end="4820" vertical-scroll-proportion="0.4533762" vertical-offset="1809" max-vertical-offset="4097">
               <folding />
             </state>
           </provider>
@@ -617,7 +617,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="12" selection-start="4778" selection-end="4778" vertical-scroll-proportion="0.4533762" vertical-offset="1809" max-vertical-offset="4097">
+        <state line="123" column="54" selection-start="4820" selection-end="4820" vertical-scroll-proportion="0.4533762" vertical-offset="1809" max-vertical-offset="4097">
           <folding />
         </state>
       </provider>
