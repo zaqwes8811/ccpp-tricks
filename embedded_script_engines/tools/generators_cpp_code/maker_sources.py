@@ -57,11 +57,11 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
         code.append(impl)
 
     code.append('  //$LastLevelSetters')
-    for impl in builder.get_last_level_setters_header():
+    for impl in builder.last_level_setters_decl():
         code.append(impl)
 
     code.append('  //$LastLevelAccessors')
-    for impl in builder.get_last_level_getters_header():
+    for impl in builder.last_level_getters_decl():
         code.append(impl)
 
     code.append('  //$ScalarGetters')
@@ -104,11 +104,11 @@ def make_source_file(pair, builder):
     code.append(builder.new_method_impl())
 
     code.append('//$LastLevelGetters')
-    for impl in builder.get_last_level_getters_src():
+    for impl in builder.last_level_getters_impl():
         code.append(impl)
 
     code.append('//$LastLevelSetters')
-    for impl in builder.get_last_level_setters_src():
+    for impl in builder.last_level_setters_impl():
         code.append(impl)
 
     code.append('//$ZeroLevelGetters')

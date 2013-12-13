@@ -12,7 +12,15 @@ class BuilderArrayWrapper(object):
         self.class_name_ = self.type_and_var_list_[0][2]
         self.source_ = source
 
-    #@is_array
+    # ::Blueprint()
+    @staticmethod
+    def __do_blueprint_method_decl():
+        return 'CreateOwnBlueprint(\n' + \
+               '      v8::Isolate* isolate)'
+
+    def blueprint_method_decl(self):
+        return '  static v8::Handle<v8::ObjectTemplate> ' + self.__do_blueprint_method_decl() + ';'
+
     def blueprint_method_impl(self):
         # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
         # еще добавил формирование функции CreateBlueprint
@@ -35,57 +43,7 @@ class BuilderArrayWrapper(object):
 
         return result
 
-    def zero_level_getters_impl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
-            code = array_wrapper.do_zero_level_getter()
-            if code:
-                yield code
-
-    def zero_level_getters_decl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
-            name = array_wrapper.make_zero_level_getter_declaration()
-            if name:
-                yield '  static void ' + name + ';\n'
-
-    # arrays
-    def get_last_level_getters_src(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
-            getter = array_wrapper.do_last_level_getter_by_idx()
-            if getter:
-                yield getter
-
-    def get_last_level_getters_header(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
-            getter_declaration = array_wrapper.make_last_level_getter_declaration()
-            if getter_declaration:
-                yield '  static void ' + getter_declaration + ';\n'
-
-    def get_last_level_setters_src(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
-            setter = array_wrapper.do_last_level_setter_by_idx()
-            if setter:
-                yield setter
-
-    def get_last_level_setters_header(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
-            setter_declaration = array_wrapper.make_last_level_setter_declaration()
-            if setter_declaration:
-                yield '  static void ' + setter_declaration + ';\n'
-
-    @staticmethod
-    def __do_blueprint_method_decl():
-        return 'CreateOwnBlueprint(\n' + \
-               '      v8::Isolate* isolate)'
-
-    def blueprint_method_decl(self):
-        return '  static v8::Handle<v8::ObjectTemplate> ' + self.__do_blueprint_method_decl() + ';'
-
+    # ::New()
     def __do_new_method_decl(self):
         return 'New(' + self.class_name_ + '* database, v8::Isolate *isolate)'
 
@@ -110,19 +68,62 @@ class BuilderArrayWrapper(object):
                '  return handle_scope.Close(result);\n' + \
                '}\n'
 
-    # Scalars
+    # ::Arrays1D
+    def zero_level_getters_impl(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            code = array_wrapper.do_zero_level_getter()
+            if code:
+                yield code
+
+    def zero_level_getters_decl(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            name = array_wrapper.make_zero_level_getter_declaration()
+            if name:
+                yield '  static void ' + name + ';\n'
+
+    def last_level_getters_impl(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            getter = array_wrapper.do_last_level_getter_by_idx()
+            if getter:
+                yield getter
+
+    def last_level_getters_decl(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            getter_declaration = array_wrapper.make_last_level_getter_declaration()
+            if getter_declaration:
+                yield '  static void ' + getter_declaration + ';\n'
+
+    def last_level_setters_impl(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            setter = array_wrapper.do_last_level_setter_by_idx()
+            if setter:
+                yield setter
+
+    def last_level_setters_decl(self):
+        for elem in self.type_and_var_list_:
+            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            setter_declaration = array_wrapper.make_last_level_setter_declaration()
+            if setter_declaration:
+                yield '  static void ' + setter_declaration + ';\n'
+
+    # ::Scalars
     def scalar_getters_decl(self):
         dec_wrappers = header_parser.extract_variable_declaration_own(
             self.source_, self.class_name_)
 
-        code = scalars.make_scalar_getter_header(dec_wrappers)
+        code = scalars.do_scalar_getters_decl(dec_wrappers)
         return code
 
     def scalar_setters_decl(self):
         dec_wrappers = header_parser.extract_variable_declaration_own(
             self.source_, self.class_name_)
 
-        code = scalars.make_scalar_setter_header(dec_wrappers)
+        code = scalars.do_scalar_setter_decl(dec_wrappers)
         return code
 
 
