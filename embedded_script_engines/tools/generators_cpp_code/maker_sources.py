@@ -7,7 +7,7 @@ import os
 from generator.cpp import utils
 
 # App
-from generators_cpp_code.v8_api_gen import vectors
+from generators_cpp_code.v8_api_gen import wrapper_builder
 import utils_local
 from parsers_cpp_code import header_parser
 
@@ -125,7 +125,7 @@ def make_complect(header_to_wrap):
         pair_name = os.sep.join((dir_name, v8_header))
     else:
         pair_name = v8_header
-    builder = vectors.BuilderArrayWrapper(declarations)
+    builder = wrapper_builder.BuilderArrayWrapper(declarations)
     code = make_header_file(pair_name, class_name, builder, header_name)
     print pair_name+'.h'
     utils_local.write_source(pair_name+'.h', code)

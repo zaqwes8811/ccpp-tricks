@@ -21,7 +21,7 @@ using v8::Integer;
 using v8::String;
 
 
-void ForgeV8unknowns::v8_getter_lengthAllParams___(
+V8ScalarGetter_lengthAllParams___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -32,7 +32,7 @@ void ForgeV8unknowns::v8_getter_lengthAllParams___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_counterDebug___(
+V8ScalarGetter_counterDebug___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -43,7 +43,7 @@ void ForgeV8unknowns::v8_getter_counterDebug___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_typeControl_(
+V8ScalarGetter_typeControl_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -54,7 +54,7 @@ void ForgeV8unknowns::v8_getter_typeControl_(
   info.GetReturnValue().Set(String::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_failsReseted_(
+V8ScalarGetter_failsReseted_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -65,7 +65,7 @@ void ForgeV8unknowns::v8_getter_failsReseted_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_currentQueryIndex_(
+V8ScalarGetter_currentQueryIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -76,7 +76,7 @@ void ForgeV8unknowns::v8_getter_currentQueryIndex_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_powerOkTTgr_(
+V8ScalarGetter_powerOkTTgr_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -87,7 +87,7 @@ void ForgeV8unknowns::v8_getter_powerOkTTgr_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_needPrintFullPower_(
+V8ScalarGetter_needPrintFullPower_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -98,7 +98,7 @@ void ForgeV8unknowns::v8_getter_needPrintFullPower_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_needPrintOkPower_(
+V8ScalarGetter_needPrintOkPower_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -109,7 +109,7 @@ void ForgeV8unknowns::v8_getter_needPrintOkPower_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_FRWOkTTgr_(
+V8ScalarGetter_FRWOkTTgr_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -120,7 +120,7 @@ void ForgeV8unknowns::v8_getter_FRWOkTTgr_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_needPrintFullFRW_(
+V8ScalarGetter_needPrintFullFRW_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -131,7 +131,7 @@ void ForgeV8unknowns::v8_getter_needPrintFullFRW_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_needPrintOkFRW_(
+V8ScalarGetter_needPrintOkFRW_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -142,7 +142,315 @@ void ForgeV8unknowns::v8_getter_needPrintOkFRW_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iChannel(
+V8ScalarGetter_ctrlModeTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ctrlModeTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_typeLoadTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->typeLoadTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_tmitterLockTgrVar___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->tmitterLockTgrVar___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_tmitterOnTgrVar___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->tmitterOnTgrVar___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_powHalfModeTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->powHalfModeTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_istreamTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->istreamTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_outSynTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->outSynTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_statusTmitterTgrVar_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->statusTmitterTgrVar_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_type_tm_digital_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->type_tm_digital_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibWork_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibWork_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_exciterLock_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->exciterLock_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibPowAmpLock_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibPowAmpLock_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_idx_oned_etv_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->idx_oned_etv_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_idx_oned_etv_q_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->idx_oned_etv_q_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibRadioMode_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibRadioMode_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_transmitterReady_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->transmitterReady_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failNet_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->failNet_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failBallast_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->failBallast_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failFRW_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->failFRW_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failCoolling_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->failCoolling_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibVtv(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibVtv;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failsTotalD_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->failsTotalD_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failsTotalQ_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->failsTotalQ_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failsTotalQQ_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->failsTotalQQ_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibRS485(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibRS485;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibI2C(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibI2C;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_channalValuePacked_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->channalValuePacked_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_iChannel(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -153,7 +461,7 @@ void ForgeV8unknowns::v8_getter_iChannel(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iChannelSetup(
+V8ScalarGetter_iChannelSetup(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -164,7 +472,18 @@ void ForgeV8unknowns::v8_getter_iChannelSetup(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_realPowerRepresent___(
+V8ScalarGetter_ibPower(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibPower;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_realPowerRepresent___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -175,7 +494,18 @@ void ForgeV8unknowns::v8_getter_realPowerRepresent___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_FRWValue___(
+V8ScalarGetter_ibValueFRW(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibValueFRW;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_FRWValue___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -186,7 +516,40 @@ void ForgeV8unknowns::v8_getter_FRWValue___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iBallastPower(
+V8ScalarGetter_ibSoundLock(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibSoundLock;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibSU2St(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->ibSU2St;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_failBallast_Power(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->failBallast_Power;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_iBallastPower(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -197,7 +560,7 @@ void ForgeV8unknowns::v8_getter_iBallastPower(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_transmitterAddress___(
+V8ScalarGetter_transmitterAddress___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -208,7 +571,7 @@ void ForgeV8unknowns::v8_getter_transmitterAddress___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iMaxTemre(
+V8ScalarGetter_iMaxTemre(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -219,7 +582,7 @@ void ForgeV8unknowns::v8_getter_iMaxTemre(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iMaxStatus(
+V8ScalarGetter_iMaxStatus(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -230,7 +593,7 @@ void ForgeV8unknowns::v8_getter_iMaxStatus(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_new_max_temperature_(
+V8ScalarGetter_new_max_temperature_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -241,7 +604,7 @@ void ForgeV8unknowns::v8_getter_new_max_temperature_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iNewMaxStatus(
+V8ScalarGetter_iNewMaxStatus(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -252,7 +615,7 @@ void ForgeV8unknowns::v8_getter_iNewMaxStatus(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_connecton_state___(
+V8ScalarGetter_connecton_state___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -263,7 +626,7 @@ void ForgeV8unknowns::v8_getter_connecton_state___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_snmp_connecton_status___(
+V8ScalarGetter_snmp_connecton_status___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -274,7 +637,7 @@ void ForgeV8unknowns::v8_getter_snmp_connecton_status___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_transmitter_number_to_set_(
+V8ScalarGetter_transmitter_number_to_set_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -285,7 +648,18 @@ void ForgeV8unknowns::v8_getter_transmitter_number_to_set_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_hasMsgForSnmp_(
+V8ScalarGetter_fixedAlrmRecordIndex_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->fixedAlrmRecordIndex_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_hasMsgForSnmp_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -296,7 +670,7 @@ void ForgeV8unknowns::v8_getter_hasMsgForSnmp_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_statusRecordIndex_(
+V8ScalarGetter_statusRecordIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -307,7 +681,7 @@ void ForgeV8unknowns::v8_getter_statusRecordIndex_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_newFailOccure_(
+V8ScalarGetter_newFailOccure_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -318,7 +692,29 @@ void ForgeV8unknowns::v8_getter_newFailOccure_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_FRWOk_(
+V8ScalarGetter_currentMWFCode_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->currentMWFCode_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_currentAliveFaWa___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uchar value = static_cast<unknown*>(ptr)->currentAliveFaWa___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_FRWOk_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -329,7 +725,7 @@ void ForgeV8unknowns::v8_getter_FRWOk_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_temperatureWasOk_(
+V8ScalarGetter_temperatureWasOk_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -340,7 +736,7 @@ void ForgeV8unknowns::v8_getter_temperatureWasOk_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_counterFailsAndWarns_(
+V8ScalarGetter_counterFailsAndWarns_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -351,7 +747,7 @@ void ForgeV8unknowns::v8_getter_counterFailsAndWarns_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iUsedTime(
+V8ScalarGetter_iUsedTime(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -362,7 +758,7 @@ void ForgeV8unknowns::v8_getter_iUsedTime(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_iUsedReserv(
+V8ScalarGetter_iUsedReserv(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -373,7 +769,7 @@ void ForgeV8unknowns::v8_getter_iUsedReserv(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_lengthCfgAnswer(
+V8ScalarGetter_lengthCfgAnswer(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -384,7 +780,7 @@ void ForgeV8unknowns::v8_getter_lengthCfgAnswer(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_nominalPower___(
+V8ScalarGetter_nominalPower___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -395,7 +791,18 @@ void ForgeV8unknowns::v8_getter_nominalPower___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void ForgeV8unknowns::v8_getter_excitersTotal_(
+V8ScalarGetter_numExcitersPack_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->numExcitersPack_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_excitersTotal_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -403,5 +810,291 @@ void ForgeV8unknowns::v8_getter_excitersTotal_(
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
   int value = static_cast<unknown*>(ptr)->excitersTotal_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibNumPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibNumPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_PABTotal_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->PABTotal_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibNumPAinPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibNumPAinPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_terminal_amps_per_block___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->terminal_amps_per_block___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibNumBCV(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibNumBCV;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_current_nominal_power(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->current_nominal_power;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_total_bcl_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->total_bcl_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibNUMDB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibNUMDB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_DBTotal_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->DBTotal_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibSizeIBMod(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibSizeIBMod;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeBlockModParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeBlockModParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibSizeIBPAPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibSizeIBPAPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeBlockTerminalAmpParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeBlockTerminalAmpParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibSizeIBPrAPAB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibSizeIBPrAPAB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeBlockPreampParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeBlockPreampParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibSizeIBBCV(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibSizeIBBCV;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeBlockBCNParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeBlockBCNParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibEventStringSize(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibEventStringSize;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeEventsString_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeEventsString_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibFailStringSize(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibFailStringSize;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeFailsString_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeFailsString_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_ibSizeDB(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->ibSizeDB;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_sizeBlockDBParams_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->sizeBlockDBParams_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_transmitterID___(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->transmitterID___;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_exciterType_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->exciterType_;
+  info.GetReturnValue().Set(Integer::New(value));
+}
+
+V8ScalarGetter_countReservedTransmitters_(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  uint value = static_cast<unknown*>(ptr)->countReservedTransmitters_;
   info.GetReturnValue().Set(Integer::New(value));
 }

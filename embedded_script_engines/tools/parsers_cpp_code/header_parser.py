@@ -162,3 +162,16 @@ def extract_variable_declaration(source, header_file_name):
         return None
     except Exception as e:
         return None
+
+
+def extract_variable_declaration_own(source, class_name='unknown'):
+    """
+    Args:
+        source - string with code
+    """
+    type_and_var_list = Holder.extract_var_declaration(source)
+    result = []
+    for var in type_and_var_list:
+        result.append(scalars.ScalarVariableField(class_name, VarDeclaration(*var)))
+
+    return result
