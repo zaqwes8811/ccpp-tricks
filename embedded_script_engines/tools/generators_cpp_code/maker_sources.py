@@ -64,6 +64,14 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
     for impl in builder.get_last_level_getters_header():
         code.append(impl)
 
+    code.append('  //$ScalarGetters')
+    for impl in builder.scalar_getter_header():
+        code.append(impl)
+
+    code.append('  //$ScalarSetters')
+    for impl in builder.scalar_getter_header():
+        code.append(impl)
+
     # Static
     code.append('};')
     code.append('}')
@@ -111,8 +119,8 @@ def make_source_file(pair, builder):
 
 
 def make_complect(header_to_wrap):
-    class_transmit_code = utils.ReadFile(header_to_wrap)
-    declarations, class_name = get_declarations_from_header(class_transmit_code)
+    code = utils.ReadFile(header_to_wrap)
+    declarations, class_name = get_declarations_from_header(code)
 
     # Names
     dir_name = os.path.dirname(header_to_wrap)
@@ -125,7 +133,8 @@ def make_complect(header_to_wrap):
         pair_name = os.sep.join((dir_name, v8_header))
     else:
         pair_name = v8_header
-    builder = wrapper_builder.BuilderArrayWrapper(declarations)
+
+    builder = wrapper_builder.BuilderArrayWrapper(declarations, code)
     code = make_header_file(pair_name, class_name, builder, header_name)
     print pair_name+'.h'
     utils_local.write_source(pair_name+'.h', code)

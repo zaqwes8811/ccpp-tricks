@@ -2,12 +2,15 @@
 
 # App
 from generators_cpp_code.v8_api_gen import vectors
+from generators_cpp_code.v8_api_gen import scalars
+from parsers_cpp_code import header_parser
 
 
 class BuilderArrayWrapper(object):
-    def __init__(self, type_and_var_list):
+    def __init__(self, type_and_var_list, source):
         self.type_and_var_list_ = type_and_var_list
         self.class_name_ = self.type_and_var_list_[0][2]
+        self.source_ = source
 
     #@is_array
     def make_blueprint(self):
@@ -106,4 +109,20 @@ class BuilderArrayWrapper(object):
                '  result->SetInternalField(0, map_ptr);\n' + \
                '  return handle_scope.Close(result);\n' + \
                '}\n'
+
+    # Scalars
+    def scalar_getter_header(self):
+        dec_wrappers = header_parser.extract_variable_declaration_own(
+            self.source_, self.class_name_)
+
+        code = scalars.make_scalar_getter_header(dec_wrappers)
+        return code
+
+    def scalar_setters_header(self):
+        dec_wrappers = header_parser.extract_variable_declaration_own(
+            self.source_, self.class_name_)
+
+        code = scalars.make_scalar_setter_header(dec_wrappers)
+        return code
+
 

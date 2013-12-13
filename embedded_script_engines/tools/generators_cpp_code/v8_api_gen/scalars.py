@@ -124,6 +124,11 @@ class ScalarVariableField(object):
         return template, make_getter_header(field_name) + ';\r\n'
 
     def make_scalar_setter(self):
+        def make_setter_header(field_name_local):
+            return 'V8ScalarSetter_' + field_name_local + '(\r\n' + \
+                   '        v8::Local<v8::String> property, v8::Local<v8::Value> value,\r\n' + \
+                   '        const v8::PropertyCallbackInfo<void>& info)'
+
         field_type, field_name, class_name = (self.variable_node_.type.name,
                                               self.variable_node_.name,
                                               self.class_name_)
@@ -131,9 +136,7 @@ class ScalarVariableField(object):
         if field_type not in self.V8_GETTER_RECODER_:
             return "Map not found"
 
-        template = 'void ' + self.get_wrapper_class_name() + '::v8_setter_' + field_name + '(\r\n' + \
-                   '        Local<String> property, Local<Value> value,\r\n' + \
-                   '        const PropertyCallbackInfo<void>& info) \r\n' + \
+        template = make_setter_header(field_name)+' \r\n' + \
                    '  {\r\n' + \
                    '  Local<Object> self = info.Holder();\r\n' + \
                    '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\r\n' + \
@@ -142,14 +145,7 @@ class ScalarVariableField(object):
                        field_type] + 'Value();\r\n' + \
                    '}'
 
-        return template
-
-
-def make_scalar_getters_header(impl_local):
-    code_result = []
-    for impl in impl_local:
-        code_result.append('  static void ' + impl[0])
-    return code_result
+        return template, make_setter_header(field_name)
 
 
 def make_source(impls_local, header_name):
@@ -208,3 +204,51 @@ def append_maker_bp_and_forge(code_result, class_name):
         else:
             # Scalars
             print var_name
+
+
+def wrap_scalar_getters_header(impl_local):
+    code_result = []
+    for impl in impl_local:
+        code_result.append('  static void ' + impl[0])
+    return code_result
+
+
+def make_scalar_getter_header(dec_wrappers):
+    # zaqwes
+    impls = []
+    declarations = []
+    for elem in dec_wrappers:
+        if not elem.is_array():
+            i, d = elem.make_scalar_getter()
+            if d:
+                impls.append((i, elem.get_wrapper_class_name()))
+                declarations.append((d, elem.get_wrapper_class_name()))
+            else:
+                print i
+
+    code = wrap_scalar_getters_header(declarations)
+    return code
+
+
+def wrap_scalar_setters_header(impl_local):
+    code_result = []
+    for impl in impl_local:
+        code_result.append('  static void ' + impl[0]+';\n')
+    return code_result
+
+
+def make_scalar_setter_header(dec_wrappers):
+    # zaqwes
+    impls = []
+    declarations = []
+    for elem in dec_wrappers:
+        if not elem.is_array():
+            i, d = elem.make_scalar_setter()
+            if d:
+                impls.append((i, elem.get_wrapper_class_name()))
+                declarations.append((d, elem.get_wrapper_class_name()))
+            else:
+                print i
+
+    code = wrap_scalar_setters_header(declarations)
+    return code

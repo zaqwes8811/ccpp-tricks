@@ -9,30 +9,15 @@ from parsers_cpp_code import header_parser
 import utils_local
 
 
-def make_scalar_accessor_header(dec_wrappers):
-    # zaqwes
-    impls = []
-    declarations = []
-    for elem in dec_wrappers:
-        if not elem.is_array():
-            i, d = elem.make_scalar_getter()
-            if d:
-                impls.append((i, elem.get_wrapper_class_name()))
-                declarations.append((d, elem.get_wrapper_class_name()))
-            else:
-                print i
-
-    code = scalars.make_scalar_getters_header(declarations)
-    return code
-
-
 def main():
     header_file_name = 'idata/sampler.h'
     source = utils.ReadFile(header_file_name)
     class_name = "SomeThing"
 
     dec_wrappers = header_parser.extract_variable_declaration_own(source, class_name)
-    code = make_scalar_accessor_header(dec_wrappers)
+    code = scalars.make_scalar_setter_header(dec_wrappers)
+    for line in code:
+        print line
 
 
     '''
