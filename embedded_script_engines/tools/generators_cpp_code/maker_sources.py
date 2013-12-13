@@ -1,9 +1,21 @@
+# coding: utf-8
+# std
+from os.path import basename
+import os
+
+# Other
+from generator.cpp import utils
+
+# App
+from generators_cpp_code.v8_api_gen import vectors
+import utils_local
 from parsers_cpp_code import header_parser
+
 
 def get_declarations_from_header(source_code):
     type_and_var_list = header_parser.Holder.extract_var_declaration(source_code)
     result = []
-    class_name = "DataBase"
+    class_name = "InMemoryStorageImpl"
 
     for record in type_and_var_list:
         updated = list(record)
@@ -21,73 +33,103 @@ def get_declarations_from_header(source_code):
 
 def make_header_file(header_name, class_name, builder, header_to_wrap):
     header_name_tmp = header_name+'.h'
-    directive = header_name_tmp.replace('/', '_').replace('.', '_').upper() + '_'
+    directive = header_name_tmp.replace('/', '_').replace('\\', '_').replace('.', '_').upper() + '_'
 
     # header
-    header_code = []
-    header_code.append('#ifndef ' + directive)
-    header_code.append('#define ' + directive)
-    header_code.append('')
-    header_code.append('// Other')
-    header_code.append('#include <v8.h>')
-    header_code.append('')
-    header_code.append('#include "'+header_to_wrap+'"')
-    header_code.append('class V8' + class_name + ' {')
-    header_code.append(' public:')
-    header_code.append(builder.make_blueprint_header())
-    header_code.append('')
-    header_code.append(builder.make_new_header())
-    header_code.append('')
-    header_code.append('  //$ZeroLevelGetters')
+    code = []
+    code.append('#ifndef ' + directive)
+    code.append('#define ' + directive)
+    code.append('')
+    code.append('// Other')
+    code.append('#include <v8.h>')
+    code.append('')
+    code.append('#include "'+header_to_wrap+'"')
+    code.append('')
+    code.append('namespace tmitter_web_service {')
+    code.append('class V8' + class_name + ' {')
+    code.append(' public:')
+    code.append(builder.make_blueprint_header())
+    code.append('')
+    code.append(builder.make_new_header())
+    code.append('')
+    code.append('  //$ZeroLevelGetters')
     for impl in builder.get_zero_level_getters_header():
-        header_code.append(impl)
+        code.append(impl)
 
-    header_code.append('  //$LastLevelSetters')
+    code.append('  //$LastLevelSetters')
     for impl in builder.get_last_level_setters_header():
-        header_code.append(impl)
+        code.append(impl)
 
-    header_code.append('  //$LastLevelAccessors')
+    code.append('  //$LastLevelAccessors')
     for impl in builder.get_last_level_getters_header():
-        header_code.append(impl)
+        code.append(impl)
 
     # Static
-    header_code.append('};')
-    header_code.append('#endif  // ' + directive)
-    return header_code
+    code.append('};')
+    code.append('}')
+    code.append('#endif  // ' + directive)
+    return code
 
 
-def make_source_file(builder):
-    source_code = []
-    source_code.append('#include "arrays.h"')
-    source_code.append('#include "process.h"')
-    source_code.append('')
-    source_code.append('using v8::String;')
-    source_code.append('using v8::ObjectTemplate;')
-    source_code.append('using v8::Object;')
-    source_code.append('using v8::HandleScope;')
-    source_code.append('using v8::Handle;')
-    source_code.append('using v8::Local;')
-    source_code.append('using v8::Value;')
-    source_code.append('using v8::External;')
-    source_code.append('using v8::Isolate;')
-    source_code.append('using v8::Number;')
-    source_code.append('using v8::Undefined;')
+def make_source_file(pair, builder):
+    code = []
+    code.append('#include "'+pair+'"')
+    code.append('#include "process.h"')
+    code.append('')
+    code.append('using v8::String;')
+    code.append('using v8::ObjectTemplate;')
+    code.append('using v8::Object;')
+    code.append('using v8::HandleScope;')
+    code.append('using v8::Handle;')
+    code.append('using v8::Local;')
+    code.append('using v8::Value;')
+    code.append('using v8::External;')
+    code.append('using v8::Isolate;')
+    code.append('using v8::Number;')
+    code.append('using v8::Undefined;')
 
-    source_code.append('')
-    source_code.append(builder.make_blueprint())
-    source_code.append('')
-    source_code.append(builder.make_new_method())
+    code.append('')
+    code.append('namespace tmitter_web_service {')
 
-    source_code.append('//$LastLevelGetters')
+    code.append(builder.make_blueprint())
+    code.append('')
+    code.append(builder.make_new_method())
+
+    code.append('//$LastLevelGetters')
     for impl in builder.get_last_level_getters_src():
-        source_code.append(impl)
+        code.append(impl)
 
-    source_code.append('//$LastLevelSetters')
+    code.append('//$LastLevelSetters')
     for impl in builder.get_last_level_setters_src():
-        source_code.append(impl)
+        code.append(impl)
 
-    source_code.append('//$ZeroLevelGetters')
+    code.append('//$ZeroLevelGetters')
     for impl in builder.get_zero_level_getters_src():
-        source_code.append(impl)
+        code.append(impl)
+    code.append('}')
+    return code
 
-    return source_code
+
+def make_complect(header_to_wrap):
+    class_transmit_code = utils.ReadFile(header_to_wrap)
+    declarations, class_name = get_declarations_from_header(class_transmit_code)
+
+    # Names
+    dir_name = os.path.dirname(header_to_wrap)
+    header_name = basename(header_to_wrap)
+    header_no_ext = header_name.split(os.extsep)[0]
+    v8_header = 'v8_'+header_no_ext
+
+    # Targets
+    if dir_name:
+        pair_name = os.sep.join((dir_name, v8_header))
+    else:
+        pair_name = v8_header
+    builder = vectors.BuilderArrayWrapper(declarations)
+    code = make_header_file(pair_name, class_name, builder, header_name)
+    print pair_name+'.h'
+    utils_local.write_source(pair_name+'.h', code)
+
+    # source
+    code = make_source_file(v8_header+'.h', builder)
+    utils_local.write_source(pair_name+'.cc', code)

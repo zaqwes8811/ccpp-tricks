@@ -1,16 +1,18 @@
-#ifndef IDATA\V8_SAMPLER_H_
-#define IDATA\V8_SAMPLER_H_
+#ifndef IDATA_V8_SAMPLER_H_
+#define IDATA_V8_SAMPLER_H_
 
 // Other
 #include <v8.h>
 
 #include "sampler.h"
-class V8DataBase {
+
+namespace tmitter_web_service {
+class V8InMemoryStorageImpl {
  public:
   static v8::Handle<v8::ObjectTemplate> CreateOwnBlueprint(
       v8::Isolate* isolate);
 
-  static v8::Handle<v8::Object> New(DataBase* database, v8::Isolate *isolate);
+  static v8::Handle<v8::Object> New(InMemoryStorageImpl* database, v8::Isolate *isolate);
 
   //$ZeroLevelGetters
   static void ZLGetter_printPABLock_(
@@ -2070,4 +2072,5 @@ class V8DataBase {
       const v8::PropertyCallbackInfo<v8::Value>& info);
 
 };
-#endif  // IDATA\V8_SAMPLER_H_
+}
+#endif  // IDATA_V8_SAMPLER_H_

@@ -251,6 +251,14 @@
 					RelativePath="..\..\..\tools\test-data\real_test_file.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\tools\idata\v8_sampler.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\tools\idata\v8_sampler.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

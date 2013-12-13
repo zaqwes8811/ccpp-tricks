@@ -1,4 +1,4 @@
-#include "arrays.h"
+#include "v8_sampler.h"
 #include "process.h"
 
 using v8::String;
@@ -13,7 +13,8 @@ using v8::Isolate;
 using v8::Number;
 using v8::Undefined;
 
-v8::Handle<v8::ObjectTemplate> V8DataBase::CreateOwnBlueprint(
+namespace tmitter_web_service {
+v8::Handle<v8::ObjectTemplate> V8InMemoryStorageImpl::CreateOwnBlueprint(
       v8::Isolate* isolate) 
   {
   HandleScope handle_scope(isolate);
@@ -498,7 +499,7 @@ v8::Handle<v8::ObjectTemplate> V8DataBase::CreateOwnBlueprint(
   return handle_scope.Close(result);
 }
 
-Handle<Object> V8DataBase::New(DataBase* database, v8::Isolate *isolate) {
+Handle<Object> V8InMemoryStorageImpl::New(InMemoryStorageImpl* database, v8::Isolate *isolate) {
   HandleScope handle_scope(isolate);
   Context::Scope scope(isolate->GetCurrentContext());
 
@@ -516,7 +517,7 @@ Handle<Object> V8DataBase::New(DataBase* database, v8::Isolate *isolate) {
 }
 
 //$LastLevelGetters
-void V8DataBase::LLGetterByIdx_printPABLock_(
+void V8InMemoryStorageImpl::LLGetterByIdx_printPABLock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -531,7 +532,7 @@ void V8DataBase::LLGetterByIdx_printPABLock_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_printPABLockEvent_(
+void V8InMemoryStorageImpl::LLGetterByIdx_printPABLockEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -546,7 +547,7 @@ void V8DataBase::LLGetterByIdx_printPABLockEvent_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_printPABNoInPower_(
+void V8InMemoryStorageImpl::LLGetterByIdx_printPABNoInPower_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -561,7 +562,7 @@ void V8DataBase::LLGetterByIdx_printPABNoInPower_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_printPABNoInPowerEvent_(
+void V8InMemoryStorageImpl::LLGetterByIdx_printPABNoInPowerEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -576,7 +577,7 @@ void V8DataBase::LLGetterByIdx_printPABNoInPowerEvent_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_printPABUnlock_(
+void V8InMemoryStorageImpl::LLGetterByIdx_printPABUnlock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -591,7 +592,7 @@ void V8DataBase::LLGetterByIdx_printPABUnlock_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_printPABInPowerOk_(
+void V8InMemoryStorageImpl::LLGetterByIdx_printPABInPowerOk_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -606,7 +607,7 @@ void V8DataBase::LLGetterByIdx_printPABInPowerOk_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_snmpEventsQuery_(
+void V8InMemoryStorageImpl::LLGetterByIdx_snmpEventsQuery_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -621,7 +622,7 @@ void V8DataBase::LLGetterByIdx_snmpEventsQuery_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_typesCodesInQuery_(
+void V8InMemoryStorageImpl::LLGetterByIdx_typesCodesInQuery_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -636,7 +637,7 @@ void V8DataBase::LLGetterByIdx_typesCodesInQuery_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_typeMsgsQuery_(
+void V8InMemoryStorageImpl::LLGetterByIdx_typeMsgsQuery_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -651,7 +652,7 @@ void V8DataBase::LLGetterByIdx_typeMsgsQuery_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_vtvSigOnOffTgrD_(
+void V8InMemoryStorageImpl::LLGetterByIdx_vtvSigOnOffTgrD_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -666,7 +667,7 @@ void V8DataBase::LLGetterByIdx_vtvSigOnOffTgrD_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_vtvSigOnOffTgrQ_(
+void V8InMemoryStorageImpl::LLGetterByIdx_vtvSigOnOffTgrQ_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -681,7 +682,7 @@ void V8DataBase::LLGetterByIdx_vtvSigOnOffTgrQ_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_vtvOverModTgrD_(
+void V8InMemoryStorageImpl::LLGetterByIdx_vtvOverModTgrD_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -696,7 +697,7 @@ void V8DataBase::LLGetterByIdx_vtvOverModTgrD_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_vtvOverModTgrQ_(
+void V8InMemoryStorageImpl::LLGetterByIdx_vtvOverModTgrQ_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -711,7 +712,7 @@ void V8DataBase::LLGetterByIdx_vtvOverModTgrQ_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvModStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvModStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -726,7 +727,7 @@ void V8DataBase::LLGetterByIdx_ibVtvModStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvUsStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvUsStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -741,7 +742,7 @@ void V8DataBase::LLGetterByIdx_ibVtvUsStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABOutPowerStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABOutPowerStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -756,7 +757,7 @@ void V8DataBase::LLGetterByIdx_ibPABOutPowerStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreVT12status(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreVT12status(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -771,7 +772,7 @@ void V8DataBase::LLGetterByIdx_ibPreVT12status(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreTemStaus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreTemStaus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -786,7 +787,7 @@ void V8DataBase::LLGetterByIdx_ibPreTemStaus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreMIP(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreMIP(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -801,7 +802,7 @@ void V8DataBase::LLGetterByIdx_ibPreMIP(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBCVstatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVstatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -816,7 +817,7 @@ void V8DataBase::LLGetterByIdx_ibBCVstatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R1(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -831,7 +832,7 @@ void V8DataBase::LLGetterByIdx_bcl_R1(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR1(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -846,7 +847,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR1(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R2(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -861,7 +862,7 @@ void V8DataBase::LLGetterByIdx_bcl_R2(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR2(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -876,7 +877,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR2(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R3(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R3(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -891,7 +892,7 @@ void V8DataBase::LLGetterByIdx_bcl_R3(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR3(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR3(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -906,7 +907,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR3(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R4(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R4(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -921,7 +922,7 @@ void V8DataBase::LLGetterByIdx_bcl_R4(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR4(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR4(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -936,7 +937,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR4(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R5(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R5(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -951,7 +952,7 @@ void V8DataBase::LLGetterByIdx_bcl_R5(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR5(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR5(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -966,7 +967,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR5(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R6(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R6(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -981,7 +982,7 @@ void V8DataBase::LLGetterByIdx_bcl_R6(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR6(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR6(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -996,7 +997,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR6(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R7(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R7(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1011,7 +1012,7 @@ void V8DataBase::LLGetterByIdx_bcl_R7(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR7(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR7(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1026,7 +1027,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR7(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_R8(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R8(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1041,7 +1042,7 @@ void V8DataBase::LLGetterByIdx_bcl_R8(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_TR8(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR8(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1056,7 +1057,7 @@ void V8DataBase::LLGetterByIdx_bcl_TR8(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBDstatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBDstatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1071,7 +1072,7 @@ void V8DataBase::LLGetterByIdx_ibBDstatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_uiPort(
+void V8InMemoryStorageImpl::LLGetterByIdx_uiPort(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1086,7 +1087,7 @@ void V8DataBase::LLGetterByIdx_uiPort(
   }
 }
 
-void V8DataBase::LLGetterByIdx_cExt(
+void V8InMemoryStorageImpl::LLGetterByIdx_cExt(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1101,7 +1102,7 @@ void V8DataBase::LLGetterByIdx_cExt(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvCntrlMode(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCntrlMode(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1116,7 +1117,7 @@ void V8DataBase::LLGetterByIdx_ibVtvCntrlMode(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvRadioMode(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvRadioMode(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1131,7 +1132,7 @@ void V8DataBase::LLGetterByIdx_ibVtvRadioMode(
   }
 }
 
-void V8DataBase::LLGetterByIdx_etv_digital_(
+void V8InMemoryStorageImpl::LLGetterByIdx_etv_digital_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1146,7 +1147,7 @@ void V8DataBase::LLGetterByIdx_etv_digital_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibUsVtvLock(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibUsVtvLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1161,7 +1162,7 @@ void V8DataBase::LLGetterByIdx_ibUsVtvLock(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibModVtvLock(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibModVtvLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1176,7 +1177,7 @@ void V8DataBase::LLGetterByIdx_ibModVtvLock(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibOwnVtvLock(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibOwnVtvLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1191,7 +1192,7 @@ void V8DataBase::LLGetterByIdx_ibOwnVtvLock(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvReady(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvReady(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1206,7 +1207,7 @@ void V8DataBase::LLGetterByIdx_ibVtvReady(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvWork(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvWork(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1221,7 +1222,7 @@ void V8DataBase::LLGetterByIdx_ibVtvWork(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1236,7 +1237,7 @@ void V8DataBase::LLGetterByIdx_ibVtvStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_exciterIstream_(
+void V8InMemoryStorageImpl::LLGetterByIdx_exciterIstream_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1251,7 +1252,7 @@ void V8DataBase::LLGetterByIdx_exciterIstream_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_connection_state_etv(
+void V8InMemoryStorageImpl::LLGetterByIdx_connection_state_etv(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1266,7 +1267,7 @@ void V8DataBase::LLGetterByIdx_connection_state_etv(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvOutSync(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutSync(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1281,7 +1282,7 @@ void V8DataBase::LLGetterByIdx_ibVtvOutSync(
   }
 }
 
-void V8DataBase::LLGetterByIdx_exciterIstreamError_(
+void V8InMemoryStorageImpl::LLGetterByIdx_exciterIstreamError_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1296,7 +1297,7 @@ void V8DataBase::LLGetterByIdx_exciterIstreamError_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvErrMod(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvErrMod(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1311,7 +1312,7 @@ void V8DataBase::LLGetterByIdx_ibVtvErrMod(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvOutPower(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutPower(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1326,7 +1327,7 @@ void V8DataBase::LLGetterByIdx_ibVtvOutPower(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iVtvOutPower(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvOutPower(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1341,7 +1342,7 @@ void V8DataBase::LLGetterByIdx_iVtvOutPower(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvSKSStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSKSStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1356,7 +1357,7 @@ void V8DataBase::LLGetterByIdx_ibVtvSKSStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvSChMStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSChMStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1371,7 +1372,7 @@ void V8DataBase::LLGetterByIdx_ibVtvSChMStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvSPChStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSPChStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1386,7 +1387,7 @@ void V8DataBase::LLGetterByIdx_ibVtvSPChStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvVideoLock(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvVideoLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1401,7 +1402,7 @@ void V8DataBase::LLGetterByIdx_ibVtvVideoLock(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvPowerStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPowerStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1416,7 +1417,7 @@ void V8DataBase::LLGetterByIdx_ibVtvPowerStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvSound(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSound(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1431,7 +1432,7 @@ void V8DataBase::LLGetterByIdx_ibVtvSound(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvChanNumAnalog(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvChanNumAnalog(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1446,7 +1447,7 @@ void V8DataBase::LLGetterByIdx_ibVtvChanNumAnalog(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iVtvChanNumAnalog(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvChanNumAnalog(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1461,7 +1462,7 @@ void V8DataBase::LLGetterByIdx_iVtvChanNumAnalog(
   }
 }
 
-void V8DataBase::LLGetterByIdx_exciterASI12TgrVar_(
+void V8InMemoryStorageImpl::LLGetterByIdx_exciterASI12TgrVar_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1476,7 +1477,7 @@ void V8DataBase::LLGetterByIdx_exciterASI12TgrVar_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvNet(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvNet(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1491,7 +1492,7 @@ void V8DataBase::LLGetterByIdx_ibVtvNet(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvDVBTOnOf(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvDVBTOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1506,7 +1507,7 @@ void V8DataBase::LLGetterByIdx_ibVtvDVBTOnOf(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvMIPOnOf(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvMIPOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1521,7 +1522,7 @@ void V8DataBase::LLGetterByIdx_ibVtvMIPOnOf(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvQAM(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvQAM(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1536,7 +1537,7 @@ void V8DataBase::LLGetterByIdx_ibVtvQAM(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvCodRate(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCodRate(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1551,7 +1552,7 @@ void V8DataBase::LLGetterByIdx_ibVtvCodRate(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvGI(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvGI(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1566,7 +1567,7 @@ void V8DataBase::LLGetterByIdx_ibVtvGI(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvHierar(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvHierar(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1581,7 +1582,7 @@ void V8DataBase::LLGetterByIdx_ibVtvHierar(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvCarNum(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCarNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1596,52 +1597,7 @@ void V8DataBase::LLGetterByIdx_ibVtvCarNum(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvChannel(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* array = static_cast<uint*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLGetterByIdx_iVtvChannel(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* array = static_cast<int*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLGetterByIdx_iVtvFreq(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* array = static_cast<int*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLGetterByIdx_ibVtvOutLevel(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvChannel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1656,7 +1612,7 @@ void V8DataBase::LLGetterByIdx_ibVtvOutLevel(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iVtvOutLevel(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvChannel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1671,22 +1627,7 @@ void V8DataBase::LLGetterByIdx_iVtvOutLevel(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvTransmNum(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* array = static_cast<uint*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLGetterByIdx_iVtvTransmNum(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvFreq(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1701,7 +1642,7 @@ void V8DataBase::LLGetterByIdx_iVtvTransmNum(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvIDCellNum(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutLevel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1716,7 +1657,7 @@ void V8DataBase::LLGetterByIdx_ibVtvIDCellNum(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iVtvIDCellNum(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvOutLevel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1731,7 +1672,7 @@ void V8DataBase::LLGetterByIdx_iVtvIDCellNum(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvAdDelay(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvTransmNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1746,7 +1687,7 @@ void V8DataBase::LLGetterByIdx_ibVtvAdDelay(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iVtvAdDelay(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvTransmNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1761,7 +1702,67 @@ void V8DataBase::LLGetterByIdx_iVtvAdDelay(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvPrecLineNum(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvIDCellNum(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* array = static_cast<uint*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvIDCellNum(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* array = static_cast<int*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvAdDelay(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* array = static_cast<uint*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvAdDelay(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* array = static_cast<int*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecLineNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1776,7 +1777,7 @@ void V8DataBase::LLGetterByIdx_ibVtvPrecLineNum(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iVtvPrecLineNum(
+void V8InMemoryStorageImpl::LLGetterByIdx_iVtvPrecLineNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1791,7 +1792,7 @@ void V8DataBase::LLGetterByIdx_iVtvPrecLineNum(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvPrecLOnOff(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecLOnOff(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1806,7 +1807,7 @@ void V8DataBase::LLGetterByIdx_ibVtvPrecLOnOff(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvPrecNonLOnOff(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecNonLOnOff(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1821,7 +1822,7 @@ void V8DataBase::LLGetterByIdx_ibVtvPrecNonLOnOff(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVtvTestMode(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvTestMode(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1836,7 +1837,7 @@ void V8DataBase::LLGetterByIdx_ibVtvTestMode(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibVTVNoconnet(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibVTVNoconnet(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1851,7 +1852,7 @@ void V8DataBase::LLGetterByIdx_ibVTVNoconnet(
   }
 }
 
-void V8DataBase::LLGetterByIdx_PABOnOffTgrVar_(
+void V8InMemoryStorageImpl::LLGetterByIdx_PABOnOffTgrVar_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1866,7 +1867,7 @@ void V8DataBase::LLGetterByIdx_PABOnOffTgrVar_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_PABLockTgrVar_(
+void V8InMemoryStorageImpl::LLGetterByIdx_PABLockTgrVar_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1881,7 +1882,7 @@ void V8DataBase::LLGetterByIdx_PABLockTgrVar_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_pab_connection_state_(
+void V8InMemoryStorageImpl::LLGetterByIdx_pab_connection_state_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1896,7 +1897,7 @@ void V8DataBase::LLGetterByIdx_pab_connection_state_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABAnlgDigit(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABAnlgDigit(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1911,7 +1912,7 @@ void V8DataBase::LLGetterByIdx_ibPABAnlgDigit(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABInPowerStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABInPowerStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1926,7 +1927,7 @@ void V8DataBase::LLGetterByIdx_ibPABInPowerStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1941,7 +1942,7 @@ void V8DataBase::LLGetterByIdx_ibPABStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABFRWStatus(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABFRWStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1956,7 +1957,7 @@ void V8DataBase::LLGetterByIdx_ibPABFRWStatus(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABInPow(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABInPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1971,7 +1972,7 @@ void V8DataBase::LLGetterByIdx_ibPABInPow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPABInPow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPABInPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1986,7 +1987,7 @@ void V8DataBase::LLGetterByIdx_iPABInPow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABOutPow(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABOutPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2001,7 +2002,7 @@ void V8DataBase::LLGetterByIdx_ibPABOutPow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPABOutPow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPABOutPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2016,7 +2017,7 @@ void V8DataBase::LLGetterByIdx_iPABOutPow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPABFRW(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPABFRW(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2031,7 +2032,7 @@ void V8DataBase::LLGetterByIdx_ibPABFRW(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPABFRW(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPABFRW(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2046,7 +2047,7 @@ void V8DataBase::LLGetterByIdx_iPABFRW(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreAGC(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreAGC(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2061,7 +2062,7 @@ void V8DataBase::LLGetterByIdx_ibPreAGC(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPrePlus15(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPrePlus15(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2076,7 +2077,7 @@ void V8DataBase::LLGetterByIdx_ibPrePlus15(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreCurVT1(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreCurVT1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2091,7 +2092,7 @@ void V8DataBase::LLGetterByIdx_ibPreCurVT1(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreCurVT1(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreCurVT1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2106,7 +2107,7 @@ void V8DataBase::LLGetterByIdx_iPreCurVT1(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreCurVT2(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreCurVT2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2121,7 +2122,7 @@ void V8DataBase::LLGetterByIdx_ibPreCurVT2(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreCurVT2(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreCurVT2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2136,7 +2137,7 @@ void V8DataBase::LLGetterByIdx_iPreCurVT2(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreTemValue(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreTemValue(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2151,7 +2152,7 @@ void V8DataBase::LLGetterByIdx_ibPreTemValue(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreTemValue(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreTemValue(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2166,7 +2167,7 @@ void V8DataBase::LLGetterByIdx_iPreTemValue(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreMIPVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreMIPVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2181,7 +2182,7 @@ void V8DataBase::LLGetterByIdx_ibPreMIPVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreMIPVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreMIPVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2196,7 +2197,7 @@ void V8DataBase::LLGetterByIdx_iPreMIPVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreAttenVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreAttenVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2211,7 +2212,7 @@ void V8DataBase::LLGetterByIdx_ibPreAttenVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreAttenVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreAttenVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2226,7 +2227,7 @@ void V8DataBase::LLGetterByIdx_iPreAttenVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPrePhaseVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPrePhaseVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2241,7 +2242,7 @@ void V8DataBase::LLGetterByIdx_ibPrePhaseVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreAPhaseVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreAPhaseVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2256,7 +2257,7 @@ void V8DataBase::LLGetterByIdx_iPreAPhaseVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibPreReferVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibPreReferVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2271,7 +2272,7 @@ void V8DataBase::LLGetterByIdx_ibPreReferVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iPreReferVoltage(
+void V8InMemoryStorageImpl::LLGetterByIdx_iPreReferVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2286,7 +2287,7 @@ void V8DataBase::LLGetterByIdx_iPreReferVoltage(
   }
 }
 
-void V8DataBase::LLGetterByIdx_sum_bcl_(
+void V8InMemoryStorageImpl::LLGetterByIdx_sum_bcl_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2301,7 +2302,7 @@ void V8DataBase::LLGetterByIdx_sum_bcl_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBCVTrOnOf(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVTrOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2316,7 +2317,7 @@ void V8DataBase::LLGetterByIdx_ibBCVTrOnOf(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBCVTrLock(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVTrLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2331,7 +2332,7 @@ void V8DataBase::LLGetterByIdx_ibBCVTrLock(
   }
 }
 
-void V8DataBase::LLGetterByIdx_bcl_a_or_d_WTF(
+void V8InMemoryStorageImpl::LLGetterByIdx_bcl_a_or_d_WTF(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2346,7 +2347,7 @@ void V8DataBase::LLGetterByIdx_bcl_a_or_d_WTF(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBCVPowerStat(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVPowerStat(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2361,7 +2362,7 @@ void V8DataBase::LLGetterByIdx_ibBCVPowerStat(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R1PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2376,7 +2377,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R1PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R2PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2391,7 +2392,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R2PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R3PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2406,7 +2407,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R3PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R4PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2421,7 +2422,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R4PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R5PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2436,7 +2437,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R5PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R6PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2451,7 +2452,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R6PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R7PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2466,7 +2467,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R7PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R8PowTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2481,7 +2482,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R8PowTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R1Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2496,7 +2497,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R1Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R1Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2511,7 +2512,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R1Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R2Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2526,7 +2527,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R2Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R2Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2541,7 +2542,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R2Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R3Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2556,7 +2557,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R3Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R3Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2571,7 +2572,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R3Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R4Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2586,7 +2587,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R4Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R4Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2601,7 +2602,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R4Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R5Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2616,7 +2617,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R5Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R5Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2631,7 +2632,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R5Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R6Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2646,7 +2647,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R6Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R6Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2661,7 +2662,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R6Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R7Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2676,7 +2677,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R7Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R7Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2691,7 +2692,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R7Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R8Tem(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2706,7 +2707,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R8Tem(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBCV_R8Pow(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2721,7 +2722,7 @@ void V8DataBase::LLGetterByIdx_iBCV_R8Pow(
   }
 }
 
-void V8DataBase::LLGetterByIdx_sum_about_db_(
+void V8InMemoryStorageImpl::LLGetterByIdx_sum_about_db_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2736,7 +2737,7 @@ void V8DataBase::LLGetterByIdx_sum_about_db_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBDTrOnOf(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBDTrOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2751,7 +2752,7 @@ void V8DataBase::LLGetterByIdx_ibBDTrOnOf(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBDTrLock(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBDTrLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2766,7 +2767,7 @@ void V8DataBase::LLGetterByIdx_ibBDTrLock(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBDAnlgDigit(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBDAnlgDigit(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2781,7 +2782,7 @@ void V8DataBase::LLGetterByIdx_ibBDAnlgDigit(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBDChannel(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBDChannel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2796,7 +2797,7 @@ void V8DataBase::LLGetterByIdx_ibBDChannel(
   }
 }
 
-void V8DataBase::LLGetterByIdx_ibBDFactor(
+void V8InMemoryStorageImpl::LLGetterByIdx_ibBDFactor(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2811,7 +2812,7 @@ void V8DataBase::LLGetterByIdx_ibBDFactor(
   }
 }
 
-void V8DataBase::LLGetterByIdx_sound_power_(
+void V8InMemoryStorageImpl::LLGetterByIdx_sound_power_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2826,7 +2827,7 @@ void V8DataBase::LLGetterByIdx_sound_power_(
   }
 }
 
-void V8DataBase::LLGetterByIdx_sound_power_Temp(
+void V8InMemoryStorageImpl::LLGetterByIdx_sound_power_Temp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2841,7 +2842,7 @@ void V8DataBase::LLGetterByIdx_sound_power_Temp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBDOutPowerTemp(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBDOutPowerTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2856,7 +2857,7 @@ void V8DataBase::LLGetterByIdx_iBDOutPowerTemp(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBDOutPower(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBDOutPower(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2871,7 +2872,7 @@ void V8DataBase::LLGetterByIdx_iBDOutPower(
   }
 }
 
-void V8DataBase::LLGetterByIdx_iBDFRW(
+void V8InMemoryStorageImpl::LLGetterByIdx_iBDFRW(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2887,7 +2888,7 @@ void V8DataBase::LLGetterByIdx_iBDFRW(
 }
 
 //$LastLevelSetters
-void V8DataBase::LLSetterByIdx_printPABLock_(
+void V8InMemoryStorageImpl::LLSetterByIdx_printPABLock_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2903,7 +2904,7 @@ void V8DataBase::LLSetterByIdx_printPABLock_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_printPABLockEvent_(
+void V8InMemoryStorageImpl::LLSetterByIdx_printPABLockEvent_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2919,7 +2920,7 @@ void V8DataBase::LLSetterByIdx_printPABLockEvent_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_printPABNoInPower_(
+void V8InMemoryStorageImpl::LLSetterByIdx_printPABNoInPower_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2935,7 +2936,7 @@ void V8DataBase::LLSetterByIdx_printPABNoInPower_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_printPABNoInPowerEvent_(
+void V8InMemoryStorageImpl::LLSetterByIdx_printPABNoInPowerEvent_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2951,7 +2952,7 @@ void V8DataBase::LLSetterByIdx_printPABNoInPowerEvent_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_printPABUnlock_(
+void V8InMemoryStorageImpl::LLSetterByIdx_printPABUnlock_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2967,7 +2968,7 @@ void V8DataBase::LLSetterByIdx_printPABUnlock_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_printPABInPowerOk_(
+void V8InMemoryStorageImpl::LLSetterByIdx_printPABInPowerOk_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2983,7 +2984,7 @@ void V8DataBase::LLSetterByIdx_printPABInPowerOk_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_snmpEventsQuery_(
+void V8InMemoryStorageImpl::LLSetterByIdx_snmpEventsQuery_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2999,7 +3000,7 @@ void V8DataBase::LLSetterByIdx_snmpEventsQuery_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_typesCodesInQuery_(
+void V8InMemoryStorageImpl::LLSetterByIdx_typesCodesInQuery_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3015,7 +3016,7 @@ void V8DataBase::LLSetterByIdx_typesCodesInQuery_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_typeMsgsQuery_(
+void V8InMemoryStorageImpl::LLSetterByIdx_typeMsgsQuery_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3031,7 +3032,7 @@ void V8DataBase::LLSetterByIdx_typeMsgsQuery_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_vtvSigOnOffTgrD_(
+void V8InMemoryStorageImpl::LLSetterByIdx_vtvSigOnOffTgrD_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3047,7 +3048,7 @@ void V8DataBase::LLSetterByIdx_vtvSigOnOffTgrD_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_vtvSigOnOffTgrQ_(
+void V8InMemoryStorageImpl::LLSetterByIdx_vtvSigOnOffTgrQ_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3063,7 +3064,7 @@ void V8DataBase::LLSetterByIdx_vtvSigOnOffTgrQ_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_vtvOverModTgrD_(
+void V8InMemoryStorageImpl::LLSetterByIdx_vtvOverModTgrD_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3079,7 +3080,7 @@ void V8DataBase::LLSetterByIdx_vtvOverModTgrD_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_vtvOverModTgrQ_(
+void V8InMemoryStorageImpl::LLSetterByIdx_vtvOverModTgrQ_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3095,7 +3096,7 @@ void V8DataBase::LLSetterByIdx_vtvOverModTgrQ_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvModStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvModStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3111,7 +3112,7 @@ void V8DataBase::LLSetterByIdx_ibVtvModStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvUsStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvUsStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3127,7 +3128,7 @@ void V8DataBase::LLSetterByIdx_ibVtvUsStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABOutPowerStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABOutPowerStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3143,7 +3144,7 @@ void V8DataBase::LLSetterByIdx_ibPABOutPowerStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreVT12status(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreVT12status(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3159,7 +3160,7 @@ void V8DataBase::LLSetterByIdx_ibPreVT12status(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreTemStaus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreTemStaus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3175,7 +3176,7 @@ void V8DataBase::LLSetterByIdx_ibPreTemStaus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreMIP(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreMIP(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3191,7 +3192,7 @@ void V8DataBase::LLSetterByIdx_ibPreMIP(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBCVstatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVstatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3207,7 +3208,7 @@ void V8DataBase::LLSetterByIdx_ibBCVstatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R1(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3223,7 +3224,7 @@ void V8DataBase::LLSetterByIdx_bcl_R1(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR1(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3239,7 +3240,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR1(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R2(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3255,7 +3256,7 @@ void V8DataBase::LLSetterByIdx_bcl_R2(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR2(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3271,7 +3272,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR2(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R3(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R3(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3287,7 +3288,7 @@ void V8DataBase::LLSetterByIdx_bcl_R3(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR3(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR3(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3303,7 +3304,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR3(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R4(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R4(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3319,7 +3320,7 @@ void V8DataBase::LLSetterByIdx_bcl_R4(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR4(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR4(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3335,7 +3336,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR4(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R5(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R5(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3351,7 +3352,7 @@ void V8DataBase::LLSetterByIdx_bcl_R5(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR5(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR5(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3367,7 +3368,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR5(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R6(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R6(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3383,7 +3384,7 @@ void V8DataBase::LLSetterByIdx_bcl_R6(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR6(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR6(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3399,7 +3400,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR6(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R7(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R7(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3415,7 +3416,7 @@ void V8DataBase::LLSetterByIdx_bcl_R7(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR7(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR7(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3431,7 +3432,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR7(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_R8(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R8(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3447,7 +3448,7 @@ void V8DataBase::LLSetterByIdx_bcl_R8(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_TR8(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR8(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3463,7 +3464,7 @@ void V8DataBase::LLSetterByIdx_bcl_TR8(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBDstatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBDstatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3479,7 +3480,7 @@ void V8DataBase::LLSetterByIdx_ibBDstatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_uiPort(
+void V8InMemoryStorageImpl::LLSetterByIdx_uiPort(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3495,7 +3496,7 @@ void V8DataBase::LLSetterByIdx_uiPort(
   }
 }
 
-void V8DataBase::LLSetterByIdx_cExt(
+void V8InMemoryStorageImpl::LLSetterByIdx_cExt(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3511,7 +3512,7 @@ void V8DataBase::LLSetterByIdx_cExt(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvCntrlMode(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCntrlMode(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3527,7 +3528,7 @@ void V8DataBase::LLSetterByIdx_ibVtvCntrlMode(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvRadioMode(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvRadioMode(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3543,7 +3544,7 @@ void V8DataBase::LLSetterByIdx_ibVtvRadioMode(
   }
 }
 
-void V8DataBase::LLSetterByIdx_etv_digital_(
+void V8InMemoryStorageImpl::LLSetterByIdx_etv_digital_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3559,7 +3560,7 @@ void V8DataBase::LLSetterByIdx_etv_digital_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibUsVtvLock(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibUsVtvLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3575,7 +3576,7 @@ void V8DataBase::LLSetterByIdx_ibUsVtvLock(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibModVtvLock(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibModVtvLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3591,7 +3592,7 @@ void V8DataBase::LLSetterByIdx_ibModVtvLock(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibOwnVtvLock(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibOwnVtvLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3607,7 +3608,7 @@ void V8DataBase::LLSetterByIdx_ibOwnVtvLock(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvReady(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvReady(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3623,7 +3624,7 @@ void V8DataBase::LLSetterByIdx_ibVtvReady(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvWork(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvWork(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3639,7 +3640,7 @@ void V8DataBase::LLSetterByIdx_ibVtvWork(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3655,7 +3656,7 @@ void V8DataBase::LLSetterByIdx_ibVtvStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_exciterIstream_(
+void V8InMemoryStorageImpl::LLSetterByIdx_exciterIstream_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3671,7 +3672,7 @@ void V8DataBase::LLSetterByIdx_exciterIstream_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_connection_state_etv(
+void V8InMemoryStorageImpl::LLSetterByIdx_connection_state_etv(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3687,7 +3688,7 @@ void V8DataBase::LLSetterByIdx_connection_state_etv(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvOutSync(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutSync(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3703,7 +3704,7 @@ void V8DataBase::LLSetterByIdx_ibVtvOutSync(
   }
 }
 
-void V8DataBase::LLSetterByIdx_exciterIstreamError_(
+void V8InMemoryStorageImpl::LLSetterByIdx_exciterIstreamError_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3719,7 +3720,7 @@ void V8DataBase::LLSetterByIdx_exciterIstreamError_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvErrMod(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvErrMod(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3735,7 +3736,7 @@ void V8DataBase::LLSetterByIdx_ibVtvErrMod(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvOutPower(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutPower(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3751,7 +3752,7 @@ void V8DataBase::LLSetterByIdx_ibVtvOutPower(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iVtvOutPower(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvOutPower(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3767,7 +3768,7 @@ void V8DataBase::LLSetterByIdx_iVtvOutPower(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvSKSStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSKSStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3783,7 +3784,7 @@ void V8DataBase::LLSetterByIdx_ibVtvSKSStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvSChMStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSChMStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3799,7 +3800,7 @@ void V8DataBase::LLSetterByIdx_ibVtvSChMStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvSPChStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSPChStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3815,7 +3816,7 @@ void V8DataBase::LLSetterByIdx_ibVtvSPChStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvVideoLock(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvVideoLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3831,7 +3832,7 @@ void V8DataBase::LLSetterByIdx_ibVtvVideoLock(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvPowerStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPowerStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3847,7 +3848,7 @@ void V8DataBase::LLSetterByIdx_ibVtvPowerStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvSound(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSound(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3863,7 +3864,7 @@ void V8DataBase::LLSetterByIdx_ibVtvSound(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvChanNumAnalog(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvChanNumAnalog(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3879,7 +3880,7 @@ void V8DataBase::LLSetterByIdx_ibVtvChanNumAnalog(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iVtvChanNumAnalog(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvChanNumAnalog(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3895,7 +3896,7 @@ void V8DataBase::LLSetterByIdx_iVtvChanNumAnalog(
   }
 }
 
-void V8DataBase::LLSetterByIdx_exciterASI12TgrVar_(
+void V8InMemoryStorageImpl::LLSetterByIdx_exciterASI12TgrVar_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3911,7 +3912,7 @@ void V8DataBase::LLSetterByIdx_exciterASI12TgrVar_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvNet(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvNet(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3927,7 +3928,7 @@ void V8DataBase::LLSetterByIdx_ibVtvNet(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvDVBTOnOf(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvDVBTOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3943,7 +3944,7 @@ void V8DataBase::LLSetterByIdx_ibVtvDVBTOnOf(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvMIPOnOf(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvMIPOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3959,7 +3960,7 @@ void V8DataBase::LLSetterByIdx_ibVtvMIPOnOf(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvQAM(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvQAM(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3975,7 +3976,7 @@ void V8DataBase::LLSetterByIdx_ibVtvQAM(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvCodRate(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCodRate(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3991,7 +3992,7 @@ void V8DataBase::LLSetterByIdx_ibVtvCodRate(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvGI(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvGI(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4007,7 +4008,7 @@ void V8DataBase::LLSetterByIdx_ibVtvGI(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvHierar(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvHierar(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4023,7 +4024,7 @@ void V8DataBase::LLSetterByIdx_ibVtvHierar(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvCarNum(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCarNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4039,55 +4040,7 @@ void V8DataBase::LLSetterByIdx_ibVtvCarNum(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvChannel(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* danger_array = static_cast<uint*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLSetterByIdx_iVtvChannel(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* danger_array = static_cast<int*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLSetterByIdx_iVtvFreq(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* danger_array = static_cast<int*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLSetterByIdx_ibVtvOutLevel(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvChannel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4103,7 +4056,7 @@ void V8DataBase::LLSetterByIdx_ibVtvOutLevel(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iVtvOutLevel(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvChannel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4119,23 +4072,7 @@ void V8DataBase::LLSetterByIdx_iVtvOutLevel(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvTransmNum(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* danger_array = static_cast<uint*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8DataBase::LLSetterByIdx_iVtvTransmNum(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvFreq(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4151,7 +4088,7 @@ void V8DataBase::LLSetterByIdx_iVtvTransmNum(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvIDCellNum(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutLevel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4167,7 +4104,7 @@ void V8DataBase::LLSetterByIdx_ibVtvIDCellNum(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iVtvIDCellNum(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvOutLevel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4183,7 +4120,7 @@ void V8DataBase::LLSetterByIdx_iVtvIDCellNum(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvAdDelay(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvTransmNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4199,7 +4136,7 @@ void V8DataBase::LLSetterByIdx_ibVtvAdDelay(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iVtvAdDelay(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvTransmNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4215,7 +4152,71 @@ void V8DataBase::LLSetterByIdx_iVtvAdDelay(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvPrecLineNum(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvIDCellNum(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* danger_array = static_cast<uint*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvIDCellNum(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvAdDelay(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* danger_array = static_cast<uint*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvAdDelay(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecLineNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4231,7 +4232,7 @@ void V8DataBase::LLSetterByIdx_ibVtvPrecLineNum(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iVtvPrecLineNum(
+void V8InMemoryStorageImpl::LLSetterByIdx_iVtvPrecLineNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4247,7 +4248,7 @@ void V8DataBase::LLSetterByIdx_iVtvPrecLineNum(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvPrecLOnOff(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecLOnOff(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4263,7 +4264,7 @@ void V8DataBase::LLSetterByIdx_ibVtvPrecLOnOff(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvPrecNonLOnOff(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecNonLOnOff(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4279,7 +4280,7 @@ void V8DataBase::LLSetterByIdx_ibVtvPrecNonLOnOff(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVtvTestMode(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvTestMode(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4295,7 +4296,7 @@ void V8DataBase::LLSetterByIdx_ibVtvTestMode(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibVTVNoconnet(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibVTVNoconnet(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4311,7 +4312,7 @@ void V8DataBase::LLSetterByIdx_ibVTVNoconnet(
   }
 }
 
-void V8DataBase::LLSetterByIdx_PABOnOffTgrVar_(
+void V8InMemoryStorageImpl::LLSetterByIdx_PABOnOffTgrVar_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4327,7 +4328,7 @@ void V8DataBase::LLSetterByIdx_PABOnOffTgrVar_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_PABLockTgrVar_(
+void V8InMemoryStorageImpl::LLSetterByIdx_PABLockTgrVar_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4343,7 +4344,7 @@ void V8DataBase::LLSetterByIdx_PABLockTgrVar_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_pab_connection_state_(
+void V8InMemoryStorageImpl::LLSetterByIdx_pab_connection_state_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4359,7 +4360,7 @@ void V8DataBase::LLSetterByIdx_pab_connection_state_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABAnlgDigit(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABAnlgDigit(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4375,7 +4376,7 @@ void V8DataBase::LLSetterByIdx_ibPABAnlgDigit(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABInPowerStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABInPowerStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4391,7 +4392,7 @@ void V8DataBase::LLSetterByIdx_ibPABInPowerStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4407,7 +4408,7 @@ void V8DataBase::LLSetterByIdx_ibPABStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABFRWStatus(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABFRWStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4423,7 +4424,7 @@ void V8DataBase::LLSetterByIdx_ibPABFRWStatus(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABInPow(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABInPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4439,7 +4440,7 @@ void V8DataBase::LLSetterByIdx_ibPABInPow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPABInPow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPABInPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4455,7 +4456,7 @@ void V8DataBase::LLSetterByIdx_iPABInPow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABOutPow(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABOutPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4471,7 +4472,7 @@ void V8DataBase::LLSetterByIdx_ibPABOutPow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPABOutPow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPABOutPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4487,7 +4488,7 @@ void V8DataBase::LLSetterByIdx_iPABOutPow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPABFRW(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPABFRW(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4503,7 +4504,7 @@ void V8DataBase::LLSetterByIdx_ibPABFRW(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPABFRW(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPABFRW(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4519,7 +4520,7 @@ void V8DataBase::LLSetterByIdx_iPABFRW(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreAGC(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreAGC(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4535,7 +4536,7 @@ void V8DataBase::LLSetterByIdx_ibPreAGC(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPrePlus15(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPrePlus15(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4551,7 +4552,7 @@ void V8DataBase::LLSetterByIdx_ibPrePlus15(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreCurVT1(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreCurVT1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4567,7 +4568,7 @@ void V8DataBase::LLSetterByIdx_ibPreCurVT1(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreCurVT1(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreCurVT1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4583,7 +4584,7 @@ void V8DataBase::LLSetterByIdx_iPreCurVT1(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreCurVT2(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreCurVT2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4599,7 +4600,7 @@ void V8DataBase::LLSetterByIdx_ibPreCurVT2(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreCurVT2(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreCurVT2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4615,7 +4616,7 @@ void V8DataBase::LLSetterByIdx_iPreCurVT2(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreTemValue(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreTemValue(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4631,7 +4632,7 @@ void V8DataBase::LLSetterByIdx_ibPreTemValue(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreTemValue(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreTemValue(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4647,7 +4648,7 @@ void V8DataBase::LLSetterByIdx_iPreTemValue(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreMIPVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreMIPVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4663,7 +4664,7 @@ void V8DataBase::LLSetterByIdx_ibPreMIPVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreMIPVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreMIPVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4679,7 +4680,7 @@ void V8DataBase::LLSetterByIdx_iPreMIPVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreAttenVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreAttenVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4695,7 +4696,7 @@ void V8DataBase::LLSetterByIdx_ibPreAttenVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreAttenVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreAttenVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4711,7 +4712,7 @@ void V8DataBase::LLSetterByIdx_iPreAttenVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPrePhaseVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPrePhaseVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4727,7 +4728,7 @@ void V8DataBase::LLSetterByIdx_ibPrePhaseVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreAPhaseVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreAPhaseVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4743,7 +4744,7 @@ void V8DataBase::LLSetterByIdx_iPreAPhaseVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibPreReferVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibPreReferVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4759,7 +4760,7 @@ void V8DataBase::LLSetterByIdx_ibPreReferVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iPreReferVoltage(
+void V8InMemoryStorageImpl::LLSetterByIdx_iPreReferVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4775,7 +4776,7 @@ void V8DataBase::LLSetterByIdx_iPreReferVoltage(
   }
 }
 
-void V8DataBase::LLSetterByIdx_sum_bcl_(
+void V8InMemoryStorageImpl::LLSetterByIdx_sum_bcl_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4791,7 +4792,7 @@ void V8DataBase::LLSetterByIdx_sum_bcl_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBCVTrOnOf(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVTrOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4807,7 +4808,7 @@ void V8DataBase::LLSetterByIdx_ibBCVTrOnOf(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBCVTrLock(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVTrLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4823,7 +4824,7 @@ void V8DataBase::LLSetterByIdx_ibBCVTrLock(
   }
 }
 
-void V8DataBase::LLSetterByIdx_bcl_a_or_d_WTF(
+void V8InMemoryStorageImpl::LLSetterByIdx_bcl_a_or_d_WTF(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4839,7 +4840,7 @@ void V8DataBase::LLSetterByIdx_bcl_a_or_d_WTF(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBCVPowerStat(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVPowerStat(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4855,7 +4856,7 @@ void V8DataBase::LLSetterByIdx_ibBCVPowerStat(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R1PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4871,7 +4872,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R1PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R2PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4887,7 +4888,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R2PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R3PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4903,7 +4904,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R3PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R4PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4919,7 +4920,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R4PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R5PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4935,7 +4936,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R5PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R6PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4951,7 +4952,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R6PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R7PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4967,7 +4968,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R7PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R8PowTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4983,7 +4984,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R8PowTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R1Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4999,7 +5000,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R1Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R1Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5015,7 +5016,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R1Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R2Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5031,7 +5032,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R2Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R2Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5047,7 +5048,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R2Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R3Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5063,7 +5064,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R3Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R3Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5079,7 +5080,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R3Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R4Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5095,7 +5096,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R4Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R4Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5111,7 +5112,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R4Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R5Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5127,7 +5128,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R5Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R5Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5143,7 +5144,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R5Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R6Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5159,7 +5160,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R6Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R6Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5175,7 +5176,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R6Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R7Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5191,7 +5192,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R7Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R7Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5207,7 +5208,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R7Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R8Tem(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5223,7 +5224,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R8Tem(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBCV_R8Pow(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5239,7 +5240,7 @@ void V8DataBase::LLSetterByIdx_iBCV_R8Pow(
   }
 }
 
-void V8DataBase::LLSetterByIdx_sum_about_db_(
+void V8InMemoryStorageImpl::LLSetterByIdx_sum_about_db_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5255,7 +5256,7 @@ void V8DataBase::LLSetterByIdx_sum_about_db_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBDTrOnOf(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBDTrOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5271,7 +5272,7 @@ void V8DataBase::LLSetterByIdx_ibBDTrOnOf(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBDTrLock(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBDTrLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5287,7 +5288,7 @@ void V8DataBase::LLSetterByIdx_ibBDTrLock(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBDAnlgDigit(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBDAnlgDigit(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5303,7 +5304,7 @@ void V8DataBase::LLSetterByIdx_ibBDAnlgDigit(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBDChannel(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBDChannel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5319,7 +5320,7 @@ void V8DataBase::LLSetterByIdx_ibBDChannel(
   }
 }
 
-void V8DataBase::LLSetterByIdx_ibBDFactor(
+void V8InMemoryStorageImpl::LLSetterByIdx_ibBDFactor(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5335,7 +5336,7 @@ void V8DataBase::LLSetterByIdx_ibBDFactor(
   }
 }
 
-void V8DataBase::LLSetterByIdx_sound_power_(
+void V8InMemoryStorageImpl::LLSetterByIdx_sound_power_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5351,7 +5352,7 @@ void V8DataBase::LLSetterByIdx_sound_power_(
   }
 }
 
-void V8DataBase::LLSetterByIdx_sound_power_Temp(
+void V8InMemoryStorageImpl::LLSetterByIdx_sound_power_Temp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5367,7 +5368,7 @@ void V8DataBase::LLSetterByIdx_sound_power_Temp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBDOutPowerTemp(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBDOutPowerTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5383,7 +5384,7 @@ void V8DataBase::LLSetterByIdx_iBDOutPowerTemp(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBDOutPower(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBDOutPower(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5399,7 +5400,7 @@ void V8DataBase::LLSetterByIdx_iBDOutPower(
   }
 }
 
-void V8DataBase::LLSetterByIdx_iBDFRW(
+void V8InMemoryStorageImpl::LLSetterByIdx_iBDFRW(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5416,14 +5417,14 @@ void V8DataBase::LLSetterByIdx_iBDFRW(
 }
 
 //$ZeroLevelGetters
-void V8DataBase::ZLGetter_printPABLock_(
+void V8InMemoryStorageImpl::ZLGetter_printPABLock_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5436,14 +5437,14 @@ void V8DataBase::ZLGetter_printPABLock_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_printPABLockEvent_(
+void V8InMemoryStorageImpl::ZLGetter_printPABLockEvent_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5456,14 +5457,14 @@ void V8DataBase::ZLGetter_printPABLockEvent_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_printPABNoInPower_(
+void V8InMemoryStorageImpl::ZLGetter_printPABNoInPower_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5476,14 +5477,14 @@ void V8DataBase::ZLGetter_printPABNoInPower_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_printPABNoInPowerEvent_(
+void V8InMemoryStorageImpl::ZLGetter_printPABNoInPowerEvent_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5496,14 +5497,14 @@ void V8DataBase::ZLGetter_printPABNoInPowerEvent_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_printPABUnlock_(
+void V8InMemoryStorageImpl::ZLGetter_printPABUnlock_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5516,14 +5517,14 @@ void V8DataBase::ZLGetter_printPABUnlock_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_printPABInPowerOk_(
+void V8InMemoryStorageImpl::ZLGetter_printPABInPowerOk_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5536,14 +5537,14 @@ void V8DataBase::ZLGetter_printPABInPowerOk_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_snmpEventsQuery_(
+void V8InMemoryStorageImpl::ZLGetter_snmpEventsQuery_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5556,14 +5557,14 @@ void V8DataBase::ZLGetter_snmpEventsQuery_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_typesCodesInQuery_(
+void V8InMemoryStorageImpl::ZLGetter_typesCodesInQuery_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5576,14 +5577,14 @@ void V8DataBase::ZLGetter_typesCodesInQuery_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_typeMsgsQuery_(
+void V8InMemoryStorageImpl::ZLGetter_typeMsgsQuery_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5596,14 +5597,14 @@ void V8DataBase::ZLGetter_typeMsgsQuery_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_vtvSigOnOffTgrD_(
+void V8InMemoryStorageImpl::ZLGetter_vtvSigOnOffTgrD_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5616,14 +5617,14 @@ void V8DataBase::ZLGetter_vtvSigOnOffTgrD_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_vtvSigOnOffTgrQ_(
+void V8InMemoryStorageImpl::ZLGetter_vtvSigOnOffTgrQ_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5636,14 +5637,14 @@ void V8DataBase::ZLGetter_vtvSigOnOffTgrQ_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_vtvOverModTgrD_(
+void V8InMemoryStorageImpl::ZLGetter_vtvOverModTgrD_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5656,14 +5657,14 @@ void V8DataBase::ZLGetter_vtvOverModTgrD_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_vtvOverModTgrQ_(
+void V8InMemoryStorageImpl::ZLGetter_vtvOverModTgrQ_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5676,14 +5677,14 @@ void V8DataBase::ZLGetter_vtvOverModTgrQ_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvModStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvModStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5696,14 +5697,14 @@ void V8DataBase::ZLGetter_ibVtvModStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvUsStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvUsStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5716,14 +5717,14 @@ void V8DataBase::ZLGetter_ibVtvUsStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABOutPowerStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibPABOutPowerStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5736,14 +5737,14 @@ void V8DataBase::ZLGetter_ibPABOutPowerStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreVT12status(
+void V8InMemoryStorageImpl::ZLGetter_ibPreVT12status(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5756,14 +5757,14 @@ void V8DataBase::ZLGetter_ibPreVT12status(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreTemStaus(
+void V8InMemoryStorageImpl::ZLGetter_ibPreTemStaus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5776,14 +5777,14 @@ void V8DataBase::ZLGetter_ibPreTemStaus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreMIP(
+void V8InMemoryStorageImpl::ZLGetter_ibPreMIP(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5796,14 +5797,14 @@ void V8DataBase::ZLGetter_ibPreMIP(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBCVstatus(
+void V8InMemoryStorageImpl::ZLGetter_ibBCVstatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5816,14 +5817,14 @@ void V8DataBase::ZLGetter_ibBCVstatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R1(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5836,14 +5837,14 @@ void V8DataBase::ZLGetter_bcl_R1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR1(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5856,14 +5857,14 @@ void V8DataBase::ZLGetter_bcl_TR1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R2(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5876,14 +5877,14 @@ void V8DataBase::ZLGetter_bcl_R2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR2(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5896,14 +5897,14 @@ void V8DataBase::ZLGetter_bcl_TR2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R3(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R3(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5916,14 +5917,14 @@ void V8DataBase::ZLGetter_bcl_R3(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR3(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR3(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5936,14 +5937,14 @@ void V8DataBase::ZLGetter_bcl_TR3(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R4(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R4(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5956,14 +5957,14 @@ void V8DataBase::ZLGetter_bcl_R4(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR4(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR4(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5976,14 +5977,14 @@ void V8DataBase::ZLGetter_bcl_TR4(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R5(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R5(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -5996,14 +5997,14 @@ void V8DataBase::ZLGetter_bcl_R5(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR5(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR5(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6016,14 +6017,14 @@ void V8DataBase::ZLGetter_bcl_TR5(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R6(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R6(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6036,14 +6037,14 @@ void V8DataBase::ZLGetter_bcl_R6(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR6(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR6(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6056,14 +6057,14 @@ void V8DataBase::ZLGetter_bcl_TR6(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R7(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R7(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6076,14 +6077,14 @@ void V8DataBase::ZLGetter_bcl_R7(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR7(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR7(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6096,14 +6097,14 @@ void V8DataBase::ZLGetter_bcl_TR7(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_R8(
+void V8InMemoryStorageImpl::ZLGetter_bcl_R8(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6116,14 +6117,14 @@ void V8DataBase::ZLGetter_bcl_R8(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_TR8(
+void V8InMemoryStorageImpl::ZLGetter_bcl_TR8(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6136,14 +6137,14 @@ void V8DataBase::ZLGetter_bcl_TR8(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBDstatus(
+void V8InMemoryStorageImpl::ZLGetter_ibBDstatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6156,14 +6157,14 @@ void V8DataBase::ZLGetter_ibBDstatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_uiPort(
+void V8InMemoryStorageImpl::ZLGetter_uiPort(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6176,14 +6177,14 @@ void V8DataBase::ZLGetter_uiPort(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_cExt(
+void V8InMemoryStorageImpl::ZLGetter_cExt(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6196,14 +6197,14 @@ void V8DataBase::ZLGetter_cExt(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvCntrlMode(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvCntrlMode(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6216,14 +6217,14 @@ void V8DataBase::ZLGetter_ibVtvCntrlMode(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvRadioMode(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvRadioMode(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6236,14 +6237,14 @@ void V8DataBase::ZLGetter_ibVtvRadioMode(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_etv_digital_(
+void V8InMemoryStorageImpl::ZLGetter_etv_digital_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6256,14 +6257,14 @@ void V8DataBase::ZLGetter_etv_digital_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibUsVtvLock(
+void V8InMemoryStorageImpl::ZLGetter_ibUsVtvLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6276,14 +6277,14 @@ void V8DataBase::ZLGetter_ibUsVtvLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibModVtvLock(
+void V8InMemoryStorageImpl::ZLGetter_ibModVtvLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6296,14 +6297,14 @@ void V8DataBase::ZLGetter_ibModVtvLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibOwnVtvLock(
+void V8InMemoryStorageImpl::ZLGetter_ibOwnVtvLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6316,14 +6317,14 @@ void V8DataBase::ZLGetter_ibOwnVtvLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvReady(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvReady(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6336,14 +6337,14 @@ void V8DataBase::ZLGetter_ibVtvReady(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvWork(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvWork(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6356,14 +6357,14 @@ void V8DataBase::ZLGetter_ibVtvWork(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6376,14 +6377,14 @@ void V8DataBase::ZLGetter_ibVtvStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_exciterIstream_(
+void V8InMemoryStorageImpl::ZLGetter_exciterIstream_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6396,14 +6397,14 @@ void V8DataBase::ZLGetter_exciterIstream_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_connection_state_etv(
+void V8InMemoryStorageImpl::ZLGetter_connection_state_etv(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6416,14 +6417,14 @@ void V8DataBase::ZLGetter_connection_state_etv(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvOutSync(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvOutSync(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6436,14 +6437,14 @@ void V8DataBase::ZLGetter_ibVtvOutSync(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_exciterIstreamError_(
+void V8InMemoryStorageImpl::ZLGetter_exciterIstreamError_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6456,14 +6457,14 @@ void V8DataBase::ZLGetter_exciterIstreamError_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvErrMod(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvErrMod(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6476,14 +6477,14 @@ void V8DataBase::ZLGetter_ibVtvErrMod(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvOutPower(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvOutPower(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6496,14 +6497,14 @@ void V8DataBase::ZLGetter_ibVtvOutPower(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvOutPower(
+void V8InMemoryStorageImpl::ZLGetter_iVtvOutPower(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6516,14 +6517,14 @@ void V8DataBase::ZLGetter_iVtvOutPower(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvSKSStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvSKSStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6536,14 +6537,14 @@ void V8DataBase::ZLGetter_ibVtvSKSStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvSChMStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvSChMStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6556,14 +6557,14 @@ void V8DataBase::ZLGetter_ibVtvSChMStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvSPChStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvSPChStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6576,14 +6577,14 @@ void V8DataBase::ZLGetter_ibVtvSPChStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvVideoLock(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvVideoLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6596,14 +6597,14 @@ void V8DataBase::ZLGetter_ibVtvVideoLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvPowerStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvPowerStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6616,14 +6617,14 @@ void V8DataBase::ZLGetter_ibVtvPowerStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvSound(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvSound(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6636,14 +6637,14 @@ void V8DataBase::ZLGetter_ibVtvSound(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvChanNumAnalog(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvChanNumAnalog(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6656,14 +6657,14 @@ void V8DataBase::ZLGetter_ibVtvChanNumAnalog(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvChanNumAnalog(
+void V8InMemoryStorageImpl::ZLGetter_iVtvChanNumAnalog(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6676,14 +6677,14 @@ void V8DataBase::ZLGetter_iVtvChanNumAnalog(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_exciterASI12TgrVar_(
+void V8InMemoryStorageImpl::ZLGetter_exciterASI12TgrVar_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6696,14 +6697,14 @@ void V8DataBase::ZLGetter_exciterASI12TgrVar_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvNet(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvNet(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6716,14 +6717,14 @@ void V8DataBase::ZLGetter_ibVtvNet(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvDVBTOnOf(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvDVBTOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6736,14 +6737,14 @@ void V8DataBase::ZLGetter_ibVtvDVBTOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvMIPOnOf(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvMIPOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6756,14 +6757,14 @@ void V8DataBase::ZLGetter_ibVtvMIPOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvQAM(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvQAM(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6776,14 +6777,14 @@ void V8DataBase::ZLGetter_ibVtvQAM(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvCodRate(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvCodRate(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6796,14 +6797,14 @@ void V8DataBase::ZLGetter_ibVtvCodRate(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvGI(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvGI(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6816,14 +6817,14 @@ void V8DataBase::ZLGetter_ibVtvGI(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvHierar(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvHierar(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6836,14 +6837,14 @@ void V8DataBase::ZLGetter_ibVtvHierar(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvCarNum(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvCarNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6856,14 +6857,14 @@ void V8DataBase::ZLGetter_ibVtvCarNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvChannel(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvChannel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6876,14 +6877,14 @@ void V8DataBase::ZLGetter_ibVtvChannel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvChannel(
+void V8InMemoryStorageImpl::ZLGetter_iVtvChannel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6896,14 +6897,14 @@ void V8DataBase::ZLGetter_iVtvChannel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvFreq(
+void V8InMemoryStorageImpl::ZLGetter_iVtvFreq(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6916,14 +6917,14 @@ void V8DataBase::ZLGetter_iVtvFreq(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvOutLevel(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvOutLevel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6936,14 +6937,14 @@ void V8DataBase::ZLGetter_ibVtvOutLevel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvOutLevel(
+void V8InMemoryStorageImpl::ZLGetter_iVtvOutLevel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6956,14 +6957,14 @@ void V8DataBase::ZLGetter_iVtvOutLevel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvTransmNum(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvTransmNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6976,14 +6977,14 @@ void V8DataBase::ZLGetter_ibVtvTransmNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvTransmNum(
+void V8InMemoryStorageImpl::ZLGetter_iVtvTransmNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -6996,14 +6997,14 @@ void V8DataBase::ZLGetter_iVtvTransmNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvIDCellNum(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvIDCellNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7016,14 +7017,14 @@ void V8DataBase::ZLGetter_ibVtvIDCellNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvIDCellNum(
+void V8InMemoryStorageImpl::ZLGetter_iVtvIDCellNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7036,14 +7037,14 @@ void V8DataBase::ZLGetter_iVtvIDCellNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvAdDelay(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvAdDelay(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7056,14 +7057,14 @@ void V8DataBase::ZLGetter_ibVtvAdDelay(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvAdDelay(
+void V8InMemoryStorageImpl::ZLGetter_iVtvAdDelay(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7076,14 +7077,14 @@ void V8DataBase::ZLGetter_iVtvAdDelay(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvPrecLineNum(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecLineNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7096,14 +7097,14 @@ void V8DataBase::ZLGetter_ibVtvPrecLineNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iVtvPrecLineNum(
+void V8InMemoryStorageImpl::ZLGetter_iVtvPrecLineNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7116,14 +7117,14 @@ void V8DataBase::ZLGetter_iVtvPrecLineNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvPrecLOnOff(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecLOnOff(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7136,14 +7137,14 @@ void V8DataBase::ZLGetter_ibVtvPrecLOnOff(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvPrecNonLOnOff(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecNonLOnOff(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7156,14 +7157,14 @@ void V8DataBase::ZLGetter_ibVtvPrecNonLOnOff(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVtvTestMode(
+void V8InMemoryStorageImpl::ZLGetter_ibVtvTestMode(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7176,14 +7177,14 @@ void V8DataBase::ZLGetter_ibVtvTestMode(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibVTVNoconnet(
+void V8InMemoryStorageImpl::ZLGetter_ibVTVNoconnet(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7196,14 +7197,14 @@ void V8DataBase::ZLGetter_ibVTVNoconnet(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_PABOnOffTgrVar_(
+void V8InMemoryStorageImpl::ZLGetter_PABOnOffTgrVar_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7216,14 +7217,14 @@ void V8DataBase::ZLGetter_PABOnOffTgrVar_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_PABLockTgrVar_(
+void V8InMemoryStorageImpl::ZLGetter_PABLockTgrVar_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7236,14 +7237,14 @@ void V8DataBase::ZLGetter_PABLockTgrVar_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_pab_connection_state_(
+void V8InMemoryStorageImpl::ZLGetter_pab_connection_state_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7256,14 +7257,14 @@ void V8DataBase::ZLGetter_pab_connection_state_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABAnlgDigit(
+void V8InMemoryStorageImpl::ZLGetter_ibPABAnlgDigit(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7276,14 +7277,14 @@ void V8DataBase::ZLGetter_ibPABAnlgDigit(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABInPowerStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibPABInPowerStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7296,14 +7297,14 @@ void V8DataBase::ZLGetter_ibPABInPowerStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibPABStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7316,14 +7317,14 @@ void V8DataBase::ZLGetter_ibPABStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABFRWStatus(
+void V8InMemoryStorageImpl::ZLGetter_ibPABFRWStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7336,14 +7337,14 @@ void V8DataBase::ZLGetter_ibPABFRWStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABInPow(
+void V8InMemoryStorageImpl::ZLGetter_ibPABInPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7356,14 +7357,14 @@ void V8DataBase::ZLGetter_ibPABInPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPABInPow(
+void V8InMemoryStorageImpl::ZLGetter_iPABInPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7376,14 +7377,14 @@ void V8DataBase::ZLGetter_iPABInPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABOutPow(
+void V8InMemoryStorageImpl::ZLGetter_ibPABOutPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7396,14 +7397,14 @@ void V8DataBase::ZLGetter_ibPABOutPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPABOutPow(
+void V8InMemoryStorageImpl::ZLGetter_iPABOutPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7416,14 +7417,14 @@ void V8DataBase::ZLGetter_iPABOutPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPABFRW(
+void V8InMemoryStorageImpl::ZLGetter_ibPABFRW(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7436,14 +7437,14 @@ void V8DataBase::ZLGetter_ibPABFRW(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPABFRW(
+void V8InMemoryStorageImpl::ZLGetter_iPABFRW(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7456,14 +7457,14 @@ void V8DataBase::ZLGetter_iPABFRW(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreAGC(
+void V8InMemoryStorageImpl::ZLGetter_ibPreAGC(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7476,14 +7477,14 @@ void V8DataBase::ZLGetter_ibPreAGC(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPrePlus15(
+void V8InMemoryStorageImpl::ZLGetter_ibPrePlus15(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7496,14 +7497,14 @@ void V8DataBase::ZLGetter_ibPrePlus15(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreCurVT1(
+void V8InMemoryStorageImpl::ZLGetter_ibPreCurVT1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7516,14 +7517,14 @@ void V8DataBase::ZLGetter_ibPreCurVT1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreCurVT1(
+void V8InMemoryStorageImpl::ZLGetter_iPreCurVT1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7536,14 +7537,14 @@ void V8DataBase::ZLGetter_iPreCurVT1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreCurVT2(
+void V8InMemoryStorageImpl::ZLGetter_ibPreCurVT2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7556,14 +7557,14 @@ void V8DataBase::ZLGetter_ibPreCurVT2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreCurVT2(
+void V8InMemoryStorageImpl::ZLGetter_iPreCurVT2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7576,14 +7577,14 @@ void V8DataBase::ZLGetter_iPreCurVT2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreTemValue(
+void V8InMemoryStorageImpl::ZLGetter_ibPreTemValue(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7596,14 +7597,14 @@ void V8DataBase::ZLGetter_ibPreTemValue(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreTemValue(
+void V8InMemoryStorageImpl::ZLGetter_iPreTemValue(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7616,14 +7617,14 @@ void V8DataBase::ZLGetter_iPreTemValue(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreMIPVoltage(
+void V8InMemoryStorageImpl::ZLGetter_ibPreMIPVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7636,14 +7637,14 @@ void V8DataBase::ZLGetter_ibPreMIPVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreMIPVoltage(
+void V8InMemoryStorageImpl::ZLGetter_iPreMIPVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7656,14 +7657,14 @@ void V8DataBase::ZLGetter_iPreMIPVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreAttenVoltage(
+void V8InMemoryStorageImpl::ZLGetter_ibPreAttenVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7676,14 +7677,14 @@ void V8DataBase::ZLGetter_ibPreAttenVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreAttenVoltage(
+void V8InMemoryStorageImpl::ZLGetter_iPreAttenVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7696,14 +7697,14 @@ void V8DataBase::ZLGetter_iPreAttenVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPrePhaseVoltage(
+void V8InMemoryStorageImpl::ZLGetter_ibPrePhaseVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7716,14 +7717,14 @@ void V8DataBase::ZLGetter_ibPrePhaseVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreAPhaseVoltage(
+void V8InMemoryStorageImpl::ZLGetter_iPreAPhaseVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7736,14 +7737,14 @@ void V8DataBase::ZLGetter_iPreAPhaseVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibPreReferVoltage(
+void V8InMemoryStorageImpl::ZLGetter_ibPreReferVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7756,14 +7757,14 @@ void V8DataBase::ZLGetter_ibPreReferVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iPreReferVoltage(
+void V8InMemoryStorageImpl::ZLGetter_iPreReferVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7776,14 +7777,14 @@ void V8DataBase::ZLGetter_iPreReferVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_sum_bcl_(
+void V8InMemoryStorageImpl::ZLGetter_sum_bcl_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7796,14 +7797,14 @@ void V8DataBase::ZLGetter_sum_bcl_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBCVTrOnOf(
+void V8InMemoryStorageImpl::ZLGetter_ibBCVTrOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7816,14 +7817,14 @@ void V8DataBase::ZLGetter_ibBCVTrOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBCVTrLock(
+void V8InMemoryStorageImpl::ZLGetter_ibBCVTrLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7836,14 +7837,14 @@ void V8DataBase::ZLGetter_ibBCVTrLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_bcl_a_or_d_WTF(
+void V8InMemoryStorageImpl::ZLGetter_bcl_a_or_d_WTF(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7856,14 +7857,14 @@ void V8DataBase::ZLGetter_bcl_a_or_d_WTF(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBCVPowerStat(
+void V8InMemoryStorageImpl::ZLGetter_ibBCVPowerStat(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7876,14 +7877,14 @@ void V8DataBase::ZLGetter_ibBCVPowerStat(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R1PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R1PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7896,14 +7897,14 @@ void V8DataBase::ZLGetter_iBCV_R1PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R2PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R2PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7916,14 +7917,14 @@ void V8DataBase::ZLGetter_iBCV_R2PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R3PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R3PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7936,14 +7937,14 @@ void V8DataBase::ZLGetter_iBCV_R3PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R4PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R4PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7956,14 +7957,14 @@ void V8DataBase::ZLGetter_iBCV_R4PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R5PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R5PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7976,14 +7977,14 @@ void V8DataBase::ZLGetter_iBCV_R5PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R6PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R6PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -7996,14 +7997,14 @@ void V8DataBase::ZLGetter_iBCV_R6PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R7PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R7PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8016,14 +8017,14 @@ void V8DataBase::ZLGetter_iBCV_R7PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R8PowTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R8PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8036,14 +8037,14 @@ void V8DataBase::ZLGetter_iBCV_R8PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R1Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R1Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8056,14 +8057,14 @@ void V8DataBase::ZLGetter_iBCV_R1Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R1Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R1Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8076,14 +8077,14 @@ void V8DataBase::ZLGetter_iBCV_R1Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R2Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R2Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8096,14 +8097,14 @@ void V8DataBase::ZLGetter_iBCV_R2Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R2Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R2Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8116,14 +8117,14 @@ void V8DataBase::ZLGetter_iBCV_R2Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R3Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R3Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8136,14 +8137,14 @@ void V8DataBase::ZLGetter_iBCV_R3Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R3Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R3Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8156,14 +8157,14 @@ void V8DataBase::ZLGetter_iBCV_R3Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R4Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R4Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8176,14 +8177,14 @@ void V8DataBase::ZLGetter_iBCV_R4Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R4Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R4Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8196,14 +8197,14 @@ void V8DataBase::ZLGetter_iBCV_R4Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R5Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R5Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8216,14 +8217,14 @@ void V8DataBase::ZLGetter_iBCV_R5Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R5Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R5Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8236,14 +8237,14 @@ void V8DataBase::ZLGetter_iBCV_R5Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R6Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R6Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8256,14 +8257,14 @@ void V8DataBase::ZLGetter_iBCV_R6Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R6Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R6Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8276,14 +8277,14 @@ void V8DataBase::ZLGetter_iBCV_R6Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R7Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R7Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8296,14 +8297,14 @@ void V8DataBase::ZLGetter_iBCV_R7Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R7Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R7Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8316,14 +8317,14 @@ void V8DataBase::ZLGetter_iBCV_R7Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R8Tem(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R8Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8336,14 +8337,14 @@ void V8DataBase::ZLGetter_iBCV_R8Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBCV_R8Pow(
+void V8InMemoryStorageImpl::ZLGetter_iBCV_R8Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8356,14 +8357,14 @@ void V8DataBase::ZLGetter_iBCV_R8Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_sum_about_db_(
+void V8InMemoryStorageImpl::ZLGetter_sum_about_db_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8376,14 +8377,14 @@ void V8DataBase::ZLGetter_sum_about_db_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBDTrOnOf(
+void V8InMemoryStorageImpl::ZLGetter_ibBDTrOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8396,14 +8397,14 @@ void V8DataBase::ZLGetter_ibBDTrOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBDTrLock(
+void V8InMemoryStorageImpl::ZLGetter_ibBDTrLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8416,14 +8417,14 @@ void V8DataBase::ZLGetter_ibBDTrLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBDAnlgDigit(
+void V8InMemoryStorageImpl::ZLGetter_ibBDAnlgDigit(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8436,14 +8437,14 @@ void V8DataBase::ZLGetter_ibBDAnlgDigit(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBDChannel(
+void V8InMemoryStorageImpl::ZLGetter_ibBDChannel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8456,14 +8457,14 @@ void V8DataBase::ZLGetter_ibBDChannel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_ibBDFactor(
+void V8InMemoryStorageImpl::ZLGetter_ibBDFactor(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8476,14 +8477,14 @@ void V8DataBase::ZLGetter_ibBDFactor(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_sound_power_(
+void V8InMemoryStorageImpl::ZLGetter_sound_power_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8496,14 +8497,14 @@ void V8DataBase::ZLGetter_sound_power_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_sound_power_Temp(
+void V8InMemoryStorageImpl::ZLGetter_sound_power_Temp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8516,14 +8517,14 @@ void V8DataBase::ZLGetter_sound_power_Temp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBDOutPowerTemp(
+void V8InMemoryStorageImpl::ZLGetter_iBDOutPowerTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8536,14 +8537,14 @@ void V8DataBase::ZLGetter_iBDOutPowerTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBDOutPower(
+void V8InMemoryStorageImpl::ZLGetter_iBDOutPower(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8556,14 +8557,14 @@ void V8DataBase::ZLGetter_iBDOutPower(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8DataBase::ZLGetter_iBDFRW(
+void V8InMemoryStorageImpl::ZLGetter_iBDFRW(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();
-  DataBase* danger_real_ptr = static_cast<DataBase*>(ptr);
+  InMemoryStorageImpl* danger_real_ptr = static_cast<InMemoryStorageImpl*>(ptr);
   Handle<ObjectTemplate> templ = Local<ObjectTemplate>::New(
       Isolate::GetCurrent(),
       ArrayMakeBlueprint(
@@ -8574,4 +8575,6 @@ void V8DataBase::ZLGetter_iBDFRW(
   Handle<External> array_handle = External::New(danger_real_ptr->iBDFRW);
   instance->SetInternalField(0, array_handle);
   info.GetReturnValue().Set<v8::Object>(instance);
+}
+
 }
