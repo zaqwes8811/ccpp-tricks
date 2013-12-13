@@ -2464,6 +2464,399 @@ class V8InMemoryStorageImpl {
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
+  //$ScalarSetters
+  static void V8ScalarSetter_lengthAllParams___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_counterDebug___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_typeControl_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failsReseted_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_currentQueryIndex_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_powerOkTTgr_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_needPrintFullPower_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_needPrintOkPower_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_FRWOkTTgr_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_needPrintFullFRW_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_needPrintOkFRW_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ctrlModeTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_typeLoadTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_tmitterLockTgrVar___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_tmitterOnTgrVar___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_powHalfModeTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_istreamTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_outSynTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_statusTmitterTgrVar_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_type_tm_digital_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibWork_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_exciterLock_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibPowAmpLock_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_idx_oned_etv_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_idx_oned_etv_q_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibRadioMode_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_transmitterReady_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failNet_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failBallast_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failFRW_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failCoolling_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibVtv(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failsTotalD_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failsTotalQ_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failsTotalQQ_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibRS485(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibI2C(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_channalValuePacked_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iChannel(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iChannelSetup(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibPower(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_realPowerRepresent___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibValueFRW(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_FRWValue___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSoundLock(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSU2St(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_failBallast_Power(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iBallastPower(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_transmitterAddress___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iMaxTemre(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iMaxStatus(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_new_max_temperature_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iNewMaxStatus(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_connecton_state___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_snmp_connecton_status___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_transmitter_number_to_set_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_fixedAlrmRecordIndex_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_hasMsgForSnmp_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_statusRecordIndex_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_newFailOccure_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_currentMWFCode_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_currentAliveFaWa___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_FRWOk_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_temperatureWasOk_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_counterFailsAndWarns_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iUsedTime(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_iUsedReserv(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_lengthCfgAnswer(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_nominalPower___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_numExcitersPack_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_excitersTotal_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibNumPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_PABTotal_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibNumPAinPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_terminal_amps_per_block___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibNumBCV(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_current_nominal_power(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_total_bcl_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibNUMDB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_DBTotal_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSizeIBMod(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeBlockModParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSizeIBPAPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeBlockTerminalAmpParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSizeIBPrAPAB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeBlockPreampParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSizeIBBCV(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeBlockBCNParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibEventStringSize(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeEventsString_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibFailStringSize(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeFailsString_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_ibSizeDB(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_sizeBlockDBParams_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_transmitterID___(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_exciterType_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarSetter_countReservedTransmitters_(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info);
+
 };
 }
 #endif  // IDATA_V8_SAMPLER_H_

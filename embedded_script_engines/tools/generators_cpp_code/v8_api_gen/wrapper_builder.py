@@ -79,21 +79,21 @@ class BuilderArrayWrapper(object):
                 yield '  static void ' + setter_declaration + ';\n'
 
     @staticmethod
-    def __make_blueprint_header():
+    def __do_blueprint_method_decl():
         return 'CreateOwnBlueprint(\n' + \
                '      v8::Isolate* isolate)'
 
-    def make_blueprint_header(self):
-        return '  static v8::Handle<v8::ObjectTemplate> ' + self.__make_blueprint_header() + ';'
+    def blueprint_method_decl(self):
+        return '  static v8::Handle<v8::ObjectTemplate> ' + self.__do_blueprint_method_decl() + ';'
 
-    def __make_new_header(self):
+    def __do_new_method_decl(self):
         return 'New(' + self.class_name_ + '* database, v8::Isolate *isolate)'
 
-    def make_new_header(self):
-        return '  static v8::Handle<v8::Object> ' + self.__make_new_header() + ';'
+    def new_method_decl(self):
+        return '  static v8::Handle<v8::Object> ' + self.__do_new_method_decl() + ';'
 
-    def make_new_method(self):
-        return 'Handle<Object> V8' + self.class_name_ + '::' + self.__make_new_header() + ' {\n' + \
+    def new_method_impl(self):
+        return 'Handle<Object> V8' + self.class_name_ + '::' + self.__do_new_method_decl() + ' {\n' + \
                '  HandleScope handle_scope(isolate);\n' + \
                '  Context::Scope scope(isolate->GetCurrentContext());\n' + \
                '\n' + \
@@ -111,14 +111,14 @@ class BuilderArrayWrapper(object):
                '}\n'
 
     # Scalars
-    def scalar_getter_header(self):
+    def scalar_getters_decl(self):
         dec_wrappers = header_parser.extract_variable_declaration_own(
             self.source_, self.class_name_)
 
         code = scalars.make_scalar_getter_header(dec_wrappers)
         return code
 
-    def scalar_setters_header(self):
+    def scalar_setters_decl(self):
         dec_wrappers = header_parser.extract_variable_declaration_own(
             self.source_, self.class_name_)
 

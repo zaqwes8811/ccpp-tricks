@@ -48,9 +48,9 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
     code.append('namespace tmitter_web_service {')
     code.append('class V8' + class_name + ' {')
     code.append(' public:')
-    code.append(builder.make_blueprint_header())
+    code.append(builder.blueprint_method_decl())
     code.append('')
-    code.append(builder.make_new_header())
+    code.append(builder.new_method_decl())
     code.append('')
     code.append('  //$ZeroLevelGetters')
     for impl in builder.get_zero_level_getters_header():
@@ -65,11 +65,11 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
         code.append(impl)
 
     code.append('  //$ScalarGetters')
-    for impl in builder.scalar_getter_header():
+    for impl in builder.scalar_getters_decl():
         code.append(impl)
 
     code.append('  //$ScalarSetters')
-    for impl in builder.scalar_getter_header():
+    for impl in builder.scalar_setters_decl():
         code.append(impl)
 
     # Static
@@ -101,7 +101,7 @@ def make_source_file(pair, builder):
 
     code.append(builder.make_blueprint())
     code.append('')
-    code.append(builder.make_new_method())
+    code.append(builder.new_method_impl())
 
     code.append('//$LastLevelGetters')
     for impl in builder.get_last_level_getters_src():
