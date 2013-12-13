@@ -22,8 +22,6 @@ class BuilderArrayWrapper(object):
         return '  static v8::Handle<v8::ObjectTemplate> ' + self.__do_blueprint_method_decl() + ';'
 
     def blueprint_method_impl(self):
-        # ВРЕМЕННЫЙ вывод, пока не зарегистрировали массивы!) очищенный от лишних пробелов и отформатированный!
-        # еще добавил формирование функции CreateBlueprint
         result = 'v8::Handle<v8::ObjectTemplate> V8' + self.class_name_ + '::CreateOwnBlueprint(\n' + \
                  '      v8::Isolate* isolate) \n  {\n'
 
@@ -31,11 +29,20 @@ class BuilderArrayWrapper(object):
                   + '\n  Handle<ObjectTemplate> result = ObjectTemplate::New();\n' \
                   + '  result->SetInternalFieldCount(1);\n'
 
+        # Connect Vectors
         for elem in self.type_and_var_list_:
             connect = vectors.V8ArraysWrapper(*elem).connect_getters_and_setters()
             if connect:
                 result += connect
                 result += '\n'
+
+        # Connect Scalars
+        dec_wrappers = header_parser.extract_variable_declaration_own(
+            self.source_, self.class_name_)
+
+        code = scalars.do_scalar_connecters(dec_wrappers)
+        for line in code:
+            result += line+');\n'
 
         # Нужно правильно выйти
         result += '\n  return handle_scope.Close(result);\n'

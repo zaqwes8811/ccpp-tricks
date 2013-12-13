@@ -121,6 +121,13 @@ class ScalarVariableField(object):
 
         return template, make_getter_header(field_name) + ';\r\n'
 
+    # BUGS!!
+    def setter_name(self):
+        return 'V8ScalarSetter_'+self.variable_node_.name
+
+    def getter_name(self):
+        return 'V8ScalarGetter_'+self.variable_node_.name
+
     def make_scalar_setter(self):
         def make_setter_header(field_name_local):
             return 'V8ScalarSetter_' + field_name_local + '(\r\n' + \
@@ -214,5 +221,16 @@ def do_scalar_getter_impl(dec_wrappers, class_name):
                 impls.append('void V8'+class_name+'::'+impl+'\n')
             else:
                 print impl
+
+    return impls
+
+
+def do_scalar_connecters(dec_wrappers):
+    # zaqwes
+    impls = []
+    for elem in dec_wrappers:
+        if not elem.is_array():
+            g, s, n = elem.getter_name(), elem.setter_name(), elem.variable_node_.name
+            impls.append('  result->SetAccessor(\n      String::New("'+n+'"),\n      '+g+', \n      '+s)
 
     return impls
