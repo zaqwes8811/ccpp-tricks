@@ -1,5 +1,5 @@
-#ifndef IDATA_V8_SAMPLER_H_
-#define IDATA_V8_SAMPLER_H_
+#ifndef IDATA_SAMPLER_V8_H_
+#define IDATA_SAMPLER_V8_H_
 
 // Other
 #include <v8.h>
@@ -7,7 +7,7 @@
 #include "sampler.h"
 
 namespace tmitter_web_service {
-class V8InMemoryStorageImpl {
+class InMemoryStorageImplV8 {
  public:
   static v8::Handle<v8::ObjectTemplate> CreateOwnBlueprint(
       v8::Isolate* isolate);
@@ -2851,4 +2851,4 @@ class V8InMemoryStorageImpl {
 
 };
 }
-#endif  // IDATA_V8_SAMPLER_H_
+#endif  // IDATA_SAMPLER_V8_H_

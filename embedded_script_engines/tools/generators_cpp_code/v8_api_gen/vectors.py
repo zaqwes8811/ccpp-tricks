@@ -38,6 +38,9 @@ class V8ArraysWrapper(object):
             any array[];
     """
 
+    def get_v8_class_name(self):
+        return self.class_name_ + 'V8'
+
     def __init__(self, var_type, var_name, class_name):
         self.var_type_ = var_type
         self.var_name_ = var_name
@@ -61,7 +64,7 @@ class V8ArraysWrapper(object):
 
     @is_array
     def do_last_level_getter_by_idx(self):
-        return 'void V8' + self.class_name_ + '::' \
+        return 'void ' + self.get_v8_class_name() + '::' \
                + self.make_last_level_getter_declaration() \
                + '\n  {\n' + \
                '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \
@@ -86,7 +89,7 @@ class V8ArraysWrapper(object):
     @is_array
     def do_last_level_setter_by_idx(self):
         # .lower()
-        return 'void V8' + self.class_name_ + '::' + self.make_last_level_setter_declaration() + ' {\n' + \
+        return 'void ' + self.get_v8_class_name() + '::' + self.make_last_level_setter_declaration() + ' {\n' + \
                '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \
                '    Local<Object> self = info.Holder();\n' + \
                '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
@@ -101,7 +104,7 @@ class V8ArraysWrapper(object):
 
     @is_array
     def do_zero_level_getter(self):
-        return 'void V8' + self.class_name_ + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
+        return 'void ' + self.get_v8_class_name() + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
                '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                '  void* ptr = wrap->Value();\n' + \

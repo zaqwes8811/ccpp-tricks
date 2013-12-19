@@ -23,68 +23,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="vectors.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="124" column="21" selection-start="5091" selection-end="5091" vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="2669">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="wrapper_builder.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="32" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.0" vertical-offset="541" max-vertical-offset="2669">
-              <folding>
-                <element signature="e#23#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="first_level_gen_test.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests_medium/first_level_gen_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="40" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+            <state line="83" column="45" selection-start="3149" selection-end="3149" vertical-scroll-proportion="0.0" vertical-offset="1411" max-vertical-offset="2720">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scalars.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="generate_v8_wrap.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generate_v8_wrap.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="28" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="289">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scalars.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="54" selection-start="4820" selection-end="4820" vertical-scroll-proportion="0.4533762" vertical-offset="1809" max-vertical-offset="4097">
+            <state line="224" column="66" selection-start="8205" selection-end="8205" vertical-scroll-proportion="0.0" vertical-offset="3339" max-vertical-offset="4165">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maker_sources.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="sampler_v8.cc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/idata/sampler_v8.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="34" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="187272">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sampler_v8.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/idata/sampler_v8.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="45854" max-vertical-offset="48603">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="maker_sources.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="28" selection-start="2956" selection-end="2956" vertical-scroll-proportion="0.0" vertical-offset="1456" max-vertical-offset="2686">
-              <folding>
-                <element signature="e#22#50#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="v8_sampler.cc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/idata/v8_sampler.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="793" column="22" selection-start="24686" selection-end="24686" vertical-scroll-proportion="0.0" vertical-offset="13375" max-vertical-offset="187272">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="v8_sampler.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/idata/v8_sampler.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="46" selection-start="312" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="48603">
+            <state line="84" column="45" selection-start="2415" selection-end="2415" vertical-scroll-proportion="0.5580808" vertical-offset="969" max-vertical-offset="2703">
               <folding />
             </state>
           </provider>
@@ -110,20 +97,20 @@
         <option value="$PROJECT_DIR$/tests_medium/with_arrays_gen_test.py" />
         <option value="$PROJECT_DIR$/generate_v8_wrap.py" />
         <option value="$PROJECT_DIR$/parsers_cpp_code/header_parser.py" />
-        <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py" />
         <option value="$PROJECT_DIR$/idata/v8_sampler.cc" />
         <option value="$PROJECT_DIR$/tests_medium/first_level_gen_test.py" />
-        <option value="$PROJECT_DIR$/generators_cpp_code/maker_sources.py" />
         <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py" />
         <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py" />
+        <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py" />
+        <option value="$PROJECT_DIR$/generators_cpp_code/maker_sources.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1000" />
+    <option name="x" value="340" />
+    <option name="y" value="110" />
+    <option name="width" value="640" />
+    <option name="height" value="984" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -222,13 +209,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests_medium/first_level_gen_test.py" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../controller-transmitters/tools" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -472,23 +459,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <frame x="340" y="110" width="640" height="984" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.74654377" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26121795" sideWeight="0.81220657" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25345623" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18779343" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -506,118 +493,94 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/idata/sampler.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="0" selection-start="5331" selection-end="5331" vertical-scroll-proportion="0.33333334" vertical-offset="3333" max-vertical-offset="8670">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odata/arrays.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="35" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="145911">
-          <folding />
-        </state>
+        <state line="23" column="35" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="145911" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/odata/arrays.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="33" selection-start="3498" selection-end="3498" vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="35326">
-          <folding />
-        </state>
+        <state line="112" column="33" selection-start="3498" selection-end="3498" vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="35326" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests_medium/with_arrays_gen_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils_local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="36" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1190">
-          <folding />
-        </state>
+        <state line="8" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/odata/forge_v8_point.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="14" selection-start="14" selection-end="14" vertical-scroll-proportion="-0.11191336" vertical-offset="62" max-vertical-offset="6749">
-          <folding />
-        </state>
+        <state line="0" column="14" selection-start="14" selection-end="14" vertical-scroll-proportion="-0.11191336" vertical-offset="62" max-vertical-offset="6749" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/odata/forge_v8_point.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.3567467" vertical-offset="1275" max-vertical-offset="18802">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.3567467" vertical-offset="1275" max-vertical-offset="18802" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers_cpp_code/header_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="7" selection-start="5337" selection-end="5337" vertical-scroll-proportion="5.4221387" vertical-offset="0" max-vertical-offset="3094">
+        <state line="170" column="7" selection-start="5337" selection-end="5337" vertical-scroll-proportion="5.4221387" vertical-offset="0" max-vertical-offset="3094" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests_medium/first_level_gen_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="40" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils_local.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="4" selection-start="39" selection-end="39" vertical-scroll-proportion="0.13972603" vertical-offset="0" max-vertical-offset="1190" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="224" column="66" selection-start="8205" selection-end="8205" vertical-scroll-proportion="0.0" vertical-offset="3339" max-vertical-offset="4165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/idata/sampler_v8.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="48603">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/idata/sampler_v8.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="34" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187272">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generate_v8_wrap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="23" selection-start="171" selection-end="171" vertical-scroll-proportion="0.3068592" vertical-offset="0" max-vertical-offset="554">
+        <state line="10" column="28" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/idata/real_test_file.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="16" selection-start="175" selection-end="175" vertical-scroll-proportion="0.22434017" vertical-offset="0" max-vertical-offset="682" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="21" selection-start="5091" selection-end="5091" vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="2669">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests_medium/first_level_gen_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="40" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
-          <folding />
-        </state>
+        <state line="106" column="48" selection-start="3886" selection-end="3886" vertical-scroll-proportion="-0.32697946" vertical-offset="2025" max-vertical-offset="2720" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="32" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.0" vertical-offset="541" max-vertical-offset="2669">
-          <folding>
-            <element signature="e#23#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/idata/v8_sampler.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="46" selection-start="312" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="48603">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/idata/v8_sampler.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="793" column="22" selection-start="24686" selection-end="24686" vertical-scroll-proportion="0.0" vertical-offset="13375" max-vertical-offset="187272">
+        <state line="83" column="45" selection-start="3149" selection-end="3149" vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="2686">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="28" selection-start="2956" selection-end="2956" vertical-scroll-proportion="0.0" vertical-offset="1456" max-vertical-offset="2686">
-          <folding>
-            <element signature="e#22#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="54" selection-start="4820" selection-end="4820" vertical-scroll-proportion="0.4533762" vertical-offset="1809" max-vertical-offset="4097">
+        <state line="84" column="45" selection-start="2415" selection-end="2415" vertical-scroll-proportion="0.5580808" vertical-offset="969" max-vertical-offset="2703">
           <folding />
         </state>
       </provider>

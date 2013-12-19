@@ -252,11 +252,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\tools\idata\v8_sampler.cc"
+					RelativePath="..\..\..\tools\idata\sampler_v8.cc"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\tools\idata\v8_sampler.h"
+					RelativePath="..\..\..\tools\idata\sampler_v8.h"
 					>
 				</File>
 			</Filter>

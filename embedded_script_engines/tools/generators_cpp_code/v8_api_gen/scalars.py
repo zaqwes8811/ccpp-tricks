@@ -204,11 +204,15 @@ def do_scalar_setter_impl(dec_wrappers, class_name):
         if not elem.is_array():
             impl, d = elem.make_scalar_setter()
             if d:
-                impls.append('void V8'+class_name+'::'+impl+'\n')
+                impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
             else:
                 print impl
 
     return impls
+
+
+def make_v8_class_name(name):
+    return name + 'V8'
 
 
 def do_scalar_getter_impl(dec_wrappers, class_name):
@@ -218,7 +222,7 @@ def do_scalar_getter_impl(dec_wrappers, class_name):
         if not elem.is_array():
             impl, d = elem.make_scalar_getter()
             if d:
-                impls.append('void V8'+class_name+'::'+impl+'\n')
+                impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
             else:
                 print impl
 

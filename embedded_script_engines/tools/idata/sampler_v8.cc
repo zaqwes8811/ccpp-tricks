@@ -1,4 +1,4 @@
-#include "v8_sampler.h"
+#include "sampler_v8.h"
 #include "process.h"
 
 using v8::String;
@@ -14,7 +14,7 @@ using v8::Number;
 using v8::Undefined;
 
 namespace tmitter_web_service {
-v8::Handle<v8::ObjectTemplate> V8InMemoryStorageImpl::CreateOwnBlueprint(
+v8::Handle<v8::ObjectTemplate> InMemoryStorageImplV8::CreateOwnBlueprint(
       v8::Isolate* isolate) 
   {
   HandleScope handle_scope(isolate);
@@ -891,7 +891,7 @@ v8::Handle<v8::ObjectTemplate> V8InMemoryStorageImpl::CreateOwnBlueprint(
   return handle_scope.Close(result);
 }
 
-Handle<Object> V8InMemoryStorageImpl::New(InMemoryStorageImpl* database, v8::Isolate *isolate) {
+Handle<Object> InMemoryStorageImplV8::New(InMemoryStorageImpl* database, v8::Isolate *isolate) {
   HandleScope handle_scope(isolate);
   Context::Scope scope(isolate->GetCurrentContext());
 
@@ -909,7 +909,7 @@ Handle<Object> V8InMemoryStorageImpl::New(InMemoryStorageImpl* database, v8::Iso
 }
 
 //$LastLevelGetters
-void V8InMemoryStorageImpl::LLGetterByIdx_printPABLock_(
+void InMemoryStorageImplV8::LLGetterByIdx_printPABLock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -924,7 +924,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_printPABLock_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_printPABLockEvent_(
+void InMemoryStorageImplV8::LLGetterByIdx_printPABLockEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -939,7 +939,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_printPABLockEvent_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_printPABNoInPower_(
+void InMemoryStorageImplV8::LLGetterByIdx_printPABNoInPower_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -954,7 +954,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_printPABNoInPower_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_printPABNoInPowerEvent_(
+void InMemoryStorageImplV8::LLGetterByIdx_printPABNoInPowerEvent_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -969,7 +969,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_printPABNoInPowerEvent_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_printPABUnlock_(
+void InMemoryStorageImplV8::LLGetterByIdx_printPABUnlock_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -984,7 +984,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_printPABUnlock_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_printPABInPowerOk_(
+void InMemoryStorageImplV8::LLGetterByIdx_printPABInPowerOk_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -999,7 +999,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_printPABInPowerOk_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_snmpEventsQuery_(
+void InMemoryStorageImplV8::LLGetterByIdx_snmpEventsQuery_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1014,7 +1014,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_snmpEventsQuery_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_typesCodesInQuery_(
+void InMemoryStorageImplV8::LLGetterByIdx_typesCodesInQuery_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1029,7 +1029,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_typesCodesInQuery_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_typeMsgsQuery_(
+void InMemoryStorageImplV8::LLGetterByIdx_typeMsgsQuery_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1044,7 +1044,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_typeMsgsQuery_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_vtvSigOnOffTgrD_(
+void InMemoryStorageImplV8::LLGetterByIdx_vtvSigOnOffTgrD_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1059,7 +1059,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_vtvSigOnOffTgrD_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_vtvSigOnOffTgrQ_(
+void InMemoryStorageImplV8::LLGetterByIdx_vtvSigOnOffTgrQ_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1074,7 +1074,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_vtvSigOnOffTgrQ_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_vtvOverModTgrD_(
+void InMemoryStorageImplV8::LLGetterByIdx_vtvOverModTgrD_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1089,7 +1089,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_vtvOverModTgrD_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_vtvOverModTgrQ_(
+void InMemoryStorageImplV8::LLGetterByIdx_vtvOverModTgrQ_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1104,7 +1104,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_vtvOverModTgrQ_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvModStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvModStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1119,7 +1119,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvModStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvUsStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvUsStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1134,7 +1134,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvUsStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABOutPowerStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABOutPowerStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1149,7 +1149,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABOutPowerStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreVT12status(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreVT12status(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1164,7 +1164,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreVT12status(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreTemStaus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreTemStaus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1179,7 +1179,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreTemStaus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreMIP(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreMIP(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1194,7 +1194,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreMIP(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVstatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBCVstatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1209,7 +1209,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVstatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R1(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1224,7 +1224,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R1(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR1(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1239,7 +1239,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR1(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R2(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1254,7 +1254,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R2(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR2(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1269,7 +1269,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR2(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R3(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R3(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1284,7 +1284,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R3(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR3(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR3(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1299,7 +1299,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR3(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R4(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R4(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1314,7 +1314,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R4(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR4(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR4(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1329,7 +1329,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR4(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R5(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R5(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1344,7 +1344,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R5(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR5(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR5(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1359,7 +1359,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR5(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R6(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R6(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1374,7 +1374,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R6(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR6(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR6(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1389,7 +1389,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR6(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R7(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R7(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1404,7 +1404,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R7(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR7(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR7(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1419,7 +1419,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR7(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R8(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_R8(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1434,7 +1434,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_R8(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR8(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_TR8(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1449,7 +1449,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_TR8(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBDstatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBDstatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1464,7 +1464,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBDstatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_uiPort(
+void InMemoryStorageImplV8::LLGetterByIdx_uiPort(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1479,7 +1479,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_uiPort(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_cExt(
+void InMemoryStorageImplV8::LLGetterByIdx_cExt(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1494,7 +1494,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_cExt(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCntrlMode(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvCntrlMode(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1509,7 +1509,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCntrlMode(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvRadioMode(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvRadioMode(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1524,7 +1524,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvRadioMode(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_etv_digital_(
+void InMemoryStorageImplV8::LLGetterByIdx_etv_digital_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1539,7 +1539,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_etv_digital_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibUsVtvLock(
+void InMemoryStorageImplV8::LLGetterByIdx_ibUsVtvLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1554,7 +1554,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibUsVtvLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibModVtvLock(
+void InMemoryStorageImplV8::LLGetterByIdx_ibModVtvLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1569,7 +1569,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibModVtvLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibOwnVtvLock(
+void InMemoryStorageImplV8::LLGetterByIdx_ibOwnVtvLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1584,7 +1584,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibOwnVtvLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvReady(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvReady(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1599,7 +1599,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvReady(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvWork(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvWork(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1614,7 +1614,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvWork(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1629,7 +1629,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_exciterIstream_(
+void InMemoryStorageImplV8::LLGetterByIdx_exciterIstream_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1644,7 +1644,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_exciterIstream_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_connection_state_etv(
+void InMemoryStorageImplV8::LLGetterByIdx_connection_state_etv(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1659,7 +1659,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_connection_state_etv(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutSync(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvOutSync(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1674,7 +1674,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutSync(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_exciterIstreamError_(
+void InMemoryStorageImplV8::LLGetterByIdx_exciterIstreamError_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1689,7 +1689,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_exciterIstreamError_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvErrMod(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvErrMod(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1704,7 +1704,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvErrMod(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutPower(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvOutPower(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1719,7 +1719,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutPower(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvOutPower(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvOutPower(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1734,7 +1734,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvOutPower(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSKSStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvSKSStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1749,7 +1749,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSKSStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSChMStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvSChMStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1764,7 +1764,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSChMStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSPChStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvSPChStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1779,7 +1779,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSPChStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvVideoLock(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvVideoLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1794,7 +1794,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvVideoLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPowerStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvPowerStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1809,7 +1809,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPowerStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSound(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvSound(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1824,7 +1824,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvSound(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvChanNumAnalog(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvChanNumAnalog(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1839,7 +1839,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvChanNumAnalog(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvChanNumAnalog(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvChanNumAnalog(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1854,7 +1854,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvChanNumAnalog(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_exciterASI12TgrVar_(
+void InMemoryStorageImplV8::LLGetterByIdx_exciterASI12TgrVar_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1869,7 +1869,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_exciterASI12TgrVar_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvNet(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvNet(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1884,7 +1884,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvNet(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvDVBTOnOf(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvDVBTOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1899,7 +1899,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvDVBTOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvMIPOnOf(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvMIPOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1914,7 +1914,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvMIPOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvQAM(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvQAM(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1929,7 +1929,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvQAM(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCodRate(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvCodRate(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1944,7 +1944,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCodRate(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvGI(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvGI(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1959,7 +1959,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvGI(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvHierar(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvHierar(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1974,7 +1974,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvHierar(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCarNum(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvCarNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -1989,52 +1989,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvCarNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvChannel(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* array = static_cast<uint*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvChannel(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* array = static_cast<int*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvFreq(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* array = static_cast<int*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutLevel(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvChannel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2049,7 +2004,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvOutLevel(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvOutLevel(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvChannel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2064,22 +2019,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvOutLevel(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvTransmNum(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info)
-  {
-  if (index < kMaxExciters) {
-    v8::Local<v8::Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* array = static_cast<uint*>(ptr);
-    info.GetReturnValue().Set(Number::New(array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvTransmNum(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvFreq(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2094,7 +2034,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvTransmNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvIDCellNum(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvOutLevel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2109,7 +2049,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvIDCellNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvIDCellNum(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvOutLevel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2124,7 +2064,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvIDCellNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvAdDelay(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvTransmNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2139,7 +2079,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvAdDelay(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvAdDelay(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvTransmNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2154,7 +2094,67 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvAdDelay(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecLineNum(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvIDCellNum(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* array = static_cast<uint*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvIDCellNum(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* array = static_cast<int*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvAdDelay(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* array = static_cast<uint*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvAdDelay(
+      uint32_t index, 
+      const v8::PropertyCallbackInfo<v8::Value>& info)
+  {
+  if (index < kMaxExciters) {
+    v8::Local<v8::Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* array = static_cast<int*>(ptr);
+    info.GetReturnValue().Set(Number::New(array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvPrecLineNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2169,7 +2169,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecLineNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iVtvPrecLineNum(
+void InMemoryStorageImplV8::LLGetterByIdx_iVtvPrecLineNum(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2184,7 +2184,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iVtvPrecLineNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecLOnOff(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvPrecLOnOff(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2199,7 +2199,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecLOnOff(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecNonLOnOff(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvPrecNonLOnOff(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2214,7 +2214,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvPrecNonLOnOff(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvTestMode(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVtvTestMode(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2229,7 +2229,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVtvTestMode(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibVTVNoconnet(
+void InMemoryStorageImplV8::LLGetterByIdx_ibVTVNoconnet(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2244,7 +2244,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibVTVNoconnet(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_PABOnOffTgrVar_(
+void InMemoryStorageImplV8::LLGetterByIdx_PABOnOffTgrVar_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2259,7 +2259,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_PABOnOffTgrVar_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_PABLockTgrVar_(
+void InMemoryStorageImplV8::LLGetterByIdx_PABLockTgrVar_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2274,7 +2274,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_PABLockTgrVar_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_pab_connection_state_(
+void InMemoryStorageImplV8::LLGetterByIdx_pab_connection_state_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2289,7 +2289,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_pab_connection_state_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABAnlgDigit(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABAnlgDigit(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2304,7 +2304,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABAnlgDigit(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABInPowerStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABInPowerStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2319,7 +2319,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABInPowerStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2334,7 +2334,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABFRWStatus(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABFRWStatus(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2349,7 +2349,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABFRWStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABInPow(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABInPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2364,7 +2364,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABInPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPABInPow(
+void InMemoryStorageImplV8::LLGetterByIdx_iPABInPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2379,7 +2379,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPABInPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABOutPow(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABOutPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2394,7 +2394,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABOutPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPABOutPow(
+void InMemoryStorageImplV8::LLGetterByIdx_iPABOutPow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2409,7 +2409,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPABOutPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPABFRW(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPABFRW(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2424,7 +2424,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPABFRW(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPABFRW(
+void InMemoryStorageImplV8::LLGetterByIdx_iPABFRW(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2439,7 +2439,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPABFRW(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreAGC(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreAGC(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2454,7 +2454,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreAGC(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPrePlus15(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPrePlus15(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2469,7 +2469,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPrePlus15(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreCurVT1(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreCurVT1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2484,7 +2484,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreCurVT1(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreCurVT1(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreCurVT1(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2499,7 +2499,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreCurVT1(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreCurVT2(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreCurVT2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2514,7 +2514,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreCurVT2(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreCurVT2(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreCurVT2(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2529,7 +2529,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreCurVT2(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreTemValue(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreTemValue(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2544,7 +2544,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreTemValue(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreTemValue(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreTemValue(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2559,7 +2559,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreTemValue(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreMIPVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreMIPVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2574,7 +2574,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreMIPVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreMIPVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreMIPVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2589,7 +2589,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreMIPVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreAttenVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreAttenVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2604,7 +2604,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreAttenVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreAttenVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreAttenVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2619,7 +2619,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreAttenVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPrePhaseVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPrePhaseVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2634,7 +2634,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPrePhaseVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreAPhaseVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreAPhaseVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2649,7 +2649,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreAPhaseVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibPreReferVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_ibPreReferVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2664,7 +2664,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibPreReferVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iPreReferVoltage(
+void InMemoryStorageImplV8::LLGetterByIdx_iPreReferVoltage(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2679,7 +2679,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iPreReferVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_sum_bcl_(
+void InMemoryStorageImplV8::LLGetterByIdx_sum_bcl_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2694,7 +2694,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_sum_bcl_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVTrOnOf(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBCVTrOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2709,7 +2709,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVTrOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVTrLock(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBCVTrLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2724,7 +2724,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVTrLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_bcl_a_or_d_WTF(
+void InMemoryStorageImplV8::LLGetterByIdx_bcl_a_or_d_WTF(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2739,7 +2739,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_bcl_a_or_d_WTF(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVPowerStat(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBCVPowerStat(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2754,7 +2754,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBCVPowerStat(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R1PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2769,7 +2769,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R2PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2784,7 +2784,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R3PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2799,7 +2799,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R4PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2814,7 +2814,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R5PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2829,7 +2829,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R6PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2844,7 +2844,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R7PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2859,7 +2859,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8PowTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R8PowTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2874,7 +2874,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R1Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2889,7 +2889,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R1Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2904,7 +2904,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R1Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R2Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2919,7 +2919,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R2Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2934,7 +2934,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R2Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R3Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2949,7 +2949,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R3Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2964,7 +2964,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R3Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R4Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2979,7 +2979,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R4Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -2994,7 +2994,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R4Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R5Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3009,7 +3009,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R5Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3024,7 +3024,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R5Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R6Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3039,7 +3039,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R6Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3054,7 +3054,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R6Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R7Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3069,7 +3069,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R7Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3084,7 +3084,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R7Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8Tem(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R8Tem(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3099,7 +3099,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8Pow(
+void InMemoryStorageImplV8::LLGetterByIdx_iBCV_R8Pow(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3114,7 +3114,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBCV_R8Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_sum_about_db_(
+void InMemoryStorageImplV8::LLGetterByIdx_sum_about_db_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3129,7 +3129,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_sum_about_db_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBDTrOnOf(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBDTrOnOf(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3144,7 +3144,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBDTrOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBDTrLock(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBDTrLock(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3159,7 +3159,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBDTrLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBDAnlgDigit(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBDAnlgDigit(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3174,7 +3174,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBDAnlgDigit(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBDChannel(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBDChannel(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3189,7 +3189,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBDChannel(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_ibBDFactor(
+void InMemoryStorageImplV8::LLGetterByIdx_ibBDFactor(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3204,7 +3204,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_ibBDFactor(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_sound_power_(
+void InMemoryStorageImplV8::LLGetterByIdx_sound_power_(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3219,7 +3219,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_sound_power_(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_sound_power_Temp(
+void InMemoryStorageImplV8::LLGetterByIdx_sound_power_Temp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3234,7 +3234,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_sound_power_Temp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBDOutPowerTemp(
+void InMemoryStorageImplV8::LLGetterByIdx_iBDOutPowerTemp(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3249,7 +3249,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBDOutPowerTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBDOutPower(
+void InMemoryStorageImplV8::LLGetterByIdx_iBDOutPower(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3264,7 +3264,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBDOutPower(
   }
 }
 
-void V8InMemoryStorageImpl::LLGetterByIdx_iBDFRW(
+void InMemoryStorageImplV8::LLGetterByIdx_iBDFRW(
       uint32_t index, 
       const v8::PropertyCallbackInfo<v8::Value>& info)
   {
@@ -3280,7 +3280,7 @@ void V8InMemoryStorageImpl::LLGetterByIdx_iBDFRW(
 }
 
 //$LastLevelSetters
-void V8InMemoryStorageImpl::LLSetterByIdx_printPABLock_(
+void InMemoryStorageImplV8::LLSetterByIdx_printPABLock_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3296,7 +3296,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_printPABLock_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_printPABLockEvent_(
+void InMemoryStorageImplV8::LLSetterByIdx_printPABLockEvent_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3312,7 +3312,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_printPABLockEvent_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_printPABNoInPower_(
+void InMemoryStorageImplV8::LLSetterByIdx_printPABNoInPower_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3328,7 +3328,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_printPABNoInPower_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_printPABNoInPowerEvent_(
+void InMemoryStorageImplV8::LLSetterByIdx_printPABNoInPowerEvent_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3344,7 +3344,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_printPABNoInPowerEvent_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_printPABUnlock_(
+void InMemoryStorageImplV8::LLSetterByIdx_printPABUnlock_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3360,7 +3360,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_printPABUnlock_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_printPABInPowerOk_(
+void InMemoryStorageImplV8::LLSetterByIdx_printPABInPowerOk_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3376,7 +3376,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_printPABInPowerOk_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_snmpEventsQuery_(
+void InMemoryStorageImplV8::LLSetterByIdx_snmpEventsQuery_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3392,7 +3392,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_snmpEventsQuery_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_typesCodesInQuery_(
+void InMemoryStorageImplV8::LLSetterByIdx_typesCodesInQuery_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3408,7 +3408,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_typesCodesInQuery_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_typeMsgsQuery_(
+void InMemoryStorageImplV8::LLSetterByIdx_typeMsgsQuery_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3424,7 +3424,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_typeMsgsQuery_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_vtvSigOnOffTgrD_(
+void InMemoryStorageImplV8::LLSetterByIdx_vtvSigOnOffTgrD_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3440,7 +3440,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_vtvSigOnOffTgrD_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_vtvSigOnOffTgrQ_(
+void InMemoryStorageImplV8::LLSetterByIdx_vtvSigOnOffTgrQ_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3456,7 +3456,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_vtvSigOnOffTgrQ_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_vtvOverModTgrD_(
+void InMemoryStorageImplV8::LLSetterByIdx_vtvOverModTgrD_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3472,7 +3472,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_vtvOverModTgrD_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_vtvOverModTgrQ_(
+void InMemoryStorageImplV8::LLSetterByIdx_vtvOverModTgrQ_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3488,7 +3488,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_vtvOverModTgrQ_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvModStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvModStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3504,7 +3504,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvModStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvUsStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvUsStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3520,7 +3520,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvUsStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABOutPowerStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABOutPowerStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3536,7 +3536,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABOutPowerStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreVT12status(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreVT12status(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3552,7 +3552,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreVT12status(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreTemStaus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreTemStaus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3568,7 +3568,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreTemStaus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreMIP(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreMIP(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3584,7 +3584,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreMIP(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVstatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBCVstatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3600,7 +3600,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVstatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R1(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3616,7 +3616,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R1(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR1(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3632,7 +3632,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR1(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R2(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3648,7 +3648,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R2(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR2(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3664,7 +3664,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR2(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R3(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R3(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3680,7 +3680,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R3(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR3(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR3(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3696,7 +3696,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR3(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R4(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R4(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3712,7 +3712,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R4(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR4(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR4(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3728,7 +3728,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR4(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R5(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R5(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3744,7 +3744,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R5(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR5(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR5(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3760,7 +3760,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR5(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R6(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R6(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3776,7 +3776,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R6(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR6(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR6(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3792,7 +3792,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR6(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R7(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R7(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3808,7 +3808,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R7(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR7(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR7(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3824,7 +3824,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR7(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R8(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_R8(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3840,7 +3840,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_R8(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR8(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_TR8(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3856,7 +3856,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_TR8(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBDstatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBDstatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3872,7 +3872,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBDstatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_uiPort(
+void InMemoryStorageImplV8::LLSetterByIdx_uiPort(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3888,7 +3888,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_uiPort(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_cExt(
+void InMemoryStorageImplV8::LLSetterByIdx_cExt(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3904,7 +3904,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_cExt(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCntrlMode(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvCntrlMode(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3920,7 +3920,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCntrlMode(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvRadioMode(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvRadioMode(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3936,7 +3936,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvRadioMode(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_etv_digital_(
+void InMemoryStorageImplV8::LLSetterByIdx_etv_digital_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3952,7 +3952,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_etv_digital_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibUsVtvLock(
+void InMemoryStorageImplV8::LLSetterByIdx_ibUsVtvLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3968,7 +3968,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibUsVtvLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibModVtvLock(
+void InMemoryStorageImplV8::LLSetterByIdx_ibModVtvLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -3984,7 +3984,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibModVtvLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibOwnVtvLock(
+void InMemoryStorageImplV8::LLSetterByIdx_ibOwnVtvLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4000,7 +4000,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibOwnVtvLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvReady(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvReady(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4016,7 +4016,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvReady(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvWork(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvWork(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4032,7 +4032,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvWork(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4048,7 +4048,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_exciterIstream_(
+void InMemoryStorageImplV8::LLSetterByIdx_exciterIstream_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4064,7 +4064,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_exciterIstream_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_connection_state_etv(
+void InMemoryStorageImplV8::LLSetterByIdx_connection_state_etv(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4080,7 +4080,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_connection_state_etv(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutSync(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvOutSync(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4096,7 +4096,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutSync(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_exciterIstreamError_(
+void InMemoryStorageImplV8::LLSetterByIdx_exciterIstreamError_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4112,7 +4112,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_exciterIstreamError_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvErrMod(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvErrMod(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4128,7 +4128,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvErrMod(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutPower(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvOutPower(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4144,7 +4144,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutPower(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvOutPower(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvOutPower(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4160,7 +4160,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvOutPower(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSKSStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvSKSStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4176,7 +4176,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSKSStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSChMStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvSChMStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4192,7 +4192,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSChMStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSPChStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvSPChStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4208,7 +4208,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSPChStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvVideoLock(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvVideoLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4224,7 +4224,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvVideoLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPowerStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvPowerStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4240,7 +4240,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPowerStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSound(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvSound(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4256,7 +4256,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvSound(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvChanNumAnalog(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvChanNumAnalog(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4272,7 +4272,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvChanNumAnalog(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvChanNumAnalog(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvChanNumAnalog(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4288,7 +4288,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvChanNumAnalog(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_exciterASI12TgrVar_(
+void InMemoryStorageImplV8::LLSetterByIdx_exciterASI12TgrVar_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4304,7 +4304,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_exciterASI12TgrVar_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvNet(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvNet(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4320,7 +4320,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvNet(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvDVBTOnOf(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvDVBTOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4336,7 +4336,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvDVBTOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvMIPOnOf(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvMIPOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4352,7 +4352,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvMIPOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvQAM(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvQAM(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4368,7 +4368,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvQAM(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCodRate(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvCodRate(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4384,7 +4384,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCodRate(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvGI(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvGI(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4400,7 +4400,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvGI(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvHierar(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvHierar(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4416,7 +4416,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvHierar(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCarNum(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvCarNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4432,55 +4432,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvCarNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvChannel(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* danger_array = static_cast<uint*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvChannel(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* danger_array = static_cast<int*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvFreq(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    int* danger_array = static_cast<int*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutLevel(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvChannel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4496,7 +4448,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvOutLevel(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvOutLevel(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvChannel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4512,23 +4464,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvOutLevel(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvTransmNum(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info) {
-  if (index < kMaxExciters) {
-    Local<Object> self = info.Holder();
-    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-    void* ptr = wrap->Value();
-    uint* danger_array = static_cast<uint*>(ptr);
-    danger_array[index] = value->Int32Value();  
-    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
-  } else {
-    info.GetReturnValue().Set(Undefined());
-  }
-}
-
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvTransmNum(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvFreq(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4544,7 +4480,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvTransmNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvIDCellNum(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvOutLevel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4560,7 +4496,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvIDCellNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvIDCellNum(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvOutLevel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4576,7 +4512,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvIDCellNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvAdDelay(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvTransmNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4592,7 +4528,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvAdDelay(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvAdDelay(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvTransmNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4608,7 +4544,71 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvAdDelay(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecLineNum(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvIDCellNum(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* danger_array = static_cast<uint*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvIDCellNum(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvAdDelay(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    uint* danger_array = static_cast<uint*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvAdDelay(
+    uint32_t index,
+    v8::Local<v8::Value> value,
+    const v8::PropertyCallbackInfo<v8::Value>& info) {
+  if (index < kMaxExciters) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int* danger_array = static_cast<int*>(ptr);
+    danger_array[index] = value->Int32Value();  
+    info.GetReturnValue().Set(v8::Number::New(danger_array[index]));
+  } else {
+    info.GetReturnValue().Set(Undefined());
+  }
+}
+
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvPrecLineNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4624,7 +4624,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecLineNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iVtvPrecLineNum(
+void InMemoryStorageImplV8::LLSetterByIdx_iVtvPrecLineNum(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4640,7 +4640,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iVtvPrecLineNum(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecLOnOff(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvPrecLOnOff(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4656,7 +4656,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecLOnOff(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecNonLOnOff(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvPrecNonLOnOff(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4672,7 +4672,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvPrecNonLOnOff(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvTestMode(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVtvTestMode(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4688,7 +4688,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVtvTestMode(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibVTVNoconnet(
+void InMemoryStorageImplV8::LLSetterByIdx_ibVTVNoconnet(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4704,7 +4704,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibVTVNoconnet(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_PABOnOffTgrVar_(
+void InMemoryStorageImplV8::LLSetterByIdx_PABOnOffTgrVar_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4720,7 +4720,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_PABOnOffTgrVar_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_PABLockTgrVar_(
+void InMemoryStorageImplV8::LLSetterByIdx_PABLockTgrVar_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4736,7 +4736,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_PABLockTgrVar_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_pab_connection_state_(
+void InMemoryStorageImplV8::LLSetterByIdx_pab_connection_state_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4752,7 +4752,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_pab_connection_state_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABAnlgDigit(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABAnlgDigit(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4768,7 +4768,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABAnlgDigit(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABInPowerStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABInPowerStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4784,7 +4784,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABInPowerStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4800,7 +4800,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABFRWStatus(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABFRWStatus(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4816,7 +4816,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABFRWStatus(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABInPow(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABInPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4832,7 +4832,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABInPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPABInPow(
+void InMemoryStorageImplV8::LLSetterByIdx_iPABInPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4848,7 +4848,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPABInPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABOutPow(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABOutPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4864,7 +4864,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABOutPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPABOutPow(
+void InMemoryStorageImplV8::LLSetterByIdx_iPABOutPow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4880,7 +4880,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPABOutPow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPABFRW(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPABFRW(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4896,7 +4896,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPABFRW(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPABFRW(
+void InMemoryStorageImplV8::LLSetterByIdx_iPABFRW(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4912,7 +4912,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPABFRW(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreAGC(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreAGC(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4928,7 +4928,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreAGC(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPrePlus15(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPrePlus15(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4944,7 +4944,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPrePlus15(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreCurVT1(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreCurVT1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4960,7 +4960,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreCurVT1(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreCurVT1(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreCurVT1(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4976,7 +4976,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreCurVT1(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreCurVT2(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreCurVT2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -4992,7 +4992,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreCurVT2(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreCurVT2(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreCurVT2(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5008,7 +5008,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreCurVT2(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreTemValue(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreTemValue(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5024,7 +5024,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreTemValue(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreTemValue(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreTemValue(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5040,7 +5040,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreTemValue(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreMIPVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreMIPVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5056,7 +5056,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreMIPVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreMIPVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreMIPVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5072,7 +5072,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreMIPVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreAttenVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreAttenVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5088,7 +5088,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreAttenVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreAttenVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreAttenVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5104,7 +5104,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreAttenVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPrePhaseVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPrePhaseVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5120,7 +5120,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPrePhaseVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreAPhaseVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreAPhaseVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5136,7 +5136,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreAPhaseVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibPreReferVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_ibPreReferVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5152,7 +5152,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibPreReferVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iPreReferVoltage(
+void InMemoryStorageImplV8::LLSetterByIdx_iPreReferVoltage(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5168,7 +5168,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iPreReferVoltage(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_sum_bcl_(
+void InMemoryStorageImplV8::LLSetterByIdx_sum_bcl_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5184,7 +5184,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_sum_bcl_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVTrOnOf(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBCVTrOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5200,7 +5200,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVTrOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVTrLock(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBCVTrLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5216,7 +5216,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVTrLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_bcl_a_or_d_WTF(
+void InMemoryStorageImplV8::LLSetterByIdx_bcl_a_or_d_WTF(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5232,7 +5232,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_bcl_a_or_d_WTF(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVPowerStat(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBCVPowerStat(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5248,7 +5248,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBCVPowerStat(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R1PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5264,7 +5264,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R2PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5280,7 +5280,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R3PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5296,7 +5296,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R4PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5312,7 +5312,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R5PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5328,7 +5328,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R6PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5344,7 +5344,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R7PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5360,7 +5360,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8PowTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R8PowTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5376,7 +5376,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8PowTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R1Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5392,7 +5392,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R1Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5408,7 +5408,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R1Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R2Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5424,7 +5424,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R2Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5440,7 +5440,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R2Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R3Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5456,7 +5456,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R3Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5472,7 +5472,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R3Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R4Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5488,7 +5488,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R4Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5504,7 +5504,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R4Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R5Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5520,7 +5520,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R5Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5536,7 +5536,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R5Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R6Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5552,7 +5552,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R6Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5568,7 +5568,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R6Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R7Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5584,7 +5584,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R7Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5600,7 +5600,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R7Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8Tem(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R8Tem(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5616,7 +5616,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8Tem(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8Pow(
+void InMemoryStorageImplV8::LLSetterByIdx_iBCV_R8Pow(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5632,7 +5632,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBCV_R8Pow(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_sum_about_db_(
+void InMemoryStorageImplV8::LLSetterByIdx_sum_about_db_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5648,7 +5648,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_sum_about_db_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBDTrOnOf(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBDTrOnOf(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5664,7 +5664,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBDTrOnOf(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBDTrLock(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBDTrLock(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5680,7 +5680,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBDTrLock(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBDAnlgDigit(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBDAnlgDigit(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5696,7 +5696,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBDAnlgDigit(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBDChannel(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBDChannel(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5712,7 +5712,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBDChannel(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_ibBDFactor(
+void InMemoryStorageImplV8::LLSetterByIdx_ibBDFactor(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5728,7 +5728,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_ibBDFactor(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_sound_power_(
+void InMemoryStorageImplV8::LLSetterByIdx_sound_power_(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5744,7 +5744,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_sound_power_(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_sound_power_Temp(
+void InMemoryStorageImplV8::LLSetterByIdx_sound_power_Temp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5760,7 +5760,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_sound_power_Temp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBDOutPowerTemp(
+void InMemoryStorageImplV8::LLSetterByIdx_iBDOutPowerTemp(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5776,7 +5776,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBDOutPowerTemp(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBDOutPower(
+void InMemoryStorageImplV8::LLSetterByIdx_iBDOutPower(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5792,7 +5792,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBDOutPower(
   }
 }
 
-void V8InMemoryStorageImpl::LLSetterByIdx_iBDFRW(
+void InMemoryStorageImplV8::LLSetterByIdx_iBDFRW(
     uint32_t index,
     v8::Local<v8::Value> value,
     const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -5809,7 +5809,7 @@ void V8InMemoryStorageImpl::LLSetterByIdx_iBDFRW(
 }
 
 //$ZeroLevelGetters
-void V8InMemoryStorageImpl::ZLGetter_printPABLock_(
+void InMemoryStorageImplV8::ZLGetter_printPABLock_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5829,7 +5829,7 @@ void V8InMemoryStorageImpl::ZLGetter_printPABLock_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_printPABLockEvent_(
+void InMemoryStorageImplV8::ZLGetter_printPABLockEvent_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5849,7 +5849,7 @@ void V8InMemoryStorageImpl::ZLGetter_printPABLockEvent_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_printPABNoInPower_(
+void InMemoryStorageImplV8::ZLGetter_printPABNoInPower_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5869,7 +5869,7 @@ void V8InMemoryStorageImpl::ZLGetter_printPABNoInPower_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_printPABNoInPowerEvent_(
+void InMemoryStorageImplV8::ZLGetter_printPABNoInPowerEvent_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5889,7 +5889,7 @@ void V8InMemoryStorageImpl::ZLGetter_printPABNoInPowerEvent_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_printPABUnlock_(
+void InMemoryStorageImplV8::ZLGetter_printPABUnlock_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5909,7 +5909,7 @@ void V8InMemoryStorageImpl::ZLGetter_printPABUnlock_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_printPABInPowerOk_(
+void InMemoryStorageImplV8::ZLGetter_printPABInPowerOk_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5929,7 +5929,7 @@ void V8InMemoryStorageImpl::ZLGetter_printPABInPowerOk_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_snmpEventsQuery_(
+void InMemoryStorageImplV8::ZLGetter_snmpEventsQuery_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5949,7 +5949,7 @@ void V8InMemoryStorageImpl::ZLGetter_snmpEventsQuery_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_typesCodesInQuery_(
+void InMemoryStorageImplV8::ZLGetter_typesCodesInQuery_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5969,7 +5969,7 @@ void V8InMemoryStorageImpl::ZLGetter_typesCodesInQuery_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_typeMsgsQuery_(
+void InMemoryStorageImplV8::ZLGetter_typeMsgsQuery_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -5989,7 +5989,7 @@ void V8InMemoryStorageImpl::ZLGetter_typeMsgsQuery_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_vtvSigOnOffTgrD_(
+void InMemoryStorageImplV8::ZLGetter_vtvSigOnOffTgrD_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6009,7 +6009,7 @@ void V8InMemoryStorageImpl::ZLGetter_vtvSigOnOffTgrD_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_vtvSigOnOffTgrQ_(
+void InMemoryStorageImplV8::ZLGetter_vtvSigOnOffTgrQ_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6029,7 +6029,7 @@ void V8InMemoryStorageImpl::ZLGetter_vtvSigOnOffTgrQ_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_vtvOverModTgrD_(
+void InMemoryStorageImplV8::ZLGetter_vtvOverModTgrD_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6049,7 +6049,7 @@ void V8InMemoryStorageImpl::ZLGetter_vtvOverModTgrD_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_vtvOverModTgrQ_(
+void InMemoryStorageImplV8::ZLGetter_vtvOverModTgrQ_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6069,7 +6069,7 @@ void V8InMemoryStorageImpl::ZLGetter_vtvOverModTgrQ_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvModStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvModStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6089,7 +6089,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvModStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvUsStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvUsStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6109,7 +6109,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvUsStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABOutPowerStatus(
+void InMemoryStorageImplV8::ZLGetter_ibPABOutPowerStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6129,7 +6129,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABOutPowerStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreVT12status(
+void InMemoryStorageImplV8::ZLGetter_ibPreVT12status(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6149,7 +6149,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreVT12status(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreTemStaus(
+void InMemoryStorageImplV8::ZLGetter_ibPreTemStaus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6169,7 +6169,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreTemStaus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreMIP(
+void InMemoryStorageImplV8::ZLGetter_ibPreMIP(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6189,7 +6189,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreMIP(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBCVstatus(
+void InMemoryStorageImplV8::ZLGetter_ibBCVstatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6209,7 +6209,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBCVstatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R1(
+void InMemoryStorageImplV8::ZLGetter_bcl_R1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6229,7 +6229,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR1(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6249,7 +6249,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R2(
+void InMemoryStorageImplV8::ZLGetter_bcl_R2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6269,7 +6269,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR2(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6289,7 +6289,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R3(
+void InMemoryStorageImplV8::ZLGetter_bcl_R3(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6309,7 +6309,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R3(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR3(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR3(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6329,7 +6329,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR3(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R4(
+void InMemoryStorageImplV8::ZLGetter_bcl_R4(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6349,7 +6349,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R4(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR4(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR4(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6369,7 +6369,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR4(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R5(
+void InMemoryStorageImplV8::ZLGetter_bcl_R5(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6389,7 +6389,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R5(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR5(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR5(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6409,7 +6409,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR5(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R6(
+void InMemoryStorageImplV8::ZLGetter_bcl_R6(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6429,7 +6429,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R6(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR6(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR6(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6449,7 +6449,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR6(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R7(
+void InMemoryStorageImplV8::ZLGetter_bcl_R7(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6469,7 +6469,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R7(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR7(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR7(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6489,7 +6489,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR7(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_R8(
+void InMemoryStorageImplV8::ZLGetter_bcl_R8(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6509,7 +6509,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_R8(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_TR8(
+void InMemoryStorageImplV8::ZLGetter_bcl_TR8(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6529,7 +6529,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_TR8(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBDstatus(
+void InMemoryStorageImplV8::ZLGetter_ibBDstatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6549,7 +6549,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBDstatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_uiPort(
+void InMemoryStorageImplV8::ZLGetter_uiPort(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6569,7 +6569,7 @@ void V8InMemoryStorageImpl::ZLGetter_uiPort(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_cExt(
+void InMemoryStorageImplV8::ZLGetter_cExt(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6589,7 +6589,7 @@ void V8InMemoryStorageImpl::ZLGetter_cExt(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvCntrlMode(
+void InMemoryStorageImplV8::ZLGetter_ibVtvCntrlMode(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6609,7 +6609,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvCntrlMode(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvRadioMode(
+void InMemoryStorageImplV8::ZLGetter_ibVtvRadioMode(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6629,7 +6629,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvRadioMode(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_etv_digital_(
+void InMemoryStorageImplV8::ZLGetter_etv_digital_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6649,7 +6649,7 @@ void V8InMemoryStorageImpl::ZLGetter_etv_digital_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibUsVtvLock(
+void InMemoryStorageImplV8::ZLGetter_ibUsVtvLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6669,7 +6669,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibUsVtvLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibModVtvLock(
+void InMemoryStorageImplV8::ZLGetter_ibModVtvLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6689,7 +6689,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibModVtvLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibOwnVtvLock(
+void InMemoryStorageImplV8::ZLGetter_ibOwnVtvLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6709,7 +6709,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibOwnVtvLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvReady(
+void InMemoryStorageImplV8::ZLGetter_ibVtvReady(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6729,7 +6729,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvReady(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvWork(
+void InMemoryStorageImplV8::ZLGetter_ibVtvWork(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6749,7 +6749,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvWork(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6769,7 +6769,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_exciterIstream_(
+void InMemoryStorageImplV8::ZLGetter_exciterIstream_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6789,7 +6789,7 @@ void V8InMemoryStorageImpl::ZLGetter_exciterIstream_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_connection_state_etv(
+void InMemoryStorageImplV8::ZLGetter_connection_state_etv(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6809,7 +6809,7 @@ void V8InMemoryStorageImpl::ZLGetter_connection_state_etv(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvOutSync(
+void InMemoryStorageImplV8::ZLGetter_ibVtvOutSync(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6829,7 +6829,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvOutSync(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_exciterIstreamError_(
+void InMemoryStorageImplV8::ZLGetter_exciterIstreamError_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6849,7 +6849,7 @@ void V8InMemoryStorageImpl::ZLGetter_exciterIstreamError_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvErrMod(
+void InMemoryStorageImplV8::ZLGetter_ibVtvErrMod(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6869,7 +6869,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvErrMod(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvOutPower(
+void InMemoryStorageImplV8::ZLGetter_ibVtvOutPower(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6889,7 +6889,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvOutPower(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvOutPower(
+void InMemoryStorageImplV8::ZLGetter_iVtvOutPower(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6909,7 +6909,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvOutPower(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvSKSStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvSKSStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6929,7 +6929,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvSKSStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvSChMStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvSChMStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6949,7 +6949,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvSChMStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvSPChStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvSPChStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6969,7 +6969,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvSPChStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvVideoLock(
+void InMemoryStorageImplV8::ZLGetter_ibVtvVideoLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -6989,7 +6989,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvVideoLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvPowerStatus(
+void InMemoryStorageImplV8::ZLGetter_ibVtvPowerStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7009,7 +7009,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvPowerStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvSound(
+void InMemoryStorageImplV8::ZLGetter_ibVtvSound(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7029,7 +7029,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvSound(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvChanNumAnalog(
+void InMemoryStorageImplV8::ZLGetter_ibVtvChanNumAnalog(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7049,7 +7049,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvChanNumAnalog(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvChanNumAnalog(
+void InMemoryStorageImplV8::ZLGetter_iVtvChanNumAnalog(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7069,7 +7069,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvChanNumAnalog(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_exciterASI12TgrVar_(
+void InMemoryStorageImplV8::ZLGetter_exciterASI12TgrVar_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7089,7 +7089,7 @@ void V8InMemoryStorageImpl::ZLGetter_exciterASI12TgrVar_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvNet(
+void InMemoryStorageImplV8::ZLGetter_ibVtvNet(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7109,7 +7109,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvNet(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvDVBTOnOf(
+void InMemoryStorageImplV8::ZLGetter_ibVtvDVBTOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7129,7 +7129,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvDVBTOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvMIPOnOf(
+void InMemoryStorageImplV8::ZLGetter_ibVtvMIPOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7149,7 +7149,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvMIPOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvQAM(
+void InMemoryStorageImplV8::ZLGetter_ibVtvQAM(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7169,7 +7169,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvQAM(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvCodRate(
+void InMemoryStorageImplV8::ZLGetter_ibVtvCodRate(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7189,7 +7189,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvCodRate(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvGI(
+void InMemoryStorageImplV8::ZLGetter_ibVtvGI(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7209,7 +7209,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvGI(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvHierar(
+void InMemoryStorageImplV8::ZLGetter_ibVtvHierar(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7229,7 +7229,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvHierar(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvCarNum(
+void InMemoryStorageImplV8::ZLGetter_ibVtvCarNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7249,7 +7249,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvCarNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvChannel(
+void InMemoryStorageImplV8::ZLGetter_ibVtvChannel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7269,7 +7269,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvChannel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvChannel(
+void InMemoryStorageImplV8::ZLGetter_iVtvChannel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7289,7 +7289,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvChannel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvFreq(
+void InMemoryStorageImplV8::ZLGetter_iVtvFreq(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7309,7 +7309,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvFreq(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvOutLevel(
+void InMemoryStorageImplV8::ZLGetter_ibVtvOutLevel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7329,7 +7329,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvOutLevel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvOutLevel(
+void InMemoryStorageImplV8::ZLGetter_iVtvOutLevel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7349,7 +7349,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvOutLevel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvTransmNum(
+void InMemoryStorageImplV8::ZLGetter_ibVtvTransmNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7369,7 +7369,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvTransmNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvTransmNum(
+void InMemoryStorageImplV8::ZLGetter_iVtvTransmNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7389,7 +7389,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvTransmNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvIDCellNum(
+void InMemoryStorageImplV8::ZLGetter_ibVtvIDCellNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7409,7 +7409,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvIDCellNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvIDCellNum(
+void InMemoryStorageImplV8::ZLGetter_iVtvIDCellNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7429,7 +7429,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvIDCellNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvAdDelay(
+void InMemoryStorageImplV8::ZLGetter_ibVtvAdDelay(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7449,7 +7449,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvAdDelay(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvAdDelay(
+void InMemoryStorageImplV8::ZLGetter_iVtvAdDelay(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7469,7 +7469,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvAdDelay(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecLineNum(
+void InMemoryStorageImplV8::ZLGetter_ibVtvPrecLineNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7489,7 +7489,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecLineNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iVtvPrecLineNum(
+void InMemoryStorageImplV8::ZLGetter_iVtvPrecLineNum(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7509,7 +7509,7 @@ void V8InMemoryStorageImpl::ZLGetter_iVtvPrecLineNum(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecLOnOff(
+void InMemoryStorageImplV8::ZLGetter_ibVtvPrecLOnOff(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7529,7 +7529,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecLOnOff(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecNonLOnOff(
+void InMemoryStorageImplV8::ZLGetter_ibVtvPrecNonLOnOff(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7549,7 +7549,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvPrecNonLOnOff(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVtvTestMode(
+void InMemoryStorageImplV8::ZLGetter_ibVtvTestMode(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7569,7 +7569,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVtvTestMode(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibVTVNoconnet(
+void InMemoryStorageImplV8::ZLGetter_ibVTVNoconnet(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7589,7 +7589,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibVTVNoconnet(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_PABOnOffTgrVar_(
+void InMemoryStorageImplV8::ZLGetter_PABOnOffTgrVar_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7609,7 +7609,7 @@ void V8InMemoryStorageImpl::ZLGetter_PABOnOffTgrVar_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_PABLockTgrVar_(
+void InMemoryStorageImplV8::ZLGetter_PABLockTgrVar_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7629,7 +7629,7 @@ void V8InMemoryStorageImpl::ZLGetter_PABLockTgrVar_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_pab_connection_state_(
+void InMemoryStorageImplV8::ZLGetter_pab_connection_state_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7649,7 +7649,7 @@ void V8InMemoryStorageImpl::ZLGetter_pab_connection_state_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABAnlgDigit(
+void InMemoryStorageImplV8::ZLGetter_ibPABAnlgDigit(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7669,7 +7669,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABAnlgDigit(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABInPowerStatus(
+void InMemoryStorageImplV8::ZLGetter_ibPABInPowerStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7689,7 +7689,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABInPowerStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABStatus(
+void InMemoryStorageImplV8::ZLGetter_ibPABStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7709,7 +7709,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABFRWStatus(
+void InMemoryStorageImplV8::ZLGetter_ibPABFRWStatus(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7729,7 +7729,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABFRWStatus(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABInPow(
+void InMemoryStorageImplV8::ZLGetter_ibPABInPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7749,7 +7749,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABInPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPABInPow(
+void InMemoryStorageImplV8::ZLGetter_iPABInPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7769,7 +7769,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPABInPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABOutPow(
+void InMemoryStorageImplV8::ZLGetter_ibPABOutPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7789,7 +7789,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABOutPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPABOutPow(
+void InMemoryStorageImplV8::ZLGetter_iPABOutPow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7809,7 +7809,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPABOutPow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPABFRW(
+void InMemoryStorageImplV8::ZLGetter_ibPABFRW(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7829,7 +7829,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPABFRW(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPABFRW(
+void InMemoryStorageImplV8::ZLGetter_iPABFRW(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7849,7 +7849,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPABFRW(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreAGC(
+void InMemoryStorageImplV8::ZLGetter_ibPreAGC(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7869,7 +7869,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreAGC(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPrePlus15(
+void InMemoryStorageImplV8::ZLGetter_ibPrePlus15(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7889,7 +7889,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPrePlus15(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreCurVT1(
+void InMemoryStorageImplV8::ZLGetter_ibPreCurVT1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7909,7 +7909,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreCurVT1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreCurVT1(
+void InMemoryStorageImplV8::ZLGetter_iPreCurVT1(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7929,7 +7929,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreCurVT1(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreCurVT2(
+void InMemoryStorageImplV8::ZLGetter_ibPreCurVT2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7949,7 +7949,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreCurVT2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreCurVT2(
+void InMemoryStorageImplV8::ZLGetter_iPreCurVT2(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7969,7 +7969,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreCurVT2(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreTemValue(
+void InMemoryStorageImplV8::ZLGetter_ibPreTemValue(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -7989,7 +7989,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreTemValue(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreTemValue(
+void InMemoryStorageImplV8::ZLGetter_iPreTemValue(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8009,7 +8009,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreTemValue(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreMIPVoltage(
+void InMemoryStorageImplV8::ZLGetter_ibPreMIPVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8029,7 +8029,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreMIPVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreMIPVoltage(
+void InMemoryStorageImplV8::ZLGetter_iPreMIPVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8049,7 +8049,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreMIPVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreAttenVoltage(
+void InMemoryStorageImplV8::ZLGetter_ibPreAttenVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8069,7 +8069,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreAttenVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreAttenVoltage(
+void InMemoryStorageImplV8::ZLGetter_iPreAttenVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8089,7 +8089,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreAttenVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPrePhaseVoltage(
+void InMemoryStorageImplV8::ZLGetter_ibPrePhaseVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8109,7 +8109,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPrePhaseVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreAPhaseVoltage(
+void InMemoryStorageImplV8::ZLGetter_iPreAPhaseVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8129,7 +8129,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreAPhaseVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibPreReferVoltage(
+void InMemoryStorageImplV8::ZLGetter_ibPreReferVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8149,7 +8149,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibPreReferVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iPreReferVoltage(
+void InMemoryStorageImplV8::ZLGetter_iPreReferVoltage(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8169,7 +8169,7 @@ void V8InMemoryStorageImpl::ZLGetter_iPreReferVoltage(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_sum_bcl_(
+void InMemoryStorageImplV8::ZLGetter_sum_bcl_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8189,7 +8189,7 @@ void V8InMemoryStorageImpl::ZLGetter_sum_bcl_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBCVTrOnOf(
+void InMemoryStorageImplV8::ZLGetter_ibBCVTrOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8209,7 +8209,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBCVTrOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBCVTrLock(
+void InMemoryStorageImplV8::ZLGetter_ibBCVTrLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8229,7 +8229,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBCVTrLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_bcl_a_or_d_WTF(
+void InMemoryStorageImplV8::ZLGetter_bcl_a_or_d_WTF(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8249,7 +8249,7 @@ void V8InMemoryStorageImpl::ZLGetter_bcl_a_or_d_WTF(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBCVPowerStat(
+void InMemoryStorageImplV8::ZLGetter_ibBCVPowerStat(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8269,7 +8269,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBCVPowerStat(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R1PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R1PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8289,7 +8289,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R1PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R2PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R2PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8309,7 +8309,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R2PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R3PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R3PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8329,7 +8329,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R3PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R4PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R4PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8349,7 +8349,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R4PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R5PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R5PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8369,7 +8369,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R5PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R6PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R6PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8389,7 +8389,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R6PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R7PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R7PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8409,7 +8409,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R7PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R8PowTemp(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R8PowTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8429,7 +8429,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R8PowTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R1Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R1Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8449,7 +8449,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R1Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R1Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R1Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8469,7 +8469,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R1Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R2Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R2Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8489,7 +8489,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R2Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R2Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R2Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8509,7 +8509,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R2Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R3Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R3Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8529,7 +8529,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R3Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R3Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R3Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8549,7 +8549,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R3Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R4Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R4Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8569,7 +8569,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R4Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R4Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R4Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8589,7 +8589,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R4Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R5Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R5Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8609,7 +8609,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R5Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R5Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R5Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8629,7 +8629,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R5Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R6Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R6Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8649,7 +8649,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R6Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R6Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R6Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8669,7 +8669,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R6Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R7Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R7Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8689,7 +8689,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R7Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R7Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R7Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8709,7 +8709,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R7Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R8Tem(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R8Tem(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8729,7 +8729,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R8Tem(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBCV_R8Pow(
+void InMemoryStorageImplV8::ZLGetter_iBCV_R8Pow(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8749,7 +8749,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBCV_R8Pow(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_sum_about_db_(
+void InMemoryStorageImplV8::ZLGetter_sum_about_db_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8769,7 +8769,7 @@ void V8InMemoryStorageImpl::ZLGetter_sum_about_db_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBDTrOnOf(
+void InMemoryStorageImplV8::ZLGetter_ibBDTrOnOf(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8789,7 +8789,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBDTrOnOf(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBDTrLock(
+void InMemoryStorageImplV8::ZLGetter_ibBDTrLock(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8809,7 +8809,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBDTrLock(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBDAnlgDigit(
+void InMemoryStorageImplV8::ZLGetter_ibBDAnlgDigit(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8829,7 +8829,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBDAnlgDigit(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBDChannel(
+void InMemoryStorageImplV8::ZLGetter_ibBDChannel(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8849,7 +8849,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBDChannel(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_ibBDFactor(
+void InMemoryStorageImplV8::ZLGetter_ibBDFactor(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8869,7 +8869,7 @@ void V8InMemoryStorageImpl::ZLGetter_ibBDFactor(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_sound_power_(
+void InMemoryStorageImplV8::ZLGetter_sound_power_(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8889,7 +8889,7 @@ void V8InMemoryStorageImpl::ZLGetter_sound_power_(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_sound_power_Temp(
+void InMemoryStorageImplV8::ZLGetter_sound_power_Temp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8909,7 +8909,7 @@ void V8InMemoryStorageImpl::ZLGetter_sound_power_Temp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBDOutPowerTemp(
+void InMemoryStorageImplV8::ZLGetter_iBDOutPowerTemp(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8929,7 +8929,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBDOutPowerTemp(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBDOutPower(
+void InMemoryStorageImplV8::ZLGetter_iBDOutPower(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8949,7 +8949,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBDOutPower(
   info.GetReturnValue().Set<v8::Object>(instance);
 }
 
-void V8InMemoryStorageImpl::ZLGetter_iBDFRW(
+void InMemoryStorageImplV8::ZLGetter_iBDFRW(
       v8::Local<v8::String> name,
       const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8970,7 +8970,7 @@ void V8InMemoryStorageImpl::ZLGetter_iBDFRW(
 }
 
   //$ScalarGetters
-void V8InMemoryStorageImpl::V8ScalarGetter_lengthAllParams___(
+void InMemoryStorageImplV8::V8ScalarGetter_lengthAllParams___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8981,7 +8981,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_lengthAllParams___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_counterDebug___(
+void InMemoryStorageImplV8::V8ScalarGetter_counterDebug___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -8992,7 +8992,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_counterDebug___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failsReseted_(
+void InMemoryStorageImplV8::V8ScalarGetter_failsReseted_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9003,7 +9003,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failsReseted_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_currentQueryIndex_(
+void InMemoryStorageImplV8::V8ScalarGetter_currentQueryIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9014,7 +9014,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_currentQueryIndex_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_powerOkTTgr_(
+void InMemoryStorageImplV8::V8ScalarGetter_powerOkTTgr_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9025,7 +9025,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_powerOkTTgr_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_needPrintFullPower_(
+void InMemoryStorageImplV8::V8ScalarGetter_needPrintFullPower_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9036,7 +9036,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_needPrintFullPower_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_needPrintOkPower_(
+void InMemoryStorageImplV8::V8ScalarGetter_needPrintOkPower_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9047,7 +9047,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_needPrintOkPower_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_FRWOkTTgr_(
+void InMemoryStorageImplV8::V8ScalarGetter_FRWOkTTgr_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9058,7 +9058,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_FRWOkTTgr_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_needPrintFullFRW_(
+void InMemoryStorageImplV8::V8ScalarGetter_needPrintFullFRW_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9069,7 +9069,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_needPrintFullFRW_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_needPrintOkFRW_(
+void InMemoryStorageImplV8::V8ScalarGetter_needPrintOkFRW_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9080,7 +9080,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_needPrintOkFRW_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ctrlModeTgrVar_(
+void InMemoryStorageImplV8::V8ScalarGetter_ctrlModeTgrVar_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9091,7 +9091,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ctrlModeTgrVar_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_typeLoadTgrVar_(
+void InMemoryStorageImplV8::V8ScalarGetter_typeLoadTgrVar_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9102,7 +9102,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_typeLoadTgrVar_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_tmitterLockTgrVar___(
+void InMemoryStorageImplV8::V8ScalarGetter_tmitterLockTgrVar___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9113,7 +9113,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_tmitterLockTgrVar___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_tmitterOnTgrVar___(
+void InMemoryStorageImplV8::V8ScalarGetter_tmitterOnTgrVar___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9124,7 +9124,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_tmitterOnTgrVar___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_powHalfModeTgrVar_(
+void InMemoryStorageImplV8::V8ScalarGetter_powHalfModeTgrVar_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9135,7 +9135,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_powHalfModeTgrVar_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_istreamTgrVar_(
+void InMemoryStorageImplV8::V8ScalarGetter_istreamTgrVar_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9146,7 +9146,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_istreamTgrVar_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_outSynTgrVar_(
+void InMemoryStorageImplV8::V8ScalarGetter_outSynTgrVar_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9157,7 +9157,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_outSynTgrVar_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_statusTmitterTgrVar_(
+void InMemoryStorageImplV8::V8ScalarGetter_statusTmitterTgrVar_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9168,7 +9168,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_statusTmitterTgrVar_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_type_tm_digital_(
+void InMemoryStorageImplV8::V8ScalarGetter_type_tm_digital_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9179,7 +9179,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_type_tm_digital_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibWork_(
+void InMemoryStorageImplV8::V8ScalarGetter_ibWork_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9190,7 +9190,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibWork_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_exciterLock_(
+void InMemoryStorageImplV8::V8ScalarGetter_exciterLock_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9201,7 +9201,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_exciterLock_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibPowAmpLock_(
+void InMemoryStorageImplV8::V8ScalarGetter_ibPowAmpLock_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9212,7 +9212,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibPowAmpLock_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_idx_oned_etv_(
+void InMemoryStorageImplV8::V8ScalarGetter_idx_oned_etv_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9223,7 +9223,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_idx_oned_etv_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_idx_oned_etv_q_(
+void InMemoryStorageImplV8::V8ScalarGetter_idx_oned_etv_q_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9234,7 +9234,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_idx_oned_etv_q_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibRadioMode_(
+void InMemoryStorageImplV8::V8ScalarGetter_ibRadioMode_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9245,7 +9245,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibRadioMode_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_transmitterReady_(
+void InMemoryStorageImplV8::V8ScalarGetter_transmitterReady_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9256,7 +9256,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_transmitterReady_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failNet_(
+void InMemoryStorageImplV8::V8ScalarGetter_failNet_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9267,7 +9267,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failNet_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failBallast_(
+void InMemoryStorageImplV8::V8ScalarGetter_failBallast_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9278,7 +9278,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failBallast_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failFRW_(
+void InMemoryStorageImplV8::V8ScalarGetter_failFRW_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9289,7 +9289,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failFRW_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failCoolling_(
+void InMemoryStorageImplV8::V8ScalarGetter_failCoolling_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9300,7 +9300,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failCoolling_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibPAB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibPAB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9311,7 +9311,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibPAB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibVtv(
+void InMemoryStorageImplV8::V8ScalarGetter_ibVtv(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9322,7 +9322,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibVtv(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalD_(
+void InMemoryStorageImplV8::V8ScalarGetter_failsTotalD_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9333,7 +9333,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalD_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalQ_(
+void InMemoryStorageImplV8::V8ScalarGetter_failsTotalQ_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9344,7 +9344,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalQ_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalQQ_(
+void InMemoryStorageImplV8::V8ScalarGetter_failsTotalQQ_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9355,7 +9355,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failsTotalQQ_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibRS485(
+void InMemoryStorageImplV8::V8ScalarGetter_ibRS485(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9366,7 +9366,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibRS485(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibI2C(
+void InMemoryStorageImplV8::V8ScalarGetter_ibI2C(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9377,7 +9377,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibI2C(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_channalValuePacked_(
+void InMemoryStorageImplV8::V8ScalarGetter_channalValuePacked_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9388,7 +9388,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_channalValuePacked_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iChannel(
+void InMemoryStorageImplV8::V8ScalarGetter_iChannel(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9399,7 +9399,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iChannel(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iChannelSetup(
+void InMemoryStorageImplV8::V8ScalarGetter_iChannelSetup(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9410,7 +9410,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iChannelSetup(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibPower(
+void InMemoryStorageImplV8::V8ScalarGetter_ibPower(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9421,7 +9421,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibPower(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_realPowerRepresent___(
+void InMemoryStorageImplV8::V8ScalarGetter_realPowerRepresent___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9432,7 +9432,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_realPowerRepresent___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibValueFRW(
+void InMemoryStorageImplV8::V8ScalarGetter_ibValueFRW(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9443,7 +9443,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibValueFRW(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_FRWValue___(
+void InMemoryStorageImplV8::V8ScalarGetter_FRWValue___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9454,7 +9454,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_FRWValue___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSoundLock(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSoundLock(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9465,7 +9465,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSoundLock(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSU2St(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSU2St(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9476,7 +9476,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSU2St(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_failBallast_Power(
+void InMemoryStorageImplV8::V8ScalarGetter_failBallast_Power(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9487,7 +9487,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_failBallast_Power(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iBallastPower(
+void InMemoryStorageImplV8::V8ScalarGetter_iBallastPower(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9498,7 +9498,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iBallastPower(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_transmitterAddress___(
+void InMemoryStorageImplV8::V8ScalarGetter_transmitterAddress___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9509,7 +9509,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_transmitterAddress___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iMaxTemre(
+void InMemoryStorageImplV8::V8ScalarGetter_iMaxTemre(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9520,7 +9520,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iMaxTemre(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iMaxStatus(
+void InMemoryStorageImplV8::V8ScalarGetter_iMaxStatus(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9531,7 +9531,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iMaxStatus(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_new_max_temperature_(
+void InMemoryStorageImplV8::V8ScalarGetter_new_max_temperature_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9542,7 +9542,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_new_max_temperature_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iNewMaxStatus(
+void InMemoryStorageImplV8::V8ScalarGetter_iNewMaxStatus(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9553,7 +9553,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iNewMaxStatus(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_connecton_state___(
+void InMemoryStorageImplV8::V8ScalarGetter_connecton_state___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9564,7 +9564,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_connecton_state___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_snmp_connecton_status___(
+void InMemoryStorageImplV8::V8ScalarGetter_snmp_connecton_status___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9575,7 +9575,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_snmp_connecton_status___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_transmitter_number_to_set_(
+void InMemoryStorageImplV8::V8ScalarGetter_transmitter_number_to_set_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9586,7 +9586,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_transmitter_number_to_set_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_fixedAlrmRecordIndex_(
+void InMemoryStorageImplV8::V8ScalarGetter_fixedAlrmRecordIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9597,7 +9597,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_fixedAlrmRecordIndex_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_hasMsgForSnmp_(
+void InMemoryStorageImplV8::V8ScalarGetter_hasMsgForSnmp_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9608,7 +9608,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_hasMsgForSnmp_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_statusRecordIndex_(
+void InMemoryStorageImplV8::V8ScalarGetter_statusRecordIndex_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9619,7 +9619,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_statusRecordIndex_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_newFailOccure_(
+void InMemoryStorageImplV8::V8ScalarGetter_newFailOccure_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9630,7 +9630,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_newFailOccure_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_currentMWFCode_(
+void InMemoryStorageImplV8::V8ScalarGetter_currentMWFCode_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9641,7 +9641,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_currentMWFCode_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_currentAliveFaWa___(
+void InMemoryStorageImplV8::V8ScalarGetter_currentAliveFaWa___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9652,7 +9652,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_currentAliveFaWa___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_FRWOk_(
+void InMemoryStorageImplV8::V8ScalarGetter_FRWOk_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9663,7 +9663,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_FRWOk_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_temperatureWasOk_(
+void InMemoryStorageImplV8::V8ScalarGetter_temperatureWasOk_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9674,7 +9674,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_temperatureWasOk_(
   info.GetReturnValue().Set(Boolean::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_counterFailsAndWarns_(
+void InMemoryStorageImplV8::V8ScalarGetter_counterFailsAndWarns_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9685,7 +9685,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_counterFailsAndWarns_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iUsedTime(
+void InMemoryStorageImplV8::V8ScalarGetter_iUsedTime(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9696,7 +9696,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iUsedTime(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_iUsedReserv(
+void InMemoryStorageImplV8::V8ScalarGetter_iUsedReserv(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9707,7 +9707,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_iUsedReserv(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_lengthCfgAnswer(
+void InMemoryStorageImplV8::V8ScalarGetter_lengthCfgAnswer(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9718,7 +9718,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_lengthCfgAnswer(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_nominalPower___(
+void InMemoryStorageImplV8::V8ScalarGetter_nominalPower___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9729,7 +9729,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_nominalPower___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_numExcitersPack_(
+void InMemoryStorageImplV8::V8ScalarGetter_numExcitersPack_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9740,7 +9740,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_numExcitersPack_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_excitersTotal_(
+void InMemoryStorageImplV8::V8ScalarGetter_excitersTotal_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9751,7 +9751,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_excitersTotal_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibNumPAB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibNumPAB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9762,7 +9762,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibNumPAB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_PABTotal_(
+void InMemoryStorageImplV8::V8ScalarGetter_PABTotal_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9773,7 +9773,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_PABTotal_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibNumPAinPAB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibNumPAinPAB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9784,7 +9784,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibNumPAinPAB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_terminal_amps_per_block___(
+void InMemoryStorageImplV8::V8ScalarGetter_terminal_amps_per_block___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9795,7 +9795,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_terminal_amps_per_block___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibNumBCV(
+void InMemoryStorageImplV8::V8ScalarGetter_ibNumBCV(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9806,7 +9806,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibNumBCV(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_current_nominal_power(
+void InMemoryStorageImplV8::V8ScalarGetter_current_nominal_power(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9817,7 +9817,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_current_nominal_power(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_total_bcl_(
+void InMemoryStorageImplV8::V8ScalarGetter_total_bcl_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9828,7 +9828,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_total_bcl_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibNUMDB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibNUMDB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9839,7 +9839,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibNUMDB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_DBTotal_(
+void InMemoryStorageImplV8::V8ScalarGetter_DBTotal_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9850,7 +9850,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_DBTotal_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBMod(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSizeIBMod(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9861,7 +9861,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBMod(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockModParams_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeBlockModParams_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9872,7 +9872,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockModParams_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBPAPAB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSizeIBPAPAB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9883,7 +9883,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBPAPAB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockTerminalAmpParams_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeBlockTerminalAmpParams_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9894,7 +9894,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockTerminalAmpParams_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBPrAPAB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSizeIBPrAPAB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9905,7 +9905,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBPrAPAB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockPreampParams_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeBlockPreampParams_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9916,7 +9916,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockPreampParams_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBBCV(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSizeIBBCV(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9927,7 +9927,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeIBBCV(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockBCNParams_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeBlockBCNParams_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9938,7 +9938,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockBCNParams_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibEventStringSize(
+void InMemoryStorageImplV8::V8ScalarGetter_ibEventStringSize(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9949,7 +9949,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibEventStringSize(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeEventsString_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeEventsString_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9960,7 +9960,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeEventsString_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibFailStringSize(
+void InMemoryStorageImplV8::V8ScalarGetter_ibFailStringSize(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9971,7 +9971,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibFailStringSize(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeFailsString_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeFailsString_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9982,7 +9982,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeFailsString_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeDB(
+void InMemoryStorageImplV8::V8ScalarGetter_ibSizeDB(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -9993,7 +9993,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_ibSizeDB(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockDBParams_(
+void InMemoryStorageImplV8::V8ScalarGetter_sizeBlockDBParams_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -10004,7 +10004,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_sizeBlockDBParams_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_transmitterID___(
+void InMemoryStorageImplV8::V8ScalarGetter_transmitterID___(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -10015,7 +10015,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_transmitterID___(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_exciterType_(
+void InMemoryStorageImplV8::V8ScalarGetter_exciterType_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -10026,7 +10026,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_exciterType_(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
-void V8InMemoryStorageImpl::V8ScalarGetter_countReservedTransmitters_(
+void InMemoryStorageImplV8::V8ScalarGetter_countReservedTransmitters_(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
   {
@@ -10038,7 +10038,7 @@ void V8InMemoryStorageImpl::V8ScalarGetter_countReservedTransmitters_(
 }
 
   //$ScalarSetters
-void V8InMemoryStorageImpl::V8ScalarSetter_lengthAllParams___(
+void InMemoryStorageImplV8::V8ScalarSetter_lengthAllParams___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10048,7 +10048,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_lengthAllParams___(
   static_cast<InMemoryStorageImpl*>(ptr)->lengthAllParams___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_counterDebug___(
+void InMemoryStorageImplV8::V8ScalarSetter_counterDebug___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10058,7 +10058,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_counterDebug___(
   static_cast<InMemoryStorageImpl*>(ptr)->counterDebug___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failsReseted_(
+void InMemoryStorageImplV8::V8ScalarSetter_failsReseted_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10068,7 +10068,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failsReseted_(
   static_cast<InMemoryStorageImpl*>(ptr)->failsReseted_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_currentQueryIndex_(
+void InMemoryStorageImplV8::V8ScalarSetter_currentQueryIndex_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10078,7 +10078,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_currentQueryIndex_(
   static_cast<InMemoryStorageImpl*>(ptr)->currentQueryIndex_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_powerOkTTgr_(
+void InMemoryStorageImplV8::V8ScalarSetter_powerOkTTgr_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10088,7 +10088,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_powerOkTTgr_(
   static_cast<InMemoryStorageImpl*>(ptr)->powerOkTTgr_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_needPrintFullPower_(
+void InMemoryStorageImplV8::V8ScalarSetter_needPrintFullPower_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10098,7 +10098,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_needPrintFullPower_(
   static_cast<InMemoryStorageImpl*>(ptr)->needPrintFullPower_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_needPrintOkPower_(
+void InMemoryStorageImplV8::V8ScalarSetter_needPrintOkPower_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10108,7 +10108,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_needPrintOkPower_(
   static_cast<InMemoryStorageImpl*>(ptr)->needPrintOkPower_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_FRWOkTTgr_(
+void InMemoryStorageImplV8::V8ScalarSetter_FRWOkTTgr_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10118,7 +10118,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_FRWOkTTgr_(
   static_cast<InMemoryStorageImpl*>(ptr)->FRWOkTTgr_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_needPrintFullFRW_(
+void InMemoryStorageImplV8::V8ScalarSetter_needPrintFullFRW_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10128,7 +10128,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_needPrintFullFRW_(
   static_cast<InMemoryStorageImpl*>(ptr)->needPrintFullFRW_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_needPrintOkFRW_(
+void InMemoryStorageImplV8::V8ScalarSetter_needPrintOkFRW_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10138,7 +10138,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_needPrintOkFRW_(
   static_cast<InMemoryStorageImpl*>(ptr)->needPrintOkFRW_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ctrlModeTgrVar_(
+void InMemoryStorageImplV8::V8ScalarSetter_ctrlModeTgrVar_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10148,7 +10148,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ctrlModeTgrVar_(
   static_cast<InMemoryStorageImpl*>(ptr)->ctrlModeTgrVar_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_typeLoadTgrVar_(
+void InMemoryStorageImplV8::V8ScalarSetter_typeLoadTgrVar_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10158,7 +10158,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_typeLoadTgrVar_(
   static_cast<InMemoryStorageImpl*>(ptr)->typeLoadTgrVar_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_tmitterLockTgrVar___(
+void InMemoryStorageImplV8::V8ScalarSetter_tmitterLockTgrVar___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10168,7 +10168,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_tmitterLockTgrVar___(
   static_cast<InMemoryStorageImpl*>(ptr)->tmitterLockTgrVar___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_tmitterOnTgrVar___(
+void InMemoryStorageImplV8::V8ScalarSetter_tmitterOnTgrVar___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10178,7 +10178,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_tmitterOnTgrVar___(
   static_cast<InMemoryStorageImpl*>(ptr)->tmitterOnTgrVar___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_powHalfModeTgrVar_(
+void InMemoryStorageImplV8::V8ScalarSetter_powHalfModeTgrVar_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10188,7 +10188,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_powHalfModeTgrVar_(
   static_cast<InMemoryStorageImpl*>(ptr)->powHalfModeTgrVar_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_istreamTgrVar_(
+void InMemoryStorageImplV8::V8ScalarSetter_istreamTgrVar_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10198,7 +10198,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_istreamTgrVar_(
   static_cast<InMemoryStorageImpl*>(ptr)->istreamTgrVar_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_outSynTgrVar_(
+void InMemoryStorageImplV8::V8ScalarSetter_outSynTgrVar_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10208,7 +10208,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_outSynTgrVar_(
   static_cast<InMemoryStorageImpl*>(ptr)->outSynTgrVar_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_statusTmitterTgrVar_(
+void InMemoryStorageImplV8::V8ScalarSetter_statusTmitterTgrVar_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10218,7 +10218,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_statusTmitterTgrVar_(
   static_cast<InMemoryStorageImpl*>(ptr)->statusTmitterTgrVar_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_type_tm_digital_(
+void InMemoryStorageImplV8::V8ScalarSetter_type_tm_digital_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10228,7 +10228,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_type_tm_digital_(
   static_cast<InMemoryStorageImpl*>(ptr)->type_tm_digital_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibWork_(
+void InMemoryStorageImplV8::V8ScalarSetter_ibWork_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10238,7 +10238,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibWork_(
   static_cast<InMemoryStorageImpl*>(ptr)->ibWork_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_exciterLock_(
+void InMemoryStorageImplV8::V8ScalarSetter_exciterLock_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10248,7 +10248,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_exciterLock_(
   static_cast<InMemoryStorageImpl*>(ptr)->exciterLock_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibPowAmpLock_(
+void InMemoryStorageImplV8::V8ScalarSetter_ibPowAmpLock_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10258,7 +10258,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibPowAmpLock_(
   static_cast<InMemoryStorageImpl*>(ptr)->ibPowAmpLock_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_idx_oned_etv_(
+void InMemoryStorageImplV8::V8ScalarSetter_idx_oned_etv_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10268,7 +10268,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_idx_oned_etv_(
   static_cast<InMemoryStorageImpl*>(ptr)->idx_oned_etv_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_idx_oned_etv_q_(
+void InMemoryStorageImplV8::V8ScalarSetter_idx_oned_etv_q_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10278,7 +10278,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_idx_oned_etv_q_(
   static_cast<InMemoryStorageImpl*>(ptr)->idx_oned_etv_q_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibRadioMode_(
+void InMemoryStorageImplV8::V8ScalarSetter_ibRadioMode_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10288,7 +10288,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibRadioMode_(
   static_cast<InMemoryStorageImpl*>(ptr)->ibRadioMode_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_transmitterReady_(
+void InMemoryStorageImplV8::V8ScalarSetter_transmitterReady_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10298,7 +10298,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_transmitterReady_(
   static_cast<InMemoryStorageImpl*>(ptr)->transmitterReady_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failNet_(
+void InMemoryStorageImplV8::V8ScalarSetter_failNet_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10308,7 +10308,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failNet_(
   static_cast<InMemoryStorageImpl*>(ptr)->failNet_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failBallast_(
+void InMemoryStorageImplV8::V8ScalarSetter_failBallast_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10318,7 +10318,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failBallast_(
   static_cast<InMemoryStorageImpl*>(ptr)->failBallast_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failFRW_(
+void InMemoryStorageImplV8::V8ScalarSetter_failFRW_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10328,7 +10328,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failFRW_(
   static_cast<InMemoryStorageImpl*>(ptr)->failFRW_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failCoolling_(
+void InMemoryStorageImplV8::V8ScalarSetter_failCoolling_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10338,7 +10338,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failCoolling_(
   static_cast<InMemoryStorageImpl*>(ptr)->failCoolling_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibPAB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibPAB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10348,7 +10348,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibPAB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibPAB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibVtv(
+void InMemoryStorageImplV8::V8ScalarSetter_ibVtv(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10358,7 +10358,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibVtv(
   static_cast<InMemoryStorageImpl*>(ptr)->ibVtv = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalD_(
+void InMemoryStorageImplV8::V8ScalarSetter_failsTotalD_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10368,7 +10368,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalD_(
   static_cast<InMemoryStorageImpl*>(ptr)->failsTotalD_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalQ_(
+void InMemoryStorageImplV8::V8ScalarSetter_failsTotalQ_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10378,7 +10378,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalQ_(
   static_cast<InMemoryStorageImpl*>(ptr)->failsTotalQ_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalQQ_(
+void InMemoryStorageImplV8::V8ScalarSetter_failsTotalQQ_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10388,7 +10388,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failsTotalQQ_(
   static_cast<InMemoryStorageImpl*>(ptr)->failsTotalQQ_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibRS485(
+void InMemoryStorageImplV8::V8ScalarSetter_ibRS485(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10398,7 +10398,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibRS485(
   static_cast<InMemoryStorageImpl*>(ptr)->ibRS485 = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibI2C(
+void InMemoryStorageImplV8::V8ScalarSetter_ibI2C(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10408,7 +10408,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibI2C(
   static_cast<InMemoryStorageImpl*>(ptr)->ibI2C = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_channalValuePacked_(
+void InMemoryStorageImplV8::V8ScalarSetter_channalValuePacked_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10418,7 +10418,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_channalValuePacked_(
   static_cast<InMemoryStorageImpl*>(ptr)->channalValuePacked_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iChannel(
+void InMemoryStorageImplV8::V8ScalarSetter_iChannel(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10428,7 +10428,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iChannel(
   static_cast<InMemoryStorageImpl*>(ptr)->iChannel = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iChannelSetup(
+void InMemoryStorageImplV8::V8ScalarSetter_iChannelSetup(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10438,7 +10438,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iChannelSetup(
   static_cast<InMemoryStorageImpl*>(ptr)->iChannelSetup = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibPower(
+void InMemoryStorageImplV8::V8ScalarSetter_ibPower(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10448,7 +10448,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibPower(
   static_cast<InMemoryStorageImpl*>(ptr)->ibPower = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_realPowerRepresent___(
+void InMemoryStorageImplV8::V8ScalarSetter_realPowerRepresent___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10458,7 +10458,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_realPowerRepresent___(
   static_cast<InMemoryStorageImpl*>(ptr)->realPowerRepresent___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibValueFRW(
+void InMemoryStorageImplV8::V8ScalarSetter_ibValueFRW(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10468,7 +10468,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibValueFRW(
   static_cast<InMemoryStorageImpl*>(ptr)->ibValueFRW = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_FRWValue___(
+void InMemoryStorageImplV8::V8ScalarSetter_FRWValue___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10478,7 +10478,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_FRWValue___(
   static_cast<InMemoryStorageImpl*>(ptr)->FRWValue___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSoundLock(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSoundLock(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10488,7 +10488,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSoundLock(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSoundLock = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSU2St(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSU2St(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10498,7 +10498,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSU2St(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSU2St = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_failBallast_Power(
+void InMemoryStorageImplV8::V8ScalarSetter_failBallast_Power(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10508,7 +10508,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_failBallast_Power(
   static_cast<InMemoryStorageImpl*>(ptr)->failBallast_Power = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iBallastPower(
+void InMemoryStorageImplV8::V8ScalarSetter_iBallastPower(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10518,7 +10518,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iBallastPower(
   static_cast<InMemoryStorageImpl*>(ptr)->iBallastPower = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_transmitterAddress___(
+void InMemoryStorageImplV8::V8ScalarSetter_transmitterAddress___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10528,7 +10528,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_transmitterAddress___(
   static_cast<InMemoryStorageImpl*>(ptr)->transmitterAddress___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iMaxTemre(
+void InMemoryStorageImplV8::V8ScalarSetter_iMaxTemre(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10538,7 +10538,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iMaxTemre(
   static_cast<InMemoryStorageImpl*>(ptr)->iMaxTemre = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iMaxStatus(
+void InMemoryStorageImplV8::V8ScalarSetter_iMaxStatus(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10548,7 +10548,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iMaxStatus(
   static_cast<InMemoryStorageImpl*>(ptr)->iMaxStatus = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_new_max_temperature_(
+void InMemoryStorageImplV8::V8ScalarSetter_new_max_temperature_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10558,7 +10558,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_new_max_temperature_(
   static_cast<InMemoryStorageImpl*>(ptr)->new_max_temperature_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iNewMaxStatus(
+void InMemoryStorageImplV8::V8ScalarSetter_iNewMaxStatus(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10568,7 +10568,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iNewMaxStatus(
   static_cast<InMemoryStorageImpl*>(ptr)->iNewMaxStatus = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_connecton_state___(
+void InMemoryStorageImplV8::V8ScalarSetter_connecton_state___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10578,7 +10578,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_connecton_state___(
   static_cast<InMemoryStorageImpl*>(ptr)->connecton_state___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_snmp_connecton_status___(
+void InMemoryStorageImplV8::V8ScalarSetter_snmp_connecton_status___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10588,7 +10588,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_snmp_connecton_status___(
   static_cast<InMemoryStorageImpl*>(ptr)->snmp_connecton_status___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_transmitter_number_to_set_(
+void InMemoryStorageImplV8::V8ScalarSetter_transmitter_number_to_set_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10598,7 +10598,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_transmitter_number_to_set_(
   static_cast<InMemoryStorageImpl*>(ptr)->transmitter_number_to_set_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_fixedAlrmRecordIndex_(
+void InMemoryStorageImplV8::V8ScalarSetter_fixedAlrmRecordIndex_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10608,7 +10608,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_fixedAlrmRecordIndex_(
   static_cast<InMemoryStorageImpl*>(ptr)->fixedAlrmRecordIndex_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_hasMsgForSnmp_(
+void InMemoryStorageImplV8::V8ScalarSetter_hasMsgForSnmp_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10618,7 +10618,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_hasMsgForSnmp_(
   static_cast<InMemoryStorageImpl*>(ptr)->hasMsgForSnmp_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_statusRecordIndex_(
+void InMemoryStorageImplV8::V8ScalarSetter_statusRecordIndex_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10628,7 +10628,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_statusRecordIndex_(
   static_cast<InMemoryStorageImpl*>(ptr)->statusRecordIndex_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_newFailOccure_(
+void InMemoryStorageImplV8::V8ScalarSetter_newFailOccure_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10638,7 +10638,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_newFailOccure_(
   static_cast<InMemoryStorageImpl*>(ptr)->newFailOccure_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_currentMWFCode_(
+void InMemoryStorageImplV8::V8ScalarSetter_currentMWFCode_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10648,7 +10648,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_currentMWFCode_(
   static_cast<InMemoryStorageImpl*>(ptr)->currentMWFCode_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_currentAliveFaWa___(
+void InMemoryStorageImplV8::V8ScalarSetter_currentAliveFaWa___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10658,7 +10658,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_currentAliveFaWa___(
   static_cast<InMemoryStorageImpl*>(ptr)->currentAliveFaWa___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_FRWOk_(
+void InMemoryStorageImplV8::V8ScalarSetter_FRWOk_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10668,7 +10668,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_FRWOk_(
   static_cast<InMemoryStorageImpl*>(ptr)->FRWOk_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_temperatureWasOk_(
+void InMemoryStorageImplV8::V8ScalarSetter_temperatureWasOk_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10678,7 +10678,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_temperatureWasOk_(
   static_cast<InMemoryStorageImpl*>(ptr)->temperatureWasOk_ = value->BooleanValue();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_counterFailsAndWarns_(
+void InMemoryStorageImplV8::V8ScalarSetter_counterFailsAndWarns_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10688,7 +10688,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_counterFailsAndWarns_(
   static_cast<InMemoryStorageImpl*>(ptr)->counterFailsAndWarns_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iUsedTime(
+void InMemoryStorageImplV8::V8ScalarSetter_iUsedTime(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10698,7 +10698,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iUsedTime(
   static_cast<InMemoryStorageImpl*>(ptr)->iUsedTime = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_iUsedReserv(
+void InMemoryStorageImplV8::V8ScalarSetter_iUsedReserv(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10708,7 +10708,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_iUsedReserv(
   static_cast<InMemoryStorageImpl*>(ptr)->iUsedReserv = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_lengthCfgAnswer(
+void InMemoryStorageImplV8::V8ScalarSetter_lengthCfgAnswer(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10718,7 +10718,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_lengthCfgAnswer(
   static_cast<InMemoryStorageImpl*>(ptr)->lengthCfgAnswer = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_nominalPower___(
+void InMemoryStorageImplV8::V8ScalarSetter_nominalPower___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10728,7 +10728,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_nominalPower___(
   static_cast<InMemoryStorageImpl*>(ptr)->nominalPower___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_numExcitersPack_(
+void InMemoryStorageImplV8::V8ScalarSetter_numExcitersPack_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10738,7 +10738,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_numExcitersPack_(
   static_cast<InMemoryStorageImpl*>(ptr)->numExcitersPack_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_excitersTotal_(
+void InMemoryStorageImplV8::V8ScalarSetter_excitersTotal_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10748,7 +10748,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_excitersTotal_(
   static_cast<InMemoryStorageImpl*>(ptr)->excitersTotal_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibNumPAB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibNumPAB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10758,7 +10758,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibNumPAB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibNumPAB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_PABTotal_(
+void InMemoryStorageImplV8::V8ScalarSetter_PABTotal_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10768,7 +10768,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_PABTotal_(
   static_cast<InMemoryStorageImpl*>(ptr)->PABTotal_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibNumPAinPAB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibNumPAinPAB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10778,7 +10778,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibNumPAinPAB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibNumPAinPAB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_terminal_amps_per_block___(
+void InMemoryStorageImplV8::V8ScalarSetter_terminal_amps_per_block___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10788,7 +10788,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_terminal_amps_per_block___(
   static_cast<InMemoryStorageImpl*>(ptr)->terminal_amps_per_block___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibNumBCV(
+void InMemoryStorageImplV8::V8ScalarSetter_ibNumBCV(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10798,7 +10798,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibNumBCV(
   static_cast<InMemoryStorageImpl*>(ptr)->ibNumBCV = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_current_nominal_power(
+void InMemoryStorageImplV8::V8ScalarSetter_current_nominal_power(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10808,7 +10808,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_current_nominal_power(
   static_cast<InMemoryStorageImpl*>(ptr)->current_nominal_power = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_total_bcl_(
+void InMemoryStorageImplV8::V8ScalarSetter_total_bcl_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10818,7 +10818,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_total_bcl_(
   static_cast<InMemoryStorageImpl*>(ptr)->total_bcl_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibNUMDB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibNUMDB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10828,7 +10828,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibNUMDB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibNUMDB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_DBTotal_(
+void InMemoryStorageImplV8::V8ScalarSetter_DBTotal_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10838,7 +10838,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_DBTotal_(
   static_cast<InMemoryStorageImpl*>(ptr)->DBTotal_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBMod(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSizeIBMod(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10848,7 +10848,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBMod(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBMod = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockModParams_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeBlockModParams_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10858,7 +10858,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockModParams_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockModParams_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBPAPAB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSizeIBPAPAB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10868,7 +10868,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBPAPAB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBPAPAB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockTerminalAmpParams_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeBlockTerminalAmpParams_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10878,7 +10878,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockTerminalAmpParams_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockTerminalAmpParams_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBPrAPAB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSizeIBPrAPAB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10888,7 +10888,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBPrAPAB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBPrAPAB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockPreampParams_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeBlockPreampParams_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10898,7 +10898,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockPreampParams_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockPreampParams_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBBCV(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSizeIBBCV(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10908,7 +10908,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeIBBCV(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSizeIBBCV = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockBCNParams_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeBlockBCNParams_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10918,7 +10918,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockBCNParams_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockBCNParams_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibEventStringSize(
+void InMemoryStorageImplV8::V8ScalarSetter_ibEventStringSize(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10928,7 +10928,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibEventStringSize(
   static_cast<InMemoryStorageImpl*>(ptr)->ibEventStringSize = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeEventsString_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeEventsString_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10938,7 +10938,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeEventsString_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeEventsString_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibFailStringSize(
+void InMemoryStorageImplV8::V8ScalarSetter_ibFailStringSize(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10948,7 +10948,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibFailStringSize(
   static_cast<InMemoryStorageImpl*>(ptr)->ibFailStringSize = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeFailsString_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeFailsString_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10958,7 +10958,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeFailsString_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeFailsString_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeDB(
+void InMemoryStorageImplV8::V8ScalarSetter_ibSizeDB(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10968,7 +10968,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_ibSizeDB(
   static_cast<InMemoryStorageImpl*>(ptr)->ibSizeDB = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockDBParams_(
+void InMemoryStorageImplV8::V8ScalarSetter_sizeBlockDBParams_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10978,7 +10978,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_sizeBlockDBParams_(
   static_cast<InMemoryStorageImpl*>(ptr)->sizeBlockDBParams_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_transmitterID___(
+void InMemoryStorageImplV8::V8ScalarSetter_transmitterID___(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10988,7 +10988,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_transmitterID___(
   static_cast<InMemoryStorageImpl*>(ptr)->transmitterID___ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_exciterType_(
+void InMemoryStorageImplV8::V8ScalarSetter_exciterType_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {
@@ -10998,7 +10998,7 @@ void V8InMemoryStorageImpl::V8ScalarSetter_exciterType_(
   static_cast<InMemoryStorageImpl*>(ptr)->exciterType_ = value->Int32Value();
 }
 
-void V8InMemoryStorageImpl::V8ScalarSetter_countReservedTransmitters_(
+void InMemoryStorageImplV8::V8ScalarSetter_countReservedTransmitters_(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info) 
   {

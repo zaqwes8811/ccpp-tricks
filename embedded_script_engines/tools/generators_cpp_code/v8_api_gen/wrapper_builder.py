@@ -12,6 +12,9 @@ class BuilderArrayWrapper(object):
         self.class_name_ = self.type_and_var_list_[0][2]
         self.source_ = source
 
+    def get_v8_class_name(self):
+        return self.class_name_ + 'V8'
+
     # ::Blueprint()
     @staticmethod
     def __do_blueprint_method_decl():
@@ -22,7 +25,7 @@ class BuilderArrayWrapper(object):
         return '  static v8::Handle<v8::ObjectTemplate> ' + self.__do_blueprint_method_decl() + ';'
 
     def blueprint_method_impl(self):
-        result = 'v8::Handle<v8::ObjectTemplate> V8' + self.class_name_ + '::CreateOwnBlueprint(\n' + \
+        result = 'v8::Handle<v8::ObjectTemplate> ' + self.get_v8_class_name() + '::CreateOwnBlueprint(\n' + \
                  '      v8::Isolate* isolate) \n  {\n'
 
         result += '  HandleScope handle_scope(isolate);\n' \
@@ -58,7 +61,7 @@ class BuilderArrayWrapper(object):
         return '  static v8::Handle<v8::Object> ' + self.__do_new_method_decl() + ';'
 
     def new_method_impl(self):
-        return 'Handle<Object> V8' + self.class_name_ + '::' + self.__do_new_method_decl() + ' {\n' + \
+        return 'Handle<Object> ' + self.get_v8_class_name() + '::' + self.__do_new_method_decl() + ' {\n' + \
                '  HandleScope handle_scope(isolate);\n' + \
                '  Context::Scope scope(isolate->GetCurrentContext());\n' + \
                '\n' + \

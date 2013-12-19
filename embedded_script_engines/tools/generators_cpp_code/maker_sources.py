@@ -15,7 +15,7 @@ from parsers_cpp_code import header_parser
 def get_declarations_from_header(source_code):
     type_and_var_list = header_parser.Holder.extract_var_declaration(source_code)
     result = []
-    class_name = "InMemoryStorageImpl"
+    class_name = "RefineInMemoryStorage"
 
     for record in type_and_var_list:
         updated = list(record)
@@ -45,8 +45,8 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
     code.append('')
     code.append('#include "'+header_to_wrap+'"')
     code.append('')
-    code.append('namespace tmitter_web_service {')
-    code.append('class V8' + class_name + ' {')
+    code.append('namespace app_server_scope {')
+    code.append('class ' + class_name + 'V8 {')
     code.append(' public:')
     code.append(builder.blueprint_method_decl())
     code.append('')
@@ -82,7 +82,7 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
 def make_source_file(pair, builder):
     code = []
     code.append('#include "'+pair+'"')
-    code.append('#include "process.h"')
+    code.append('#include "third_party/v8/src/process.h"')
     code.append('')
     code.append('using v8::String;')
     code.append('using v8::ObjectTemplate;')
@@ -95,9 +95,11 @@ def make_source_file(pair, builder):
     code.append('using v8::Isolate;')
     code.append('using v8::Number;')
     code.append('using v8::Undefined;')
+    code.append('using v8::Context;')
+    code.append('using v8::Integer;')
 
     code.append('')
-    code.append('namespace tmitter_web_service {')
+    code.append('namespace app_server_scope {')
 
     code.append(builder.blueprint_method_impl())
     code.append('')
@@ -135,7 +137,7 @@ def make_complect(header_to_wrap):
     dir_name = os.path.dirname(header_to_wrap)
     header_name = basename(header_to_wrap)
     header_no_ext = header_name.split(os.extsep)[0]
-    v8_header = 'v8_'+header_no_ext
+    v8_header = header_no_ext + '_v8'
 
     # Targets
     if dir_name:
