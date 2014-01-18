@@ -81,17 +81,7 @@ class HeaderParserHandmade(object):
         return string.rstrip().lstrip()
 
     def __make_type_value_list(self, lines):
-        intermediate = []
-        for at in lines:
-            pair = self.__remove_lr_spaces(at)
-            if not ('*' in pair
-                    or '=' in pair
-                    or 'const' in pair
-                    or 'static' in pair
-                    or pair.count('[') > self.__MAX_DIMENSION):
-                intermediate.append(pair)
-
-        declarations = ' '.join(intermediate).split(' ')
+        declarations = ' '.join(lines).split(' ')  # hack!
 
         result = []
         var_type = ""
@@ -128,9 +118,18 @@ class HeaderParserHandmade(object):
         lines = folded_string.split(';')
         lines = map(self.__remove_lr_spaces, lines)
         lines = filter(lambda x: x, lines)
+        intermediate = []
+        for at in lines:
+            pair = self.__remove_lr_spaces(at)
+            if not ('*' in pair
+                    or '=' in pair
+                    or 'const' in pair
+                    or 'static' in pair
+                    or pair.count('[') > self.__MAX_DIMENSION):
+                intermediate.append(pair)
 
         # Похоже на итоговую запаковку
-        type_name_list = self.__make_type_value_list(lines)
+        type_name_list = self.__make_type_value_list(intermediate)
         return type_name_list
 
     def extract_variable_declaration_own(self, source, class_name='unknown'):

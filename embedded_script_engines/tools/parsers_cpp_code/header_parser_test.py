@@ -5,6 +5,8 @@ import unittest
 # Unit
 from parsers_cpp_code import header_parser
 
+# Заголовок таки должен компилироваться,
+#   поэтому откровенного бреда там быть не должно
 SIMPLE_CLASS = """
 class Foo {\n
 private:\n
