@@ -19,7 +19,7 @@ class VarDeclaration(object):
 
 
 class HeaderParserHandmade(object):
-    def first_filtration(self, code_lines):
+    def __first_filtration(self, code_lines):
         """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
         class {
@@ -74,27 +74,22 @@ class HeaderParserHandmade(object):
 
         return '\n'.join(result)
 
-    def extract_var_declaration(self, source):
-        code_lines = source.split('\n')
-        declaration_string = self.first_filtration(code_lines)
 
-        # Похоже вся магия здесь
-        folded_string = self.end_filtration(declaration_string)
 
-        # Похоже на итоговую запаковку
-        type_name_list = self.make_type_value_list(folded_string)
-        return type_name_list
-
-    def remove_lr_spaces(string):
+    def __remove_lr_spaces(self, string):
         return string.rstrip().lstrip()
 
-    def make_type_value_list(self, folded_string):
-        folded_string = self.remove_lr_spaces(folded_string)
+    def __make_type_value_list(self, folded_string):
+        folded_string = self.__remove_lr_spaces(folded_string)
 
         intermediate = []
         for at in folded_string.split(';'):
-            pair = self.remove_lr_spaces(at)
-            if not ('*' in pair or '=' in pair or 'const' in pair or 'static' in pair or pair.count('[') > 1):
+            pair = self.__remove_lr_spaces(at)
+            if not ('*' in pair
+                    or '=' in pair
+                    or 'const' in pair
+                    or 'static' in pair
+                    or pair.count('[') > 1):
                 intermediate.append(pair)
 
         declarations = ' '.join(intermediate).split(' ')
@@ -103,7 +98,7 @@ class HeaderParserHandmade(object):
         var_type = ""
         # Bug was here
         for index, record in enumerate(declarations):
-            record = self.remove_lr_spaces(record)  # Да, эти лучше тоже отфильтровать
+            record = self.__remove_lr_spaces(record)  # Да, эти лучше тоже отфильтровать
             if record:
                 if index % 2:
                     var_name = record
@@ -114,7 +109,7 @@ class HeaderParserHandmade(object):
                     # Bug was here
         return result
 
-    def end_filtration(self, declaration_string):
+    def __end_filtration(self, declaration_string):
         declaration_string = declaration_string\
             .replace('\t', " ") \
             .replace('\n\t', " ") \
@@ -122,6 +117,17 @@ class HeaderParserHandmade(object):
             .replace('\n', " ")
         declaration_string = utils_local.delete_double_spaces(declaration_string)
         return declaration_string
+
+    def extract_var_declaration(self, source):
+        code_lines = source.split('\n')
+        declaration_string = self.__first_filtration(code_lines)
+
+        # Похоже вся магия здесь
+        folded_string = self.__end_filtration(declaration_string)
+
+        # Похоже на итоговую запаковку
+        type_name_list = self.__make_type_value_list(folded_string)
+        return type_name_list
 
     def extract_variable_declaration_own(self, source, class_name='unknown'):
         """
