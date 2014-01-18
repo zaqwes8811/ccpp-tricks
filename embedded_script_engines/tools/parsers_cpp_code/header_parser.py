@@ -45,7 +45,7 @@ class HeaderParserHandmade(object):
         }
         """
         result = []
-        filter_regex = "bool""|int""|vector<""|string""|char"
+        FILTER_REGEX = "bool""|int""|vector<""|string""|char"
 
         for line in code_lines:
             # Фильтрация кода
@@ -63,7 +63,7 @@ class HeaderParserHandmade(object):
                     and "private" not in line \
                     and "protected" not in line \
                     and "using" not in line:
-                pattern = re.compile(filter_regex)
+                pattern = re.compile(FILTER_REGEX)
                 search_result = pattern.search(line)
                 if search_result:
                     line_copy = line
