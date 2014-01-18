@@ -127,7 +127,7 @@ class HeaderParserHandmade(object):
         folded_string = self.__remove_lr_spaces(folded_string)
         lines = folded_string.split(';')
         lines = map(self.__remove_lr_spaces, lines)
-        print lines
+        lines = filter(lambda x: x, lines)
 
         # Похоже на итоговую запаковку
         type_name_list = self.__make_type_value_list(lines)
