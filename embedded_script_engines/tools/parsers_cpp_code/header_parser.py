@@ -18,12 +18,8 @@ class VarDeclaration(object):
         self.name = name
 
 
-class HeaderParserHandmade(object):
-    def __init__(self):
-        self.__MAX_DIMENSION = 2
-
-    def __first_filtration(self, code_lines):
-        """ Возвращает строку, в которой содержится все пары тип + имя переменной
+class ExtractorVarsDeclarations(object):
+    """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
         class {
             // Work
@@ -46,7 +42,13 @@ class HeaderParserHandmade(object):
 
             }
         }
-        """
+    """
+
+    def __init__(self):
+        self.__MAX_DIMENSION = 2
+
+    def __first_filtration(self, code_lines):
+
         result = []
         FILTER_REGEX = "bool""|int""|vector<""|string""|char"
         PATTERN = re.compile(FILTER_REGEX)
@@ -58,14 +60,14 @@ class HeaderParserHandmade(object):
             # Сперва вытянуть в строку.
             # Затем разбить ;/:/ и только потом отфильтровать.
             if '(' not in line \
-                    and ")" not in line \
-                    and ";" in line \
-                    and "{" not in line \
-                    and "}" not in line \
-                    and "#" not in line \
-                    and "public:" not in line \
-                    and "private" not in line \
-                    and "protected" not in line:
+                and ")" not in line \
+                and ";" in line \
+                and "{" not in line \
+                and "}" not in line \
+                and "#" not in line \
+                and "public:" not in line \
+                and "private" not in line \
+                and "protected" not in line:
 
                 search_result = PATTERN.search(line)
                 if search_result:
@@ -99,7 +101,7 @@ class HeaderParserHandmade(object):
         return result
 
     def __end_filtration(self, declaration_string):
-        declaration_string = declaration_string\
+        declaration_string = declaration_string \
             .replace('\t', " ") \
             .replace('\n\t', " ") \
             .replace("  ", " ") \
