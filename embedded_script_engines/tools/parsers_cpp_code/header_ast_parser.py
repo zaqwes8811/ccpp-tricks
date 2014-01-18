@@ -4,16 +4,6 @@
 from generator.cpp import ast
 
 
-class VarDeclaration(object):
-    class Type(object):
-        def __init__(self, type_name):
-            self.name = type_name
-
-    def __init__(self, type_name, name):
-        self.type = VarDeclaration.Type(type_name)
-        self.name = name
-
-
 def extract_variable_declaration(source, header_file_name):
     """
     Abstract:

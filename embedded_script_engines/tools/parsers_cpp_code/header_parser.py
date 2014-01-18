@@ -8,9 +8,18 @@ from generators_cpp_code.v8_api_gen import scalars
 import utils_local
 
 
+class VarDeclaration(object):
+    class Type(object):
+        def __init__(self, type_name):
+            self.name = type_name
+
+    def __init__(self, type_name, name):
+        self.type = VarDeclaration.Type(type_name)
+        self.name = name
+
+
 class HeaderParserHandmade(object):
-    @staticmethod
-    def first_filtration(code_lines):
+    def first_filtration(self, code_lines):
         """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
         class {
@@ -65,29 +74,26 @@ class HeaderParserHandmade(object):
 
         return '\n'.join(result)
 
-    @staticmethod
-    def extract_var_declaration(source):
+    def extract_var_declaration(self, source):
         code_lines = source.split('\n')
-        declaration_string = Holder.first_filtration(code_lines)
+        declaration_string = self.first_filtration(code_lines)
 
         # Похоже вся магия здесь
-        folded_string = Holder.end_filtration(declaration_string)
+        folded_string = self.end_filtration(declaration_string)
 
         # Похоже на итоговую запаковку
-        type_name_list = Holder.make_type_value_list(folded_string)
+        type_name_list = self.make_type_value_list(folded_string)
         return type_name_list
 
-    @staticmethod
     def remove_lr_spaces(string):
         return string.rstrip().lstrip()
 
-    @staticmethod
-    def make_type_value_list(folded_string):
-        folded_string = Holder.remove_lr_spaces(folded_string)
+    def make_type_value_list(self, folded_string):
+        folded_string = self.remove_lr_spaces(folded_string)
 
         intermediate = []
         for at in folded_string.split(';'):
-            pair = Holder.remove_lr_spaces(at)
+            pair = self.remove_lr_spaces(at)
             if not ('*' in pair or '=' in pair or 'const' in pair or 'static' in pair or pair.count('[') > 1):
                 intermediate.append(pair)
 
@@ -97,7 +103,7 @@ class HeaderParserHandmade(object):
         var_type = ""
         # Bug was here
         for index, record in enumerate(declarations):
-            record = Holder.remove_lr_spaces(record)  # Да, эти лучше тоже отфильтровать
+            record = self.remove_lr_spaces(record)  # Да, эти лучше тоже отфильтровать
             if record:
                 if index % 2:
                     var_name = record
@@ -108,8 +114,7 @@ class HeaderParserHandmade(object):
                     # Bug was here
         return result
 
-    @staticmethod
-    def end_filtration(declaration_string):
+    def end_filtration(self, declaration_string):
         declaration_string = declaration_string\
             .replace('\t', " ") \
             .replace('\n\t', " ") \
@@ -118,15 +123,14 @@ class HeaderParserHandmade(object):
         declaration_string = utils_local.delete_double_spaces(declaration_string)
         return declaration_string
 
+    def extract_variable_declaration_own(self, source, class_name='unknown'):
+        """
+        Args:
+            source - string with code
+        """
+        type_and_var_list = self.extract_var_declaration(source)
+        result = []
+        for var in type_and_var_list:
+            result.append(scalars.ScalarVariableField(class_name, VarDeclaration(*var)))
 
-def extract_variable_declaration_own(source, class_name='unknown'):
-    """
-    Args:
-        source - string with code
-    """
-    type_and_var_list = Holder.extract_var_declaration(source)
-    result = []
-    for var in type_and_var_list:
-        result.append(scalars.ScalarVariableField(class_name, VarDeclaration(*var)))
-
-    return result
+        return result
