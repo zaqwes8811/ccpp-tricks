@@ -19,6 +19,9 @@ class VarDeclaration(object):
 
 
 class HeaderParserHandmade(object):
+    def __init__(self):
+        self.__MAX_DIMENSION = 2
+
     def __first_filtration(self, code_lines):
         """ Возвращает строку, в которой содержится все пары тип + имя переменной
 
@@ -77,19 +80,15 @@ class HeaderParserHandmade(object):
     def __remove_lr_spaces(self, string):
         return string.rstrip().lstrip()
 
-    def __make_type_value_list(self, folded_string):
-        folded_string = self.__remove_lr_spaces(folded_string)
-        print folded_string.split(';')
-
-
+    def __make_type_value_list(self, lines):
         intermediate = []
-        for at in folded_string.split(';'):
+        for at in lines:
             pair = self.__remove_lr_spaces(at)
             if not ('*' in pair
                     or '=' in pair
                     or 'const' in pair
                     or 'static' in pair
-                    or pair.count('[') > 1):
+                    or pair.count('[') > self.__MAX_DIMENSION):
                 intermediate.append(pair)
 
         declarations = ' '.join(intermediate).split(' ')
@@ -125,8 +124,13 @@ class HeaderParserHandmade(object):
         # Похоже вся магия здесь
         folded_string = self.__end_filtration(declaration_string)
 
+        folded_string = self.__remove_lr_spaces(folded_string)
+        lines = folded_string.split(';')
+        lines = map(self.__remove_lr_spaces, lines)
+        print lines
+
         # Похоже на итоговую запаковку
-        type_name_list = self.__make_type_value_list(folded_string)
+        type_name_list = self.__make_type_value_list(lines)
         return type_name_list
 
     def extract_variable_declaration_own(self, source, class_name='unknown'):
