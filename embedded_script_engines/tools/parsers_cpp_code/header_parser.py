@@ -8,17 +8,7 @@ from generators_cpp_code.v8_api_gen import scalars
 import utils_local
 
 
-class VarDeclaration(object):
-    class Type(object):
-        def __init__(self, type_name):
-            self.name = type_name
-
-    def __init__(self, type_name, name):
-        self.type = VarDeclaration.Type(type_name)
-        self.name = name
-
-
-class Holder(object):
+class HeaderParserHandmade(object):
     @staticmethod
     def first_filtration(code_lines):
         """ Возвращает строку, в которой содержится все пары тип + имя переменной
