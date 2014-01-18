@@ -49,10 +49,11 @@ class HeaderParserHandmade(object):
         """
         result = []
         FILTER_REGEX = "bool""|int""|vector<""|string""|char"
+        PATTERN = re.compile(FILTER_REGEX)
 
         for line in code_lines:
             # Фильтрация кода
-            # Может негенерить много ошибок
+            # TODO: Может негенерить много ошибок
             # Можно внутри класса разбить так.
             # Сперва вытянуть в строку.
             # Затем разбить ;/:/ и только потом отфильтровать.
@@ -64,10 +65,9 @@ class HeaderParserHandmade(object):
                     and "#" not in line \
                     and "public:" not in line \
                     and "private" not in line \
-                    and "protected" not in line \
-                    and "using" not in line:
-                pattern = re.compile(FILTER_REGEX)
-                search_result = pattern.search(line)
+                    and "protected" not in line:
+
+                search_result = PATTERN.search(line)
                 if search_result:
                     line_copy = line
                     line_copy = line_copy.lstrip().rstrip()
@@ -112,25 +112,23 @@ class HeaderParserHandmade(object):
         declaration_string = self.__first_filtration(code_lines)
 
         # Похоже вся магия здесь
-        folded_string = self.__end_filtration(declaration_string)
+        folded_string = self.__remove_lr_spaces(self.__end_filtration(declaration_string))
 
-        folded_string = self.__remove_lr_spaces(folded_string)
-        lines = folded_string.split(';')
-        lines = map(self.__remove_lr_spaces, lines)
-        lines = filter(lambda x: x, lines)
-        intermediate = []
-        for at in lines:
-            pair = self.__remove_lr_spaces(at)
-            if not ('*' in pair
-                    or '=' in pair
-                    or 'const' in pair
-                    or 'static' in pair
-                    or pair.count('[') > self.__MAX_DIMENSION):
-                intermediate.append(pair)
+        declarations = folded_string.split(';')
+        declarations = map(self.__remove_lr_spaces, declarations)
+        declarations = filter(lambda x: x, declarations)  # удаляем пустые строки
+        declarations = filter(self.__is_need, declarations)
 
         # Похоже на итоговую запаковку
-        type_name_list = self.__make_type_value_list(intermediate)
+        type_name_list = self.__make_type_value_list(declarations)
         return type_name_list
+
+    def __is_need(self, at):
+        return not ('*' in at
+                    or '=' in at
+                    or 'const' in at
+                    or 'static' in at
+                    or at.count('[') > self.__MAX_DIMENSION)
 
     def extract_variable_declaration_own(self, source, class_name='unknown'):
         """

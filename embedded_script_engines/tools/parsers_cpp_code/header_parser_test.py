@@ -22,6 +22,8 @@ public:\n
 };\n
 """
 
+class CppClassReformer(object):
+    pass
 
 class TestHeaderParser(unittest.TestCase):
     def test_shuffle(self):
