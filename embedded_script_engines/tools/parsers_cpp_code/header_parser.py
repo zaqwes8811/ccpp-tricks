@@ -74,13 +74,13 @@ class HeaderParserHandmade(object):
 
         return '\n'.join(result)
 
-
-
     def __remove_lr_spaces(self, string):
         return string.rstrip().lstrip()
 
     def __make_type_value_list(self, folded_string):
         folded_string = self.__remove_lr_spaces(folded_string)
+        print folded_string.split(';')
+
 
         intermediate = []
         for at in folded_string.split(';'):

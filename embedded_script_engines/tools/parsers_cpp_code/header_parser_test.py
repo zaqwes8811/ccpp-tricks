@@ -12,7 +12,8 @@ private:\n
 public:\n
     int i;\n
     int array[10];\n
-    int array[10][10];\n
+    int array[10][10];
+    Point array[9];\n
 };\n
 """
 
