@@ -5,7 +5,7 @@ namespace scenarios {
 V8SmallBaseEngine* V8SmallBaseEngine::CreateForOwn(
     Isolate* isolate, 
     Handle<String> source,
-		::tmitter_web_service::DataBase* database,
+		::tmitter_web_service::InMemoryStorageImpl* database,
     V8SmallBase* v8_database) {
   V8SmallBaseEngine* engine = new V8SmallBaseEngine(isolate, source, database, v8_database);
   engine->Initialize();
@@ -17,8 +17,8 @@ void V8SmallBaseEngine::Log(const char* event) {
   printf("Logged: %s\n", event);
 }
 
-bool V8SmallBaseEngine::InstallVars(::tmitter_web_service::DataBase* database,
-																		::tmitter_web_service::DataBase* database_output) {
+bool V8SmallBaseEngine::InstallVars(::tmitter_web_service::InMemoryStorageImpl* database,
+																		::tmitter_web_service::InMemoryStorageImpl* database_output) {
   HandleScope handle_scope(GetIsolate());
 
   // Wrap the map object in a JavaScript wrapper
@@ -38,7 +38,7 @@ bool V8SmallBaseEngine::InstallVars(::tmitter_web_service::DataBase* database,
 }
 
 
-Handle<Object> V8SmallBaseEngine::WrapVar(::tmitter_web_service::DataBase* obj) {
+Handle<Object> V8SmallBaseEngine::WrapVar(::tmitter_web_service::InMemoryStorageImpl* obj) {
   // Handle scope for temporary handles.
   HandleScope handle_scope(GetIsolate());
 
@@ -187,7 +187,7 @@ bool V8SmallBaseEngine::Process() {
 bool V8SmallBaseEngine::Initialize() {
 	//vamp
 	
-	::tmitter_web_service::DataBase* database_output = new ::tmitter_web_service::DataBase();
+	::tmitter_web_service::InMemoryStorageImpl* database_output = new ::tmitter_web_service::InMemoryStorageImpl();
 
   HandleScope handle_scope(GetIsolate());
 

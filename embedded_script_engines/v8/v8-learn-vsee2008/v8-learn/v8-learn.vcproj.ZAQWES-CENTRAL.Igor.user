@@ -10,8 +10,8 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="$(SolutionDir)"
-				CommandArguments=""
+				WorkingDirectory=""
+				CommandArguments="--gtest_filter=ArrayAuto.*"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"

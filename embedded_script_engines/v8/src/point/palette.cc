@@ -3,8 +3,6 @@
 // App
 #include "process.h"
 
-#include "point/forge_v8_points.h"
-
 v8::Persistent<v8::ObjectTemplate> V8Palette::point_array_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::int_array_blueprint_;
 Persistent<ObjectTemplate> V8Palette::own_blueprint_;
@@ -105,8 +103,7 @@ void V8Palette::GetPointValue(
 
 void V8Palette::GetIntArrayValue(
       Local<String> name,
-      const PropertyCallbackInfo<Value>& info) 
-  {
+      const PropertyCallbackInfo<Value>& info) {
   Local<Object> self = info.Holder();
   Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
   void* ptr = wrap->Value();

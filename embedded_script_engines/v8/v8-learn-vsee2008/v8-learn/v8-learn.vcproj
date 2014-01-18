@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;..\..\..\..\third_party\fused-src&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\third_party\fused-src&quot;;..\..\..\embedded_script_engines;..\..\embedded_script_engines\v8\src;..\..\src;&quot;..\..\..\..\third_party\fused-src&quot;;&quot;..\..\embedded_script_engines\tools\test-data&quot;;&quot;..\..\..\tools\test-data&quot;;..\..\..\tools\odata"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -184,14 +184,6 @@
 				Name="other_deprecated"
 				>
 				<File
-					RelativePath="..\..\src\js_request.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\js_request.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\v8_wrapper.cc"
 					>
 				</File>
@@ -211,10 +203,6 @@
 			<Filter
 				Name="around_point"
 				>
-				<File
-					RelativePath="..\..\src\point\forge_v8_points.h"
-					>
-				</File>
 				<File
 					RelativePath="..\..\src\point\palette.cc"
 					>
@@ -236,10 +224,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\point.cc"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\point_engine_test.cc"
 					>
 				</File>
@@ -249,53 +233,41 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="trash"
-				>
-				<File
-					RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\process.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\process_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\test_extended\process_test_ext.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\test_extended\process_test_ext_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_api_test.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_wrapper.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\v8_wrapper_db.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\virtual_machine.cc"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="auto"
 				>
 				<File
-					RelativePath="..\..\..\tools\forge_v8_point.cc"
+					RelativePath="..\..\..\tools\odata\arrays.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\tools\odata\arrays.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\auto\arrays_test.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\tools\test-data\real_test_file.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\tools\idata\sampler_v8.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\tools\idata\sampler_v8.h"
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="tools"
+			>
+			<File
+				RelativePath="..\..\..\..\third_party\fused-src\gmock-gtest-all.cc"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\src\launcher_process.cc"

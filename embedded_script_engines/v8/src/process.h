@@ -150,7 +150,7 @@ void PrintMap(map<string, string>* m);
 bool ProcessEntries(HttpRequestProcessor* processor, int count,
                     StringHttpRequest* reqs);
 void ParseOptions(int argc,
-                  char* argv[],
+                  const char* argv[],
                   map<string, string>& options,
                   string* file);
 
@@ -161,10 +161,10 @@ void LogCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
 string ObjectToString(Local<Value> value);
 int ObjectToInt(Local<Value> value);
 
-bool ExecuteScript(Handle<String> script, Isolate* isolate, v8::Persistent<v8::Context>* context);
+bool ExecuteScript(Handle<String> script, Isolate* isolate);
 
 v8::Handle<v8::ObjectTemplate> ArrayMakeBlueprint(
     Isolate* isolate,
     IndexedPropertyGetterCallback getter,
-    IndexedPropertySetterCallback setter);
+    IndexedPropertySetterCallback setter=0);
 

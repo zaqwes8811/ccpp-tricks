@@ -50,21 +50,12 @@
     <ClCompile Include="..\..\src\point\engine_cut_persistents.cc">
       <Filter>src\point</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\point\palette.cc">
-      <Filter>src\point</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\point\palette_engine_test.cc">
-      <Filter>src\point</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\test_extended\process_test_ext.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\point\point_engines.h">
-      <Filter>src\point</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\point\palette_engine.h">
       <Filter>src\point</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,3 +1,4 @@
+#include "tests_config.h"
 #include "palette_engine.h"
 
 // Other
@@ -6,7 +7,7 @@
 
 TEST(V8, Palette) {
   v8::V8::InitializeICU();
-  string file = "..\\scripts\\palette.js";
+  string file = kPathToTestScripts+string("palette.js");
   EXPECT_NE(true, file.empty());
 
 
@@ -16,7 +17,7 @@ TEST(V8, Palette) {
 
   // Script
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   ///@Objects
   Palette palette;
