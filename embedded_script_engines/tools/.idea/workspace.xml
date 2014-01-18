@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="_v8_glue_generators.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_v8_glue_generators.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_v8_glue_generators.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="43" selection-start="507" selection-end="507" vertical-scroll-proportion="0.44864866" vertical-offset="125" max-vertical-offset="3893">
+            <state line="79" column="21" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.0" vertical-offset="1094" max-vertical-offset="3893">
               <folding />
             </state>
           </provider>
@@ -35,16 +35,16 @@
       <file leaf-file-name="_h_parser.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_h_parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="38" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2176">
+            <state line="10" column="38" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="2176">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="first_level_wrapper.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="first_level_wrapper.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="23" selection-start="1126" selection-end="1126" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+            <state line="33" column="14" selection-start="779" selection-end="779" vertical-scroll-proportion="0.029726516" vertical-offset="536" max-vertical-offset="1377">
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
       <file leaf-file-name="_utils.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="24" selection-start="279" selection-end="299" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+            <state line="13" column="24" selection-start="279" selection-end="299" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="357">
               <folding />
             </state>
           </provider>
@@ -130,6 +130,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -158,7 +159,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -166,7 +166,7 @@
     <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/first_level_wrapper.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -359,9 +359,8 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -370,6 +369,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -387,18 +387,56 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/haneda/app_haneda.py">
+    <entry file="file://$PROJECT_DIR$/_v8_glue_generators.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="52" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0" vertical-offset="26" max-vertical-offset="867">
+        <state line="22" column="43" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="125" max-vertical-offset="3893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_h_parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="38" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="2176">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="23" selection-start="1126" selection-end="1126" vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1377">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zaqwes/_units_zaqwes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="86" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-data/real_test_file.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="22" selection-start="1273" selection-end="1273" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="24" selection-start="279" selection-end="299" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="357">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/haneda/app_haneda.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="867">
-          <folding />
-        </state>
+        <state line="9" column="52" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0" vertical-offset="26" max-vertical-offset="867" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/haneda/app_haneda.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="867" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/workspace.xml">
@@ -424,14 +462,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/haneda/app_haneda.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="14" selection-start="392" selection-end="392" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="884">
-          <folding />
-        </state>
+        <state line="13" column="14" selection-start="392" selection-end="392" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="884" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/zaqwes/_units_zaqwes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="86" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_v8_glue_generators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="21" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.0" vertical-offset="1094" max-vertical-offset="3893">
           <folding />
         </state>
       </provider>
@@ -445,14 +488,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/first_level_wrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="23" selection-start="1126" selection-end="1126" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_v8_glue_generators.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="43" selection-start="507" selection-end="507" vertical-scroll-proportion="0.44864866" vertical-offset="125" max-vertical-offset="3893">
+        <state line="33" column="14" selection-start="779" selection-end="779" vertical-scroll-proportion="0.029726516" vertical-offset="536" max-vertical-offset="1377">
           <folding />
         </state>
       </provider>
