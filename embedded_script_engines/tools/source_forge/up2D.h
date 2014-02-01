@@ -20,13 +20,13 @@ public:
 
   // state
   // Not Work
-  int currents[2][4];
-  int voltages[9];
+  //int currents[2][4];
+  //int voltages[9];
 
   // Work
   // GMock cppclean воспринимает только скаляры
   int command;
-  std::vector<String> journal;
+  //std::vector<String> journal;
  private:
   int hello;
 };

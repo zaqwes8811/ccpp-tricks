@@ -6,7 +6,7 @@ from generators_cpp_code.v8_api_gen import scalars
 from parsers_cpp_code import header_handmade_parser
 
 
-class BuilderArrayWrapper(object):
+class BuilderV8Accessors(object):
     def __init__(self, type_and_var_list, source):
         self.type_and_var_list_ = type_and_var_list
         self.class_name_ = self.type_and_var_list_[0][2]
@@ -42,8 +42,8 @@ class BuilderArrayWrapper(object):
         # Connect Scalars
         dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
-
-        code = scalars.do_scalar_connecters(dec_wrappers)
+        builder = scalars.MakerV8FieldAccessor()
+        code = builder.do_scalar_connecters(dec_wrappers)
         for line in code:
             result += line+');\n'
 
@@ -123,31 +123,34 @@ class BuilderArrayWrapper(object):
 
     # ::Scalars
     def scalar_getters_decl(self):
+        # Нужно попробовать испольтовать новый парсер
         dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
 
-        code = scalars.do_scalar_getters_decl(dec_wrappers)
+
+        builder = scalars.MakerV8FieldAccessor()
+        code = builder.do_scalar_getters_decl(dec_wrappers)
         return code
 
     def scalar_setters_decl(self):
         dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
-
-        code = scalars.do_scalar_setter_decl(dec_wrappers)
+        builder = scalars.MakerV8FieldAccessor()
+        code = builder.do_scalar_setter_decl(dec_wrappers)
         return code
 
     def scalar_getters_impl(self):
         dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
-
-        code = scalars.do_scalar_getter_impl(dec_wrappers, self.class_name_)
+        builder = scalars.MakerV8FieldAccessor()
+        code = builder.do_scalar_getter_impl(dec_wrappers, self.class_name_)
         return code
 
     def scalar_setters_impl(self):
         dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
-
-        code = scalars.do_scalar_setter_impl(dec_wrappers, self.class_name_)
+        builder = scalars.MakerV8FieldAccessor()
+        code = builder.do_scalar_setter_impl(dec_wrappers, self.class_name_)
         return code
 
 

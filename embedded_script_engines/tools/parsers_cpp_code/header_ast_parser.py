@@ -45,7 +45,7 @@ class ASTHeaderParser(object):
         Returns:
             {class_name [declarations]]
         """
-        result = {}
+        result = []
         builder = ast.BuilderFromSource(self.source_, self.header_file_name_)
         class_name = ''
         occur = False
@@ -54,15 +54,14 @@ class ASTHeaderParser(object):
                 if not occur:
                     class_name = node.FullName()
                     occur = True
-                    result[class_name] = []
                 else:
                     raise Exception('Error: No one class in header file.')
                 for record in node.body:
                     if isinstance(record, ast.VariableDeclaration):
                         if '???' not in record.FullName():
-                            result[class_name].append(record)
+                            result.append((class_name, record))
                     if isinstance(record, ast.Function):
-                        result[class_name].append(record)
+                        result.append((class_name, record))
         if not occur:
             raise Exception('Error: No one class found.')
 
@@ -84,5 +83,5 @@ class ASTHeaderParser(object):
                 record = ast.VariableDeclaration(start=0, end=0, name=name,
                                                  var_type=ArrayXD(type_var, dim_var, name), initial_value=0,
                                                  namespace='unknown')
-                result[class_name].append(record)
+                result.append((class_name, record))
         return result

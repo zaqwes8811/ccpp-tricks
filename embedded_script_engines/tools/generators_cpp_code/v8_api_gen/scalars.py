@@ -1,19 +1,24 @@
 # coding: utf-8
-__author__ = 'Igor'
-
-# std
-import sys
-
-# App
-from generators_cpp_code.v8_api_gen import name_mapper
-import inner_reuse_local as util
 
 
-# zaqwes
-class ScalarVariableField(object):
-    """
-    About:
-    """
+class MakerV8FieldAccessor(object):
+    def __init__(self, class_name=None, variable_node=None):
+        #if not isinstance(variable_node, ast.VariableDeclaration):
+        #    raise Exception("Only scalar field support support!")
+
+        self.class_name_ = class_name
+        self.variable_node_ = variable_node
+
+        # Регистрируем типы
+        self.V8_GETTER_RECODER_ = {'int': 'Integer',
+                                   'uint': 'Integer',
+                                   'uchar': 'Integer',
+                                   'bool': 'Boolean'}
+        self.V8_SETTER_RECODER_ = {'int': 'Int32',
+                                   'uint': 'Int32',
+                                   'uchar': 'Int32',
+                                   'bool': 'Boolean'}
+
     def is_array(self):
         """
         About:
@@ -35,27 +40,11 @@ class ScalarVariableField(object):
     def __str__(self):
         return str(self.class_name_)
 
-    def __init__(self, class_name, variable_node):
-        #if not isinstance(variable_node, ast.VariableDeclaration):
-        #    raise Exception("Only scalar field support support!")
-
-        self.class_name_ = class_name
-        self.variable_node_ = variable_node
-
-        # Регистрируем типы
-        self.V8_GETTER_RECODER_ = {'int': 'Integer',
-                                   'uint': 'Integer',
-                                   'uchar': 'Integer',
-                                   'bool': 'Boolean'}
-        self.V8_SETTER_RECODER_ = {'int': 'Int32',
-                                   'uint': 'Int32',
-                                   'uchar': 'Int32',
-                                   'bool': 'Boolean'}
 
     def get_wrapper_class_name(self):
         return 'ForgeV8' + self.class_name_ + 's'
 
-    def make_scalar_getter(self):
+    def make_getter(self):
         """
         About:
         class Point {
@@ -90,11 +79,12 @@ class ScalarVariableField(object):
         return template, make_getter_header(field_name) + ';\r\n'
 
     # BUGS!! Нужно тоже пропустить через регистратор!!
+    @property
     def setter_name(self):
-        return 'V8ScalarSetter_'+self.variable_node_.name
+        return 'V8ScalarSetter_' + self.variable_node_.name
 
     def getter_name(self):
-        return 'V8ScalarGetter_'+self.variable_node_.name
+        return 'V8ScalarGetter_' + self.variable_node_.name
 
     def make_scalar_setter(self):
         def make_setter_header(field_name_local):
@@ -109,7 +99,7 @@ class ScalarVariableField(object):
         if field_type not in self.V8_GETTER_RECODER_:
             return "Map not found", None
 
-        template = make_setter_header(field_name)+' \r\n' + \
+        template = make_setter_header(field_name) + ' \r\n' + \
                    '  {\r\n' + \
                    '  Local<Object> self = info.Holder();\r\n' + \
                    '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\r\n' + \
@@ -120,19 +110,18 @@ class ScalarVariableField(object):
 
         return template, make_setter_header(field_name)
 
-
-class ScalarBuilder(object):
-    def do_scalar_getters_decl(dec_wrappers):
+    def do_scalar_getters_decl(self, dec_wrappers):
         def wrap_scalar_getters_header(impl_local):
             code_result = []
             for impl in impl_local:
                 code_result.append('  static void ' + impl[0])
             return code_result
+
         impls = []
         declarations = []
         for elem in dec_wrappers:
             if not elem.is_array():
-                i, d = elem.make_scalar_getter()
+                i, d = elem.make_getter()
                 if d:
                     impls.append((i, elem.get_wrapper_class_name()))
                     declarations.append((d, elem.get_wrapper_class_name()))
@@ -143,11 +132,11 @@ class ScalarBuilder(object):
         return code
 
 
-    def do_scalar_setter_decl(dec_wrappers):
+    def do_scalar_setter_decl(self, dec_wrappers):
         def wrap_scalar_setters_header(impl_local):
             code_result = []
             for impl in impl_local:
-                code_result.append('  static void ' + impl[0]+';\n')
+                code_result.append('  static void ' + impl[0] + ';\n')
             return code_result
 
         # zaqwes
@@ -165,45 +154,41 @@ class ScalarBuilder(object):
         code = wrap_scalar_setters_header(declarations)
         return code
 
-
-    def do_scalar_setter_impl(dec_wrappers, class_name):
+    def do_scalar_setter_impl(self, dec_wrappers, class_name):
         # zaqwes
         impls = []
         for elem in dec_wrappers:
             if not elem.is_array():
                 impl, d = elem.make_scalar_setter()
                 if d:
-                    impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
+                    impls.append('void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n')
                 else:
                     print impl
 
         return impls
 
-
-    def make_v8_class_name(name):
+    def make_v8_class_name(self, name):
         return name + 'V8'
 
-
-    def do_scalar_getter_impl(dec_wrappers, class_name):
+    def do_scalar_getter_impl(self, dec_wrappers, class_name):
         # zaqwes
         impls = []
         for elem in dec_wrappers:
             if not elem.is_array():
-                impl, d = elem.make_scalar_getter()
+                impl, d = elem.make_getter()
                 if d:
-                    impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
+                    impls.append('void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n')
                 else:
                     print impl
 
         return impls
 
-
-    def do_scalar_connecters(dec_wrappers):
+    def do_scalar_connecters(self, dec_wrappers):
         # zaqwes
         impls = []
         for elem in dec_wrappers:
             if not elem.is_array():
-                g, s, n = elem.getter_name(), elem.setter_name(), elem.variable_node_.name
-                impls.append('  result->SetAccessor(\n      String::New("'+n+'"),\n      '+g+', \n      '+s)
+                g, s, n = elem.getter_name(), elem.setter_name, elem.variable_node_.name
+                impls.append('  result->SetAccessor(\n      String::New("' + n + '"),\n      ' + g + ', \n      ' + s)
 
         return impls

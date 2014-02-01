@@ -15,34 +15,8 @@ class RefineInMemoryStorageV8 {
   static v8::Handle<v8::Object> New(RefineInMemoryStorage* database, v8::Isolate *isolate);
 
   //$ZeroLevelGetters
-  static void ZLGetter_currents(
-      v8::Local<v8::String> name,
-      const v8::PropertyCallbackInfo<v8::Value>& info);
-
-  static void ZLGetter_voltages(
-      v8::Local<v8::String> name,
-      const v8::PropertyCallbackInfo<v8::Value>& info);
-
   //$LastLevelSetters
-  static void LLSetterByIdx_currents(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info);
-
-  static void LLSetterByIdx_voltages(
-    uint32_t index,
-    v8::Local<v8::Value> value,
-    const v8::PropertyCallbackInfo<v8::Value>& info);
-
   //$LastLevelAccessors
-  static void LLGetterByIdx_currents(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info);
-
-  static void LLGetterByIdx_voltages(
-      uint32_t index, 
-      const v8::PropertyCallbackInfo<v8::Value>& info);
-
   //$ScalarGetters
   static void V8ScalarGetter_command(
     v8::Local<v8::String> name,

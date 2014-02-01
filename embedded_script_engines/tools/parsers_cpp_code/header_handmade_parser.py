@@ -141,6 +141,6 @@ class ExtractorVarsDeclarations(object):
         type_and_var_list = self.extract_var_declaration(source)
         result = []
         for var in type_and_var_list:
-            result.append(scalars.ScalarVariableField(class_name, VarDeclaration(*var)))
+            result.append(scalars.MakerV8FieldAccessor(class_name, VarDeclaration(*var)))
 
         return result
