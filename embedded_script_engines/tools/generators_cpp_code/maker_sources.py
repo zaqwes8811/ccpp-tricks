@@ -64,12 +64,8 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
     for impl in builder.one_level_getters_decl():
         code.append(impl)
 
-    code.append('  //$ScalarGetters')
+    code.append('  // Scalar accessors')
     for impl in builder.scalar_getters_decl():
-        code.append(impl)
-
-    code.append('  //$ScalarSetters')
-    for impl in builder.scalar_setters_decl():
         code.append(impl)
 
     # Static

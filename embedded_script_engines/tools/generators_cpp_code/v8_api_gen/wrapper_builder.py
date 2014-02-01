@@ -124,19 +124,19 @@ class BuilderV8AccessorsPackage(object):
     # ::Scalars
     def scalar_getters_decl(self):
         # Нужно попробовать испольтовать новый парсер
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
-            self.source_, self.class_name_)
+        extractor = header_handmade_parser.ExtractorVarsDeclarations()
+        items = extractor.extract_field_declarations(self.source_, self.class_name_)
+        builder = scalars.MakerV8ScalarFieldAccessor()
 
         builder = scalars.MakerV8ScalarFieldAccessor()
-        code = builder.do_scalar_getters_decl(dec_wrappers)
-        return code
+        for elem in items:
+            code = builder.make_getters_decl(elem)
+            if code:
+                yield code
 
-    def scalar_setters_decl(self):
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
-            self.source_, self.class_name_)
-        builder = scalars.MakerV8ScalarFieldAccessor()
-        code = builder.do_scalar_setter_decl(dec_wrappers)
-        return code
+            code = builder.make_setter_decl(elem)
+            if code:
+                yield code
 
     def get_scalar_impls(self):
         extractor = header_handmade_parser.ExtractorVarsDeclarations()

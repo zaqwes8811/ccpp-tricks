@@ -17,19 +17,18 @@ class RefineInMemoryStorageV8 {
   //$ZeroLevelGetters
   //$LastLevelSetters
   //$LastLevelAccessors
-  //$ScalarGetters
+  // Scalar accessors
   static void V8ScalarGetter_command(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info);
 
-  static void V8ScalarGetter_hello(
-    v8::Local<v8::String> name,
-    const v8::PropertyCallbackInfo<v8::Value>& info);
-
-  //$ScalarSetters
   static void V8ScalarSetter_command(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,
         const v8::PropertyCallbackInfo<void>& info);
+
+  static void V8ScalarGetter_hello(
+    v8::Local<v8::String> name,
+    const v8::PropertyCallbackInfo<v8::Value>& info);
 
   static void V8ScalarSetter_hello(
         v8::Local<v8::String> property, v8::Local<v8::Value> value,

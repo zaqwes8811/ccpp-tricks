@@ -2,10 +2,12 @@
 
 
 class MakerV8ScalarFieldAccessor(object):
-    def __init__(self, class_name=None, variable_node=None):
-        #if not isinstance(variable_node, ast.VariableDeclaration):
-        #    raise Exception("Only scalar field support support!")
+    """
+    About:
+        Работает с одной переменной.
+    """
 
+    def __init__(self, class_name=None, variable_node=None):
         self.class_name_ = class_name
         self.variable_node_ = variable_node
 
@@ -110,17 +112,12 @@ class MakerV8ScalarFieldAccessor(object):
 
         return template, make_setter_header(field_name)
 
-    def wrap_scalar_getters_header(self, declarations_local):
+    def wrap_scalar_getters_header(self, declarations):
         code_result = []
-        for impl in declarations_local:
-            code_result.append('  static void ' + impl[0])
+        for decl in declarations:
+            code_result.append('  static void ' + decl[0])
         return code_result
 
-    def wrap_scalar_setters_header(self, impl_local):
-        code_result = []
-        for impl in impl_local:
-            code_result.append('  static void ' + impl[0] + ';\n')
-        return code_result
 
     def make_v8_class_name(self, name):
         return name + 'V8'
@@ -135,30 +132,23 @@ class MakerV8ScalarFieldAccessor(object):
 
         return impls
 
-    def do_scalar_getters_decl(self, dec_wrappers):
-        declarations = []
-        for elem in dec_wrappers:
-            if not elem.is_array():
-                i, d = elem.make_getter()
-                if d:
-                     declarations.append((d, elem.get_wrapper_class_name()))
-                else:
-                    print i
-        code = self.wrap_scalar_getters_header(declarations)
-        return code
+    def make_getters_decl(self, elem):
+        if not elem.is_array():
+            i, d = elem.make_getter()
+            if d:
+                return '  static void ' + d# TODO: wtf + ';\n'
+            else:
+                print d
+                return None
 
-    def do_scalar_setter_decl(self, dec_wrappers):
-        declarations = []
-        for elem in dec_wrappers:
-            if not elem.is_array():
-                i, d = elem.make_scalar_setter()
-                if d:
-                    declarations.append((d, elem.get_wrapper_class_name()))
-                else:
-                    print d
-
-        code = self.wrap_scalar_setters_header(declarations)
-        return code
+    def make_setter_decl(self, elem):
+        if not elem.is_array():
+            i, d = elem.make_scalar_setter()
+            if d:
+                return '  static void '+ d + ';\n'
+            else:
+                return None
+                print d
 
     def make_setter_impl(self, elem, class_name):
         if not elem.is_array():
