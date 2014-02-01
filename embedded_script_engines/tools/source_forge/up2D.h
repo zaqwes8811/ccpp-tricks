@@ -21,7 +21,7 @@ public:
   // state
   // Not Work
   //int currents[2][4];
-  //int voltages[9];
+  int voltages[9];
 
   // Work
   // GMock cppclean воспринимает только скаляры

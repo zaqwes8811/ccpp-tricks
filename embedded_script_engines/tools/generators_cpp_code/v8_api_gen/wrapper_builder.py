@@ -82,30 +82,30 @@ class BuilderV8AccessorsPackage(object):
     def get_vector_decls(self):
         for elem in self.type_and_var_list_:
             builder = vectors.MakerV8VectorFieldAccessor(*elem)
-            name = builder.make_zero_level_getter_declaration()
+            name = builder.make_zero_level_getter_decl()
             if name:
                 yield '  static void ' + name + ';\n'
 
-            setter_declaration = builder.make_last_level_setter_declaration()
+            setter_declaration = builder.make_last_level_setter_decl()
             if setter_declaration:
                 yield '  static void ' + setter_declaration + ';\n'
 
-            getter_declaration = builder.make_last_level_getter_declaration()
+            getter_declaration = builder.make_last_level_getter_decl()
             if getter_declaration:
                 yield '  static void ' + getter_declaration + ';\n'
 
     def get_vector_impls(self):
         for elem in self.type_and_var_list_:
             builder = vectors.MakerV8VectorFieldAccessor(*elem)
-            code = builder.do_zero_level_getter()
+            code = builder.make_zero_level_getter_impl()
             if code:
                 yield code
 
-            getter = builder.make_last_level_getter()
+            getter = builder.make_last_level_getter_impl()
             if getter:
                 yield getter
 
-            setter = builder.make_last_level_setter()
+            setter = builder.make_last_level_setter_impl()
             if setter:
                 yield setter
 
@@ -140,7 +140,7 @@ class BuilderV8AccessorsPackage(object):
                 yield code
 
     # ::Matrix
-                
+
     # ::Functions
 
 

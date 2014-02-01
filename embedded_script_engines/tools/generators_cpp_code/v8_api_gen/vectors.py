@@ -49,23 +49,23 @@ class MakerV8VectorFieldAccessor(object):
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 
     @is_array
-    def make_last_level_getter_declaration(self):
-        return LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
+    def make_last_level_getter_decl(self):
+        return LAST_LEVEL_GETTER_ + self.get_vector_name(self.var_name_) + \
                '(\n' \
                '      uint32_t index, \n' \
                '      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
-    def make_zero_level_getter_declaration(self):
+    def make_zero_level_getter_decl(self):
         return ZERO_LEVEL_GETTER_ \
-               + self.get_array_name(self.var_name_) + '(\n' + \
+               + self.get_vector_name(self.var_name_) + '(\n' + \
                '      v8::Local<v8::String> name,\n' + \
                '      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
-    def make_last_level_getter(self):
+    def make_last_level_getter_impl(self):
         return 'void ' + self.get_v8_class_name() + '::' \
-               + self.make_last_level_getter_declaration() \
+               + self.make_last_level_getter_decl() \
                + '\n  {\n' + \
                '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \
                '    v8::Local<v8::Object> self = info.Holder();\n' + \
@@ -79,17 +79,17 @@ class MakerV8VectorFieldAccessor(object):
                '}\n'
 
     @is_array
-    def make_last_level_setter_declaration(self):
+    def make_last_level_setter_decl(self):
         return LAST_LEVEL_SETTER_ \
-               + self.get_array_name(self.var_name_) + '(\n' + \
+               + self.get_vector_name(self.var_name_) + '(\n' + \
                '    uint32_t index,\n' + \
                '    v8::Local<v8::Value> value,\n' + \
                '    const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
-    def make_last_level_setter(self):
+    def make_last_level_setter_impl(self):
         # .lower()
-        return 'void ' + self.get_v8_class_name() + '::' + self.make_last_level_setter_declaration() + ' {\n' + \
+        return 'void ' + self.get_v8_class_name() + '::' + self.make_last_level_setter_decl() + ' {\n' + \
                '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \
                '    Local<Object> self = info.Holder();\n' + \
                '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
@@ -103,8 +103,8 @@ class MakerV8VectorFieldAccessor(object):
                '}\n'
 
     @is_array
-    def do_zero_level_getter(self):
-        return 'void ' + self.get_v8_class_name() + '::' + self.make_zero_level_getter_declaration() + ' \n  {\n' + \
+    def make_zero_level_getter_impl(self):
+        return 'void ' + self.get_v8_class_name() + '::' + self.make_zero_level_getter_decl() + ' \n  {\n' + \
                '  Local<Object> self = info.Holder();\n' + \
                '  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
                '  void* ptr = wrap->Value();\n' + \
@@ -113,13 +113,13 @@ class MakerV8VectorFieldAccessor(object):
                '      Isolate::GetCurrent(),\n' + \
                '      ArrayMakeBlueprint(\n' + \
                '          Isolate::GetCurrent(), \n' + \
-               '          ' + LAST_LEVEL_GETTER_ + self.get_array_name(self.var_name_) + \
+               '          ' + LAST_LEVEL_GETTER_ + self.get_vector_name(self.var_name_) + \
                ',\n' + \
-               '          ' + LAST_LEVEL_SETTER_ + self.get_array_name(self.var_name_) + \
+               '          ' + LAST_LEVEL_SETTER_ + self.get_vector_name(self.var_name_) + \
                "));\n" + \
                '  Handle<Object> instance = templ->NewInstance();\n' + \
                '  Handle<External> array_handle = External::New(danger_real_ptr->' \
-               + self.get_array_name(self.var_name_) + ');\n' + \
+               + self.get_vector_name(self.var_name_) + ');\n' + \
                '  instance->SetInternalField(0, array_handle);\n' + \
                '  info.GetReturnValue().Set<v8::Object>(instance);\n' + \
                '}\n'
@@ -128,11 +128,11 @@ class MakerV8VectorFieldAccessor(object):
     def connect_getters_and_setters(self):
         # Затираем, если что-то было по скалярам
         return '  result->SetAccessor(\n      String::New(\"' + \
-               self.get_array_name(self.var_name_) + "\"), \n      " + ZERO_LEVEL_GETTER_ + \
-               self.get_array_name(self.var_name_) + ');'
+               self.get_vector_name(self.var_name_) + "\"), \n      " + ZERO_LEVEL_GETTER_ + \
+               self.get_vector_name(self.var_name_) + ');'
 
     @staticmethod
-    def get_array_name(var_name):
+    def get_vector_name(var_name):
         result = var_name
         regular = re.compile('\[.*')
         search_result = regular.search(result)
