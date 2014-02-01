@@ -1,4 +1,4 @@
-
+# coding: utf-8
 
 # Third_party
 from generator.cpp import ast
@@ -20,6 +20,7 @@ def extract_variable_declaration(source, header_file_name):
     try:
         for node in builder.Generate():
             if isinstance(node, ast.Class):
+                print node
                 for record in node.body:
                     if isinstance(record, ast.VariableDeclaration):
                         # модификаторы и... *, & отделены от имени типа!
