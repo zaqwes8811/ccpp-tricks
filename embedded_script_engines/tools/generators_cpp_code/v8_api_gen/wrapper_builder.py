@@ -138,20 +138,18 @@ class BuilderV8AccessorsPackage(object):
         code = builder.do_scalar_setter_decl(dec_wrappers)
         return code
 
-    def scalar_getters_impl(self):
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
-            self.source_, self.class_name_)
-        builder = scalars.MakerV8ScalarFieldAccessor()
-        code = builder.do_scalar_getter_impl(dec_wrappers, self.class_name_)
-        return code
-
-    def scalar_setters_impl(self):
+    def get_scalar_impls(self):
         extractor = header_handmade_parser.ExtractorVarsDeclarations()
         items = extractor.extract_field_declarations(self.source_, self.class_name_)
 
+        builder = scalars.MakerV8ScalarFieldAccessor()
+
         for elem in items:
-            builder = scalars.MakerV8ScalarFieldAccessor()
-            code = builder.do_scalar_setter_impl(elem, self.class_name_)
+            code = builder.make_getter_impl(elem, self.class_name_)
+            if code:
+                yield code
+
+            code = builder.make_setter_impl(elem, self.class_name_)
             if code:
                 yield code
 

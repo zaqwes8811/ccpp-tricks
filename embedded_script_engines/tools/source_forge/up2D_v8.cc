@@ -55,7 +55,7 @@ Handle<Object> RefineInMemoryStorageV8::New(RefineInMemoryStorage* database, v8:
 //$LastLevelGetters
 //$LastLevelSetters
 //$ZeroLevelGetters
-  //$ScalarGetters
+  // Scalar accessors
 void RefineInMemoryStorageV8::V8ScalarGetter_command(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
@@ -67,6 +67,16 @@ void RefineInMemoryStorageV8::V8ScalarGetter_command(
   info.GetReturnValue().Set(Integer::New(value));
 }
 
+void RefineInMemoryStorageV8::V8ScalarSetter_command(
+        v8::Local<v8::String> property, v8::Local<v8::Value> value,
+        const v8::PropertyCallbackInfo<void>& info) 
+  {
+  Local<Object> self = info.Holder();
+  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+  void* ptr = wrap->Value();
+  static_cast<RefineInMemoryStorage*>(ptr)->command = value->Int32Value();
+}
+
 void RefineInMemoryStorageV8::V8ScalarGetter_hello(
     v8::Local<v8::String> name,
     const v8::PropertyCallbackInfo<v8::Value>& info) 
@@ -76,17 +86,6 @@ void RefineInMemoryStorageV8::V8ScalarGetter_hello(
   void* ptr = wrap->Value();
   int value = static_cast<RefineInMemoryStorage*>(ptr)->hello;
   info.GetReturnValue().Set(Integer::New(value));
-}
-
-  //$ScalarSetters
-void RefineInMemoryStorageV8::V8ScalarSetter_command(
-        v8::Local<v8::String> property, v8::Local<v8::Value> value,
-        const v8::PropertyCallbackInfo<void>& info) 
-  {
-  Local<Object> self = info.Holder();
-  Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-  void* ptr = wrap->Value();
-  static_cast<RefineInMemoryStorage*>(ptr)->command = value->Int32Value();
 }
 
 void RefineInMemoryStorageV8::V8ScalarSetter_hello(

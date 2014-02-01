@@ -110,67 +110,20 @@ class MakerV8ScalarFieldAccessor(object):
 
         return template, make_setter_header(field_name)
 
-    def do_scalar_getters_decl(self, dec_wrappers):
-        def wrap_scalar_getters_header(impl_local):
-            code_result = []
-            for impl in impl_local:
-                code_result.append('  static void ' + impl[0])
-            return code_result
+    def wrap_scalar_getters_header(self, declarations_local):
+        code_result = []
+        for impl in declarations_local:
+            code_result.append('  static void ' + impl[0])
+        return code_result
 
-        impls = []
-        declarations = []
-        for elem in dec_wrappers:
-            if not elem.is_array():
-                i, d = elem.make_getter()
-                if d:
-                    impls.append((i, elem.get_wrapper_class_name()))
-                    declarations.append((d, elem.get_wrapper_class_name()))
-                else:
-                    print i
-
-        code = wrap_scalar_getters_header(declarations)
-        return code
-
-
-    def do_scalar_setter_decl(self, dec_wrappers):
-        def wrap_scalar_setters_header(impl_local):
-            code_result = []
-            for impl in impl_local:
-                code_result.append('  static void ' + impl[0] + ';\n')
-            return code_result
-
-        # zaqwes
-        impls = []
-        declarations = []
-        for elem in dec_wrappers:
-            if not elem.is_array():
-                i, d = elem.make_scalar_setter()
-                if d:
-                    impls.append((i, elem.get_wrapper_class_name()))
-                    declarations.append((d, elem.get_wrapper_class_name()))
-                else:
-                    print i
-
-        code = wrap_scalar_setters_header(declarations)
-        return code
-
-
+    def wrap_scalar_setters_header(self, impl_local):
+        code_result = []
+        for impl in impl_local:
+            code_result.append('  static void ' + impl[0] + ';\n')
+        return code_result
 
     def make_v8_class_name(self, name):
         return name + 'V8'
-
-    def do_scalar_getter_impl(self, dec_wrappers, class_name):
-        # zaqwes
-        impls = []
-        for elem in dec_wrappers:
-            if not elem.is_array():
-                impl, d = elem.make_getter()
-                if d:
-                    impls.append('void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n')
-                else:
-                    print impl
-
-        return impls
 
     def do_scalar_connecters(self, dec_wrappers):
         # zaqwes
@@ -182,9 +135,43 @@ class MakerV8ScalarFieldAccessor(object):
 
         return impls
 
-    def do_scalar_setter_impl(self, elem, class_name):
+    def do_scalar_getters_decl(self, dec_wrappers):
+        declarations = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                i, d = elem.make_getter()
+                if d:
+                     declarations.append((d, elem.get_wrapper_class_name()))
+                else:
+                    print i
+        code = self.wrap_scalar_getters_header(declarations)
+        return code
+
+    def do_scalar_setter_decl(self, dec_wrappers):
+        declarations = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                i, d = elem.make_scalar_setter()
+                if d:
+                    declarations.append((d, elem.get_wrapper_class_name()))
+                else:
+                    print d
+
+        code = self.wrap_scalar_setters_header(declarations)
+        return code
+
+    def make_setter_impl(self, elem, class_name):
         if not elem.is_array():
             impl, d = elem.make_scalar_setter()
+            if d:
+                return 'void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n'
+            else:
+                print impl
+                return None
+
+    def make_getter_impl(self, elem, class_name):
+        if not elem.is_array():
+            impl, d = elem.make_getter()
             if d:
                 return 'void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n'
             else:
