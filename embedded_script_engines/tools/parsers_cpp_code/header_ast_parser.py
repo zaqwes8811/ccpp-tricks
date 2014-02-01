@@ -4,8 +4,9 @@
 from generator.cpp import ast
 
 
-class ArrayXD(ast.VariableDeclaration):
+class ArrayXD(object):
     pass
+
 
 def extract_variable_declaration(source, header_file_name):
     """
@@ -27,11 +28,11 @@ def extract_variable_declaration(source, header_file_name):
                     if isinstance(record, ast.VariableDeclaration):
                         if '???' not in record.FullName():
                             #print "Not Array"
-                            pass
+                            print record
                     if isinstance(record, ast.Function):
                         pass
                         #print record.FullName(), record.parameters
-        #return result
+                        #return result
     except KeyboardInterrupt:
         return None
     except Exception as e:
@@ -42,3 +43,5 @@ def extract_variable_declaration(source, header_file_name):
     for line in source_lines:
         if '[' in line and '(' not in line:
             print line
+            print ast.VariableDeclaration(start=0, end=0, name='name', var_type=ArrayXD(), initial_value=0,
+                                          namespace='unknown')
