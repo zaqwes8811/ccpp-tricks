@@ -52,6 +52,7 @@ class ExtractorVarsDeclarations(object):
         result = []
         FILTER_REGEX = "bool""|int""|vector<""|string""|char"
         PATTERN = re.compile(FILTER_REGEX)
+        #search_result = PATTERN.search(line)
 
         for line in code_lines:
             # Фильтрация кода

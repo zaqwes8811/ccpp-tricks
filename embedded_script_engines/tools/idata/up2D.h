@@ -1,16 +1,18 @@
 
+// C++
+#include <string>
 
 /*
 
 */
-
+namespace xd {
 class New2D : public Hello {
 public:
   void SendUpPower() {
 
   }
 
-  int SendChannel(const int* channel) {
+  int SendChannel(const int channel) {
 
   }
 
@@ -22,5 +24,8 @@ public:
   // Work
   // GMock cppclean воспринимает только скаляры
   int command;
-  vector<String> journal;
+  std::vector<String> journal;
+ private:
+  int hello;
 };
+}
