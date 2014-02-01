@@ -6,7 +6,7 @@ from generator.cpp import ast
 from parsers_cpp_code import header_ast_parser
 
 # Main()
-filename = 'idata/up2D.h'
+filename = 'source_forge/up2D.h'
 source = utils.ReadFile(filename, 'r')
 
 # Можно выделить все кроме 2D-массивов

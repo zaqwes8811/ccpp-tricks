@@ -10,7 +10,7 @@ import inner_reuse_local
 
 
 def main():
-    header_file_name = 'idata/sampler.h'
+    header_file_name = 'source_forge/sampler.h'
     source = utils.ReadFile(header_file_name)
     class_name = "SomeThing"
 

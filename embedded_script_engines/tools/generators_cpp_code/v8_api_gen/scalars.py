@@ -9,38 +9,6 @@ from generators_cpp_code.v8_api_gen import name_mapper
 import inner_reuse_local as util
 
 
-class V8ScalarWrappers(object):
-    @staticmethod
-    def make_scalar_getter(accessor_type, name):
-        result = \
-            '\nstatic void v8_get_' + util.Util.build_accessor_name_by_array_name(name)[0] + \
-            '(\n      Local<String> name,\n' + \
-            '      const PropertyCallbackInfo<Value>& info) \n    {\n' + \
-            '    Local<Object> self = info.Holder();\n' + \
-            '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
-            '    void* ptr = wrap->Value();\n' + \
-            '    ' + name_mapper.V8Decoders.unroll_unsigned_typedefs(accessor_type) \
-            + " value = static_cast<Point*>(ptr)->" \
-            + name + ';\n' + \
-            '    info.GetReturnValue().Set(' + name_mapper.V8Decoders.cpp_type_to_v8(accessor_type, "get") \
-            + '::New(value));\n}\n'
-        return util.Util.clear_result(util.Util.is_array(result, name, accessor_type, "get"))
-
-    @staticmethod
-    def make_scalar_setter(accessor_type, var_name):
-        result = \
-            "\n" + "static void v8_set_" + util.Util.build_accessor_name_by_array_name(var_name)[0] \
-            + '(\n      Local<String> property, \n      Local<Value> value,\n' + \
-            '      const PropertyCallbackInfo<void>& info) \n    {\n' + \
-            '    Local<Object> self = info.Holder();\n' + \
-            '    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));\n' + \
-            '    void* ptr = wrap->Value();\n' + \
-            '    static_cast<''' + "DataBase" + "*>(ptr)->" + var_name + "= value->" \
-            + name_mapper.V8Decoders.cpp_type_to_v8(accessor_type, "set") + 'Value(); ' + \
-            '\n}\n'
-        return util.Util.clear_result(util.Util.is_array(result, var_name, accessor_type, "set"))
-
-
 # zaqwes
 class ScalarVariableField(object):
     """
@@ -153,88 +121,89 @@ class ScalarVariableField(object):
         return template, make_setter_header(field_name)
 
 
-def do_scalar_getters_decl(dec_wrappers):
-    def wrap_scalar_getters_header(impl_local):
-        code_result = []
-        for impl in impl_local:
-            code_result.append('  static void ' + impl[0])
-        return code_result
-    impls = []
-    declarations = []
-    for elem in dec_wrappers:
-        if not elem.is_array():
-            i, d = elem.make_scalar_getter()
-            if d:
-                impls.append((i, elem.get_wrapper_class_name()))
-                declarations.append((d, elem.get_wrapper_class_name()))
-            else:
-                print i
+class ScalarBuilder(object):
+    def do_scalar_getters_decl(dec_wrappers):
+        def wrap_scalar_getters_header(impl_local):
+            code_result = []
+            for impl in impl_local:
+                code_result.append('  static void ' + impl[0])
+            return code_result
+        impls = []
+        declarations = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                i, d = elem.make_scalar_getter()
+                if d:
+                    impls.append((i, elem.get_wrapper_class_name()))
+                    declarations.append((d, elem.get_wrapper_class_name()))
+                else:
+                    print i
 
-    code = wrap_scalar_getters_header(declarations)
-    return code
-
-
-def do_scalar_setter_decl(dec_wrappers):
-    def wrap_scalar_setters_header(impl_local):
-        code_result = []
-        for impl in impl_local:
-            code_result.append('  static void ' + impl[0]+';\n')
-        return code_result
-
-    # zaqwes
-    impls = []
-    declarations = []
-    for elem in dec_wrappers:
-        if not elem.is_array():
-            i, d = elem.make_scalar_setter()
-            if d:
-                impls.append((i, elem.get_wrapper_class_name()))
-                declarations.append((d, elem.get_wrapper_class_name()))
-            else:
-                print i
-
-    code = wrap_scalar_setters_header(declarations)
-    return code
+        code = wrap_scalar_getters_header(declarations)
+        return code
 
 
-def do_scalar_setter_impl(dec_wrappers, class_name):
-    # zaqwes
-    impls = []
-    for elem in dec_wrappers:
-        if not elem.is_array():
-            impl, d = elem.make_scalar_setter()
-            if d:
-                impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
-            else:
-                print impl
+    def do_scalar_setter_decl(dec_wrappers):
+        def wrap_scalar_setters_header(impl_local):
+            code_result = []
+            for impl in impl_local:
+                code_result.append('  static void ' + impl[0]+';\n')
+            return code_result
 
-    return impls
+        # zaqwes
+        impls = []
+        declarations = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                i, d = elem.make_scalar_setter()
+                if d:
+                    impls.append((i, elem.get_wrapper_class_name()))
+                    declarations.append((d, elem.get_wrapper_class_name()))
+                else:
+                    print i
 
-
-def make_v8_class_name(name):
-    return name + 'V8'
-
-
-def do_scalar_getter_impl(dec_wrappers, class_name):
-    # zaqwes
-    impls = []
-    for elem in dec_wrappers:
-        if not elem.is_array():
-            impl, d = elem.make_scalar_getter()
-            if d:
-                impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
-            else:
-                print impl
-
-    return impls
+        code = wrap_scalar_setters_header(declarations)
+        return code
 
 
-def do_scalar_connecters(dec_wrappers):
-    # zaqwes
-    impls = []
-    for elem in dec_wrappers:
-        if not elem.is_array():
-            g, s, n = elem.getter_name(), elem.setter_name(), elem.variable_node_.name
-            impls.append('  result->SetAccessor(\n      String::New("'+n+'"),\n      '+g+', \n      '+s)
+    def do_scalar_setter_impl(dec_wrappers, class_name):
+        # zaqwes
+        impls = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                impl, d = elem.make_scalar_setter()
+                if d:
+                    impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
+                else:
+                    print impl
 
-    return impls
+        return impls
+
+
+    def make_v8_class_name(name):
+        return name + 'V8'
+
+
+    def do_scalar_getter_impl(dec_wrappers, class_name):
+        # zaqwes
+        impls = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                impl, d = elem.make_scalar_getter()
+                if d:
+                    impls.append('void '+make_v8_class_name(class_name)+'::'+impl+'\n')
+                else:
+                    print impl
+
+        return impls
+
+
+    def do_scalar_connecters(dec_wrappers):
+        # zaqwes
+        impls = []
+        for elem in dec_wrappers:
+            if not elem.is_array():
+                g, s, n = elem.getter_name(), elem.setter_name(), elem.variable_node_.name
+                impls.append('  result->SetAccessor(\n      String::New("'+n+'"),\n      '+g+', \n      '+s)
+
+        return impls

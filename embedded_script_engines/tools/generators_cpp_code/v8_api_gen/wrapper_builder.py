@@ -93,14 +93,14 @@ class BuilderArrayWrapper(object):
             if name:
                 yield '  static void ' + name + ';\n'
 
-    def last_level_getters_impl(self):
+    def one_level_getters_impl(self):
         for elem in self.type_and_var_list_:
             array_wrapper = vectors.V8ArraysWrapper(*elem)
             getter = array_wrapper.do_last_level_getter_by_idx()
             if getter:
                 yield getter
 
-    def last_level_getters_decl(self):
+    def one_level_getters_decl(self):
         for elem in self.type_and_var_list_:
             array_wrapper = vectors.V8ArraysWrapper(*elem)
             getter_declaration = array_wrapper.make_last_level_getter_declaration()
