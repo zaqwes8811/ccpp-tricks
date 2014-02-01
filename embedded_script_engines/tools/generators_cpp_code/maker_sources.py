@@ -145,7 +145,7 @@ def make_complect(header_to_wrap):
     else:
         pair_name = v8_header
 
-    builder = wrapper_builder.BuilderV8Accessors(declarations, code)
+    builder = wrapper_builder.BuilderV8AccessorsPackage(declarations, code)
     code = make_header_file(pair_name, class_name, builder, header_name)
     print pair_name+'.h'
     inner_reuse_local.write_source(pair_name+'.h', code)

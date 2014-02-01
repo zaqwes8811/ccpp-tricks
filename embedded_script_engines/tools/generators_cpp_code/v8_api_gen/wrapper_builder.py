@@ -6,7 +6,7 @@ from generators_cpp_code.v8_api_gen import scalars
 from parsers_cpp_code import header_handmade_parser
 
 
-class BuilderV8Accessors(object):
+class BuilderV8AccessorsPackage(object):
     def __init__(self, type_and_var_list, source):
         self.type_and_var_list_ = type_and_var_list
         self.class_name_ = self.type_and_var_list_[0][2]
@@ -34,15 +34,15 @@ class BuilderV8Accessors(object):
 
         # Connect Vectors
         for elem in self.type_and_var_list_:
-            connect = vectors.V8ArraysWrapper(*elem).connect_getters_and_setters()
+            connect = vectors.MakerV8VectorFieldAccessor(*elem).connect_getters_and_setters()
             if connect:
                 result += connect
                 result += '\n'
 
         # Connect Scalars
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
             self.source_, self.class_name_)
-        builder = scalars.MakerV8FieldAccessor()
+        builder = scalars.MakerV8ScalarFieldAccessor()
         code = builder.do_scalar_connecters(dec_wrappers)
         for line in code:
             result += line+');\n'
@@ -81,42 +81,42 @@ class BuilderV8Accessors(object):
     # ::Arrays1D
     def zero_level_getters_impl(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
             code = array_wrapper.do_zero_level_getter()
             if code:
                 yield code
 
     def zero_level_getters_decl(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
             name = array_wrapper.make_zero_level_getter_declaration()
             if name:
                 yield '  static void ' + name + ';\n'
 
     def one_level_getters_impl(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
             getter = array_wrapper.do_last_level_getter_by_idx()
             if getter:
                 yield getter
 
     def one_level_getters_decl(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
             getter_declaration = array_wrapper.make_last_level_getter_declaration()
             if getter_declaration:
                 yield '  static void ' + getter_declaration + ';\n'
 
     def last_level_setters_impl(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
             setter = array_wrapper.do_last_level_setter_by_idx()
             if setter:
                 yield setter
 
     def last_level_setters_decl(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.V8ArraysWrapper(*elem)
+            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
             setter_declaration = array_wrapper.make_last_level_setter_declaration()
             if setter_declaration:
                 yield '  static void ' + setter_declaration + ';\n'
@@ -124,34 +124,36 @@ class BuilderV8Accessors(object):
     # ::Scalars
     def scalar_getters_decl(self):
         # Нужно попробовать испольтовать новый парсер
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
             self.source_, self.class_name_)
 
-
-        builder = scalars.MakerV8FieldAccessor()
+        builder = scalars.MakerV8ScalarFieldAccessor()
         code = builder.do_scalar_getters_decl(dec_wrappers)
         return code
 
     def scalar_setters_decl(self):
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
             self.source_, self.class_name_)
-        builder = scalars.MakerV8FieldAccessor()
+        builder = scalars.MakerV8ScalarFieldAccessor()
         code = builder.do_scalar_setter_decl(dec_wrappers)
         return code
 
     def scalar_getters_impl(self):
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_field_declarations(
             self.source_, self.class_name_)
-        builder = scalars.MakerV8FieldAccessor()
+        builder = scalars.MakerV8ScalarFieldAccessor()
         code = builder.do_scalar_getter_impl(dec_wrappers, self.class_name_)
         return code
 
     def scalar_setters_impl(self):
-        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
-            self.source_, self.class_name_)
-        builder = scalars.MakerV8FieldAccessor()
-        code = builder.do_scalar_setter_impl(dec_wrappers, self.class_name_)
-        return code
+        extractor = header_handmade_parser.ExtractorVarsDeclarations()
+        items = extractor.extract_field_declarations(self.source_, self.class_name_)
+
+        for elem in items:
+            builder = scalars.MakerV8ScalarFieldAccessor()
+            code = builder.do_scalar_setter_impl(elem, self.class_name_)
+            if code:
+                yield code
 
 
 

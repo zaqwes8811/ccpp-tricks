@@ -133,7 +133,7 @@ class ExtractorVarsDeclarations(object):
                     or 'static' in at
                     or at.count('[') > self.__MAX_DIMENSION)
 
-    def extract_variable_declaration_own(self, source, class_name='unknown'):
+    def extract_field_declarations(self, source, class_name='unknown'):
         """
         Args:
             source - string with code
@@ -141,6 +141,6 @@ class ExtractorVarsDeclarations(object):
         type_and_var_list = self.extract_var_declaration(source)
         result = []
         for var in type_and_var_list:
-            result.append(scalars.MakerV8FieldAccessor(class_name, VarDeclaration(*var)))
+            result.append(scalars.MakerV8ScalarFieldAccessor(class_name, VarDeclaration(*var)))
 
         return result

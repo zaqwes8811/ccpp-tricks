@@ -28,7 +28,7 @@ def is_array(method_to_decorate):
     return wrapper
 
 
-class V8ArraysWrapper(object):
+class MakerV8VectorFieldAccessor(object):
     """
     Constraints:
         Работает только с int array[]

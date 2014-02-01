@@ -1,7 +1,7 @@
 # coding: utf-8
 
 
-class MakerV8FieldAccessor(object):
+class MakerV8ScalarFieldAccessor(object):
     def __init__(self, class_name=None, variable_node=None):
         #if not isinstance(variable_node, ast.VariableDeclaration):
         #    raise Exception("Only scalar field support support!")
@@ -154,18 +154,7 @@ class MakerV8FieldAccessor(object):
         code = wrap_scalar_setters_header(declarations)
         return code
 
-    def do_scalar_setter_impl(self, dec_wrappers, class_name):
-        # zaqwes
-        impls = []
-        for elem in dec_wrappers:
-            if not elem.is_array():
-                impl, d = elem.make_scalar_setter()
-                if d:
-                    impls.append('void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n')
-                else:
-                    print impl
 
-        return impls
 
     def make_v8_class_name(self, name):
         return name + 'V8'
@@ -192,3 +181,12 @@ class MakerV8FieldAccessor(object):
                 impls.append('  result->SetAccessor(\n      String::New("' + n + '"),\n      ' + g + ', \n      ' + s)
 
         return impls
+
+    def do_scalar_setter_impl(self, elem, class_name):
+        if not elem.is_array():
+            impl, d = elem.make_scalar_setter()
+            if d:
+                return 'void ' + self.make_v8_class_name(class_name) + '::' + impl + '\n'
+            else:
+                print impl
+                return None

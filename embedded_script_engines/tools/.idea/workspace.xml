@@ -26,16 +26,16 @@
       <file leaf-file-name="scalars.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="182" column="0" selection-start="6599" selection-end="6599" vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="3383">
+            <state line="190" column="26" selection-start="6884" selection-end="6884" vertical-scroll-proportion="0.0" vertical-offset="2832" max-vertical-offset="3349">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vectors.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py">
+      <file leaf-file-name="inner_reuse_local.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/inner_reuse_local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="128" max-vertical-offset="2720">
+            <state line="12" column="0" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="1190">
               <folding />
             </state>
           </provider>
@@ -44,10 +44,28 @@
       <file leaf-file-name="wrapper_builder.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="10" selection-start="189" selection-end="189" vertical-scroll-proportion="0.22553897" vertical-offset="0" max-vertical-offset="2771">
+            <state line="23" column="23" selection-start="672" selection-end="672" vertical-scroll-proportion="-2.1480145" vertical-offset="1581" max-vertical-offset="2805">
               <folding>
                 <element signature="e#23#73#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="up2D_v8.cc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source_forge/up2D_v8.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="1234" max-vertical-offset="1819">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="maker_sources.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="79" column="0" selection-start="2322" selection-end="2322" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2703">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -72,6 +90,7 @@
         <option value="$PROJECT_DIR$/source_forge/up2D.h" />
         <option value="$PROJECT_DIR$/source_forge/up2D_v8.h" />
         <option value="$PROJECT_DIR$/parsers_cpp_code/header_ast_parser.py" />
+        <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py" />
         <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py" />
         <option value="$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py" />
       </list>
@@ -138,39 +157,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="source_forge" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="parsers_cpp_code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generators_cpp_code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generators_cpp_code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v8_api_gen" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -423,11 +424,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24296875" sideWeight="0.7254902" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24296875" sideWeight="0.66897345" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27450982" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33102652" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -461,20 +462,6 @@
     <entry file="file://$PROJECT_DIR$/tests_medium/first_level_gen_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="101" max-vertical-offset="714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source_forge/up2D_v8.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="31" selection-start="5766" selection-end="5766" vertical-scroll-proportion="0.0" vertical-offset="2703" max-vertical-offset="3655">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inner_reuse_local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1190">
           <folding />
         </state>
       </provider>
@@ -521,13 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="0" selection-start="2094" selection-end="2094" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2703">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers_cpp_code/header_ast_parser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="75" column="21" selection-start="2460" selection-end="2460" vertical-scroll-proportion="0.0" vertical-offset="943" max-vertical-offset="1581">
@@ -542,23 +522,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
+    <entry file="file://$PROJECT_DIR$/generators_cpp_code/maker_sources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="0" selection-start="6599" selection-end="6599" vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="3383">
+        <state line="79" column="0" selection-start="2322" selection-end="2322" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2703">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/vectors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="128" max-vertical-offset="2720">
+        <state line="30" column="12" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" vertical-offset="128" max-vertical-offset="2720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inner_reuse_local.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="1190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/scalars.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="190" column="26" selection-start="6884" selection-end="6884" vertical-scroll-proportion="0.0" vertical-offset="2832" max-vertical-offset="3349">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source_forge/up2D_v8.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generators_cpp_code/v8_api_gen/wrapper_builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="10" selection-start="189" selection-end="189" vertical-scroll-proportion="0.22553897" vertical-offset="0" max-vertical-offset="2771">
+        <state line="23" column="23" selection-start="672" selection-end="672" vertical-scroll-proportion="-2.1480145" vertical-offset="1581" max-vertical-offset="2805">
           <folding>
             <element signature="e#23#73#0" expanded="true" />
           </folding>
