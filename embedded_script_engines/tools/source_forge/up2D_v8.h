@@ -14,9 +14,7 @@ class RefineInMemoryStorageV8 {
 
   static v8::Handle<v8::Object> New(RefineInMemoryStorage* database, v8::Isolate *isolate);
 
-  //$ZeroLevelGetters
-  //$LastLevelSetters
-  //$LastLevelAccessors
+  // Vector accessors
   // Scalar accessors
   static void V8ScalarGetter_command(
     v8::Local<v8::String> name,

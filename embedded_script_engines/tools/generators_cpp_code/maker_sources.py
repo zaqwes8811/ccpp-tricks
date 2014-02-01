@@ -52,20 +52,12 @@ def make_header_file(header_name, class_name, builder, header_to_wrap):
     code.append('')
     code.append(builder.new_method_decl())
     code.append('')
-    code.append('  //$ZeroLevelGetters')
-    for impl in builder.zero_level_getters_decl():
-        code.append(impl)
-
-    code.append('  //$LastLevelSetters')
-    for impl in builder.last_level_setters_decl():
-        code.append(impl)
-
-    code.append('  //$LastLevelAccessors')
-    for impl in builder.one_level_getters_decl():
+    code.append('  // Vector accessors')
+    for impl in builder.get_vector_decls():
         code.append(impl)
 
     code.append('  // Scalar accessors')
-    for impl in builder.scalar_getters_decl():
+    for impl in builder.get_scalar_decls():
         code.append(impl)
 
     # Static
@@ -101,17 +93,10 @@ def make_source_file(pair, builder):
     code.append('')
     code.append(builder.new_method_impl())
 
-    code.append('//$LastLevelGetters')
-    for impl in builder.one_level_getters_impl():
+    code.append('// Vector accessors')
+    for impl in builder.get_vector_impls():
         code.append(impl)
 
-    code.append('//$LastLevelSetters')
-    for impl in builder.last_level_setters_impl():
-        code.append(impl)
-
-    code.append('//$ZeroLevelGetters')
-    for impl in builder.zero_level_getters_impl():
-        code.append(impl)
 
     code.append('  // Scalar accessors')
     for impl in builder.get_scalar_impls():

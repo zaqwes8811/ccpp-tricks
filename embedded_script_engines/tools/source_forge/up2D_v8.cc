@@ -52,9 +52,7 @@ Handle<Object> RefineInMemoryStorageV8::New(RefineInMemoryStorage* database, v8:
   return handle_scope.Close(result);
 }
 
-//$LastLevelGetters
-//$LastLevelSetters
-//$ZeroLevelGetters
+// Vector accessors
   // Scalar accessors
 void RefineInMemoryStorageV8::V8ScalarGetter_command(
     v8::Local<v8::String> name,

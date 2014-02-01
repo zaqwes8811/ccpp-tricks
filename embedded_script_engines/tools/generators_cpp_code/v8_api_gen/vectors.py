@@ -63,7 +63,7 @@ class MakerV8VectorFieldAccessor(object):
                '      const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
-    def do_last_level_getter_by_idx(self):
+    def make_last_level_getter(self):
         return 'void ' + self.get_v8_class_name() + '::' \
                + self.make_last_level_getter_declaration() \
                + '\n  {\n' + \
@@ -87,7 +87,7 @@ class MakerV8VectorFieldAccessor(object):
                '    const v8::PropertyCallbackInfo<v8::Value>& info)'
 
     @is_array
-    def do_last_level_setter_by_idx(self):
+    def make_last_level_setter(self):
         # .lower()
         return 'void ' + self.get_v8_class_name() + '::' + self.make_last_level_setter_declaration() + ' {\n' + \
                '  if (index < ' + self.get_idx_threshold(self.var_name_) + ') {\n' + \

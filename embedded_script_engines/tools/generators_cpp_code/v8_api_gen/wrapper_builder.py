@@ -78,56 +78,42 @@ class BuilderV8AccessorsPackage(object):
                '  return handle_scope.Close(result);\n' + \
                '}\n'
 
-    # ::Arrays1D
-    def zero_level_getters_impl(self):
+    # ::vectors
+    def get_vector_decls(self):
         for elem in self.type_and_var_list_:
-            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
-            code = array_wrapper.do_zero_level_getter()
-            if code:
-                yield code
-
-    def zero_level_getters_decl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
-            name = array_wrapper.make_zero_level_getter_declaration()
+            builder = vectors.MakerV8VectorFieldAccessor(*elem)
+            name = builder.make_zero_level_getter_declaration()
             if name:
                 yield '  static void ' + name + ';\n'
 
-    def one_level_getters_impl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
-            getter = array_wrapper.do_last_level_getter_by_idx()
-            if getter:
-                yield getter
-
-    def one_level_getters_decl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
-            getter_declaration = array_wrapper.make_last_level_getter_declaration()
-            if getter_declaration:
-                yield '  static void ' + getter_declaration + ';\n'
-
-    def last_level_setters_impl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
-            setter = array_wrapper.do_last_level_setter_by_idx()
-            if setter:
-                yield setter
-
-    def last_level_setters_decl(self):
-        for elem in self.type_and_var_list_:
-            array_wrapper = vectors.MakerV8VectorFieldAccessor(*elem)
-            setter_declaration = array_wrapper.make_last_level_setter_declaration()
+            setter_declaration = builder.make_last_level_setter_declaration()
             if setter_declaration:
                 yield '  static void ' + setter_declaration + ';\n'
 
+            getter_declaration = builder.make_last_level_getter_declaration()
+            if getter_declaration:
+                yield '  static void ' + getter_declaration + ';\n'
+
+    def get_vector_impls(self):
+        for elem in self.type_and_var_list_:
+            builder = vectors.MakerV8VectorFieldAccessor(*elem)
+            code = builder.do_zero_level_getter()
+            if code:
+                yield code
+
+            getter = builder.make_last_level_getter()
+            if getter:
+                yield getter
+
+            setter = builder.make_last_level_setter()
+            if setter:
+                yield setter
+
     # ::Scalars
-    def scalar_getters_decl(self):
+    def get_scalar_decls(self):
         # Нужно попробовать испольтовать новый парсер
         extractor = header_handmade_parser.ExtractorVarsDeclarations()
         items = extractor.extract_field_declarations(self.source_, self.class_name_)
-        builder = scalars.MakerV8ScalarFieldAccessor()
-
         builder = scalars.MakerV8ScalarFieldAccessor()
         for elem in items:
             code = builder.make_getters_decl(elem)
@@ -152,6 +138,10 @@ class BuilderV8AccessorsPackage(object):
             code = builder.make_setter_impl(elem, self.class_name_)
             if code:
                 yield code
+
+    # ::Matrix
+                
+    # ::Functions
 
 
 
