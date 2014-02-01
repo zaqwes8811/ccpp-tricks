@@ -3,7 +3,7 @@
 # App
 from generators_cpp_code.v8_api_gen import vectors
 from generators_cpp_code.v8_api_gen import scalars
-from parsers_cpp_code import header_parser
+from parsers_cpp_code import header_handmade_parser
 
 
 class BuilderArrayWrapper(object):
@@ -40,7 +40,7 @@ class BuilderArrayWrapper(object):
                 result += '\n'
 
         # Connect Scalars
-        dec_wrappers = header_parser.extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
 
         code = scalars.do_scalar_connecters(dec_wrappers)
@@ -123,28 +123,28 @@ class BuilderArrayWrapper(object):
 
     # ::Scalars
     def scalar_getters_decl(self):
-        dec_wrappers = header_parser.extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
 
         code = scalars.do_scalar_getters_decl(dec_wrappers)
         return code
 
     def scalar_setters_decl(self):
-        dec_wrappers = header_parser.extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
 
         code = scalars.do_scalar_setter_decl(dec_wrappers)
         return code
 
     def scalar_getters_impl(self):
-        dec_wrappers = header_parser.extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
 
         code = scalars.do_scalar_getter_impl(dec_wrappers, self.class_name_)
         return code
 
     def scalar_setters_impl(self):
-        dec_wrappers = header_parser.extract_variable_declaration_own(
+        dec_wrappers = header_handmade_parser.ExtractorVarsDeclarations().extract_variable_declaration_own(
             self.source_, self.class_name_)
 
         code = scalars.do_scalar_setter_impl(dec_wrappers, self.class_name_)

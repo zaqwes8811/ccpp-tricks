@@ -6,7 +6,7 @@ import sys
 
 # App
 from generators_cpp_code.v8_api_gen import name_mapper
-import utils_local as util
+import inner_reuse_local as util
 
 
 class V8ScalarWrappers(object):

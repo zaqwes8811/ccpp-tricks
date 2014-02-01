@@ -5,7 +5,7 @@ import re
 
 # App
 from generators_cpp_code.v8_api_gen import scalars
-import utils_local
+import inner_reuse_local
 
 
 class VarDeclaration(object):
@@ -74,8 +74,8 @@ class ExtractorVarsDeclarations(object):
                 if search_result:
                     line_copy = line
                     line_copy = line_copy.lstrip().rstrip()
-                    line_copy = utils_local.remove_cc_comments(line_copy)
-                    line_copy = utils_local.delete_double_spaces(line_copy)
+                    line_copy = inner_reuse_local.remove_cc_comments(line_copy)
+                    line_copy = inner_reuse_local.delete_double_spaces(line_copy)
                     result.append(line_copy)
 
         return '\n'.join(result)
@@ -107,7 +107,7 @@ class ExtractorVarsDeclarations(object):
             .replace('\n\t', " ") \
             .replace("  ", " ") \
             .replace('\n', " ")
-        declaration_string = utils_local.delete_double_spaces(declaration_string)
+        declaration_string = inner_reuse_local.delete_double_spaces(declaration_string)
         return declaration_string
 
     def extract_var_declaration(self, source):

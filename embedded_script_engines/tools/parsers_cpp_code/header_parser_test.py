@@ -3,7 +3,7 @@ import random
 import unittest
 
 # Unit
-from parsers_cpp_code import header_parser
+from parsers_cpp_code import header_handmade_parser
 
 # Заголовок таки должен компилироваться,
 #   поэтому откровенного бреда там быть не должно
@@ -40,7 +40,7 @@ class CppClassReformer(object):
 
 class TestExtractorVarsDeclarations(unittest.TestCase):
     def test_shuffle(self):
-        extractor = header_parser.ExtractorVarsDeclarations()
+        extractor = header_handmade_parser.ExtractorVarsDeclarations()
         declarations = extractor.extract_var_declaration(SIMPLE_CLASS)
         print declarations
 

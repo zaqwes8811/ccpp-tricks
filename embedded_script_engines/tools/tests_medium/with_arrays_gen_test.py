@@ -1,8 +1,13 @@
 # coding: utf-8
+
+# Std
+import unittest
+
+#
 from generators_cpp_code import maker_sources
 
-if __name__ == '__main__':
-    header_to_wrap = 'idata/sampler.h'
-    maker_sources.make_complect(header_to_wrap)
 
-
+class TestExtractorVarsDeclarations(unittest.TestCase):
+    def test_shuffle(self):
+        header_to_wrap = 'idata/up2D.h'
+        maker_sources.make_complect(header_to_wrap)

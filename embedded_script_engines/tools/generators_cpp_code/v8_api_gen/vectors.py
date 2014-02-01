@@ -5,7 +5,7 @@ __author__ = 'Igor'
 import re
 
 # App
-import utils_local
+import inner_reuse_local
 
 # Последняя точка
 LAST_LEVEL_GETTER_ = "LLGetterByIdx_"
@@ -44,7 +44,7 @@ class V8ArraysWrapper(object):
     def __init__(self, var_type, var_name, class_name):
         self.var_type_ = var_type
         self.var_name_ = var_name
-        self.util_ = utils_local.Util()
+        self.util_ = inner_reuse_local.Util()
         self.class_name_ = class_name
         self.V8_GETTER_RECODER_ = {'int': 'Integer', 'std::string': 'String', 'bool': 'Boolean'}
 

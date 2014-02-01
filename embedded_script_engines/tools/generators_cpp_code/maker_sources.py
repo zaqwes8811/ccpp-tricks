@@ -8,12 +8,12 @@ from generator.cpp import utils
 
 # App
 from generators_cpp_code.v8_api_gen import wrapper_builder
-import utils_local
-from parsers_cpp_code import header_parser
+import inner_reuse_local
+from parsers_cpp_code import header_handmade_parser
 
 
 def get_declarations_from_header(source_code):
-    type_and_var_list = header_parser.Holder.extract_var_declaration(source_code)
+    type_and_var_list = header_handmade_parser.ExtractorVarsDeclarations().extract_var_declaration(source_code)
     result = []
     class_name = "RefineInMemoryStorage"
 
@@ -148,8 +148,8 @@ def make_complect(header_to_wrap):
     builder = wrapper_builder.BuilderArrayWrapper(declarations, code)
     code = make_header_file(pair_name, class_name, builder, header_name)
     print pair_name+'.h'
-    utils_local.write_source(pair_name+'.h', code)
+    inner_reuse_local.write_source(pair_name+'.h', code)
 
     # source
     code = make_source_file(v8_header+'.h', builder)
-    utils_local.write_source(pair_name+'.cc', code)
+    inner_reuse_local.write_source(pair_name+'.cc', code)

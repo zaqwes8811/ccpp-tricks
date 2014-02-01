@@ -5,8 +5,8 @@ from generator.cpp import utils
 
 # App
 from generators_cpp_code.v8_api_gen import scalars
-from parsers_cpp_code import header_parser
-import utils_local
+from parsers_cpp_code import header_handmade_parser
+import inner_reuse_local
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     source = utils.ReadFile(header_file_name)
     class_name = "SomeThing"
 
-    dec_wrappers = header_parser.extract_variable_declaration_own(source, class_name)
+    dec_wrappers = header_handmade_parser.extract_variable_declaration_own(source, class_name)
     code = scalars.do_scalar_setter_impl(dec_wrappers)
     for line in code:
         print line
