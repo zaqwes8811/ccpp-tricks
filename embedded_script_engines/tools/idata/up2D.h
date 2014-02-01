@@ -8,6 +8,8 @@
 namespace xd {
 class New2D : public Hello {
 public:
+  New2D();  // Находит, но нужно отфильтровать если делать v8::External
+  ~New2D();
   void SendUpPower() {
 
   }
