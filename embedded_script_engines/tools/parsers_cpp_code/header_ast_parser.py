@@ -4,6 +4,9 @@
 from generator.cpp import ast
 
 
+class ArrayXD(ast.VariableDeclaration):
+    pass
+
 def extract_variable_declaration(source, header_file_name):
     """
     Abstract:
@@ -20,19 +23,22 @@ def extract_variable_declaration(source, header_file_name):
     try:
         for node in builder.Generate():
             if isinstance(node, ast.Class):
-                print node
                 for record in node.body:
                     if isinstance(record, ast.VariableDeclaration):
-                        # модификаторы и... *, & отделены от имени типа!
-                        #if scalar?:
-                        #elif  vector? std::vector<string>, Vector, List, Array...
-                        # это не скаляр и сеттер будет другим https://developers.google.com/v8/embed
-                        #else
-                        #check what happened
-                        #result.append(scalars.ScalarVariableField(node.name, record))
+                        if '???' not in record.FullName():
+                            #print "Not Array"
+                            pass
+                    if isinstance(record, ast.Function):
                         pass
-        return result
+                        #print record.FullName(), record.parameters
+        #return result
     except KeyboardInterrupt:
         return None
     except Exception as e:
         return None
+
+    # Добавляем массивы
+    source_lines = source.split('\n')
+    for line in source_lines:
+        if '[' in line and '(' not in line:
+            print line
