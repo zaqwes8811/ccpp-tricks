@@ -9,9 +9,9 @@
 
 BOOST_PYTHON_MODULE(hello_)
 {
-    boost::python::class_<Foo, boost::shared_ptr<Foo>>("Foo")
-        .def("doSomething", &Foo::doSomething)
-    ;
+  boost::python::class_<Foo, boost::shared_ptr<Foo>>("Foo")
+    .def("doSomething", &Foo::doSomething)
+  ;
 }
 
 #endif // FOO_PY_H
