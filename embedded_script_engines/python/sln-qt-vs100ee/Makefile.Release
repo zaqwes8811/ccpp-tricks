@@ -14,7 +14,7 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -O2 -MD -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -O2 -MD -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
-INCPATH       = -I"..\..\..\..\..\third_party\cc\boost_1_47_0" -I"C:\Python27\include" -I"..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\win32-msvc2010"
+INCPATH       = -I"..\..\..\third_party\gmock-1.6.0\fused-src" -I"..\..\..\..\..\third_party\cc\boost_1_47_0" -I"C:\Python27\include" -I"..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\win32-msvc2010"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
 LIBS          = C:/Python27/libs/python27.lib D:\home\third_party\cc\boost.python-libs/boost_python-vc100-mt-gd-1_47.lib 
@@ -43,8 +43,10 @@ OBJECTS_DIR   = release
 
 ####### Files
 
-SOURCES       = ..\src\main.cpp 
-OBJECTS       = release\main.obj
+SOURCES       = ..\..\..\third_party\gmock-1.6.0\fused-src\gmock-gtest-all.cc \
+		..\src\main.cc 
+OBJECTS       = release\gmock-gtest-all.obj \
+		release\main.obj
 
 DIST          = 
 QMAKE_TARGET  = sln-qt
@@ -55,6 +57,26 @@ DESTDIR_TARGET = release\sln-qt.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
+
+{..\src}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\src}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\src}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\src}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
 
 {.}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
@@ -76,22 +98,22 @@ DESTDIR_TARGET = release\sln-qt.exe
 	$<
 <<
 
-{..\src}.cpp{release\}.obj::
+{..\..\..\third_party\gmock-1.6.0\fused-src}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{..\src}.cc{release\}.obj::
+{..\..\..\third_party\gmock-1.6.0\fused-src}.cc{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{..\src}.cxx{release\}.obj::
+{..\..\..\third_party\gmock-1.6.0\fused-src}.cxx{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{..\src}.c{release\}.obj::
+{..\..\..\third_party\gmock-1.6.0\fused-src}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -116,7 +138,7 @@ dist:
 	$(ZIP) sln-qt.zip $(SOURCES) $(DIST) sln-qt.pro ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\spec_pre.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\common\shell-win32.conf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\qconfig.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_axbase.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_axserver.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_clucene_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_core.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_declarative.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_declarative_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_help.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_network.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_nfc.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_positioning.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_script.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_script_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_sensors.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_serialport.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_webkit.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_webkit_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_webkitwidgets.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_webkitwidgets_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_winextras.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\qt_functions.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\qt_config.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\win32-msvc2010\qmake.conf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\spec_post.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\exclusive_builds.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\default_pre.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\win32\default_pre.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\resolve_config.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\default_post.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\build_pass.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\win32\console.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\qml_debug.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\declarative_debug.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\win32\rtti.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\warn_on.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\testcase_targets.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\exceptions.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\yacc.prf ..\..\..\..\..\..\Qt\Qt5.2.0\5.2.0\msvc2010\mkspecs\features\lex.prf sln-qt.pro  YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj
+	-$(DEL_FILE) release\gmock-gtest-all.obj release\main.obj
 	-$(DEL_FILE) release\sln-qt.exp release\sln-qt.exe.embed.manifest
 
 distclean: clean
@@ -137,7 +159,10 @@ compiler_clean:
 
 ####### Compile
 
-release\main.obj: ..\src\main.cpp ..\..\..\..\..\third_party\cc\boost_1_47_0\boost\shared_ptr.hpp \
+release\gmock-gtest-all.obj: ..\..\..\third_party\gmock-1.6.0\fused-src\gmock-gtest-all.cc ..\..\..\third_party\gmock-1.6.0\fused-src\gtest\gtest.h \
+		..\..\..\third_party\gmock-1.6.0\fused-src\gmock\gmock.h
+
+release\main.obj: ..\src\main.cc ..\..\..\..\..\third_party\cc\boost_1_47_0\boost\shared_ptr.hpp \
 		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\smart_ptr\shared_ptr.hpp \
 		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\config.hpp \
 		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\config\select_compiler_config.hpp \
@@ -1023,7 +1048,8 @@ release\main.obj: ..\src\main.cpp ..\..\..\..\..\third_party\cc\boost_1_47_0\boo
 		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\python\detail\nullary_function_adaptor.hpp \
 		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\python\register_ptr_to_python.hpp \
 		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\python\return_arg.hpp \
-		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\python\return_opaque_pointer.hpp
+		..\..\..\..\..\third_party\cc\boost_1_47_0\boost\python\return_opaque_pointer.hpp \
+		..\..\..\third_party\gmock-1.6.0\fused-src\gtest\gtest.h
 
 ####### Install
 

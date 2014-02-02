@@ -33,8 +33,7 @@ BOOST_PYTHON_MODULE(hello)
     ;
 }
 
-int main(int argc, char **argv)
-{
+TEST(EmbPy, First) {
     Py_Initialize();
     try {
         PyRun_SimpleString(
@@ -68,6 +67,19 @@ int main(int argc, char **argv)
     }
 
     Py_Finalize();
+}
 
-    return 0;
+int main(int argc, char* argv[])
+{
+
+  // Получаем текущую локаль CRT (если нужно потом восстановить)
+  char* crtLocale = setlocale(LC_ALL, NULL);
+  setlocale(LC_ALL, ".1251");
+
+  // Run
+  testing::InitGoogleTest(&argc, argv);
+  //testing::GTEST_FLAG(print_time) = true;
+  RUN_ALL_TESTS();
+  setlocale(LC_ALL, crtLocale);
+  return 0;
 }

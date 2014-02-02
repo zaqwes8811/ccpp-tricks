@@ -16,8 +16,9 @@ CONFIG -= qt
 #QMAKE_CXXFLAGS_DEBUG -= -MDd
 #QMAKE_CXXFLAGS_DEBUG += -MTd
 
-SOURCES += ../src/main.cpp \
-    ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc
+SOURCES += \
+    ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
+    ../src/main.cc
 
 INCLUDEPATH += "D:/home/lugansky-igor/in-the-vicinity-cc/third_party/gmock-1.6.0/fused-src" \
   "D:/home/third_party/cc/boost_1_47_0"
