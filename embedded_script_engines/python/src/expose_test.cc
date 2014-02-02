@@ -9,31 +9,16 @@
 
 #include <gtest/gtest.h>
 
+// App
+#include "foo.h"
+#include "foo_py.h"
 
-using boost::python::class_;
 using boost::python::object;
 using boost::python::handle;
 using boost::python::borrowed;
 using boost::python::error_already_set;
 
-class Foo{
-public:
-    Foo() {}
-    Foo(std::string const& s) : m_string(s){}
-    void doSomething() {
-        std::cout << "Foo:" << m_string << std::endl;
-    }
-    std::string m_string;
-};
-
-BOOST_PYTHON_MODULE(hello)
-{
-    class_<Foo, boost::shared_ptr<Foo>>("Foo")
-        .def("doSomething", &Foo::doSomething)
-    ;
-}
-
-TEST(EmbPy, First) {
+TEST(EmbPy, RunFromString) {
     Py_Initialize();
     try {
         PyRun_SimpleString(
@@ -52,7 +37,8 @@ TEST(EmbPy, First) {
 
         boost::shared_ptr<Foo> ptr_cc_object = boost::make_shared<Foo>("c++");
 
-        inithello();
+
+        inithello_();
         object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
 
         // pass the reference to a_cxx_foo into python:
@@ -67,19 +53,4 @@ TEST(EmbPy, First) {
     }
 
     Py_Finalize();
-}
-
-int main(int argc, char* argv[])
-{
-
-  // Получаем текущую локаль CRT (если нужно потом восстановить)
-  char* crtLocale = setlocale(LC_ALL, NULL);
-  setlocale(LC_ALL, ".1251");
-
-  // Run
-  testing::InitGoogleTest(&argc, argv);
-  //testing::GTEST_FLAG(print_time) = true;
-  RUN_ALL_TESTS();
-  setlocale(LC_ALL, crtLocale);
-  return 0;
 }

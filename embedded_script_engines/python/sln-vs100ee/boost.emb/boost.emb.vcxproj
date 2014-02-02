@@ -11,7 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\..\..\third_party\gmock-1.6.0\fused-src\gmock-gtest-all.cc" />
+    <ClCompile Include="..\..\src\expose_test.cc" />
+    <ClCompile Include="..\..\src\tests-launcher.cc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A2C4D753-E387-4CDC-A483-08432214AC3E}</ProjectGuid>
@@ -59,7 +61,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>D:\home\third_party\cc\boost_1_47_0;C:\Python27\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\home\third_party\cc\boost_1_47_0;C:\Python27\include;D:\home\lugansky-igor\in-the-vicinity-cc\third_party\gmock-1.6.0\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

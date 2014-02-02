@@ -7,7 +7,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\main.cpp">
+    <ClCompile Include="..\..\src\expose_test.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tests-launcher.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\third_party\gmock-1.6.0\fused-src\gmock-gtest-all.cc">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
