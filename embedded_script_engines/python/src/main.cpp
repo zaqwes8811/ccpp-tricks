@@ -7,6 +7,8 @@
 #include <boost/make_shared.hpp>
 #include <boost/python.hpp>
 
+#include <gtest/gtest.h>
+
 
 using boost::python::class_;
 using boost::python::object;
@@ -16,7 +18,7 @@ using boost::python::error_already_set;
 
 class Foo{
 public:
-    Foo(){}
+    Foo() {}
     Foo(std::string const& s) : m_string(s){}
     void doSomething() {
         std::cout << "Foo:" << m_string << std::endl;
@@ -52,8 +54,7 @@ int main(int argc, char **argv)
         boost::shared_ptr<Foo> ptr_cc_object = boost::make_shared<Foo>("c++");
 
         inithello();
-        object main = object(
-            handle<>(borrowed(PyImport_AddModule("__main__"))));
+        object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
 
         // pass the reference to a_cxx_foo into python:
         object setup_function = main.attr("setup");

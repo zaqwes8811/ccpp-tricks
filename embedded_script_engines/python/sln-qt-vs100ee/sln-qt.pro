@@ -19,8 +19,10 @@ CONFIG -= qt
 SOURCES += ../src/main.cpp \
     ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc
 
-INCLUDEPATH += "D:/home/third_party/cc/boost_1_47_0"
+INCLUDEPATH += "D:/home/lugansky-igor/in-the-vicinity-cc/third_party/gmock-1.6.0/fused-src" \
+  "D:/home/third_party/cc/boost_1_47_0"
 INCLUDEPATH += "C:/Python27/include"
+
 
 LIBS += C:/Python27/libs/python27.lib
 LIBS += "D:\home\third_party\cc\boost.python-libs/boost_python-vc100-mt-gd-1_47.lib"
