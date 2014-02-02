@@ -15,11 +15,9 @@ struct Foo{
     std::string m_string;
 };
 
-typedef boost::shared_ptr<Foo> foo_ptr;
-
 BOOST_PYTHON_MODULE(hello)
 {
-    bp::class_<Foo, foo_ptr>("Foo")
+    bp::class_<Foo, boost::shared_ptr<Foo>>("Foo")
         .def("doSomething", &Foo::doSomething)
     ;
 }
@@ -42,12 +40,11 @@ int main(int argc, char **argv)
             "print 'main module loaded'\n"
         );
 
-        foo_ptr a_cxx_foo = boost::make_shared<Foo>("c++");
+        boost::shared_ptr<Foo> a_cxx_foo = boost::make_shared<Foo>("c++");
 
         inithello();
-        bp::object main = bp::object(bp::handle<>(bp::borrowed(
-            PyImport_AddModule("__main__")
-        )));
+        bp::object main = bp::object(
+                    bp::handle<>(bp::borrowed(PyImport_AddModule("__main__"))));
 
         // pass the reference to a_cxx_foo into python:
         bp::object setup_func = main.attr("setup");
@@ -56,8 +53,7 @@ int main(int argc, char **argv)
         // now run the python 'main' function
         bp::object run_func = main.attr("run");
         run_func();
-    }
-    catch (bp::error_already_set) {
+    } catch (bp::error_already_set) {
         PyErr_Print();
     }
 
