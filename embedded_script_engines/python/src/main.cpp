@@ -1,12 +1,21 @@
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
-#include <boost/python.hpp>
+// C++
 #include <string>
 #include <iostream>
 
-namespace bp = boost::python;
+// Third party
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
+#include <boost/python.hpp>
 
-struct Foo{
+
+using boost::python::class_;
+using boost::python::object;
+using boost::python::handle;
+using boost::python::borrowed;
+using boost::python::error_already_set;
+
+class Foo{
+public:
     Foo(){}
     Foo(std::string const& s) : m_string(s){}
     void doSomething() {
@@ -17,7 +26,7 @@ struct Foo{
 
 BOOST_PYTHON_MODULE(hello)
 {
-    bp::class_<Foo, boost::shared_ptr<Foo>>("Foo")
+    class_<Foo, boost::shared_ptr<Foo>>("Foo")
         .def("doSomething", &Foo::doSomething)
     ;
 }
@@ -40,20 +49,20 @@ int main(int argc, char **argv)
             "print 'main module loaded'\n"
         );
 
-        boost::shared_ptr<Foo> a_cxx_foo = boost::make_shared<Foo>("c++");
+        boost::shared_ptr<Foo> ptr_cc_object = boost::make_shared<Foo>("c++");
 
         inithello();
-        bp::object main = bp::object(
-                    bp::handle<>(bp::borrowed(PyImport_AddModule("__main__"))));
+        object main = object(
+            handle<>(borrowed(PyImport_AddModule("__main__"))));
 
         // pass the reference to a_cxx_foo into python:
-        bp::object setup_func = main.attr("setup");
-        setup_func(a_cxx_foo);
+        object setup_function = main.attr("setup");
+        setup_function(ptr_cc_object);
 
         // now run the python 'main' function
-        bp::object run_func = main.attr("run");
+        object run_func = main.attr("run");
         run_func();
-    } catch (bp::error_already_set) {
+    } catch (error_already_set) {
         PyErr_Print();
     }
 

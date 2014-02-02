@@ -16,7 +16,8 @@ CONFIG -= qt
 #QMAKE_CXXFLAGS_DEBUG -= -MDd
 #QMAKE_CXXFLAGS_DEBUG += -MTd
 
-SOURCES += ../src/main.cpp
+SOURCES += ../src/main.cpp \
+    ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc
 
 INCLUDEPATH += "D:/home/third_party/cc/boost_1_47_0"
 INCLUDEPATH += "C:/Python27/include"
