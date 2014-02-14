@@ -179,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\third_party\gmock-1.6.0\fused-src\gmock-gtest-all.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\src\tests-launcher.cc"
 				>
 			</File>
