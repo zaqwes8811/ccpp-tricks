@@ -2,6 +2,8 @@
 
 // http://www.boost.org/doc/libs/1_43_0/libs/python/doc/v2/register_ptr_to_python.html
 
+// Danger: http://stackoverflow.com/questions/20825662/boost-python-argument-types-did-not-match-c-signature
+
 // Third party
 #include <gtest/gtest.h>
 #include <boost/shared_ptr.hpp>
@@ -60,7 +62,7 @@ BOOST_PYTHON_MODULE(preampl)
 		//.def("SetChannel", &Preamplifier::SetChannel)
 		;
   boost::python::class_<PreamplifierImplFake, 
-	  boost::shared_ptr<PreamplifierImplFake>, boost::noncopyable>("PreamplifierImplFake")
+	  boost::shared_ptr<PreamplifierImplFake/*/, true*/>, boost::noncopyable>("PreamplifierImplFake")
     .def("SetChannel", &PreamplifierImplFake::SetChannel)
   ;
 }
@@ -117,7 +119,8 @@ TEST(DI, RunFromString) {
       "  a_foo = a_foo_from_cxx\n"
       "\n"
       "def run():\n"
-      "  a_foo.SetChannel(6)\n"
+	  "  #a_foo.SetChannel(6)\n"
+	  "  pass#a_foo.SetChannel(6)\n"
       "\n"
       "print 'main module loaded'\n"
     );
