@@ -3,4 +3,11 @@
 import hello_
 
 hello_.say_hello("you")
-hello_.Foo
+hello_.Foo().doSomething() # In PyCharm bad autocomplete
+
+
+class Foo(object):
+    def doSomething(self):
+        hello_.Foo().doSomething()
+
+Foo().doSomething()
