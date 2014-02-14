@@ -24,6 +24,7 @@ using boost::python::call_method;
 using boost::python::def;
 using boost::python::no_init;
 using boost::python::wrapper;
+using boost::python::init;
 
 
 // Абстрактный класс
@@ -63,6 +64,7 @@ class PreamplifierWrapper : public Preamplifier {
    PreamplifierWrapper(shared_ptr<Preamplifier> real_ptr) : real_ptr_(real_ptr) {
   }
    virtual int SetChannel(const int value) {
+     printf("channel = %d\n", value);
     return real_ptr_->SetChannel(value);
    }
 private:
@@ -85,8 +87,18 @@ BOOST_PYTHON_MODULE(preampl)
 	/*class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Preamplifier", no_init)
 		//.def("SetChannel", &Preamplifier::SetChannel)
 		;*/
-  boost::python::class_<PreamplifierWrapper, 
-	  boost::shared_ptr<PreamplifierWrapper/*/, true*/>, boost::noncopyable>("PreamplifierImplFake")
+  boost::python::class_<PreamplifierImplFake, 
+    boost::shared_ptr<PreamplifierImplFake>>("PreamplifierImplFake")
+    .def("SetChannel", &PreamplifierImplFake::SetChannel)
+  ;
+}
+
+BOOST_PYTHON_MODULE(preampl_wrapper)
+{
+	/*class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Preamplifier", no_init)
+		//.def("SetChannel", &Preamplifier::SetChannel)
+		;*/
+  boost::python::class_<PreamplifierWrapper, boost::shared_ptr<PreamplifierWrapper>>("PreamplifierImplFake", init<shared_ptr<Preamplifier>>())
     .def("SetChannel", &PreamplifierWrapper::SetChannel)
   ;
 }
@@ -197,7 +209,7 @@ TEST(DI, BeeSo) {
       "  a_foo = a_foo_from_cxx\n"
       "\n"
       "def run():\n"
-	  "  #a_foo.SetChannel(6)\n"
+	  "  a_foo.SetChannel(6)\n"
 	  "  pass#a_foo.SetChannel(6)\n"
       "\n"
       "print 'main module loaded'\n"
@@ -208,7 +220,7 @@ TEST(DI, BeeSo) {
     boost::shared_ptr<PreamplifierWrapper> ptr_cc_object(
         new PreamplifierWrapper(fake));
 
-    initpreampl();
+    initpreampl_wrapper();
     object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
 
     // pass the reference to a_cxx_foo into python:
