@@ -23,13 +23,14 @@ using boost::python::class_;
 using boost::python::call_method;
 using boost::python::def;
 using boost::python::no_init;
+using boost::python::wrapper;
 
 
 // Абстрактный класс
 class Preamplifier {
 public:
 	virtual ~Preamplifier () {}
-	virtual int SetChannel(const int value) {return 0;}// = 0;
+	virtual int SetChannel(const int value) = 0;
 };
 
 class PreamplifierImplFake : public Preamplifier {
@@ -56,19 +57,19 @@ private:
 	int eeprom_[20];
 };
 
-BOOST_PYTHON_MODULE(preampl)
-{
-	class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Preamplifier", no_init)
-		//.def("SetChannel", &Preamplifier::SetChannel)
-		;
-  boost::python::class_<PreamplifierImplFake, 
-	  boost::shared_ptr<PreamplifierImplFake/*/, true*/>, boost::noncopyable>("PreamplifierImplFake")
-    .def("SetChannel", &PreamplifierImplFake::SetChannel)
-  ;
-}
+// BAD, but now bee so
+class PreamplifierWrapper : public Preamplifier {
+ public:
+   PreamplifierWrapper(shared_ptr<Preamplifier> real_ptr) : real_ptr_(real_ptr) {
+  }
+   virtual int SetChannel(const int value) {
+    return real_ptr_->SetChannel(value);
+   }
+private:
+  shared_ptr<Preamplifier> real_ptr_;
+};
 
-using boost::python::wrapper;
-
+// Попытки что-то обернуть
 class BaseWrap : public Preamplifier, wrapper<Preamplifier> {
 	int SetChannel()
 	{
@@ -79,72 +80,18 @@ class BaseWrap : public Preamplifier, wrapper<Preamplifier> {
 	int default_f() { return this->Preamplifier::SetChannel(0); }
 };
 
-/*BOOST_PYTHON_MODULE(preampl_base)
+BOOST_PYTHON_MODULE(preampl)
 {
-  boost::python::class_<Preamplifier, boost::noncopyable>("Base")
-	.def("f", boost::python::pure_virtual(&Preamplifier::SetChannel))
- ;
-}*/
-
-
-TEST(DI, Base) {
-	//Preamplifier preampl;  // не компилируется
-	//PreamplifierImplFake preampl;
-	PreamplifierImplReal preampl;  // создание по значению!
-
-	// Клиентский код
-	// Действия над усилителем
-	preampl.SetChannel(1);
+	/*class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Preamplifier", no_init)
+		//.def("SetChannel", &Preamplifier::SetChannel)
+		;*/
+  boost::python::class_<PreamplifierWrapper, 
+	  boost::shared_ptr<PreamplifierWrapper/*/, true*/>, boost::noncopyable>("PreamplifierImplFake")
+    .def("SetChannel", &PreamplifierWrapper::SetChannel)
+  ;
 }
 
-TEST(DI, SmartPtr) {
-	//Preamplifier preampl;  // не компилируется
-	//PreamplifierImplFake preampl;
-	shared_ptr<Preamplifier> preampl(new PreamplifierImplFake());  // создание по значению!
-
-	// Клиентский код
-	// Действия над усилителем
-	preampl->SetChannel(1);
-}
-
-TEST(DI, RunFromString) {
-  Py_Initialize();
-  try {
-    PyRun_SimpleString(
-      "a_foo = None\n"
-      "\n"
-      "def setup(a_foo_from_cxx):\n"
-      "  print 'setup called with', a_foo_from_cxx\n"
-      "  global a_foo\n"
-      "  a_foo = a_foo_from_cxx\n"
-      "\n"
-      "def run():\n"
-	  "  #a_foo.SetChannel(6)\n"
-	  "  pass#a_foo.SetChannel(6)\n"
-      "\n"
-      "print 'main module loaded'\n"
-    );
-
-    boost::shared_ptr<Preamplifier> ptr_cc_object(new PreamplifierImplFake());
-
-    initpreampl();
-    object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
-
-    // pass the reference to a_cxx_foo into python:
-    object setup_function = main.attr("setup");
-    setup_function(ptr_cc_object);
-
-    // now run the python 'main' function
-    object run_func = main.attr("run");
-    run_func();
-  } catch (error_already_set) {
-    PyErr_Print();
-  }
-
-  Py_Finalize();
-}
-
-// shared ptr
+// shared ptr - Not builded
 struct A
 {
     virtual int f() { return 0; }
@@ -177,3 +124,104 @@ BOOST_PYTHON_MODULE(register_ptr)
     
     register_ptr_to_python< shared_ptr<A> >();
 }*/
+
+TEST(DI, Base) {
+	//Preamplifier preampl;  // не компилируется
+	//PreamplifierImplFake preampl;
+	PreamplifierImplReal preampl;  // создание по значению!
+
+	// Клиентский код
+	// Действия над усилителем
+	preampl.SetChannel(1);
+}
+
+TEST(DI, SmartPtr) {
+	//Preamplifier preampl;  // не компилируется
+	//PreamplifierImplFake preampl;
+	shared_ptr<Preamplifier> preampl(new PreamplifierImplFake());  // создание по значению!
+
+	// Клиентский код
+	// Действия над усилителем
+	preampl->SetChannel(1);
+}
+
+TEST(DI, ErrorUsige) {
+
+  Py_Initialize();
+  try {
+    PyRun_SimpleString(
+      "a_foo = None\n"
+      "\n"
+      "def setup(a_foo_from_cxx):\n"
+      "  print 'setup called with', a_foo_from_cxx\n"
+      "  global a_foo\n"
+      "  a_foo = a_foo_from_cxx\n"
+      "\n"
+      "def run():\n"
+	  "  #a_foo.SetChannel(6)\n"
+	  "  pass#a_foo.SetChannel(6)\n"
+      "\n"
+      "print 'main module loaded'\n"
+    );
+
+    // Not work...
+    boost::shared_ptr<Preamplifier> ptr_cc_object(new PreamplifierImplFake());
+
+    initpreampl();
+    object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
+
+    // pass the reference to a_cxx_foo into python:
+    object setup_function = main.attr("setup");
+    setup_function(ptr_cc_object);
+
+    // now run the python 'main' function
+    object run_func = main.attr("run");
+    run_func();
+  } catch (error_already_set) {
+    PyErr_Print();
+  }
+
+  Py_Finalize();
+}
+
+TEST(DI, BeeSo) {
+
+  Py_Initialize();
+  try {
+    PyRun_SimpleString(
+      "a_foo = None\n"
+      "\n"
+      "def setup(a_foo_from_cxx):\n"
+      "  print 'setup called with', a_foo_from_cxx\n"
+      "  global a_foo\n"
+      "  a_foo = a_foo_from_cxx\n"
+      "\n"
+      "def run():\n"
+	  "  #a_foo.SetChannel(6)\n"
+	  "  pass#a_foo.SetChannel(6)\n"
+      "\n"
+      "print 'main module loaded'\n"
+    );
+
+    // Not work...
+    shared_ptr<Preamplifier> fake(new PreamplifierImplFake);
+    boost::shared_ptr<PreamplifierWrapper> ptr_cc_object(
+        new PreamplifierWrapper(fake));
+
+    initpreampl();
+    object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
+
+    // pass the reference to a_cxx_foo into python:
+    object setup_function = main.attr("setup");
+    setup_function(ptr_cc_object);
+
+    // now run the python 'main' function
+    object run_func = main.attr("run");
+    run_func();
+  } catch (error_already_set) {
+    PyErr_Print();
+  }
+
+  Py_Finalize();
+}
+
