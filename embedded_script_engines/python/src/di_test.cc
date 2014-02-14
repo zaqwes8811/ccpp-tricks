@@ -56,7 +56,9 @@ private:
 
 BOOST_PYTHON_MODULE(preampl)
 {
-	class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Captured", no_init);
+	class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Preamplifier", no_init)
+		//.def("SetChannel", &Preamplifier::SetChannel)
+		;
   boost::python::class_<PreamplifierImplFake, 
 	  boost::shared_ptr<PreamplifierImplFake>, boost::noncopyable>("PreamplifierImplFake")
     .def("SetChannel", &PreamplifierImplFake::SetChannel)
