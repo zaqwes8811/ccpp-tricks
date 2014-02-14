@@ -1,4 +1,4 @@
-set VER = msvc-9.0
+set VER=msvc-9.0
 bjam ^
   -j2 ^
   --toolset=%VER% ^
