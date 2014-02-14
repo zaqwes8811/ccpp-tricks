@@ -9,12 +9,18 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/python.hpp>
+#include <boost/python/register_ptr_to_python.hpp>
 
 using boost::shared_ptr;
 using boost::python::object;
 using boost::python::handle;
 using boost::python::borrowed;
 using boost::python::error_already_set;
+using boost::python::register_ptr_to_python;
+using boost::python::class_;
+using boost::python::call_method;
+using boost::python::def;
+using boost::python::no_init;
 
 
 // Абстрактный класс
@@ -50,8 +56,9 @@ private:
 
 BOOST_PYTHON_MODULE(preampl)
 {
+	class_<Preamplifier, shared_ptr<Preamplifier>, boost::noncopyable>("Captured", no_init);
   boost::python::class_<PreamplifierImplFake, 
-	  boost::shared_ptr<PreamplifierImplFake>>("PreamplifierImplFake")
+	  boost::shared_ptr<PreamplifierImplFake>, boost::noncopyable>("PreamplifierImplFake")
     .def("SetChannel", &PreamplifierImplFake::SetChannel)
   ;
 }
@@ -131,3 +138,37 @@ TEST(DI, RunFromString) {
 
   Py_Finalize();
 }
+
+// shared ptr
+struct A
+{
+    virtual int f() { return 0; }
+};
+
+shared_ptr<A> New() { return shared_ptr<A>( new A() ); }
+
+int Ok( const shared_ptr<A>& a ) { return a->f(); }
+
+int Fail( shared_ptr<A>& a ) { return a->f(); }
+
+struct A_Wrapper: A
+{
+    A_Wrapper(PyObject* self_): self(self_) {}
+    int f() { return call_method<int>(self, "f"); }    
+    int default_f() { return A::f(); }    
+    PyObject* self;
+};
+
+/*
+BOOST_PYTHON_MODULE(register_ptr)
+{
+    class_<A, A_Wrapper>("A")
+        .def("f", &A::f, &A_Wrapper::default_f)
+    ;
+    
+    //def("New", &New);
+    //def("Ok", &Ok);
+    //def("Fail", &Fail);
+    
+    register_ptr_to_python< shared_ptr<A> >();
+}*/
