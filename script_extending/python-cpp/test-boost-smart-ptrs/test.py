@@ -1,4 +1,6 @@
+# http://stackoverflow.com/questions/5049842/autocomplete-in-pycharm-for-python-compiled-extensions
 
-import hello
+import hello_
 
-#hello.say
+hello_.say_hello("you")
+hello_.Foo

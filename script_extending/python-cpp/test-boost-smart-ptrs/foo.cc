@@ -13,11 +13,6 @@ int say_hello(const char* name) {
 	return 1;
 }
 
-// Экспонирование
-BOOST_PYTHON_MODULE(hello)
-{
-    def("say_hello", say_hello);
-}
 
 namespace boost
 {
