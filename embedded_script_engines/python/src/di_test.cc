@@ -1,5 +1,7 @@
 // di - dependency injections
 
+// http://www.boost.org/doc/libs/1_43_0/libs/python/doc/v2/register_ptr_to_python.html
+
 // Third party
 #include <gtest/gtest.h>
 #include <boost/shared_ptr.hpp>
@@ -19,7 +21,7 @@ using boost::python::error_already_set;
 class Preamplifier {
 public:
 	virtual ~Preamplifier () {}
-	virtual int SetChannel(const int value) = 0;
+	virtual int SetChannel(const int value) {return 0;}// = 0;
 };
 
 class PreamplifierImplFake : public Preamplifier {
@@ -48,10 +50,31 @@ private:
 
 BOOST_PYTHON_MODULE(preampl)
 {
-  boost::python::class_<PreamplifierImplFake, boost::shared_ptr<PreamplifierImplFake>>("Preamplifier")
+  boost::python::class_<PreamplifierImplFake, 
+	  boost::shared_ptr<PreamplifierImplFake>>("PreamplifierImplFake")
     .def("SetChannel", &PreamplifierImplFake::SetChannel)
   ;
 }
+
+using boost::python::wrapper;
+
+class BaseWrap : public Preamplifier, wrapper<Preamplifier> {
+	int SetChannel()
+	{
+	if (boost::python::override SetChannel = this->get_override("f"))
+		return SetChannel(); // *note*
+	return Preamplifier::SetChannel(0);
+	}
+	int default_f() { return this->Preamplifier::SetChannel(0); }
+};
+
+/*BOOST_PYTHON_MODULE(preampl_base)
+{
+  boost::python::class_<Preamplifier, boost::noncopyable>("Base")
+	.def("f", boost::python::pure_virtual(&Preamplifier::SetChannel))
+ ;
+}*/
+
 
 TEST(DI, Base) {
 	//Preamplifier preampl;  // не компилируется
@@ -90,7 +113,7 @@ TEST(DI, RunFromString) {
       "print 'main module loaded'\n"
     );
 
-    boost::shared_ptr<Preamplifier> ptr_cc_object = boost::make_shared<PreamplifierImplFake>();
+    boost::shared_ptr<Preamplifier> ptr_cc_object(new PreamplifierImplFake());
 
     initpreampl();
     object main = object(handle<>(borrowed(PyImport_AddModule("__main__"))));
