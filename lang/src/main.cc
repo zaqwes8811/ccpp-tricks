@@ -2,6 +2,8 @@
 
 //using namespace std;
 
+#include <gtest/gtest.h>
+
 int main()
 {
     //cout << "Hello World!" << endl;
