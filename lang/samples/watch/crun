@@ -1,5 +1,0 @@
-#!/bin/bash
-g++ -c mysystime.cpp
-g++ -lrt -c main.cpp
-g++ -lrt -o main main.o mysystime.o
-./main

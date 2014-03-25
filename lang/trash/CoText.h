@@ -1,1 +1,0 @@
-const char HEX_DI_KEY[] ="0123456789ABCDEF";
