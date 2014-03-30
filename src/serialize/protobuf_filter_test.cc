@@ -56,5 +56,42 @@ void PromptForAddress(tutorial::Person* person) {
 }
 
 TEST(Serialize, ProtobufTutorial) {
-    // https://developers.google.com/protocol-buffers/docs/cpptutorial
+  // https://developers.google.com/protocol-buffers/docs/cpptutorial
+  // Main function:  Reads the entire address book from a file,
+  //   adds one person based on user input, then writes it back out to the same
+  //   file.
+
+  // Verify that the version of the library that we linked against is
+  // compatible with the version of the headers we compiled against.
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  const char* filename = "addr.pb";
+
+  tutorial::AddressBook address_book;
+
+  {
+    // Read the existing address book.
+    fstream input(filename, ios::in | ios::binary);
+    if (!input) {
+      cout << filename << ": File not found.  Creating a new file." << endl;
+    } else {
+      ASSERT_EQ(true, address_book.ParseFromIstream(&input));
+    }
+  }
+
+  // Add an address.
+  PromptForAddress(address_book.add_person());
+
+  {
+    // Write the new address book back to disk.
+    fstream output(filename, ios::out | ios::trunc | ios::binary);
+    if (!address_book.SerializeToOstream(&output)) {
+      cerr << "Failed to write address book." << endl;
+      ASSERT_FALSE(true);
+    }
+  }
+
+  // Optional:  Delete all global objects allocated by libprotobuf.
+  google::protobuf::ShutdownProtobufLibrary();
+
 }
