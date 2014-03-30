@@ -14,10 +14,16 @@ Debug:QMAKE_CXXFLAGS_DEBUG -= -MDd
 Release:QMAKE_CXXFLAGS_RELEASE += -MT
 Debug:QMAKE_CXXFLAGS_DEBUG += -MTd
 
-INCLUDEPATH += ../../third_party/gmock-1.6.0/fused-src/
+PROTOBUF_LIB_PATH = ../../third_party/protobuf-2.3.0/vsprojects/Release
+
+INCLUDEPATH += ../../third_party/gmock-1.6.0/fused-src/ \
+    ../../third_party/protobuf-2.3.0/vsprojects/include
+
+LIBS += $$PROTOBUF_LIB_PATH/libprotobuf.lib
 
 SOURCES += \
     ../../src/lang/tests-launcher.cc \
     ../../src/serialize/protobuf_filter_test.cc \
-    ../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc
+    ../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
+    ../../src/serialize/addressbook.pb.cc
 
