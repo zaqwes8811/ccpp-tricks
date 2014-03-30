@@ -122,6 +122,17 @@ TEST(Serialize, ProtobufTutorial) {
     }
   }
 
+  {
+    // Read the existing address book.
+    fstream input(filename, ios::in | ios::binary);
+    if (!address_book.ParseFromIstream(&input)) {
+      cerr << "Failed to parse address book." << endl;
+      ASSERT_FALSE(true);
+    }
+  }
+
+  ListPeople(address_book);
+
   // Optional:  Delete all global objects allocated by libprotobuf.
   google::protobuf::ShutdownProtobufLibrary();
 
