@@ -1,4 +1,6 @@
 // https://developers.google.com/protocol-buffers/docs/cpptutorial
+//
+// in-depth : https://developers.google.com/protocol-buffers/docs/reference/cpp-generated
 
 // Third party
 #include <gtest/gtest.h>
