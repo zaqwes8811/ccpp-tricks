@@ -27,6 +27,7 @@
 	-no-javascript-jit \
 	-no-phonon \
 	-no-xvideo \
+	-no-gui \
 	-no-multimedia \
 	-no-audio-backend \
 	-no-phonon-backend \
