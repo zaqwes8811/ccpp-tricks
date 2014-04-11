@@ -42,6 +42,16 @@
 	-no-accessibility \
 	-no-openssl \
 	-no-gtkstyle \
+	-no-qt3support \
+	-nomake demos \
+	-nomake tools \
+	-nomake examples \
 	-fast \
 	-depths 16,24,32 \
 	-little-endian
+
+
+
+
+
+
