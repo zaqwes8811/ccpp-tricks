@@ -16,6 +16,7 @@
 #	-qt-mouse-linuxinput \
 #	-plugin-mouse-linuxtp \
 #	-plugin-mouse-pc \
+# cp -R mkspecs/qws/linux-arm-g++/ mkspecs/qws/linux-arm5te-g++/
 
 
 ./configure -prefix ~/big_device/third_party/Qt4.8.1_armv5te \
