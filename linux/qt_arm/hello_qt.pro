@@ -7,5 +7,9 @@ CONFIG += release
 
 QT -= gui
 
+
+
+linux-arm5te-g++{
 # Input
 SOURCES += main.cpp
+}
