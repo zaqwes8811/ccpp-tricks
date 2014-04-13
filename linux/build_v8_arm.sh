@@ -15,4 +15,7 @@ export LD=$TOOL_PREFIX-g++
 export CCFLAGS="-mcpu=arm926ej-s -march=armv5te"
 export ARM_TARGET_LIB=$V/arm-none-linux-gnueabi/libc
 
-make arm.release wordsize=32 snapshot=off sample=shell werror=no armfloatabi=softfp
+# http://www.wigwag.com/devblog/cross-compile-v8-target-arm/!!
+make arm.release wordsize=32 snapshot=off sample=shell werror=no armfloatabi=soft
+# armeabi=soft
+#fp
