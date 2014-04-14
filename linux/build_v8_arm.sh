@@ -26,7 +26,7 @@ export ARM_TARGET_LIB=$V/arm-none-linux-gnueabi/libc
 # http://www.wigwag.com/devblog/cross-compile-v8-target-arm/!!
 # https://code.google.com/p/v8/wiki/CrossCompilingForARM
 # -j4 - ?
-make arm.debug \
+make arm.release \
 	armfloatabi=soft \
 	armfpu=off \
 	wordsize=32 \
@@ -56,9 +56,17 @@ make arm.debug \
 #	              -Dv8_target_arch=arm \
 #	              -S.arm  -Dv8_enable_backtrace=1 -Dv8_use_snapshot='false' -Dwerror='' -Darmv7=0 -#Darm_fpu=vfp -Darm_float_abi=softfp -Darm_float_abi=soft -Darm_thumb=0
 
+# Error
+#root@freescale ~$ ./shell
+#Illegal instruction
+
 #-Ibuild/standalone.gypi --depth=. \
 #	              -Dv8_target_arch=arm \
 #	              -S.arm  -Dv8_enable_backtrace=1 -Dv8_use_snapshot='false' -Dwerror='' -Darmv7=0 -#Darm_fpu=vfp -Darm_float_abi=softfp -Darm_fpu=off -Darm_float_abi=soft -Darm_thumb=0
+
+# Error
+#root@freescale ~$ ./shell
+#Illegal instruction
 
 # -Ibuild/standalone.gypi --depth=. \
 #	              -Dv8_target_arch=arm \
@@ -68,6 +76,16 @@ make arm.debug \
 # Error
 #root@freescale ~$ ./shell
 #Illegal instruction
+
+# Need edit Make file GY flags
+# http://wiki.qemu.org/Main_Page
+
+#Ibuild/standalone.gypi --depth=. \
+#	              -Dv8_target_arch=arm \
+#	              -S.arm  -Dv8_enable_backtrace=1 -#Dv8_use_snapshot='false' -Dwerror='' -Darmv7=0 -Darm_float_abi=soft -#Darm_thumb=0
+
+
+
 
 
 
