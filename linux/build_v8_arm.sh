@@ -18,7 +18,7 @@ export ARM_TARGET_LIB=$V/arm-none-linux-gnueabi/libc
 # http://www.wigwag.com/devblog/cross-compile-v8-target-arm/!!
 # https://code.google.com/p/v8/wiki/CrossCompilingForARM
 # -j4 - ?
-make arm.debug wordsize=32 snapshot=off sample=shell vfp3=off werror=no armfloatabi=soft armv7=false
+make arm.debug wordsize=32 snapshot=off sample=shell vfp3=off werror=no armfloatabi=soft armv7=false hardfp=off armthumb=off
 # off max count values
 # wordsize=32 snapshot=off arch=arm vfp3=off armeabi=soft sample=shell
 # armeabi=soft
