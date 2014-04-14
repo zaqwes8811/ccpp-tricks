@@ -2,7 +2,7 @@
 
 # https://code.google.com/p/v8/wiki/CrossCompilingForARM
 
-V=/home/zaqwes/big_device/codesourcery/arm-2009q1
+V=/home/zaqwes/big_device/condesourcery/arm-2009q1
 
 export TOOL_PREFIX=$V/bin/arm-none-linux-gnueabi
 export CXX=$TOOL_PREFIX-g++
@@ -18,6 +18,6 @@ export ARM_TARGET_LIB=$V/arm-none-linux-gnueabi/libc
 # http://www.wigwag.com/devblog/cross-compile-v8-target-arm/!!
 # https://code.google.com/p/v8/wiki/CrossCompilingForARM
 # -j4 - ?
-make arm.release wordsize=32 snapshot=off sample=shell werror=no armfloatabi=soft
-# armeabi=soft
+make -j4 arm.release armfloatabi=soft wordsize=32 snapshot=off sample=shell werror=no OUTDIR=./armv5te_out_armfloat_soft
+# armeabi=soft armfloatabi
 #fp
