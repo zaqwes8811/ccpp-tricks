@@ -10,7 +10,7 @@
 
 // App
 #include "process.h"
-#include "raw/point.h"
+#include "point_v8.h"
 #include "v8_wrapper.h"
 #include "virtual_machine.h"
 

@@ -1,4 +1,4 @@
-#include "palette.h"
+#include "palette_v8.h"
 
 // App
 #include <v8-r16258/process.h>

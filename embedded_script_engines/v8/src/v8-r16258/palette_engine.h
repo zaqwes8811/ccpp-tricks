@@ -2,7 +2,7 @@
 
 // App
 #include "process.h"
-#include "raw/palette.h"
+#include "palette_v8.h"
 
 class PaletteEngine {
  public:

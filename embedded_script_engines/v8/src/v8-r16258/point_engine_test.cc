@@ -9,7 +9,7 @@
 
 // App
 #include "process.h"
-#include "raw/point.h"
+#include "point_v8.h"
 #include "point_engines.h"
 
 using std::string;

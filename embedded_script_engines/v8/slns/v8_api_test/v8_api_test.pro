@@ -2,7 +2,8 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
-CONFIG+=r16258
+CONFIG += r16258
+#CONFIG += r10448
 
 INCLUDEPATH += \
     ../../../../third_party/gmock-1.6.0/fused-src \
@@ -16,15 +17,17 @@ LIBS += -L/home/zaqwes/work/third_party/v8-r16258/out/ia32.release/obj.target/to
 
 }
 
+r10448 {
+LIBS += -L/home/zaqwes/work/third_party/v8-r10448 -lv8
+}
+
 SOURCES += \
     ../../src/launcher_process.cc \
-    ../../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
-    ../../src/raw/point.cc \
-    ../../src/raw/palette.cc
-
+    ../../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc
 
 r16258 {
 SOURCES += \
+    ../../src/v8-r16258/point_v8.cc \
     ../../src/v8-r16258/v8_api_test.cc \
     ../../src/v8-r16258/process.cc \
     ../../src/v8-r16258/process_test.cc \
@@ -39,6 +42,7 @@ SOURCES += \
     ../../src/v8-r16258/v8_wrapper_db.cc \
     ../../src/v8-r16258/arrays_test.cc \
     ../../src/v8-r16258/engine_cut_persistents.cc \
-    ../../src/v8-r16258/database_manipulations.cc
+    ../../src/v8-r16258/database_manipulations.cc \
+    ../../src/v8-r16258/palette_v8.cc
 }
 

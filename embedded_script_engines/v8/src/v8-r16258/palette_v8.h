@@ -4,7 +4,7 @@
 #include <v8-r16258/include/v8.h>
 
 // App
-#include "point.h"
+#include "point_v8.h"
 
 class Palette {
  public:

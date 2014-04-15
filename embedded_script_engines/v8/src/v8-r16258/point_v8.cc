@@ -1,4 +1,4 @@
-#include "point.h"
+#include "point_v8.h"
 
 using v8::Value;
 using v8::Handle;
