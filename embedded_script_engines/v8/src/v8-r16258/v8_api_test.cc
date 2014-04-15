@@ -4,7 +4,7 @@
 #include <iostream>
 
 // Other
-#include "v8.h"
+#include <v8-r16258/include/v8.h>
 #include <gtest/gtest.h>
 
 // App
@@ -268,7 +268,7 @@ TEST(V8, GlobalXetter) {
 
   // Run
   // Можно запускать скрипт
-  string file = "..\\scripts\\free_var_xet_test.js";
+  string file = "./scripts/free_var_xet_test.js";
 
   Handle<String> source = ReadFile(file);
   EXPECT_NE(true, source.IsEmpty());

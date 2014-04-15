@@ -42,7 +42,7 @@ class V8WrapperImpl : public V8Wrapper {
 
 	static std::string to_string(Local<Value> v);
 
-	static void Open(const FunctionCallbackInfo<Value>& args);
+    //static void Open(const FunctionCallbackInfo<Value>& args);
 	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();
 	
 

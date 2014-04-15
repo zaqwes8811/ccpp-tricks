@@ -5,18 +5,16 @@
 #include <map>
 
 // Other
-#include <v8.h>
+#include <v8-r16258/include/v8.h>
 #include <gtest/gtest.h>
 
 // App
 #include "process.h"
-#include "point.h"
+#include "raw/point.h"
 #include "v8_wrapper.h"
 #include "virtual_machine.h"
 
 using std::string;
-
-
 
 TEST(V8, ProcessTop) {
   const int kSampleSize = 6;
@@ -29,7 +27,7 @@ TEST(V8, ProcessTop) {
     StringHttpRequest("/", "localhost", "yahoo.com", "firefox")
   };
   int argc = 2;
-  string path = kPathToTestScripts+string("count-hosts.js");
+  string path = kPathToTestScripts+string("./scripts/count-hosts.js");
   const char* p = path.c_str();
   const char* argv[] = {"", p};
 
@@ -62,7 +60,7 @@ TEST(V8, ProcessTopOne) {
     StringHttpRequest("/process.cc", "localhost", "google.com", "firefox")
   };
   int argc = 2;
-  string path = kPathToTestScripts+string("count-hosts.js");
+  string path = kPathToTestScripts+string("scripts/count-hosts.js");
   const char* p = path.c_str();
   const char* argv[] = {"", p};
 
@@ -70,13 +68,13 @@ TEST(V8, ProcessTopOne) {
   map<string, string> options;
   string file;
   ParseOptions(argc, argv, options, &file);
-  EXPECT_NE(true, file.empty());
+  ASSERT_NE(true, file.empty());
 
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
   Handle<String> source = ReadFile(file);
-  EXPECT_NE(true, source.IsEmpty());
+  ASSERT_NE(true, source.IsEmpty());
 
   //> Own
   JsHttpRequestProcessor processor(isolate, source);
@@ -90,7 +88,7 @@ TEST(V8, ProcessTopOne) {
 
 TEST(V8, ProcessOne) {
   int argc = 2;
-  string path = kPathToTestScripts+string("count-hosts.js");
+  string path = kPathToTestScripts+string("scripts/count-hosts.js");
   const char* p = path.c_str();
   const char* argv[] = {"", p};
 
@@ -142,7 +140,7 @@ TEST(V8, ProcessRunFreeFuncFromJS) {
   Context::Scope context_scope(context);
 
   // Можно запускать скрипт
-  string file = kPathToTestScripts+string("free_fuc_call_test.js");
+  string file = kPathToTestScripts+string("scripts/free_fuc_call_test.js");
 
   Handle<String> source = ReadFile(file);
   ASSERT_NE(true, source.IsEmpty());
@@ -177,7 +175,7 @@ TEST(V8, CallJSFuncReturnArraySlots) {
 
 TEST(V8, ProcessWrapRequest) {
   int argc = 2;
-  string path = kPathToTestScripts+string("count-hosts.js");
+  string path = kPathToTestScripts+string("scripts/count-hosts.js");
   const char* p = path.c_str();
   const char* argv[] = {"", p};
 

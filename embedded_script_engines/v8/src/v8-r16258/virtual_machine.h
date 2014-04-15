@@ -8,8 +8,7 @@
 #include <vector>
 
 // Other
-//#include <boost/shared_ptr.hpp>
-#include <v8.h>
+#include <v8-r16258/include/v8.h>
 
 // App
 // #include "in_memory_storage/sampler.h" 
@@ -33,7 +32,7 @@ class dblite {
 
   static dblite* unwrap_dblite(Handle<Object> obj);
 	static std::string to_string(Local<Value> v);
-	static void Open(const FunctionCallbackInfo<Value>& args);
+    //static void Open(const FunctionCallbackInfo<Value>& args);
 
 	v8::Handle<v8::FunctionTemplate> CreateDbLiteTemplate();
   
