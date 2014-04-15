@@ -80,3 +80,6 @@ TEST(V810448, Simple) {
 
   context.Dispose();
 }
+
+TEST(V810448, GlobalVars) {
+}
