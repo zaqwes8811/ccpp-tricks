@@ -24,7 +24,10 @@ LIBS += -L/home/zaqwes/work/third_party/v8-r10448 -lv8
 SOURCES += \
     ../../src/launcher_process.cc \
     ../../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
-    ../../src/v8-r10448/api_test.cc
+    ../../src/v8-r10448/api_test.cc \
+    #../../src/v8-r10448/samples/shell.cc \
+    ../../src/v8-r10448/samples/process.cc \
+    #../../src/v8-r10448/samples/lineprocessor.cc
 
 r16258 {
 SOURCES += \
