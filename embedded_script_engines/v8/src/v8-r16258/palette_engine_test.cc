@@ -5,6 +5,8 @@
 #include "v8-r16258/include/v8.h"
 #include <gtest/gtest.h>
 
+using raw_objects::Palette;
+
 TEST(V8, Palette) {
   v8::V8::InitializeICU();
   string file = string("./scripts/palette.js");

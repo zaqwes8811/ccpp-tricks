@@ -8,6 +8,7 @@ v8::Persistent<v8::ObjectTemplate> V8Palette::int_array_blueprint_;
 Persistent<ObjectTemplate> V8Palette::own_blueprint_;
 
 using raw_objects::Point;
+using raw_objects::Palette;
 
 V8Palette::V8Palette(Isolate* isolate) : isolate_(isolate) { 
   // Нужно создать Persistent!

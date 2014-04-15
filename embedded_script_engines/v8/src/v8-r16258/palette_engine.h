@@ -9,7 +9,7 @@ class PaletteEngine {
   PaletteEngine(
       Isolate* isolate,
       Handle<String> source,
-      Palette* palette) 
+      raw_objects::Palette* palette)
         : isolate_(isolate), source_(source) {
     HandleScope handle_scope(GetIsolate());
 

@@ -2,8 +2,8 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
-CONFIG += r16258
-#CONFIG += r10448
+#CONFIG += r16258
+CONFIG += r10448
 
 INCLUDEPATH += \
     ../../../../third_party/gmock-1.6.0/fused-src \
@@ -23,7 +23,8 @@ LIBS += -L/home/zaqwes/work/third_party/v8-r10448 -lv8
 
 SOURCES += \
     ../../src/launcher_process.cc \
-    ../../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc
+    ../../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
+    ../../src/v8-r10448/api_test.cc
 
 r16258 {
 SOURCES += \
@@ -47,5 +48,6 @@ SOURCES += \
 }
 
 HEADERS += \
-    ../../src/raw/point.h
+    ../../src/raw/point.h \
+    ../../src/raw/palette.h
 

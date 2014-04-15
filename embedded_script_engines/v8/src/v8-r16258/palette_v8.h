@@ -4,16 +4,8 @@
 #include <v8-r16258/include/v8.h>
 
 // App
+#include "raw/palette.h"
 #include "point_v8.h"
-
-class Palette {
- public:
-  static const int MAX_SIZE = 32;
-  Palette() {}
-  int array_[MAX_SIZE];
-  raw_objects::Point point_;
-  raw_objects::Point point_array[MAX_SIZE];
-};
 
 using namespace v8;
 
@@ -66,7 +58,7 @@ public:
 
   // About:
   //   Make this root object.
-  Handle<Object> Forge(Palette* palette);
+  Handle<Object> Forge(raw_objects::Palette* palette);
 
 public:
   // Просто массив int.
