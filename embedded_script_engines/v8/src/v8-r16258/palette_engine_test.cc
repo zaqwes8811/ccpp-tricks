@@ -2,13 +2,13 @@
 #include "palette_engine.h"
 
 // Other
-#include "v8.h"
+#include "v8-r16258/include/v8.h"
 #include <gtest/gtest.h>
 
 TEST(V8, Palette) {
   v8::V8::InitializeICU();
-  string file = kPathToTestScripts+string("palette.js");
-  EXPECT_NE(true, file.empty());
+  string file = string("./scripts/palette.js");
+  ASSERT_NE(true, file.empty());
 
 
   /// Isolate and context be injected!

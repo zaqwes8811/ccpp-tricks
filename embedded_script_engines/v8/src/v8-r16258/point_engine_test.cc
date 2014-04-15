@@ -5,12 +5,12 @@
 
 // Other
 #include <gtest/gtest.h>
-#include <v8.h>
+#include <v8-r16258/include/v8.h>
 
 // App
 #include "process.h"
-#include "point.h"
-#include "point/point_engines.h"
+#include "raw/point.h"
+#include "point_engines.h"
 
 using std::string;
 
@@ -126,7 +126,7 @@ Persistent<ObjectTemplate> PointV8EngineImplWithPersistent::point_template_;
 
 TEST(PointEngine, Create) {
   v8::V8::InitializeICU();
-  string file = kPathToTestScripts+string("point.js");
+  string file = string("scripts/point.js");
   EXPECT_NE(true, file.empty());
 
   Isolate* isolate = Isolate::GetCurrent();

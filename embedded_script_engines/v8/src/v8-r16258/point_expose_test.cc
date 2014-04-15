@@ -3,7 +3,7 @@
 #include <string>
 
 // Other
-#include <v8.h>
+#include <v8-r16258/include/v8.h>
 #include <gtest/gtest.h>
 
 using namespace v8;

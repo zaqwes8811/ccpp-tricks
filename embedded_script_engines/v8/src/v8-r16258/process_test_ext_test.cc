@@ -1,5 +1,5 @@
 // #in.. config.h
-#include "test_extended/process_test_ext.h"
+#include "process_test_ext.h"
 
 // C++
 #include <map>
@@ -32,7 +32,7 @@ TEST(ProcessTestExt, Create) {
 
 	// V8
 	int argc = 2;
-  char* argv[] = {"", "..\\scripts\\test_extended.js"};
+  const char* argv[] = {"", "./scripts/test_extended.js"};
   v8::V8::InitializeICU();
   string file;
   ParseOptions(argc, argv, options, &file);
@@ -60,7 +60,7 @@ TEST(ProcessTestExt, CreateHanedas) {
 	dblite* db = new dblite;
 	//::scenarios::V8WrapperImpl wrapper(db,"");
 	::scenarios::JSRequest wrapper(db);
-	wrapper.wrapDataBase("..\\scripts\\test_extended.js");
+    wrapper.wrapDataBase("./scripts/test_extended.js");
 	//"..\\scripts\\test_extended.js"
 	//wrapper.testForExtProcess();
 

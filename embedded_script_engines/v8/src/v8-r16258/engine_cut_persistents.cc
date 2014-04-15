@@ -1,9 +1,9 @@
 
 // Other
-#include "v8.h"
+#include "v8-r16258/include/v8.h"
 
 // App
-#include "point/point_engines.h"
+#include "point_engines.h"
 
 /*
 class PointV8EngineImplNoPersistent : public PointV8Engine {

@@ -1,11 +1,11 @@
 #include "tests_config.h"
-#include "arrays.h"
+//#include "arrays.h"
 
 // C++
 #include <string>
 
 // Other
-#include <v8.h>
+#include <v8-r16258/include/v8.h>
 #include <gtest/gtest.h>
 
 // App
@@ -17,7 +17,7 @@ using namespace v8;
 
 TEST(ArrayAuto, Base) {
   v8::V8::InitializeICU();
-  string file = kPathToTestScripts+string("arrays.js");
+  string file = string("scripts/arrays.js");
   EXPECT_NE(true, file.empty());
 
   // Isolate and context be injected!
@@ -38,16 +38,16 @@ TEST(ArrayAuto, Base) {
   Context::Scope context_scope(context);
 
   // Our objs
-  DataBase database;
-  database.unlocks_[0] = 10;
+  //DataBase database;
+  //database.unlocks_[0] = 10;
 
   //@Point
   // Install
-  Handle<Object> output_obj = V8DataBase::New(&database, isolate);
+  //Handle<Object> output_obj = V8DataBase::New(&database, isolate);
 
-  context->Global()->Set(String::New("database"), output_obj);
+  //context->Global()->Set(String::New("database"), output_obj);
 
   //@Point
   // Run Script
-  bool success = ExecuteScript(source, isolate);
+  //bool success = ExecuteScript(source, isolate);
 }

@@ -210,7 +210,7 @@ void JSRequest::wrapDataBase(char* JSFileName) {
 
 	// V8
 	int argc = 2;
-	char* argv[] = {"", JSFileName};
+    const char* argv[] = {"", JSFileName};
   v8::V8::InitializeICU();
   string file;
  

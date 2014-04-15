@@ -1,7 +1,7 @@
 #include "palette.h"
 
 // App
-#include "process.h"
+#include <v8-r16258/process.h>
 
 v8::Persistent<v8::ObjectTemplate> V8Palette::point_array_blueprint_;
 v8::Persistent<v8::ObjectTemplate> V8Palette::int_array_blueprint_;
