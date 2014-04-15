@@ -7,10 +7,13 @@
 #include <v8-r10448/include/v8.h>
 
 // App
+#include <raw/point.h>
 
 using std::string;
 
 using namespace v8;
+
+using raw_objects::Point;
 
 // This function returns a new array with three elements, x, y, and z.
 
@@ -36,6 +39,18 @@ Handle<Array> NewPointArray(int x, int y, int z) {
   return handle_scope.Close(array);
 }
 
+int x, y;
+
+Handle<Value> XGetter(Local<String> property,
+                        const AccessorInfo& info) {
+    return Integer::New(x);
+  }
+
+void XSetter(Local<String> property, Local<Value> value,
+           const AccessorInfo& info) {
+    x = value->Int32Value();
+}
+
 TEST(V810448, Simple) {
 // Get the default Isolate created at startup.
   Isolate* isolate = Isolate::GetCurrent();
@@ -51,19 +66,17 @@ TEST(V810448, Simple) {
   Context::Scope context_scope(context);
 
   // Create a string containing the JavaScript source code.
-  //String::Utf8Value source(string("'Hello' + ', World!'"));
-  //Handle<String> source = String::New(isolate, "'Hello' + ', World!'");
-          //:NewFromUtf8(isolate, "'Hello' + ', World!'");
+  Handle<String> source = String::New("'Hello' + ', World!'");
 
   // Compile the source code.
-  //Handle<Script> script = Script::Compile(source);
+  Handle<Script> script = Script::Compile(source);
 
   // Run the script to get the result.
-  //Handle<Value> result = script->Run();
+  Handle<Value> result = script->Run();
 
   // Convert the result to an UTF8 string and print it.
-  //String::Utf8Value utf8(result);
-  //printf("%s\n", *utf8);
+  String::Utf8Value utf8(result);
+  printf("%s\n", *utf8);
 
   context.Dispose();
 }
