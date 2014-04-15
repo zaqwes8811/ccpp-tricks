@@ -1,27 +1,16 @@
 #pragma once 
 
-// Other
+// Third party
 #include <v8-r16258/include/v8.h>
 
-// Accessing to dynamic vars.
-// Point x y
-class Point {
-  public:
-  Point() : x_(1), y_(2) { }
-  Point(int x, int y) : x_(x), y_(y) { }
-  int x_;
-  int y_;
-  //std::vector<int> rgb_;
-  
-  // cppclean failed here.
-  //std::vector<vector<int>> rgb_add_;
-};
+// App
+#include "raw/point.h"
 
 class V8Point {
 public:
   V8Point(v8::Isolate* isolate) : isolate_(isolate) { }
 
-  v8::Handle<v8::Object> Forge(Point* point, v8::Handle<v8::Context> context);
+  v8::Handle<v8::Object> Forge(raw_objects::Point* point, v8::Handle<v8::Context> context);
 
   v8::Handle<v8::ObjectTemplate> MakeBlueprint();
 

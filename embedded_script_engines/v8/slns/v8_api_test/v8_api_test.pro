@@ -46,3 +46,6 @@ SOURCES += \
     ../../src/v8-r16258/palette_v8.cc
 }
 
+HEADERS += \
+    ../../src/raw/point.h
+

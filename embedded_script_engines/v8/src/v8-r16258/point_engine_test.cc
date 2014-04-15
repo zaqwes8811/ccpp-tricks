@@ -22,6 +22,8 @@ using v8::HandleScope;
 using v8::Context;
 using v8::Persistent;
 
+using raw_objects::Point;
+
 class PointV8EngineImplWithPersistent : public PointV8Engine {
  public:
   static PointV8Engine* CreateForOwn(

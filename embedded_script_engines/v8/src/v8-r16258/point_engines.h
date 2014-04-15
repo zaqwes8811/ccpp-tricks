@@ -11,10 +11,10 @@ class PointV8Engine {
    virtual ~PointV8Engine() {}
 
 public:
-  virtual void RunWithRealPoint(Point* real_point) = 0;
+  virtual void RunWithRealPoint(raw_objects::Point* real_point) = 0;
 
  protected:
   v8::Isolate* GetIsolate() { return isolate_; }
   v8::Isolate* isolate_;
-  virtual v8::Handle<v8::Object> WrapPoint(Point* point) = 0;
+  virtual v8::Handle<v8::Object> WrapPoint(raw_objects::Point* point) = 0;
 };

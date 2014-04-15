@@ -1,5 +1,8 @@
 #include "point_v8.h"
 
+// App
+#include "raw/point.h"
+
 using v8::Value;
 using v8::Handle;
 using v8::Local;
@@ -13,6 +16,8 @@ using v8::Isolate;
 using v8::Context;
 
 using v8::ObjectTemplate;
+
+using raw_objects::Point;
 
 v8::Persistent<v8::ObjectTemplate> V8Point::own_blueprint_;
 

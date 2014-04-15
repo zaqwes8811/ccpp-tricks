@@ -11,8 +11,8 @@ class Palette {
   static const int MAX_SIZE = 32;
   Palette() {}
   int array_[MAX_SIZE];
-  Point point_;
-  Point point_array[MAX_SIZE];
+  raw_objects::Point point_;
+  raw_objects::Point point_array[MAX_SIZE];
 };
 
 using namespace v8;
