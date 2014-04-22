@@ -27,3 +27,12 @@ TEST(Lang, PureVirtualDtor) {
   VDtorImpl impl;
 
 }
+
+// Как запретить наследование - нужно ли? Может быть лучше protected
+//   для нужд тестирования
+// http://forum.sources.ru/index.php?showtopic=153352
+// http://alenacpp.blogspot.ru/2006/03/blog-post_11.html
+
+TEST(Lang, DisableInh) {
+
+}
