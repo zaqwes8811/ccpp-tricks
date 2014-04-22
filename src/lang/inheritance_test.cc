@@ -41,3 +41,14 @@ TEST(Lang, DisableInh) {
 TEST(Lang, ControlledPolymorphism) {
 
 }
+
+// http://alenacpp.blogspot.ru/2006/03/blog-post_11.html
+// Про private наследование
+/*
+class A{};
+class B: private A{};
+class C: public B{
+public:
+  A* a;
+};
+*/
