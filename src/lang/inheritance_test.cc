@@ -30,9 +30,9 @@ TEST(Lang, PureVirtualDtor) {
 
 // Как запретить наследование - нужно ли? Может быть лучше protected
 //   для нужд тестирования
+// http://wincode.org/tip/deny-inheritance-virtual-lock
 // http://forum.sources.ru/index.php?showtopic=153352
 // http://alenacpp.blogspot.ru/2006/03/blog-post_11.html
-
 TEST(Lang, DisableInh) {
 
 }
