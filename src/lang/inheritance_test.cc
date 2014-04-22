@@ -36,3 +36,8 @@ TEST(Lang, PureVirtualDtor) {
 TEST(Lang, DisableInh) {
 
 }
+
+// http://www.gotw.ca/gotw/040.htm
+TEST(Lang, ControlledPolymorphism) {
+
+}
