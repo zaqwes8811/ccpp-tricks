@@ -32,7 +32,7 @@ TEST(Sutter, CheckFile) {
     //delete[] pd2;
 
     // ERROR: Undefined!
-    // DANGER: не работать с массивами полиморфно!
+    // DANGER: не работать с массивами полиморфно! Лучше vector<> or deque<>
     //B* pb2 = new D[10];
     //delete[] pb2;
 }
