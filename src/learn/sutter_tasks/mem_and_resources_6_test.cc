@@ -85,7 +85,7 @@ void operator delete(void* p, std::nothrow_t&) throw() {
 }*/
 // @Ref
 
-TEST(Sutter, CheckFile) {
+TEST(Sutter, DynamicMemNewDelete) {
   //D* pd1 = new D;
   //delete pd1;
   //B* pb1 = new D;
