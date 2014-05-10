@@ -1,10 +1,14 @@
 // http://www.rsdn.ru/forum/cpp/2810409.1 !!
 
+// C++
+#include <stdexcept>
+
 // Third party
 #include <gtest/gtest.h>
 
+using std::bad_alloc;
+
 // @Ref
-// 1
 // ERROR: не определн new and new[]
 class B {
 public:
@@ -20,19 +24,32 @@ public:
     void operator delete(void*) throw();
     void operator delete[](void*) throw();
 };
+
+// 4
+class X {
+public:
+  void * operator new(size_t s, int) throw(bad_alloc) {
+    return ::operator new(s);
+  }
+};
 // @Ref
 
 TEST(Sutter, CheckFile) {
-    //D* pd1 = new D;
-    //delete pd1;
-    //B* pb1 = new D;
-    //delete pb1;
+  //D* pd1 = new D;
+  //delete pd1;
+  //B* pb1 = new D;
+  //delete pb1;
 
-    //D* pd2 = new D[10];
-    //delete[] pd2;
+  //D* pd2 = new D[10];
+  //delete[] pd2;
 
-    // ERROR: Undefined!
-    // DANGER: не работать с массивами полиморфно! Лучше vector<> or deque<>
-    //B* pb2 = new D[10];
-    //delete[] pb2;
+  // ERROR: Undefined!
+  // DANGER: не работать с массивами полиморфно! Лучше vector<> or deque<>
+  //B* pb2 = new D[10];
+  //delete[] pb2;
+
+  //B b;
+  typedef void (B::*PWF)(void*, size_t);
+  PWF p1 = &B::f;
+  //PWF p2 = &B::operator delete;  // delete is static by default
 }
