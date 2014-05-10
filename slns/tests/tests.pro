@@ -5,8 +5,10 @@ CONFIG -= qt
 
 INCLUDEPATH += ../../../third_party/gmock-1.6.0/fused-src/
 
+LIBS += -lpthread
+
 SOURCES += \
     ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
-    ../../src/tests-launcher.cc \
-    ../../src/inheritance_test.cc
+    ../../src/lang/tests-launcher.cc \
+    ../../src/lang/inheritance_test.cc
 
