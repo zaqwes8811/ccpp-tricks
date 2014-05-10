@@ -11,5 +11,6 @@ SOURCES += \
     ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
     ../../src/lang/tests-launcher.cc \
     ../../src/lang/inheritance_test.cc \
-    ../../src/learn/sutter_tasks/mem_and_resources_6_test.cc
+    ../../src/learn/sutter_tasks/mem_and_resources_6_test.cc \
+    ../../src/memory/smart_ptrs_in_depth_test.cc
 
