@@ -27,3 +27,28 @@ TEST(Lang, PureVirtualDtor) {
   VDtorImpl impl;
 
 }
+
+// Как запретить наследование - нужно ли? Может быть лучше protected
+//   для нужд тестирования
+// http://wincode.org/tip/deny-inheritance-virtual-lock
+// http://forum.sources.ru/index.php?showtopic=153352
+// http://alenacpp.blogspot.ru/2006/03/blog-post_11.html
+TEST(Lang, DisableInh) {
+
+}
+
+// http://www.gotw.ca/gotw/040.htm
+TEST(Lang, ControlledPolymorphism) {
+
+}
+
+// http://alenacpp.blogspot.ru/2006/03/blog-post_11.html
+// Про private наследование
+/*
+class A{};
+class B: private A{};
+class C: public B{
+public:
+  A* a;
+};
+*/
