@@ -1,4 +1,8 @@
 // Note: комментарии в Шилде стр. 31
+
+// JetBrains:
+//   http://jetbrains.ru/students/events/students-traineeship-in-jetbrains/
+
 #include <iostream>
 #include <list>
 #include <typeinfo>
