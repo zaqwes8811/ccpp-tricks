@@ -43,6 +43,11 @@ public:
     return ptr;
   }
 
+  Iter operator++() {
+    ptr++;
+    return *this;
+  }
+
   Iter operator--() {
     ptr--;
     return *this;
@@ -53,7 +58,39 @@ public:
     ptr++;
     return Iter<T>(tmp, begin, end);
   }
+
+  Iter operator--(int notused) {
+    T *tmp = ptr;
+    ptr--;
+    return Iter<T>(tmp, begin, end);
+  }
+
+  // TODO: дописать остаток
 };
+
+template <class T> class GCInfo {
+ public:
+  unsigned refcount;
+  T *memPtr;
+
+  bool isArray;
+  unsigned arraySize;
+
+  GCInfo(T *mPtr, unsigned size=0) {
+    refcount = 1;
+    memPtr = mPtr;
+    if (size != 0)
+      isArray = true;
+    else
+      isArray = false;
+    arraySize = size;
+  }
+};
+
+template <class T> bool operator==(const GCInfo<T> &ob1,
+                                   const GCInfo<T> &ob2) {
+  return (ob1.memPtr == ob2.memPtr);
+}
 
 
 
