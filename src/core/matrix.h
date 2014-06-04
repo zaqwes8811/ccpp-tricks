@@ -31,6 +31,6 @@ private:
   
   // Protection
   // http://stackoverflow.com/questions/2173746/how-do-i-make-this-c-object-non-copyable
-  matrix( const matrix& ); // non construction-copyable
-  const matrix& operator=( const matrix& );  // non copyable
+  matrix( const matrix& ); // non construction-copyable - copy constructor
+  const matrix& operator=( const matrix& );  // non copyable - assignment operator
 };
