@@ -1,3 +1,8 @@
+
+#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
+  TypeName(const TypeName&);               \
+  void operator=(const TypeName&)
+
 class matrix {
 public:
   matrix(int r=2, int c=2) {
@@ -23,4 +28,9 @@ private:
   int nrows_;
   int ncols_;
   double *m_;
+  
+  // Protection
+  // http://stackoverflow.com/questions/2173746/how-do-i-make-this-c-object-non-copyable
+  matrix( const matrix& ); // non construction-copyable
+  const matrix& operator=( const matrix& );  // non copyable
 };

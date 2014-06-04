@@ -9,6 +9,9 @@ void foo(matrix mat) {
 }
 
 int main() {
+  int i, j;
+  matrix darray(100, 100);
+  foo(darray);
    
    
 }
