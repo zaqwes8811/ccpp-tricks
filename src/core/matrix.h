@@ -6,11 +6,18 @@ public:
     m_ = new double[r*c];
   }
   
-  double get(int r, int c) {
+  double get(int r, int c) const {
     return m_[r*ncols_ + c];
   }
   
-  //void put
+  void put(int r, int c, double d) {
+    m_[r*ncols_ + c] = d;
+  }
+  
+  // Step 1:
+  ~matrix() {
+    delete [] m_;
+  }
   
 private:
   int nrows_;
