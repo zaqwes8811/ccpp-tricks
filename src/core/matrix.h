@@ -30,7 +30,8 @@ private:
   double *m_;
   
   // Step 2: 
-  // Запрещаем копирование и присваивание
+  // Запрещаем копирование и присваивание - нельзя исп. в STL
+  //
   // Protection
   // http://stackoverflow.com/questions/2173746/how-do-i-make-this-c-object-non-copyable
   matrix( const matrix& ); // non construction-copyable - copy constructor

@@ -1,3 +1,5 @@
+// Stl-контейнеры имеет семантику значений, а не ссылок
+// http://it.kgsu.ru/C_STL/c_stl190.html
 
 #include <iostream>
 #include <list>
