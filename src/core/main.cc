@@ -18,6 +18,7 @@ int main() {
    
   
   // Последовательные контейнеры - упорядоченные
+  // std::vector, std::deque, std::list
   // Iterators test
   list<char> coll;
   
@@ -42,5 +43,25 @@ int main() {
   // std::set
   // TODO: Ассоциативные контейнеры сортированные?
   typedef set<int, greater<int> > IntSet;
-   
+  
+  /// Intervals  
+  // несколько интервалов
+  // TODO: begin, end, begin1! при копировании вычислчется по перовому!!
+  //   поэтому длина второго должна быть не меньше длины первого.
+  // Есть какие-то итераторы вставки
+  // TODO: как работает resize? Что будет если размер больше?
+  
+  /// Iter Adaptors
+  // std::back_inserter, std::front_inserter, std::inserter
+  
+  /// Streams
+  
+  /// Modif. algs
+  
+  /// Functors  и какая-то проблема с ними с 303
+  // mem_fun_ref! нужна была как-то
+  
+  /// POINT
+  // требования к элементам контейнера
+  
 }
