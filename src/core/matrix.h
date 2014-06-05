@@ -29,8 +29,17 @@ private:
   int ncols_;
   double *m_;
   
+  // Step 2: 
+  // Запрещаем копирование и присваивание
   // Protection
   // http://stackoverflow.com/questions/2173746/how-do-i-make-this-c-object-non-copyable
   matrix( const matrix& ); // non construction-copyable - copy constructor
   const matrix& operator=( const matrix& );  // non copyable - assignment operator
 };
+
+/*
+// copy constructor - для преобр. типов
+template<class U, class V>
+pair(const pair<U, V>& p) 
+  : first(p.first), second(p.second) {}
+  */
