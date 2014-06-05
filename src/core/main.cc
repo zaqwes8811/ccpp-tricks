@@ -20,11 +20,19 @@ int main() {
   // Iterators test
   list<char> coll;
   
+  // TODO: some.end() возвращает значение или ссылку?
   // Лучше как понял end объявить заранее, но лучше локально
   // http://valera.asf.ru/cpp/book/c05_5.html
+  // http://stackoverflow.com/questions/2687392/is-it-possible-to-declare-two-variables-of-different-types-in-a-for-loop
   for (
-    list<char>::const_iterator pos=coll.begin(), end=coll.end();
-    pos != end; ++pos) {}
+      // Одного типа
+      list<char>::const_iterator pos=coll.begin(), 
+      end=coll.end()  // init! assign only one
+      ;
+      pos != end; ++pos) 
+    {
+      
+  }
     
   //end++;  // out of scope
    
