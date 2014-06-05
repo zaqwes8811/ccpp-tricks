@@ -30,7 +30,8 @@ int main() {
       list<char>::const_iterator pos=coll.begin(), 
       end=coll.end()  // init! assign only one
       ;
-      pos != end; ++pos) 
+      pos != end;  // DANGER: можно и проскочить! 
+      ++pos) 
     {
       
   }
