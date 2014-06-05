@@ -17,6 +17,7 @@ int main() {
   //foo(darray);  // Now not compiled
    
   
+  // Последовательные контейнеры - упорядоченные
   // Iterators test
   list<char> coll;
   
@@ -35,5 +36,10 @@ int main() {
   }
     
   //end++;  // out of scope
+  
+  // Ассоциативные коллекции - отсортированные коллекции
+  // std::set
+  // TODO: Ассоциативные контейнеры сортированные?
+  typedef set<int, greater<int> > IntSet;
    
 }
