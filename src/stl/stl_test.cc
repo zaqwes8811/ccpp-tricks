@@ -21,6 +21,22 @@ public:
     m_[r * ncols_ +c] = d;
   }
 
+  // Step 1: add dctor - Error(gcc): double free or corruption (top):
+  // Sln: disable copy
+  ~matrix() {
+    delete[] m_;
+  }
+
+  // Step 2: add copy ctor
+  int rget() const { return nrows_; }
+  int cget() const { return ncols_; }
+  matrix(const matrix& mc) {
+    nrows_ = mc.rget();
+    ncols_ = mc.cget();
+    m_ = new double [nrows_*ncols_];
+    //TODO: fill
+  }
+
 private:
   int nrows_;
   int ncols_;
