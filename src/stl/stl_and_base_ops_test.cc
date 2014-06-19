@@ -87,6 +87,7 @@ private:
 //TODO: deep and shallow copy
 //
 // http://www.fredosaurus.com/notes-cpp/oop-condestructors/shallowdeepcopy.html - desigin
+// Вообще похоже должны быть ресурсы и ими объект владеет. Не? А какие ресурсы? Вот мьютекс например?
 //
 // http://www.fredosaurus.com/notes-cpp/oop-condestructors/copyconstructors.html
 // http://stackoverflow.com/questions/1936942/writing-a-deep-copy-copying-pointer-value
@@ -98,6 +99,11 @@ private:
 // http://stackoverflow.com/questions/255612/dynamically-allocating-an-array-of-objects/255744#255744
 
 //TODO: impl. copy by assign or revert, i don't remember + swap
+
+//TODO: thread-safe copy ctor and assign
+//http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
+//http://home.roadrunner.com/~hinnant/mutexes/locking.html
+// Summary: лучше сперва вообще запретить.
 
 class holder {
 public:

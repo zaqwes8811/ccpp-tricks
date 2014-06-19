@@ -14,5 +14,5 @@ SOURCES += \
     ../../src/learn/sutter_tasks/mem_and_resources_6_test.cc \
     ../../src/memory/smart_ptrs_in_depth_test.cc \
     ../../src/learn/shild/gc_single_thread_test.cc \
-    ../../src/stl/stl_test.cc
+    ../../src/stl/stl_and_base_ops_test.cc
 
