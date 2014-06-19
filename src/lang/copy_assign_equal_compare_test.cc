@@ -166,20 +166,21 @@ TEST(STL, CopyAndAssign) {
 
 
 //TODO: thread-safe copy ctor and assign
-//http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
-//http://home.roadrunner.com/~hinnant/mutexes/locking.html
-// Summary: лучше сперва вообще запретить.
+// http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
+// http://home.roadrunner.com/~hinnant/mutexes/locking.html
+// Summary:
+//   лучше сперва вообще запретить.
 
 
 //TODO: other operators
 // http://courses.cms.caltech.edu/cs11/material/cpp/donnie/cpp-ops.html
 //
 // First:
-// '==' http://stackoverflow.com/questions/4991638/how-to-implement-c-inequality-operators-for-aggregate-structs
-// '<'
+//   '==' http://stackoverflow.com/questions/4991638/how-to-implement-c-inequality-operators-for-aggregate-structs
+//   '<'
 
 
 //TODO: полиморфные операторы
-// assign:
+//Assign:
 // http://stackoverflow.com/questions/669818/virtual-assignment-operator-c
 
