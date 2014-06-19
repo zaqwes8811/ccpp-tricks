@@ -25,7 +25,7 @@ public:
     m_[r * ncols_ +c] = d;
   }
 
-  // Step 1: add dctor - Error(gcc): double free or corruption (top):
+  // Step 1: add dctor - if copy - Error(gcc): double free or corruption (top):
   // Sln: disable copy
   ~matrix() {
     delete[] m_;
@@ -45,7 +45,7 @@ public:
   }
 
   // Step 4: assign operator
-  // if not impl.: Error: double free or corruption (top)
+  // if not impl.: on assign - Error: double free or corruption (top)
   //void // Step 6
   // DANGER: http://stackoverflow.com/questions/752658/is-the-practice-of-returning-a-c-reference-variable-evil
   // http://stackoverflow.com/questions/15968226/returning-tmp-using-references-behaving-differently
@@ -53,7 +53,10 @@ public:
   // !!!http://bytes.com/topic/c/answers/491692-safe-return-local-object
   // Ссылки на лок. пер. возвр. нельзя. Для объектов можно в нек. случаях, но вообще
   // возвращение ссылок на внутренние объекты классов нарушает инкпасуляцию.
-  matrix&  // есть еще одно копирование
+  //
+  // https://isocpp.org/wiki/faq/references
+  //
+  matrix&  // есть еще одно копирование - да вроде бы нет.
   operator=(const matrix& mc) {
     cout << "Call assign operator" << endl;
     // Step 5:
@@ -66,7 +69,7 @@ public:
       //TODO: fill
     }
 
-    // Step 6: Runtime Error(gcc): The program has unexpectedly finished.
+    // Step 6: if chained - Runtime Error(gcc): The program has unexpectedly finished.
     return *this;  // !!
   }
 
@@ -80,9 +83,15 @@ private:
 
 class holder {
 public:
+  holder() {}
   const matrix& get() const { return mat_; }
+
 private:
   matrix mat_;
+
+  // disable copy and assign
+  holder(const holder& h);
+  holder& operator=(const holder& h);
 };
 
 void foo(matrix mat) {
@@ -114,6 +123,9 @@ TEST(STL, CopyAndAssign) {
   // New Step 7:
   cout << "Step 7\n";
   holder h;
+  //holder y = h;  // not compiled
+  holder y;
+  //y = h;  // not compiled
   b = h.get();  // assign
   matrix d = h.get();  // copy ctor
   const matrix& ref_d = h.get();  // а ничего не вызывает
@@ -125,4 +137,11 @@ TEST(STL, StreamIterators) {
   vector<int> a(5, 8);
   copy(a.begin(), a.end(), std::ostream_iterator<int>(cout, " "));
   cout << endl;
+}
+
+TEST(STL, BinaryPredicats) {
+  //TODO:
+  // Важно понять какие совойства должны быть и для каких операций
+  // '=='
+  //   транзитивность
 }
