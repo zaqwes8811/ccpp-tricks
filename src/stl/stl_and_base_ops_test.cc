@@ -40,6 +40,9 @@ TEST(STL, BinaryPredicats) {
   //   транзитивность
 }
 
+void func(int* p) {
+}
+
 TEST(STL, Vector) {
   // DANGER: пре перераспределении ссылки становятся не действительными?
   // Facts:
@@ -67,4 +70,19 @@ TEST(STL, Vector) {
     coll.erase(pos);
 
   // as Arrays
+  if (!coll.empty()) {
+    //func(coll.begin());  // нельзя так, возвращается итератор. но и не компилир.
+    int* arr_ok = &coll[0];
+  }
+
+  // Гарантии при работе с исключениями
+  // ...
+  // Если Assign Op and Copy Ctor не генерят искл., то insert либо вып. либо не вносит изменений
+  // swap - не генерирует искл.
+
+  // vector<bool> немного другой
+}
+
+TEST(STL, Deque) {
+
 }
