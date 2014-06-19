@@ -17,7 +17,7 @@ public:
     m_ = new double[r*c];
   }
 
-  double get (int r, int c) const {
+  double get(int r, int c) const {
     return m_[r * ncols_ + c];
   }
 
@@ -96,7 +96,6 @@ private:
   holder(const holder& h);
   holder& operator=(const holder& h);
 };
-
 
 void foo(matrix mat) {
 
@@ -178,6 +177,7 @@ TEST(STL, CopyAndAssign) {
 // First:
 // '==' http://stackoverflow.com/questions/4991638/how-to-implement-c-inequality-operators-for-aggregate-structs
 // '<'
+
 
 //TODO: полиморфные операторы
 // assign:

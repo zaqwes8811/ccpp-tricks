@@ -15,5 +15,5 @@ SOURCES += \
     ../../src/memory/smart_ptrs_in_depth_test.cc \
     ../../src/learn/shild/gc_single_thread_test.cc \
     ../../src/stl/stl_and_base_ops_test.cc \
-    ../../src/lang/copy_assign_equal_compare.cpp
+    ../../src/lang/copy_assign_equal_compare_test.cc
 
