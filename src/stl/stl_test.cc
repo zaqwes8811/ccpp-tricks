@@ -73,6 +73,9 @@ public:
     return *this;  // !!
   }
 
+  /// Other operators
+  //==
+
 private:
   int nrows_;
   int ncols_;
@@ -92,6 +95,22 @@ private:
   // disable copy and assign
   holder(const holder& h);
   holder& operator=(const holder& h);
+};
+
+/// Требования к объектам
+// http://www.amse.ru/courses/cpp2/2011_02_21.html
+// wiki
+class STLObject {
+public:
+  // "копия эквив. оригиналу"? но тут похоже логика, что объект тот же
+  // '==' реализовывать не обязательно. Просто должен быть точным клоном.
+  STLObject(const STLObject& that);
+  STLObject& operator=(const STLObject& that);
+  ~STLObject();
+  //operator==  //TODO: должно быть или нет?
+  //operator<  //TODO: in assoc.?
+private:
+  //TODO: а конструктор может быть приватным?
 };
 
 void foo(matrix mat) {
@@ -131,6 +150,12 @@ TEST(STL, CopyAndAssign) {
   const matrix& ref_d = h.get();  // а ничего не вызывает
   b = (ref_d);  // assign
   const matrix k(ref_d);  // copy ctor
+
+  // New Step 8:
+  //b == c;  // if
+  vector<matrix> mat_vec_a;
+  vector<matrix> mat_vec_b;
+  //mat_vec_a == mat_vec_b;  // для такого сравнения нужно реализовать ==
 }
 
 TEST(STL, StreamIterators) {
