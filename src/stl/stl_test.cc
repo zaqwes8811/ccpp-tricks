@@ -5,6 +5,9 @@
 
 #include <gtest/gtest.h>
 
+using std::cout;
+using std::endl;
+
 class matrix {
 public:
   matrix(int r=2, int c=2) {
@@ -30,10 +33,24 @@ public:
   // Step 2: add copy ctor
   int rget() const { return nrows_; }
   int cget() const { return ncols_; }
-  matrix(const matrix& mc) {
+  // http://stackoverflow.com/questions/4153527/explicit-copy-constructor-behavior-and-pratical-uses
+  // http://stackoverflow.com/questions/11480545/explicit-copy-constructor
+  /*explicit*/ matrix(const matrix& mc) {
+    cout << "Call copy ctor" << endl;
     nrows_ = mc.rget();
     ncols_ = mc.cget();
     m_ = new double [nrows_*ncols_];
+    //TODO: fill
+  }
+
+  // Step 4: assign operator
+  // if not impl.: Error: double free or corruption (top)
+  void operator=(const matrix& mc) {
+    cout << "Call assign operator" << endl;
+    delete [] m_;
+    nrows_ = mc.rget();
+    ncols_ = mc.cget();
+    m_ = new double[nrows_ * ncols_];
     //TODO: fill
   }
 
@@ -45,9 +62,6 @@ private:
   //TODO: disable copy and assign
 };
 
-using std::cout;
-using std::endl;
-
 void foo(matrix mat) {
 
 }
@@ -58,4 +72,12 @@ TEST(STL, CopyAndAssign) {
     for (int j = 0; j < 20; j++)
       darray.put(i, j, i*j);
   foo(darray);
+
+  // Step 3: on assign call copy ctor?
+  matrix a = darray;  // copy ctor !при создании!
+  matrix b(a);  // copy ctor
+
+  // Step 4
+  matrix c;
+  c = a;
 }
