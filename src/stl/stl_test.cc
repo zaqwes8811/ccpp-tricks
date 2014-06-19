@@ -84,6 +84,21 @@ private:
   //TODO: disable copy and assign
 };
 
+//TODO: deep and shallow copy
+//
+// http://www.fredosaurus.com/notes-cpp/oop-condestructors/shallowdeepcopy.html - desigin
+//
+// http://www.fredosaurus.com/notes-cpp/oop-condestructors/copyconstructors.html
+// http://stackoverflow.com/questions/1936942/writing-a-deep-copy-copying-pointer-value
+//
+// http://www.learncpp.com/cpp-tutorial/912-shallow-vs-deep-copying/
+// http://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
+//
+// Вообще не понятно, если объкт не владеет, или указатель на нединамическую память или used DI
+// http://stackoverflow.com/questions/255612/dynamically-allocating-an-array-of-objects/255744#255744
+
+//TODO: impl. copy by assign or revert, i don't remember + swap
+
 class holder {
 public:
   holder() {}
