@@ -1,12 +1,13 @@
-
-
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 #include <gtest/gtest.h>
 
 using std::cout;
 using std::endl;
+using std::vector;
+using std::ostreambuf_iterator;
 
 class matrix {
 public:
@@ -45,13 +46,28 @@ public:
 
   // Step 4: assign operator
   // if not impl.: Error: double free or corruption (top)
-  void operator=(const matrix& mc) {
+  //void // Step 6
+  // DANGER: http://stackoverflow.com/questions/752658/is-the-practice-of-returning-a-c-reference-variable-evil
+  // http://stackoverflow.com/questions/15968226/returning-tmp-using-references-behaving-differently
+  // http://www.thecodingforums.com/threads/return-reference-to-local-variable.285367/
+  // !!!http://bytes.com/topic/c/answers/491692-safe-return-local-object
+  // Ссылки на лок. пер. возвр. нельзя. Для объектов можно в нек. случаях, но вообще
+  // возвращение ссылок на внутренние объекты классов нарушает инкпасуляцию.
+  matrix&  // есть еще одно копирование
+  operator=(const matrix& mc) {
     cout << "Call assign operator" << endl;
-    delete [] m_;
-    nrows_ = mc.rget();
-    ncols_ = mc.cget();
-    m_ = new double[nrows_ * ncols_];
-    //TODO: fill
+    // Step 5:
+    if (this != &mc) {  // хоть передан по ссылке, но адрес взять можно
+      //cout << "Call assign operator real" << endl;
+      delete [] m_;  // a = a - work but...
+      nrows_ = mc.rget();
+      ncols_ = mc.cget();
+      m_ = new double[nrows_ * ncols_];
+      //TODO: fill
+    }
+
+    // Step 6: Runtime Error(gcc): The program has unexpectedly finished.
+    return *this;  // !!
   }
 
 private:
@@ -60,6 +76,13 @@ private:
   double* m_;
 
   //TODO: disable copy and assign
+};
+
+class holder {
+public:
+  const matrix& get() const { return mat_; }
+private:
+  matrix mat_;
 };
 
 void foo(matrix mat) {
@@ -80,4 +103,26 @@ TEST(STL, CopyAndAssign) {
   // Step 4
   matrix c;
   c = a;
+
+  // Step 5
+  c = c;  // work but...
+  c.put(1, 1, 9);
+
+  // Step 6
+  b = a = c;
+
+  // New Step 7:
+  cout << "Step 7\n";
+  holder h;
+  b = h.get();  // assign
+  matrix d = h.get();  // copy ctor
+  const matrix& ref_d = h.get();  // а ничего не вызывает
+  b = (ref_d);  // assign
+  const matrix k(ref_d);  // copy ctor
+}
+
+TEST(STL, StreamIterators) {
+  vector<int> a(5, 8);
+  copy(a.begin(), a.end(), std::ostream_iterator<int>(cout, " "));
+  cout << endl;
 }
