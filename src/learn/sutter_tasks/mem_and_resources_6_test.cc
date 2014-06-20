@@ -101,6 +101,6 @@ TEST(Sutter, DynamicMemNewDelete) {
 
   //B b;
   typedef void (B::*PWF)(void*, size_t);
-  PWF p1 = &B::f;
+  //PWF p1 = &B::f;
   //PWF p2 = &B::operator delete;  // delete is static by default
 }
