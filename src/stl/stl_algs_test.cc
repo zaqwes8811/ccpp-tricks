@@ -93,8 +93,10 @@ public:
     //print();
   }
 };
+
+/// No modif. algs
 // p. 334
-TEST(STL, Concretic) {
+TEST(STL, ForEach) {
   /// for_each
   //TODO: можно вызывать метод класса, как-то через mem_fun - p. 307
   vector<int> coll;
@@ -159,5 +161,29 @@ TEST(STL, SearchNBySomeCriteria) {
 }
 
 TEST(STL, SearchSubInterval) {
+  deque<int> coll;
+  list<int> subcoll;
+  insert_elems(coll, 1, 7);
+  insert_elems(coll, 1, 7);
+
+  insert_elems(subcoll, 3, 6);
+
+  // finding
+  deque<int>::iterator pos;
+  pos = search(coll.begin(), coll.end(),
+               subcoll.begin(), subcoll.end());
+
+  while(pos != coll.end()) {
+      // next
+      ++pos;
+      pos = search(pos, coll.end(),
+                   subcoll.begin(), subcoll.end());
+  }
+}
+
+// p. 346
+TEST(STL, SearchWithPred) {
 
 }
+
+/// Modif. algs
