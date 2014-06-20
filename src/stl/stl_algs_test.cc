@@ -4,6 +4,8 @@
 #include <iostream>
 #include <functional>
 #include <string>
+#include <list>
+#include <deque>
 
 #include <gtest/gtest.h>
 
@@ -14,12 +16,17 @@ using std::copy;
 using std::cout;
 using std::endl;
 using std::ostream_iterator;
+using std::list;
 
 using std::bind2nd;
 using std::bind1st;
 using std::mem_fun_ref;
 using std::mem_fun;
 using std::string;
+using std::search_n;
+using std::greater;
+using std::distance;
+using std::deque;
 
 
 template<class T>
@@ -112,4 +119,45 @@ TEST(STL, Concretic) {
   vector<Person*> persons_ptrs;  // diff. for ptrs
   persons_ptrs.push_back(new Person);
   //for_each(persons_ptrs.begin(), persons_ptrs.end(), mem_fun(&Person::print));
+}
+
+TEST(STL, Find) {
+  // . . . [4 ... 4] . . .
+  list<int> coll;
+  insert_elems(coll, 1, 9);
+  insert_elems(coll, 1, 9);
+
+  list<int>::iterator pos1, pos2;
+  pos1 = find(coll.begin(), coll.end(), 4);  // find first
+  if (pos1 != coll.end())
+    pos2 = find(++pos1, coll.end(), 4); // нач. со след. за найденным
+
+  // print
+  if (pos1 != coll.end() && pos2 != coll.end())
+    copy(--pos1, ++pos2, ostream_iterator<int>(cout, " "));
+  cout << endl;
+}
+
+TEST(STL, SearchNBySomeCriteria) {
+  // поиск 4 послед. больших 3
+  vector<int> coll;
+  insert_elems(coll, 1, 9);
+  print_elems(coll);
+
+  vector<int>::iterator pos;
+  pos = search_n(coll.begin(), coll.end(),  // interval
+                 4, // counter
+                 3);  // value
+  assert(pos == coll.end());
+
+  // no search_n_if version
+  pos = search_n(coll.begin(), coll.end(),
+                 4,
+                 3, greater<int>());  // no STL way. Причем предикат бинарный
+
+  assert(distance(coll.begin(), pos)+1 == 4);
+}
+
+TEST(STL, SearchSubInterval) {
+
 }
