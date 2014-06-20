@@ -100,7 +100,13 @@ TEST(STL, Concretic) {
   // Troubles
   // http://stackoverflow.com/questions/1464439/using-stdbind2nd-with-references
   // if "string" not string("string") - method get "" - gcc 4.7.2
+  // Похоже сам объект это первый аргумента, а что передает методу - второй итого 2а
   for_each(persons.begin(), persons.end(), bind2nd/*bind1st*/(mem_fun_ref(&Person::printTagged), string("person :")));
+
+  // If args > 2
+  // http://stackoverflow.com/questions/10692121/c-bind-function-for-use-as-argument-of-other-function
+  // C++03 - Boost
+  // C++11 - stl
 
 
   vector<Person*> persons_ptrs;  // diff. for ptrs
