@@ -235,10 +235,34 @@ private:
   int count;
 public:
   Nth(int n) : nth(n), count(0) {}
-  bool operator() (int) /* must be const, but accamulate? */ {
+
+  // лучше пердавать по значению или по конст. ссылке.
+  bool operator() (int) /* must be const, but accamulate? best make const */ {
     return ++count == nth;
   }
 };
+
+class IntSequence {
+public:
+  int value;
+public:
+  IntSequence(int ini) : value(ini) {}
+  int operator()() {
+    return value++;
+  }
+};
+
+TEST(STL, PredicateWithState) {
+  IntSequence a(1);
+  a();
+  a();
+  assert(a.value == 3);
+  IntSequence b = a;
+  assert(b.value == 3);  // так а как состояние обнуляется? меняется копия!
+
+  // функтор != предикат
+  // for_each единственная может вернуть предикат - наверное не совсем предикат
+}
 
 TEST(STL, WrongPredicate) {
   using std::remove_if;
@@ -257,4 +281,26 @@ TEST(STL, WrongPredicate) {
 }
 
 /// Modif. algs
+// - in work time
+// - on copy
+
+TEST(STL, Copy) {
+  // copy - похоже нельзя копировать в себя
+  //TODO: как скопировать по критерию
+  using std::copy;
+  using std::back_inserter;
+
+  vector<int> coll1;
+  list<int> coll2;
+  insert_elems(coll1, 1, 9);
+
+  copy(coll1.begin(), coll1.end(),
+       back_inserter(coll2));
+  assert(coll1.size() == coll2.size());
+
+  //TODO: copy by filter C++03. In C++11 copy_if
+  //http://stackoverflow.com/questions/11028266/how-to-make-stdvector-from-other-vector-with-specific-filter
+
+}
+
 
