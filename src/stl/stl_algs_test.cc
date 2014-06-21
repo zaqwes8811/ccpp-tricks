@@ -1,3 +1,5 @@
+// Notes:
+//   с ассоциативными как-то все на так в плане алгоритмов
 
 #include <vector>
 #include <algorithm>
@@ -238,6 +240,7 @@ public:
   Nth(int n) : nth(n), count(0) {}
 
   // лучше пердавать по значению или по конст. ссылке.
+  // не должны менятся свойства как предиката, но константность лучше сперва поставить
   bool operator() (int) /* must be const, but accamulate? best make const */ {
     return ++count == nth;
   }
@@ -326,6 +329,8 @@ TEST(STL, OwnCompact) {
   using std::back_inserter;
   using std::back_insert_iterator;
   using std::count;
+  using std::random_shuffle;
+  //using std::rd;
 
   //TODO: copy by filter C++03. In C++11 copy_if
   // http://stackoverflow.com/questions/11028266/how-to-make-stdvector-from-other-vector-with-specific-filter
@@ -333,18 +338,22 @@ TEST(STL, OwnCompact) {
   // http://www.cplusplus.com/reference/valarray/mask_array/
   // http://bytes.com/topic/c/answers/137137-valarray-iterators
   // http://en.cppreference.com/w/cpp/numeric/valarray
-  vector<int> mask1(10);
+  vector<int> main_mask(10);
   for (int i=0; i<10; ++i) {
-    mask1[i] = i % 2;
+    main_mask[i] = i % 2;
   }
+
+  random_shuffle(main_mask.begin(), main_mask.end());
+
+
   vector<int> src(10);
   for (int i = 0; i < 10; ++i) src[i] = i;  //  0  1  2  3  4  5  6  7  8  9
 
   // filter
   // Version 1:
   valarray<int> mask(10);
-  assert(mask.size() == mask1.size());
-  copy(mask1.begin(), mask1.end(), &mask[0]);
+  assert(mask.size() == main_mask.size());
+  copy(main_mask.begin(), main_mask.end(), &mask[0]);
   //mask.assign()
   valarray<int> foo(10);
 
@@ -358,12 +367,43 @@ TEST(STL, OwnCompact) {
   // Version 2:
   //compact
   //back_insert_iterator ins = back_inserter(mask1);
-  //ins.
+  // http://stackoverflow.com/questions/1128535/stl-vector-reserve-and-copy
+  // http://stackoverflow.com/questions/4732999/how-does-back-inserter-work
+  // http://stackoverflow.com/questions/19583708/should-i-reserve-memory-when-using-stdback-inserter
+  int active_elems_count = count(main_mask.begin(), main_mask.end(), 1);
   vector<int> dist;
-  compact(src.begin(), src.end(), mask1.begin(), back_inserter(dist));
-  assert(dist.size() == count(mask1.begin(), mask1.end(), 1));
+  dist.reserve(active_elems_count);
 
-  //int i = 0;
+  compact(src.begin(), src.end(), main_mask.begin(), back_inserter(dist));
+  assert(dist.size() == active_elems_count);
 }
 
+//Del
+// для списков есть более эффективные функции
+TEST(STL, Remove) {
+  using std::less;
+
+  vector<int> coll;
+  insert_elems(coll, 2, 6);
+  insert_elems(coll, 4, 9);
+  insert_elems(coll, 1, 7);
+  print_elems(coll, "coll: ");
+
+  vector<int>::iterator pos;
+  pos = remove(coll.begin(), coll.end(),
+               5);
+  print_elems(coll, "size not changed: ");
+  coll.erase(pos, coll.end());
+  print_elems(coll, "size changed: ");
+
+  coll.erase(remove_if(coll.begin(), coll.end(),
+                       bind2nd(less<int>(), 4)),
+             coll.end());
+  print_elems(coll, "removed < 4: ");
+}
+
+/// Алг. для упоряд. контейнеров p. 399
+// упоряд. - предусловие, которое нельзя нарушать. И похоже это инвариант
+// Queries - binary_search, includes, (lower_bound, equal_range - связ. с ненарушением упорядоченноси)
+// Merge -
 
