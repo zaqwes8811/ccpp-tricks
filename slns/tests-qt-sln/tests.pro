@@ -16,5 +16,6 @@ SOURCES += \
     ../../src/learn/shild/gc_single_thread_test.cc \
     ../../src/stl/stl_and_base_ops_test.cc \
     ../../src/lang/copy_assign_equal_compare_test.cc \
-    ../../src/stl/stl_algs_test.cc
+    ../../src/stl/stl_algs_test.cc \
+    ../../src/stl/stl_iter_func_test.cc
 

@@ -9,6 +9,7 @@
 #include <list>
 #include <deque>
 #include <valarray>
+#include <numeric>
 
 #include <gtest/gtest.h>
 
@@ -370,7 +371,8 @@ TEST(STL, OwnCompact) {
   // http://stackoverflow.com/questions/1128535/stl-vector-reserve-and-copy
   // http://stackoverflow.com/questions/4732999/how-does-back-inserter-work
   // http://stackoverflow.com/questions/19583708/should-i-reserve-memory-when-using-stdback-inserter
-  int active_elems_count = count(main_mask.begin(), main_mask.end(), 1);
+  int active_elems_count = //main_mask.count(1);  // похоже только в ассоц.
+      count(main_mask.begin(), main_mask.end(), 1);
   vector<int> dist;
   dist.reserve(active_elems_count);
 
@@ -407,3 +409,30 @@ TEST(STL, Remove) {
 // Queries - binary_search, includes, (lower_bound, equal_range - связ. с ненарушением упорядоченноси)
 // Merge -
 
+
+/// Numeric
+TEST(STL, InclusiveScan) {
+  using std::partial_sum;
+  using std::minus;
+  using std::rotate;
+
+  vector<int> coll;
+  insert_elems(coll, 1, 6);
+
+  vector<int> out;
+
+  // equal inclusive scan
+  partial_sum(coll.begin(), coll.end(),
+              back_inserter(out));
+
+  // exclusive scan from incl. scan
+  //for_each(coll.begin(), coll.end(), bind2nd(minus<int>(), ));  // V1 - don't work
+  print_elems(out);
+
+  // V2
+  rotate(out.begin(), out.end()-1, out.end());
+  if (out.begin() != out.end()) out.front() = 0;  // need add I elem
+
+  print_elems(out);
+  assert(out.at(0) == 0);
+}
