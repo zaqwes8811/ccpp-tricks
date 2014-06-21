@@ -179,6 +179,20 @@ TEST(STL, SearchSubInterval) {
       pos = search(pos, coll.end(),
                    subcoll.begin(), subcoll.end());
   }
+
+  // search any from interval forward and back
+  pos = find_first_of(coll.begin(), coll.end(),
+                      subcoll.begin(),
+                      subcoll.end());
+  assert(*pos == 3);
+
+  // need
+  // TODO: как это сработало?
+  deque<int>::reverse_iterator rpos;
+  rpos = find_first_of(coll.rbegin(), coll.rend(),
+                      subcoll.begin(),
+                      subcoll.end());
+  assert(*rpos == 6);
 }
 
 // p. 346
@@ -186,4 +200,61 @@ TEST(STL, SearchWithPred) {
 
 }
 
+// p. 351
+bool doubled(int elem, int nextElem) {
+  return elem * 2 == nextElem;
+}
+
+TEST(STL, FindAdja) {
+  using std::adjacent_find;
+
+  vector<int> coll;
+  coll.push_back(1);
+  coll.push_back(3);
+  coll.push_back(2);
+  coll.push_back(4);
+  coll.push_back(5);
+  coll.push_back(5);
+  coll.push_back(0);
+
+  vector<int>::iterator pos;
+  pos = adjacent_find(coll.begin(), coll.end());
+  assert(*pos == 5);
+
+  pos = adjacent_find(coll.begin(), coll.end(),
+                      doubled);
+  assert(*pos == 2);
+}
+
+// summary:
+// p. 303 - не должен изменять состояние
+
+class Nth {
+private:
+  int nth;
+  int count;
+public:
+  Nth(int n) : nth(n), count(0) {}
+  bool operator() (int) /* must be const, but accamulate? */ {
+    return ++count == nth;
+  }
+};
+
+TEST(STL, WrongPredicate) {
+  using std::remove_if;
+
+  list<int> coll;
+  insert_elems(coll, 1, 9);
+  print_elems(coll);
+
+  // del 3
+  list<int>::iterator pos;
+  pos = remove_if(coll.begin(), coll.end(),
+                  Nth(3));
+
+  coll.erase(pos, coll.end());
+  print_elems(coll, "nth removed: ");  // !! удален и 6 тоже!!
+}
+
 /// Modif. algs
+
