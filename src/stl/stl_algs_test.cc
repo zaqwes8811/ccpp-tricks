@@ -6,6 +6,7 @@
 #include <string>
 #include <list>
 #include <deque>
+#include <valarray>
 
 #include <gtest/gtest.h>
 
@@ -298,9 +299,71 @@ TEST(STL, Copy) {
        back_inserter(coll2));
   assert(coll1.size() == coll2.size());
 
-  //TODO: copy by filter C++03. In C++11 copy_if
-  //http://stackoverflow.com/questions/11028266/how-to-make-stdvector-from-other-vector-with-specific-filter
+  //TODO: copy by mask
+}
 
+// DANGER: length not follow
+template<class InputIterator, class OutputIterator>
+OutputIterator compact(InputIterator in_first, InputIterator in_last,
+                       InputIterator mask_first,
+                       OutputIterator out_first) {
+
+  // DANGER: No check precond.
+
+  while (in_first!=in_last) {
+    if (*mask_first)
+      *out_first = *in_first;
+
+    ++out_first;
+    ++in_first;
+    ++mask_first;
+  }
+  return out_first;
+}
+
+TEST(STL, OwnCompact) {
+  using std::valarray;
+  using std::back_inserter;
+  using std::back_insert_iterator;
+  using std::count;
+
+  //TODO: copy by filter C++03. In C++11 copy_if
+  // http://stackoverflow.com/questions/11028266/how-to-make-stdvector-from-other-vector-with-specific-filter
+  //TODO: copy by mask
+  // http://www.cplusplus.com/reference/valarray/mask_array/
+  // http://bytes.com/topic/c/answers/137137-valarray-iterators
+  // http://en.cppreference.com/w/cpp/numeric/valarray
+  vector<int> mask1(10);
+  for (int i=0; i<10; ++i) {
+    mask1[i] = i % 2;
+  }
+  vector<int> src(10);
+  for (int i = 0; i < 10; ++i) src[i] = i;  //  0  1  2  3  4  5  6  7  8  9
+
+  // filter
+  // Version 1:
+  valarray<int> mask(10);
+  assert(mask.size() == mask1.size());
+  copy(mask1.begin(), mask1.end(), &mask[0]);
+  //mask.assign()
+  valarray<int> foo(10);
+
+  // not compiled
+  //foo *= std::valarray<int>(10,5);  //  0 10  2 30  4 50  6 70  8 90
+  foo[!mask] = 0;                     //  0 10  0 30  0 50  0 70  0 90
+
+  // remove_copy_if ...
+  // to complex...
+
+  // Version 2:
+  //compact
+  //back_insert_iterator ins = back_inserter(mask1);
+  //ins.
+  vector<int> dist;
+  compact(src.begin(), src.end(), mask1.begin(), back_inserter(dist));
+  assert(dist.size() == count(mask1.begin(), mask1.end(), 1));
+
+  //int i = 0;
 }
 
 
