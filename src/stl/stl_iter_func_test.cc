@@ -6,7 +6,9 @@
 //  singular - not init
 //  non-singular - Dereferenceable
 //  http://stackoverflow.com/questions/3395180/what-is-an-iterators-default-value
+//
 // "Invalidation of STL Iterators - Angelika Langer"
+// http://stackoverflow.com/questions/6438086/iterator-invalidation-rules
 
 #include <vector>
 #include <algorithm>

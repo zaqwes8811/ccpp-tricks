@@ -1,3 +1,6 @@
+// Stack:
+// http://stackoverflow.com/questions/4172722/what-is-the-rule-of-three?rq=1
+
 #include <vector>
 #include <iostream>
 #include <algorithm>
