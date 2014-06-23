@@ -17,5 +17,6 @@ SOURCES += \
     ../../src/stl/stl_and_base_ops_test.cc \
     ../../src/stl/stl_algs_test.cc \
     ../../src/stl/stl_iter_func_test.cc \
-    ../../src/lang/rule_of_three_and_equal_compare_test.cc
+    ../../src/lang/equal_compare_test.cc \
+    ../../src/lang/rule_of_three_test.cc
 
