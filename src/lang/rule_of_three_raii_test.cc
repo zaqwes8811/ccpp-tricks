@@ -1,5 +1,13 @@
 // Stack:
 // http://stackoverflow.com/questions/4172722/what-is-the-rule-of-three?rq=1
+// "So when should we declare those special member functions explicitly?
+//    When our class manages a resource,
+//    that is, when an object of the class is responsible for that resource."
+//
+// RoT - Для любого класса реализующего RAII!!!
+//
+// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
+// thread-safety and exception-safety
 
 #include <vector>
 #include <iostream>
@@ -160,6 +168,71 @@ TEST(STL, CopyAndAssign) {
 
 
 //TODO: exception and copy and assign ops
+// http://stackoverflow.com/questions/4172722/what-is-the-rule-of-three?rq=1
+class person
+{
+    char* name;
+    int age;
+
+public:
+
+    // the constructor acquires a resource:
+    // in this case, dynamic memory obtained via new[]
+    person(const char* the_name, int the_age)
+    {
+        name = new char[strlen(the_name) + 1];
+        strcpy(name, the_name);
+        age = the_age;
+    }
+
+    // the destructor must release this resource via delete[]
+    ~person()
+    {
+      delete[] name;
+    }
+
+    // 1. copy constructor
+    person(const person& that)
+    {
+        name = new char[strlen(that.name) + 1];
+        strcpy(name, that.name);
+        age = that.age;
+    }
+
+    // 2. copy assignment operator
+    person& operator=(const person& that)
+    {
+        if (this != &that)
+        {
+            delete[] name;
+            // DANGER!!
+            // This is a dangerous point in the flow of execution!
+            // We have temporarily invalidated the class invariants,
+            // and the next statement might throw an exception,
+            // leaving the object in an invalid state :(
+            name = new char[strlen(that.name) + 1];
+            strcpy(name, that.name);
+            age = that.age;
+        }
+        return *this;
+    }
+
+    /*
+// 2. copy assignment operator
+    person& operator=(const person& that)
+    {
+        char* local_name = new char[strlen(that.name) + 1];
+        // If the above statement throws,
+        // the object is still in the same state as before.
+        // None of the following statements will throw an exception :)
+        strcpy(local_name, that.name);
+        delete[] name;
+        name = local_name;
+        age = that.age;
+        return *this;
+    }
+*/
+};
 
 
 //TODO: thread-safe copy ctor and assign
@@ -167,6 +240,7 @@ TEST(STL, CopyAndAssign) {
 // http://home.roadrunner.com/~hinnant/mutexes/locking.html
 // Summary:
 //   лучше сперва вообще запретить.
+// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
 
 //TODO: полиморфные операторы
 //Assign:
