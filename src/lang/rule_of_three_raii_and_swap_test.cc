@@ -8,6 +8,9 @@
 //
 // http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
 // thread-safety and exception-safety
+//
+// About alloc. on operations
+//   http://stackoverflow.com/questions/5072082/assignment-via-copy-and-swap-vs-two-locks
 
 #include <vector>
 #include <iostream>
