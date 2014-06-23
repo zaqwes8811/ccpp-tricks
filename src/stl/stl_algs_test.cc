@@ -303,6 +303,19 @@ TEST(STL, Copy) {
        back_inserter(coll2));
   assert(coll1.size() == coll2.size());
 
+  // DANGER:
+  // p. 278
+  // Если передать итераторы, а затем вставить элементы, и при этом
+  //   контейнер перераспределит память, операция испортит итераторы
+  // Eff. stl - http://cpp.com.ru/meyers/ch2.html#t29
+
+  // size(), capacity()
+  // "Речь идет об общемколичестве элементов, а не о том,
+  //   сколько еще элементов можно разместить без расширения контейнера."
+  coll1.reserve(2*coll1.size());
+  copy(coll1.begin(), coll1.end(),
+       back_inserter(coll1));
+
   //TODO: copy by mask
 }
 
@@ -374,6 +387,7 @@ TEST(STL, OwnCompact) {
   int active_elems_count = //main_mask.count(1);  // похоже только в ассоц.
       count(main_mask.begin(), main_mask.end(), 1);
   vector<int> dist;
+
   dist.reserve(active_elems_count);
 
   compact(src.begin(), src.end(), main_mask.begin(), back_inserter(dist));

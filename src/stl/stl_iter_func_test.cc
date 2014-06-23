@@ -1,3 +1,13 @@
+// Validation:
+//  http://stackoverflow.com/questions/2062956/checking-if-an-iterator-is-valid
+//  http://stackoverflow.com/questions/6954949/how-to-check-if-the-iterator-is-initialized
+//
+// http://stackoverflow.com/questions/5441893/what-is-singular-and-non-singular-values-in-the-context-of-stl-iterators
+//  singular - not init
+//  non-singular - Dereferenceable
+//  http://stackoverflow.com/questions/3395180/what-is-an-iterators-default-value
+// "Invalidation of STL Iterators - Angelika Langer"
+
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -81,3 +91,18 @@ TEST(STL_Iter, UtilFunc) {
 //   and other.
 // ++, -- - фиктивные операции
 // бывает трех типов - нач., конеч. и общие
+TEST(STL_Iter, InsertIters) {
+  using std::back_insert_iterator;
+
+  vector<int> coll;
+
+  // inconvenient
+  back_insert_iterator<vector<int> > iter(coll);  // при перерасп. станет недейств?
+  assert(coll.capacity() == 0);
+  *iter = 1;  // перераспределит ли память?
+  assert(coll.capacity() == 1);
+  iter++;
+  *iter = 2;  // just call push_back
+  assert(coll.capacity() == 2);
+
+}
