@@ -4,19 +4,24 @@
 //    When our class manages a resource,
 //    that is, when an object of the class is responsible for that resource."
 //
-// RoT - Для любого класса реализующего RAII!!!
+// RoT - Для любого класса реализующего RAII!!! Еще есть scoped guards - там нужно запрещать и
+//   копирование и присваивание
 //
 // http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
 // thread-safety and exception-safety
 //
 // About alloc. on operations
 //   http://stackoverflow.com/questions/5072082/assignment-via-copy-and-swap-vs-two-locks
+//
+
+#include <stdio.h>
 
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
 #include <gtest/gtest.h>
+#include <loki/ScopeGuard.h>
 
 using std::cout;
 using std::endl;
@@ -248,4 +253,29 @@ public:
 //TODO: полиморфные операторы
 //Assign:
 // http://stackoverflow.com/questions/669818/virtual-assignment-operator-c
+
+int my_fclose ( FILE * stream ) {
+  if (stream)
+    fclose(stream);
+}
+
+TEST(Resources, ScopedGuard) {
+  // http://loki-lib.sourceforge.net/index.php?n=Main.Policy-basedDesign
+  // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=2
+  //
+  // x64 trouble? http://www.viva64.com/en/a/0049/
+  using Loki::ScopeGuard;
+  using Loki::MakeGuard;
+
+  // http://stackoverflow.com/questions/16922871/why-glibcs-fclosenull-cause-segmentation-fault-instead-of-returning-error
+  FILE* topSecret = fopen("_cia.txt", "r");  // failed if file not founded
+  assert(topSecret == NULL);
+  ScopeGuard closeIt = MakeGuard(my_fclose, topSecret);
+
+  // ...do someting...
+
+  // Помечаем, что действия откатывать не нужно, все прошло хорошо.
+  // Но иногда это не нужно.
+  //closeIt.Dismiss();  // not need?
+}
 

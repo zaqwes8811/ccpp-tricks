@@ -9,6 +9,10 @@
 //
 // "Invalidation of STL Iterators - Angelika Langer"
 // http://stackoverflow.com/questions/6438086/iterator-invalidation-rules
+//
+// Swap and validate
+//   http://stackoverflow.com/questions/4124989/does-stdvectorswap-invalidate-iterators
+//   https://groups.google.com/forum/#!topic/comp.std.c++/Tmu74awNUUU
 
 #include <vector>
 #include <algorithm>
