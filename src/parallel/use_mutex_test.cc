@@ -1,3 +1,8 @@
+// http://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock
+//
+// https://www.quantnet.com/threads/c-multithreading-in-boost.10028/
+//
+// Lock != mutex и может строится на разных примитивах
 
 #include <gtest/gtest.h>
 #include <boost/thread.hpp>
@@ -32,5 +37,34 @@ void f()
 
 
 TEST(Parallel, ExecutionExceptionsAndInterraption) {
+  // Watch - interruption points
   f();
+  //TODO: interrupt() - не сразу, а в точке, но как быть с исключениями
 }
+
+TEST(Parallel, SyncLocks) {
+  // !! http://home.roadrunner.com/~hinnant/mutexes/locking.html
+  // Locable
+
+  // TimeLocable
+
+  // SharedLocable - MRd-Single Wr
+
+  // UpgradeLocable
+  // http://stackoverflow.com/questions/7378266/upgrading-boostshared-lock-to-exclusive-lock
+  // http://stackoverflow.com/questions/4203467/multiple-readers-single-writer-locks-in-boost?rq=1
+  // http://stackoverflow.com/questions/6752880/how-to-upgrade-mutex-ownership-from-shared-to-upgrade
+}
+
+TEST(Parallel, Multilock) {
+    // http://www.justsoftwaresolutions.co.uk/threading/acquiring-multiple-locks-without-deadlock.html
+}
+
+TEST(Parallel, CondVars) {
+
+}
+
+TEST(Parallel, Barrier) {
+
+}
+
