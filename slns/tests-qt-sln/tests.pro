@@ -3,11 +3,16 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
+BOOST_PATH = /home/zaqwes/work/third_party/boost_1_55_0
+
 INCLUDEPATH += \
     ../../../third_party/gmock-1.6.0/fused-src/ \
-    ../../../third_party/loki-0.1.7/include/
+    ../../../third_party/loki-0.1.7/include/ \
+    $$BOOST_PATH/stage_ia32/include
 
-LIBS += -lpthread
+# -lrt !!
+# http://stackoverflow.com/questions/2418157/ubuntu-linux-c-error-undefined-reference-to-clock-gettime-and-clock-settim
+LIBS += -lpthread -lrt -L$$BOOST_PATH/stage_ia32/lib -lboost_thread -lboost_system
 
 SOURCES += \
     ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
@@ -21,7 +26,8 @@ SOURCES += \
     ../../src/stl/stl_iter_func_test.cc \
     ../../src/lang/equal_compare_test.cc \
     ../../src/lang/rule_of_three_raii_and_swap_test.cc \
-    ../../src/lang/idioms_test.cc
+    ../../src/lang/idioms_test.cc \
+    ../../src/parallel/use_mutex_test.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
