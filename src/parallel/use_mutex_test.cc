@@ -6,10 +6,12 @@ using boost::thread;
 
 // http://stackoverflow.com/questions/4260209/creating-not-copyable-but-movable-objects-in-c
 // thread - movable
-class callable {
+class callable {  // must be copyable
 public:
   callable() {}  // step 1
-  void operator()() {
+  void operator()() {  // можно и с аргументами
+    // boost::this_thread::disable_interruption di;  // можно запрещать и разреашать прерывание потока
+
     return;
   }
 private:
@@ -29,6 +31,6 @@ void f()
 }
 
 
-TEST(Parallel, MutexBase) {
+TEST(Parallel, ExecutionExceptionsAndInterraption) {
   f();
 }
