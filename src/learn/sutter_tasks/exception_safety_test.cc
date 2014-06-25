@@ -67,6 +67,7 @@ TEST(Sutter, ExceptionBase) {
 // Требования к Т довольно строгие.
 //   - ..
 //   - Безопасное присваивание - ?
+//   - конструктор по умолчанию
 //TODO: снизить требование
 template<class T> class Stack
 {
@@ -219,13 +220,34 @@ void Stack<T>::Pop() {
   }
 }
 
+namespace util {
+template<class T1, class T2>
+void construct(T* p, const T2& value) {
+  new (p) T1(value);
+}
+
+template<class T>
+void destroy(T* t) {
+  t->~T();
+}
+
+template<class FwdIter>
+void destroy(FwdIter first, FwdIter last) {
+  while(first != last) {
+      destroy(&*first);
+      ++first;
+  }
+}
+}
+
 /// Updated Stack - step 6:
 template<class T>
 class StackImpl {
-/*?*/
+/*?*/  // protected - if inh. public - member
+protected:
   StackImpl(size_t size=0);
   ~StackImpl();
-  void Swap(StackImpl& other) throw();
+  void Swap(StackImpl& other) throw();  // nothrow!! very important
   T* v_;
   size_t vsize_;
   size_t vused_;
@@ -235,6 +257,56 @@ private:
   StackImpl& operator=(const StackImpl&);
 
 };
+
+template<class T>
+StackImpl<T>::StackImpl(size_t size)
+  : v_(static_cast<T*>
+  (size == 0
+      ? 0
+  : operator new(sizeof(T)*size))),
+       vsize_(size),
+       vused_(0) {
+}
+
+template<class T>
+StackImpl<T>::~StackImpl() {
+  using util::destroy;
+
+  destroy(v_, v_+vused_);  // compiled but...
+
+  operator delete(v_);
+}
+
+
+template<class T>
+void StackImpl<T>::Swap(StackImpl<T>& other) throw() {
+  using std::swap;
+
+  swap(v_, other.v_);
+  swap(vsize_, other.vsize_);
+  swap(vused_, other.vused_);
+}
+
+template<class T>
+class StackInh : private StackImpl<T> {
+public:
+  StackInh(size_t size=0)
+    : StackImpl<T>(size) {}
+
+  ~StackInh();
+  StackInh(const StackInh&);
+  StackInh& operator=(const StackInh&);
+  size_t Count() const;
+  void Push(const T&);
+  T& Top();
+  void Pop();
+};
+
+TEST(Sutter, StackFirst) {
+  Stack<int> stack;
+  StackInh<int> stackInh(10);
+}
+
 
 
 //TODO:
