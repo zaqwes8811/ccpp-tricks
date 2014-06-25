@@ -102,11 +102,38 @@ T* Stack<T>::NewCopy(const T* src, size_t srcsize, size_t destsize) {
   assert(destsize >= srcsize);
   T* dest = new T[destsize];
   try {
-    copy(src, src+srcsize, dest);
+    copy(src, src+srcsize, dest);  // used = ! не ясно в чем проблема, но она есть
   } catch (...) {
     delete [] dest;
     throw;
   }
+  return dest;
+}
+
+// Step 3: neutral
+template<class T>
+Stack<T>::Stack(const Stack<T>& other) :
+  v_(NewCopy(other.v_,
+             other.vsize_,
+             other.vsize_)),  // strange
+  vsize_(other.vsize_),
+  vused_(other.vused_) {
+}
+
+// Step 4: assign
+template<class T>
+Stack<T>& Stack<T>::operator=(const Stack<T>& other) {
+  if (this != &other) {
+      // may throw
+      T* v_new = NewCopy(other.v_, other.vsize_, other.vsize_);
+
+      // not throw - change state object
+      delete [] v_;
+      v_ = v_new;
+      vsize_ = other.vsize_;
+      vused_ = other.vused_;
+  }
+  return *this;
 }
 
 
