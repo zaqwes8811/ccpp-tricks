@@ -241,6 +241,8 @@ void destroy(FwdIter first, FwdIter last) {
 }
 
 /// Updated Stack - step 6:
+// Позволяет снять ограничения на T
+// Нужен только конструктор копирования и nothrow ctor
 template<class T>
 class StackImpl {
 /*?*/  // protected - if inh. public - member
@@ -343,7 +345,7 @@ TEST(Sutter, StackFirst) {
   stackInh = a;
 }
 
-
+//TODO: часть 9
 
 //TODO:
 //Not-throw swap

@@ -28,7 +28,8 @@ SOURCES += \
     ../../src/lang/rule_of_three_raii_and_swap_test.cc \
     ../../src/lang/idioms_test.cc \
     ../../src/parallel/use_mutex_test.cc \
-    ../../src/learn/sutter_tasks/exception_safety_test.cc
+    ../../src/learn/sutter_tasks/exception_safety_test.cc \
+    ../../src/learn/sutter_tasks/stl_test.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
