@@ -1,3 +1,8 @@
+
+// "Any class that manages a resource (a wrapper, like a smart pointer) needs to implement The Big Three. "
+// http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
+// !!!Need manage only one resouce!!!
+//
 // Stack:
 // http://stackoverflow.com/questions/4172722/what-is-the-rule-of-three?rq=1
 // "So when should we declare those special member functions explicitly?
@@ -15,7 +20,9 @@
 //
 // RAII is also less-commonly known as SBRM (Scope-Bound Resource Management).
 //
-// = - похоже самый тонкореализуемый
+// = - похоже самый тонкореализуемый - и похоже его лучше добавлять последним "The Big Three and A Half(swap)"
+//
+
 
 #include <stdio.h>
 

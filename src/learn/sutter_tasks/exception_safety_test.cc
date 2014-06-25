@@ -62,8 +62,35 @@ TEST(Sutter, ExceptionBase) {
 
 }
 
-//TODO: Not-throw swap
+// safe stack
+template<class T> class Stack
+{
+public:
+  Stack();
+  ~Stack();
+
+private:
+  T* v_;
+  size_t vsize_;
+  size_t vused_;  // количество реально исп. объектов
+};
+template<class T>
+Stack<T>::Stack() :
+    v_(/*0 step 2*/new T[10]),
+    vsize_(10),
+    vused_(0) {
+  //v_ = new T[vsize_];  // Step 2: лучше передать в списке иниц. Мишко похожее говорил в GTechTalk
+  // T::T() may throw
+}
+
+
+//TODO:
+//Not-throw swap
 // http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Non-throwing_swap
 // http://www.gotw.ca/gotw/059.htm
 // http://stackoverflow.com/questions/11485776/exception-safety-regarding-swap-operation-whats-so-wrong-with-that
 // http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom!!
+
+//TODO:
+// copy-and-swap idiom
+// http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
