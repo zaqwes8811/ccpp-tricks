@@ -31,6 +31,7 @@
 
 
 #include <stdexcept>
+#include <algorithm>
 
 #include <gtest/gtest.h>
 
@@ -63,11 +64,17 @@ TEST(Sutter, ExceptionBase) {
 }
 
 // safe stack
+// step 2: safe
 template<class T> class Stack
 {
 public:
   Stack();
   ~Stack();
+
+  // Step 3
+  Stack(const Stack&);
+  Stack& operator=(const Stack&);
+  T* NewCopy(const T* src, size_t srcsize, size_t destsize);
 
 private:
   T* v_;
@@ -81,6 +88,25 @@ Stack<T>::Stack() :
     vused_(0) {
   //v_ = new T[vsize_];  // Step 2: лучше передать в списке иниц. Мишко похожее говорил в GTechTalk
   // T::T() may throw
+}
+template<class T>
+Stack<T>::~Stack() {
+  delete [] v_;
+  // T::~T() // throw()  // must be!!
+}
+
+// Step 3
+template<class T>
+T* Stack<T>::NewCopy(const T* src, size_t srcsize, size_t destsize) {
+  using std::copy;
+  assert(destsize >= srcsize);
+  T* dest = new T[destsize];
+  try {
+    copy(src, src+srcsize, dest);
+  } catch (...) {
+    delete [] dest;
+    throw;
+  }
 }
 
 
