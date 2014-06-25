@@ -9,7 +9,7 @@
 //
 // Guards, transactions
 //
-// !!!Error handling strategy - это самое важное!!!
+// !!!Error handling strategy - это самое важное!!! Это не деталь реализации
 //   Сообщения об ошибках, Распространение ошибок, Обработка
 // Важно то что обработчик должен иметь достаточно информации - например пользователь
 //
@@ -76,6 +76,16 @@ public:
   Stack& operator=(const Stack&);
   T* NewCopy(const T* src, size_t srcsize, size_t destsize);
 
+  // Step 4
+  size_t Count() const;
+  void Push(const T&);
+  // решают две задачи
+  T Pop_nosafe();  // if empty throw
+  void Pop_better_but(T& result);
+  // safe
+  T& Top();  //TODO: const?
+  void Pop();
+
 private:
   T* v_;
   size_t vsize_;
@@ -120,20 +130,90 @@ Stack<T>::Stack(const Stack<T>& other) :
   vused_(other.vused_) {
 }
 
-// Step 4: assign
+// Step 3: assign
 template<class T>
 Stack<T>& Stack<T>::operator=(const Stack<T>& other) {
   if (this != &other) {
       // may throw
       T* v_new = NewCopy(other.v_, other.vsize_, other.vsize_);
 
-      // not throw - change state object
+      // must not throw - change state object
       delete [] v_;
       v_ = v_new;
       vsize_ = other.vsize_;
       vused_ = other.vused_;
   }
   return *this;
+}
+
+// Step 4
+template<class T>
+size_t Stack<T>::Count() const  { return vused_; }
+
+template<class T>
+void Stack<T>::Push(const T& t) {
+  if (vused_ == vsize_) {
+    // нужно увеличить память
+    // may throw - isolated code
+    size_t vsize_new = vsize_*2+1;
+    T* v_new = NewCopy(v_, vsize_, vsize_new);
+
+    // no throw
+    delete[] v_;
+    v_ = v_new;
+    vsize_ = vsize_new;
+  }
+  v_[vused_] = t;  // if throw - then no Strong Warr.
+    // Итераторы станут не действ.
+  ++vused_;  // pointer to next
+}
+
+// Step 5
+// bad pop
+// Проблема не в функции, а в том что такая реализация
+// заставляет клиента писать небезопасный код.
+//
+// !! Функции мутаторы не должны возвр. по значению!!
+template<class T>
+T Stack<T>::Pop_nosafe() {
+  if (vused_ == 0) {
+    throw "if empty";
+  } else {
+    T result = v_[vused_];
+    --vused_;
+    return result;  // при копировании может возн. искл.
+    // объект не дошел до плучателя, а состояние уже изменили
+  }
+}
+
+template<class T>
+void Stack<T>::Pop_better_but(T& result) {
+  if (vused_ == 0) {
+    throw "if empty";
+  } else {
+    result = v_[vused_];  // сперва снимаем значение
+    --vused_;
+    //return result;  // при копировании может возн. искл.
+    // объект не дошел до плучателя, а состояние уже изменили
+  }
+}
+
+template<class T>
+T& Stack<T>::Top() {
+  if (vused_ == 0) {
+    throw "if empty";
+  } else {
+    return v_[vused_];
+  }
+}
+
+template<class T>
+void Stack<T>::Pop() {
+  if (vused_ == 0) {
+    throw "if empty";
+  } else {
+    --vused_;
+  }
 }
 
 
