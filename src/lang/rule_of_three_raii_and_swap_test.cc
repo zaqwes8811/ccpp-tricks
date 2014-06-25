@@ -13,6 +13,9 @@
 // About alloc. on operations
 //   http://stackoverflow.com/questions/5072082/assignment-via-copy-and-swap-vs-two-locks
 //
+// RAII is also less-commonly known as SBRM (Scope-Bound Resource Management).
+//
+// = - похоже самый тонкореализуемый
 
 #include <stdio.h>
 
@@ -155,28 +158,11 @@ TEST(STL, CopyAndAssign) {
   const matrix k(ref_d);  // copy ctor
 }
 
-
-//TODO: deep and shallow copy
-//
-// http://www.fredosaurus.com/notes-cpp/oop-condestructors/shallowdeepcopy.html - desigin
-// Вообще похоже должны быть ресурсы и ими объект владеет. Не? А какие ресурсы? Вот мьютекс например?
-//
-// http://www.fredosaurus.com/notes-cpp/oop-condestructors/copyconstructors.html
-// http://stackoverflow.com/questions/1936942/writing-a-deep-copy-copying-pointer-value
-//
-// http://www.learncpp.com/cpp-tutorial/912-shallow-vs-deep-copying/
-// http://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
-//
-// Вообще не понятно, если объкт не владеет, или указатель на нединамическую память или used DI
-// http://stackoverflow.com/questions/255612/dynamically-allocating-an-array-of-objects/255744#255744
-
-
-//TODO: impl. copy by assign or revert, i don't remember + swap
-// http://en.wikipedia.org/wiki/Assignment_operator_(C%2B%2B)
-
-
-//TODO: exception and copy and assign ops
+//TODO:
+//exception and copy and assign ops
 // http://stackoverflow.com/questions/4172722/what-is-the-rule-of-three?rq=1
+// http://gotw.ca/gotw/059.htm
+// http://www.gotw.ca/gotw/059.htm
 class person
 {
     char* name;
@@ -242,18 +228,6 @@ public:
 */
 };
 
-
-//TODO: thread-safe copy ctor and assign
-// http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
-// http://home.roadrunner.com/~hinnant/mutexes/locking.html
-// Summary:
-//   лучше сперва вообще запретить.
-// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
-
-//TODO: полиморфные операторы
-//Assign:
-// http://stackoverflow.com/questions/669818/virtual-assignment-operator-c
-
 int my_fclose ( FILE * stream ) {
   if (stream)
     fclose(stream);
@@ -278,4 +252,39 @@ TEST(Resources, ScopedGuard) {
   // Но иногда это не нужно.
   //closeIt.Dismiss();  // not need?
 }
+
+
+//TODO:
+//thread-safe copy ctor and assign
+// http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
+// http://home.roadrunner.com/~hinnant/mutexes/locking.html
+// Summary:
+//   лучше сперва вообще запретить.
+// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
+
+//TODO:
+//полиморфные операторы
+//Assign:
+// http://stackoverflow.com/questions/669818/virtual-assignment-operator-c
+
+//TODO:
+//deep and shallow copy
+//
+// http://www.fredosaurus.com/notes-cpp/oop-condestructors/shallowdeepcopy.html - desigin
+// Вообще похоже должны быть ресурсы и ими объект владеет. Не? А какие ресурсы? Вот мьютекс например?
+//
+// http://www.fredosaurus.com/notes-cpp/oop-condestructors/copyconstructors.html
+// http://stackoverflow.com/questions/1936942/writing-a-deep-copy-copying-pointer-value
+//
+// http://www.learncpp.com/cpp-tutorial/912-shallow-vs-deep-copying/
+// http://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
+//
+// Вообще не понятно, если объкт не владеет, или указатель на нединамическую память или used DI
+// http://stackoverflow.com/questions/255612/dynamically-allocating-an-array-of-objects/255744#255744
+
+
+//TODO:
+//impl. copy by assign or revert, i don't remember + swap
+// http://en.wikipedia.org/wiki/Assignment_operator_(C%2B%2B)
+// Реализация через swap и конструктор копирования
 
