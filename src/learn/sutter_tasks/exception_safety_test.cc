@@ -64,7 +64,10 @@ TEST(Sutter, ExceptionBase) {
 }
 
 // safe stack
-// step 2: safe
+// Требования к Т довольно строгие.
+//   - ..
+//   - Безопасное присваивание - ?
+//TODO: снизить требование
 template<class T> class Stack
 {
 public:
@@ -112,7 +115,7 @@ T* Stack<T>::NewCopy(const T* src, size_t srcsize, size_t destsize) {
   assert(destsize >= srcsize);
   T* dest = new T[destsize];
   try {
-    copy(src, src+srcsize, dest);  // used = ! не ясно в чем проблема, но она есть
+    copy(src, src+srcsize, dest);  //DANGER: used =,  не ясно в чем проблема, но она есть
   } catch (...) {
     delete [] dest;
     throw;
@@ -163,7 +166,7 @@ void Stack<T>::Push(const T& t) {
     v_ = v_new;
     vsize_ = vsize_new;
   }
-  v_[vused_] = t;  // if throw - then no Strong Warr.
+  v_[vused_] = t;  //DANGER: if throw - then no Strong Warr.
     // Итераторы станут не действ.
   ++vused_;  // pointer to next
 }
@@ -215,6 +218,23 @@ void Stack<T>::Pop() {
     --vused_;
   }
 }
+
+/// Updated Stack - step 6:
+template<class T>
+class StackImpl {
+/*?*/
+  StackImpl(size_t size=0);
+  ~StackImpl();
+  void Swap(StackImpl& other) throw();
+  T* v_;
+  size_t vsize_;
+  size_t vused_;
+
+private:
+  StackImpl(const StackImpl&);
+  StackImpl& operator=(const StackImpl&);
+
+};
 
 
 //TODO:
