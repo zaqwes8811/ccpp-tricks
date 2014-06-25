@@ -222,7 +222,7 @@ void Stack<T>::Pop() {
 
 namespace util {
 template<class T1, class T2>
-void construct(T* p, const T2& value) {
+void construct(T1* p, const T2& value) {
   new (p) T1(value);
 }
 
@@ -245,9 +245,13 @@ template<class T>
 class StackImpl {
 /*?*/  // protected - if inh. public - member
 protected:
+//public:  // тогда можно будет включить членом класса, что много
+  //  лучше!!
   StackImpl(size_t size=0);
   ~StackImpl();
   void Swap(StackImpl& other) throw();  // nothrow!! very important
+
+  // видны дочернему - if protected - no
   T* v_;
   size_t vsize_;
   size_t vused_;
@@ -255,7 +259,6 @@ protected:
 private:
   StackImpl(const StackImpl&);
   StackImpl& operator=(const StackImpl&);
-
 };
 
 template<class T>
@@ -287,17 +290,47 @@ void StackImpl<T>::Swap(StackImpl<T>& other) throw() {
   swap(vused_, other.vused_);
 }
 
+// Жестко связан с классом упр. ресурсами
+// p. 125
 template<class T>
 class StackInh : private StackImpl<T> {
 public:
-  StackInh(size_t size=0)
+  explicit StackInh(size_t size=0)
     : StackImpl<T>(size) {}
 
-  ~StackInh();
-  StackInh(const StackInh&);
-  StackInh& operator=(const StackInh&);
-  size_t Count() const;
-  void Push(const T&);
+  //~StackInh();  // not need
+  StackInh(const StackInh& other) {
+    using util::construct;
+
+    // gcc4.7.2 - no compiled without this->
+    while (this->vused_ < other.vused_) {
+        construct(this->v_+this->vused_, other.v_[this->vused_]);
+        ++this->vused_;
+    }
+  }
+
+  StackInh& operator=(const StackInh& other) {
+    // не нужно проверять присв. самому себе
+    StackInh temp(other);
+    this->Swap(temp);
+    return *this;
+  }
+
+  size_t Count() const {return this->vused_;}
+  void Push(const T& t) {
+    if (this->vused_ == this->vsize_) {
+        // need reallocation
+        StackInh temp(this->vsize_ * 2 +1);
+        while (temp.Count() < this->vused_)
+          temp.Push(this->v_[temp.Count()]);
+        temp.Push(t);
+        this->Swap(temp);
+    } else {
+      using util::construct;
+        construct(this->v_ + this->vused_, t);
+        ++this->vused_;
+    }
+  }
   T& Top();
   void Pop();
 };
@@ -305,6 +338,9 @@ public:
 TEST(Sutter, StackFirst) {
   Stack<int> stack;
   StackInh<int> stackInh(10);
+  StackInh<int> a(stackInh);
+  a.Push(9);
+  stackInh = a;
 }
 
 
@@ -319,3 +355,6 @@ TEST(Sutter, StackFirst) {
 //TODO:
 // copy-and-swap idiom
 // http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
+
+
+//TODO: p. 339
