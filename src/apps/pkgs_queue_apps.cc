@@ -5,5 +5,9 @@
 //
 // Deamonds:
 //   Task parallelize
-//   пакеты не должны теряться
+//   каждый пакет должн быть обработан
 //   io-thread развязан от потока обработки
+//   correct concurent read form database
+//
+// Info:
+// http://web.stanford.edu/class/cs140/cgi-bin/lecture.php?topic=process
