@@ -30,7 +30,8 @@ SOURCES += \
     ../../src/parallel/use_mutex_test.cc \
     ../../src/learn/sutter_tasks/exception_safety_test.cc \
     ../../src/learn/sutter_tasks/stl_test.cc \
-    ../../src/learn/sutter_tasks_new/templ_stl_test.cc
+    ../../src/learn/sutter_tasks_new/templ_stl_test.cc \
+    ../../src/apps/stl_queries_apps.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
