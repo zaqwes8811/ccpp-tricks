@@ -33,7 +33,8 @@ SOURCES += \
     ../../src/learn/sutter_tasks_new/templ_stl_test.cc \
     ../../src/apps/stl_queries_apps.cc \
     ../../src/learn/sutter_tasks_new/classes_inh_pol_test.cc \
-    ../../src/apps/pkgs_queue_apps.cc
+    ../../src/apps/pkgs_queue_apps.cc \
+    ../../src/apps/persist_apps.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
