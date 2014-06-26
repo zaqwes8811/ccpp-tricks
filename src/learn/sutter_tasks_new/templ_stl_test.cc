@@ -66,12 +66,12 @@ TEST(SutterNew, Task1) {
   copy_own(v, ostream_iterator<int>(cout, "\n"));
 
   // Next
-  cout << v[0];  // maybe 1
+  //cout << v[0];  // maybe 1
 
   // Next
   v.reserve(100);
   //assert  // not need
-  cout << v[0];  // 0
+  //cout << v[0];  // maybe 0
 }
 
 /// Task 2/3 Strings - sprintf
@@ -127,6 +127,69 @@ TEST(SutterNew, Task3) {
 //TODO: http://www.informit.com/articles/article.aspx?p=412354&seqNum=4
 
 /// Task 5:
+// Недостатки полиморф. вр. вып.
+//   - вирт. таблица - как-то так это называется
+//   - используется наследование
+//
+// Полиморфизм времени компиляции - можно обойтись без наследования
+//
+template<class T1, class T2>  // два типа!!
+void construct(T1* p, const T2& value) {
+  new (p) T1(value);  // placment new
+  // http://stackoverflow.com/questions/222557/what-uses-are-there-for-placement-new
+  // http://stackoverflow.com/questions/15254/can-placement-new-for-arrays-be-used-in-a-portable-way
+}
+
+TEST(SutterNew, Task5) {
+  int* p = new int;
+  double i = 0;
+  construct(p, i);  //TODO: компилируется, а должно?
+
+  // mem leak
+}
+
+/// Task 6:
+template<class T>
+void destroy(T* p) {
+  p->~T();
+}
+
+// Trouble: FwdIter может быть только указателем
+// Итераторы не всегда указатели
+template<class FwdIter>
+void destroy(FwdIter first, FwdIter last) {
+  while (first != last) {
+      //destroy(first);
+      destroy(&*first);  // any iterator
+      ++first;
+  }
+}
+
+// p. 48
+//TODO: понял не до конца
+// no exception safe
+//TODO: что за побочные действия оператора Т?
+template<class T>
+void swap(T& a, T& b) {  // лучше переопределить через T::swap в другом простр. имен
+  T temp(a);
+  a = b; // may throw
+  b = temp;  // may throw - a is changed!!
+}
+
+/// Task 7:
+//TODO: мало знаю о шаблонах, поэтому мало ясно. Что-то про специализацию и
+//   перегрузку функций.
+
+
+/// Task 8: о дружественных шаблонах
+//TODO: шаблономагия
+
+/// Task 9: export
+//TODO: шаблономагия
+
+/// Task 10: export
+//TODO: шаблономагия
+
 
 
 
