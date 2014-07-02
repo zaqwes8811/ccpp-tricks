@@ -3,6 +3,9 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
+# !!!
+#QMAKE_CXXFLAGS += -std=c++11  # TODO: это влияет на весь код?
+
 BOOST_PATH = /home/zaqwes/work/third_party/boost_1_55_0
 
 INCLUDEPATH += \
@@ -38,7 +41,9 @@ SOURCES += \
     ../../src/lang/ref_conters_cow_test.cc \
     ../../src/lang/ctor_rule_of_three_raii_and_swap_test.cc \
     ../../src/apps/no_new_loops_apps.cc \
-    ../../src/apps/inh_evil_reduce_apps.cc
+    ../../src/apps/inh_evil_reduce_apps.cc \
+    ../../src/apps/linux_apps.cc \
+    #../../src/cpp11/base_test.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
