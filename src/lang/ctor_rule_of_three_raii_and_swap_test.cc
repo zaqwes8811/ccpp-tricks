@@ -23,6 +23,8 @@
 // = - похоже самый тонкореализуемый - и похоже его лучше добавлять последним "The Big Three and A Half(swap)"
 //
 // Классы с сылками похоже лучше не присваивать. см Саттера 9.N
+//
+// http://www.slideshare.net/pohjus/c-constructor-copy-constructor-and-assignment-operator-presentation
 
 
 #include <stdio.h>

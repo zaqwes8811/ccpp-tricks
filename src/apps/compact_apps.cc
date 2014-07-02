@@ -1,3 +1,9 @@
+#include <iterator>
+#include <numeric>
+#include <valarray>
+#include <vector>
+
+#include <gtest/gtest.h>
 
 // Using stable_partition, but how be with predicate - it must be stateless
 //   how check buy mask.
@@ -29,6 +35,7 @@ TEST(STL, OwnCompact) {
   using std::back_insert_iterator;
   using std::count;
   using std::random_shuffle;
+  using std::vector;
   //using std::rd;
 
   //TODO: copy by filter C++03. In C++11 copy_if
