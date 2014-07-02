@@ -41,9 +41,9 @@ SOURCES += \
     ../../src/lang/ref_conters_cow_test.cc \
     ../../src/lang/ctor_rule_of_three_raii_and_swap_test.cc \
     ../../src/apps/no_new_loops_apps.cc \
-    ../../src/apps/inh_evil_reduce_apps.cc \
     ../../src/apps/linux_apps.cc \
     #../../src/cpp11/base_test.cc
+    ../../src/apps/inh_evil_reduce_c98_apps.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
