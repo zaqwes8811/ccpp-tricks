@@ -21,5 +21,5 @@ SOURCES += \
     ../../src/tests-launcher.cc \
     ../../third_party/fused-src/gmock-gtest-all.cc \
     ../../src/cpp11/base_test.cc \
-    ../../src/apps/inh_evil_reduce_apps_c11.cc
+    ../../src/apps/inh_evil_reduce_c11_apps.cc
 
