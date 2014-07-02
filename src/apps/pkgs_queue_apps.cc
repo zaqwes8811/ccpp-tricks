@@ -22,3 +22,6 @@
 // http://www.alexey-martynov.pp.ru/index.php?data=articles&article=mt-queue
 // http://www.justsoftwaresolutions.co.uk/threading/implementing-a-thread-safe-queue-using-condition-variables.html
 // http://stackoverflow.com/questions/6959023/c-producer-consumer-queue-with-very-fast-and-reliable-handover
+// http://blog.ruslans.com/2013/08/introduction-to-high-level.html
+//
+// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning

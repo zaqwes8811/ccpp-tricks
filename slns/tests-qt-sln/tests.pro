@@ -25,7 +25,6 @@ SOURCES += \
     ../../src/stl/stl_algs_test.cc \
     ../../src/stl/stl_iter_func_test.cc \
     ../../src/lang/equal_compare_test.cc \
-    ../../src/lang/rule_of_three_raii_and_swap_test.cc \
     ../../src/lang/idioms_test.cc \
     ../../src/parallel/use_mutex_test.cc \
     ../../src/learn/sutter_tasks/exception_safety_test.cc \
@@ -34,7 +33,11 @@ SOURCES += \
     ../../src/apps/stl_queries_apps.cc \
     ../../src/learn/sutter_tasks_new/classes_inh_pol_test.cc \
     ../../src/apps/pkgs_queue_apps.cc \
-    ../../src/apps/persist_apps.cc
+    ../../src/apps/persist_apps.cc \
+    ../../src/apps/compact_apps.cc \
+    ../../src/apps/no_new_loops_appscc.cpp \
+    ../../src/lang/ref_conters_cow_test.cc \
+    ../../src/lang/ctor_rule_of_three_raii_and_swap_test.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
