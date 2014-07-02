@@ -20,5 +20,6 @@ LIBS += -lpthread -lrt #-L$$BOOST_PATH/stage_ia32/lib -lboost_thread -lboost_sys
 SOURCES += \
     ../../src/tests-launcher.cc \
     ../../third_party/fused-src/gmock-gtest-all.cc \
-    ../../src/cpp11/base_test.cc
+    ../../src/cpp11/base_test.cc \
+    ../../src/apps/inh_evil_reduce_apps_c11.cc
 
