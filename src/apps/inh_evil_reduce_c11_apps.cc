@@ -40,6 +40,9 @@ public:
   object_t(const object_t& x) : self_(new int_model_t(*x.self_))
   { }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
+  object_t& operator=(const object_t& x)
+  { object_t tmp(x); self_ = std::move(tmp.self_); return *this; }
+
   friend void draw(const object_t &x, ostream &out, size_t position)
   { x.self_->draw_(out, position); }  // разрешаем доступ к закрытым частям
 
