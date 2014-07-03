@@ -298,3 +298,6 @@ TEST(Resources, ScopedGuard) {
 // http://en.wikipedia.org/wiki/Assignment_operator_(C%2B%2B)
 // Реализация через swap и конструктор копирования
 
+// TODO: Failde ctor
+// http://www.gotw.ca/gotw/066.htm
+

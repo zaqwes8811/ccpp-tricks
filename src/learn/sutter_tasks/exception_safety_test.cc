@@ -32,10 +32,12 @@
 
 #include <stdexcept>
 #include <algorithm>
+#include <iostream>
 
 #include <gtest/gtest.h>
 
 using std::logic_error;
+using std::cout;
 
 class Session {
 public:
@@ -95,8 +97,14 @@ private:
   size_t vsize_;
   size_t vused_;  // количество реально исп. объектов
 };
+
+//TODO: я не верю что это безопасно! это неуправлемый ресурс же?
 template<class T>
 Stack<T>::Stack() :
+  //http://stackoverflow.com/questions/377178/how-does-the-standard-new-operator-work-in-c
+  // "new handles constructor exceptions"
+    // TODO: как вызовется delete []?!
+    // http://ptgmedia.pearsoncmg.com/imprint_downloads/informit/aw/meyerscddemo/DEMO/MAGAZINE/SU_FRAME.HTM
     v_(/*0 step 2*/new T[10]),  // может сгенерировать и new and T()
     vsize_(10),
     vused_(0) {
@@ -218,6 +226,23 @@ void Stack<T>::Pop() {
   } else {
     --vused_;
   }
+}
+
+// А ведь и правда удаляет
+int i = 0;
+class TestThrow {
+public:
+  TestThrow() { i++;
+                if (i == 5)
+                  throw std::runtime_error(""); }
+  ~TestThrow() {
+      cout << "dtr\n";
+  }
+};
+
+
+TEST(Sutter, Stackstrange) {
+  Stack<TestThrow> stack;
 }
 
 namespace util {
