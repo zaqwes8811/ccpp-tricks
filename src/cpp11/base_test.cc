@@ -3,6 +3,14 @@
 // http://blog.worldofcoding.com/2014/05/cross-compiling-c11-without-going-madder.html
 //
 // С++11 не совместим с C++03. А с C++98?
+//
+// Move in
+// http://stackoverflow.com/questions/3106110/what-is-move-semantics
+// http://blog.smartbear.com/c-plus-plus/the-biggest-changes-in-c11-and-why-you-should-care/
+// http://lin-techdet.blogspot.ru/2013/03/c11-rvalue.html
+// !!!https://cloudtips.org/introduction-to-rvalue-references.html
+//
+// http://sergeyteplyakov.blogspot.ru/2012/05/c-11-faq.html
 
 #include <vector>
 #include <algorithm>

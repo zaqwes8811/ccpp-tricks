@@ -60,7 +60,7 @@ private:
   std::unique_ptr<int_model_t> self_;
 };
 
-using document_t = vector<object_t>;
+using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
 
 void draw(const document_t&x, ostream &out, size_t position)
 {

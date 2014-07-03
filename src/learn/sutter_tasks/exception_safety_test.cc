@@ -1,5 +1,3 @@
-
-
 /// New tasks - p. 81
 // безопасность искл. - часть проектирования
 //
@@ -28,6 +26,11 @@
 // - RAII
 // - Работа на стороне, а затем обмен - транзакционное программирование
 // - Одна функция - одно действие
+//
+/// Own Summary:
+// one function - strongly one task
+// calc and change state object use exc. safe methods
+// base types and pointer (smart?) on assign no throw
 
 
 #include <stdexcept>

@@ -5,3 +5,6 @@
 /// NVI
 // http://en.wikipedia.org/wiki/Fragile_base_class
 // http://clean-cpp.org/interfaces-done-right/
+
+/// Pimpl
+// неэффективно
