@@ -22,15 +22,12 @@
 // - Nofail - бессбойность - destructors, resource free, swap
 //TODO: Когда какую? Минимально строгую, в которой не нуждается вызывающий код. - don't understood...
 //
-// Methods
-// - RAII
-// - Работа на стороне, а затем обмен - транзакционное программирование
-// - Одна функция - одно действие
-//
 /// Own Summary:
-// one function - strongly one task
-// calc and change state object use exc. safe methods
-// base types and pointer (smart?) on assign no throw
+// - RAII, ScopeLocks
+// - one function - strongly one task
+// - calc and change state object use exc. safe methods - транзакционное программирование
+// - base types and pointer (smart?) on assign no throw - TODO: = can throw, how impl swap? pimpl?
+//   конструктор, констр. копирования и опер. присв. могут бросать исключения.
 
 
 #include <stdexcept>
@@ -100,7 +97,7 @@ private:
 };
 template<class T>
 Stack<T>::Stack() :
-    v_(/*0 step 2*/new T[10]),
+    v_(/*0 step 2*/new T[10]),  // может сгенерировать и new and T()
     vsize_(10),
     vused_(0) {
   //v_ = new T[vsize_];  // Step 2: лучше передать в списке иниц. Мишко похожее говорил в GTechTalk
@@ -290,7 +287,7 @@ template<class T>
 void StackImpl<T>::Swap(StackImpl<T>& other) throw() {
   using std::swap;
 
-  swap(v_, other.v_);
+  swap(v_, other.v_);  // а что будет потом с. Как деструктор определяет сколько раз вызвать дестр. объекта?
   swap(vsize_, other.vsize_);
   swap(vused_, other.vused_);
 }
@@ -363,3 +360,18 @@ TEST(Sutter, StackFirst) {
 
 
 //TODO: p. 339
+
+// TODO: Exception on construction
+// http://www.gotw.ca/gotw/066.htm
+// http://herbsutter.com/2008/07/25/constructor-exceptions-in-c-c-and-java/
+TEST(Sutter, ExcConstr) {
+  {
+    int(1);
+    // http://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=199
+    const int& perch = int(1);
+
+    // ... more code; at this point, only the first
+    // temporary object is pushing up daisies ...
+  }
+  // Get it? It's a lifetime-of-temporaries-bound-to-references joke
+}
