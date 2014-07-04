@@ -82,3 +82,6 @@ TEST(EvelC11, App) {
 
   draw(document, cout, 0);
 }
+
+// Other example
+// http://www.codeguru.com/cpp/misc/misc/templatizedclasses/article.php/c14955/Polymorphism-and-TemplateBased-Designs.htm

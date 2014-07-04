@@ -44,7 +44,8 @@ SOURCES += \
     ../../src/apps/linux_apps.cc \
     #../../src/cpp11/base_test.cc
     ../../src/apps/inh_evil_reduce_c98_apps.cc \
-    ../../src/learn/meyers/big_three_and_swap_test.cc
+    ../../src/learn/meyers/big_three_and_swap_test.cc \
+    ../../src/lang/templates_test.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
