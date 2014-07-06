@@ -263,6 +263,14 @@ TEST(Resources, ScopedGuard) {
   //closeIt.Dismiss();  // not need?
 }
 
+TEST(Res, Guards) {
+  // Проблема в том, что хотелось бы не использовать Loki.
+  // Можно использовать smart_ptrs у функциями удаления, но не у всех есть такая особенность.
+  // shared_ptrs лучше для этого не использовать.
+  // C+11 - есть
+  // Qt - есть
+}
+
 
 //TODO:
 //thread-safe copy ctor and assign
