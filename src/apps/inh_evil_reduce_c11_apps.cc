@@ -38,6 +38,7 @@ private:
   int self_;
 };*/
 
+/*
 class object_t {
 public:
   object_t(const int& x) : self_(new int_model_t(x))
@@ -51,6 +52,39 @@ public:
     self_ = std::move(tmp.self_);
     //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
     return *this; }
+
+  friend void draw(const object_t &x, ostream &out, size_t position)
+  { x.self_->draw_(out, position); }  // разрешаем доступ к закрытым частям
+
+private:
+  struct int_model_t {
+    int_model_t(const int& x) : data_(x) { }
+    void draw_(ostream& out, size_t position) const
+    {draw(data_, out, position);}
+
+    int data_;
+  };
+  std::unique_ptr<int_model_t> self_;
+};*/
+
+class object_t {
+public:
+  object_t(const int& x) : self_(new int_model_t(x))
+  { }
+
+  object_t(const object_t& x) : self_(new int_model_t(*x.self_))
+  { }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+
+  // Speed up
+  object_t(object_t&&) noexcept = default;
+
+  object_t& operator=(const object_t& x)
+  { object_t tmp(x);
+    *this = std::move(tmp);  // if no move assign progr. is failed
+    //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+    return *this; }
+  object_t& operator=(object_t&&) noexcept = default;  // Need it!
+
 
   friend void draw(const object_t &x, ostream &out, size_t position)
   { x.self_->draw_(out, position); }  // разрешаем доступ к закрытым частям
@@ -78,6 +112,7 @@ void draw(const document_t&x, ostream &out, size_t position)
 TEST(EvelC11, App) {
   // TODO:
   document_t document;
+  document.reserve(5);
 
   document.emplace_back(0);
   document.emplace_back(1);
