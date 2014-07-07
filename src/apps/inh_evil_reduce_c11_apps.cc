@@ -1,9 +1,15 @@
 // http://channel9.msdn.com/Events/GoingNative/2013/Inheritance-Is-The-Base-Class-of-Evil
+//
+// Как понял проблема в том, чтобы можно было залить в контейнер разные типы
+// но не пользоватья указателями.
+//
 #include <vector>
 #include <iostream>
 #include <string>
 #include <memory>
 #include <algorithm>
+
+#include <typeinfo>  // не хотелось бы включать, но похоже нужно
 
 #include <gtest/gtest.h>
 
@@ -81,7 +87,18 @@ TEST(EvelC11, App) {
   std::reverse(document.begin(), document.end());
 
   draw(document, cout, 0);
+
+  // http://en.cppreference.com/w/cpp/language/typeid
+  // RTII cost:
+  // http://stackoverflow.com/questions/579887/how-expensive-is-rtti
+  assert(typeid(document[0]) == typeid(document[1]));
 }
 
 // Other example
 // http://www.codeguru.com/cpp/misc/misc/templatizedclasses/article.php/c14955/Polymorphism-and-TemplateBased-Designs.htm
+
+
+//TODO: boost::any
+// http://www.boost.org/doc/libs/1_55_0/doc/html/any.html
+// http://stackoverflow.com/questions/9105381/boost-any-get-original-type
+// http://sandfly.net.nz/blog/2009/12/the-c-boost-libraries-part-6-boostany/
