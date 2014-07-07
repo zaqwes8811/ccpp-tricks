@@ -1,5 +1,7 @@
 // Spec.:
-// Два типа клиентов с тегами в контейнере - реализовать не через VI (NVI, ...)
+// - Два типа клиентов с тегами в контейнере
+// - C++98
+// - реализовать не через VI (NVI, ...)
 //
 // Попробовать без базового класса
 //
@@ -14,6 +16,9 @@
 //
 // Без указателей. Без циклов.
 //
+// Узнать тип объекта:
+// http://stackoverflow.com/questions/1986418/typeid-and-typeof-in-c
+// http://en.wikibooks.org/wiki/C%2B%2B_Programming/RTTI
 //
 #include <vector>
 #include <iostream>
