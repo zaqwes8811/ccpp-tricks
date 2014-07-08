@@ -38,15 +38,16 @@ public:
   // шаблонный конструктор
   // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
   template<typename T>
-  object_t(T x) : self_(new model<T>(/*move*/(x)))  // by value/ специализируем шаблонный класс
+  object_t(const T& x) : self_(new model<T>(/*move*/(x)))  // by value/ специализируем шаблонный класс
   {cout << "ctor\n";}
 
   object_t(const object_t& x) : self_(x.self_->copy_())
-  { cout << "copy\n";}  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+  { cout << "copy ctor\n";}  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
   object_t& operator=(const object_t& x)
   {
     object_t tmp(x);
+    { cout << "assign\n";}
     //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
     self_.swap(tmp.self_);
     return *this;
@@ -54,6 +55,7 @@ public:
 
   //void swap()
 
+  // TODO: просто дает доступ к закрытым функциям?
   friend void draw(const object_t &x, ostream &out, size_t position)
   {
     x.self_->draw_(out, position);
@@ -62,6 +64,8 @@ public:
 private:
   struct concept_t {
     virtual ~concept_t() {} //= default;
+
+    // вообще функции открытые
     virtual concept_t* copy_() const = 0;
     virtual void draw_(ostream& out, size_t position) const = 0;
   };
@@ -120,18 +124,21 @@ TEST(EvelC11, App) {
   // И при занесении копируется
   document.push_back(0);
   document.push_back(string("hello"));
-  document.push_back(2);
+  document.push_back(document);
   document.push_back(my_class_t());
 
   std::reverse(document.begin(), document.end());
+  //document[0] = document[1];
 
   draw(document, cout, 0);
 
-  object_t a(document);
-  object_t b(my_class_t());
+  object_t a(string("hello"));
+  object_t b(0);
+
   //std::swap(a, b);
-  //a = b;  // TODO: not compiled if diff. types, but how work containers?!
+  a = b;  // TODO: not compiled if diff. types, but how work containers?!
   //b = a;
+
   // http://en.cppreference.com/w/cpp/language/typeid
   // RTII cost:
   // http://stackoverflow.com/questions/579887/how-expensive-is-rtti
