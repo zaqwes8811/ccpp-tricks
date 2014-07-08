@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 #include <boost/foreach.hpp>
+#include <boost/scoped_ptr.hpp>
 
 #define foreach_         BOOST_FOREACH
 
@@ -20,7 +21,9 @@ using std::cout;
 
 //typedef int object_t;
 
-// If no-C++11 много копирований.
+// Con: If no-C++11 много копирований.
+//
+// Pro: value-sem.
 template<typename T>
 void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
 {
@@ -44,7 +47,8 @@ public:
   object_t& operator=(const object_t& x)
   {
     object_t tmp(x);
-    std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+    //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+    self_.swap(tmp.self_);
     return *this;
   }
 
@@ -77,12 +81,15 @@ private:
     T data_;
   };
 
-  // std::unique_ptr<int_model_t> self_;
+  /// Handle
   //std::unique_ptr<concept_t> self_;
-  //std::unique_ptr<concept_t>
+  //
   //concept_t* self_;
-  //const
-  std::auto_ptr<concept_t> self_;
+  //
+  // http://www.rsdn.ru/forum/cpp/1698137.all
+  //std::auto_ptr<concept_t> self_;
+  //
+  boost::scoped_ptr<concept_t> self_;
 };
 
 //using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
@@ -110,6 +117,7 @@ TEST(EvelC11, App) {
   document_t document;
   document.reserve(5);
 
+  // И при занесении копируется
   document.push_back(0);
   document.push_back(string("hello"));
   document.push_back(2);
@@ -119,9 +127,10 @@ TEST(EvelC11, App) {
 
   draw(document, cout, 0);
 
-  //object_t a(document);
-  //object_t b(my_class_t());
-  //a = b;  // not compiled if diff. types
+  object_t a(document);
+  object_t b(my_class_t());
+  //std::swap(a, b);
+  //a = b;  // TODO: not compiled if diff. types, but how work containers?!
   //b = a;
   // http://en.cppreference.com/w/cpp/language/typeid
   // RTII cost:
