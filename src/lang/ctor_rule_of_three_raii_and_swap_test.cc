@@ -279,13 +279,17 @@ void del_array(T* p) {
 
 TEST(RAII, SafeMakeSetArrays) {
   // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=3
+  // http://loki-lib.sourceforge.net/index.php?n=Idioms.ScopeGuardPointer
   try {
+    /// MayThrow
     int* p = new int[10];
     Loki::ScopeGuard g = Loki::MakeGuard(del_array<int>, p);
     double* table = new double[9];
     Loki::ScopeGuard t = Loki::MakeGuard(del_array<double>, table);
     throw 0;
     //throw 0;
+
+    /// NoThrow
     //g.Dismiss();  // не удаляет
 
     //int* pp = //g.SafeExecute()
