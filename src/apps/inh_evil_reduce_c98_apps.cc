@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include <gtest/gtest.h>
 #include <boost/foreach.hpp>
@@ -16,25 +17,117 @@ using std::string;
 using std::vector;
 using std::cout;
 
-typedef int object_t;
+//typedef int object_t;
+
+
+
+// If no-C++11 много копирований.
+template<typename T>
+void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
+{
+  out << string(/*position, */" ");
+  out << x << endl;
+}
+
+//template<typename T>  // не тут
+class object_t {
+public:
+  // шаблонный конструктор
+  // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
+  template<typename T>
+  object_t(T x) : self_(new model<T>(/*move*/(x)))  // by value/ специализируем шаблонный класс
+  {}
+
+  // Not compiled
+  //object_t(const object_t& x) : self_(new int_model_t(*x.self_))
+  object_t(const object_t& x) : self_(x.self_->copy_())
+  { cout << "copy\n";}  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+
+  // Speed up
+  //object_t(object_t&&) noexcept = default;
+
+  object_t& operator=(const object_t& x)
+  { object_t tmp(x);
+    //*this = std::move(tmp);  // if no move assign progr. is failed
+    std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+    return *this; }
+  //object_t& operator=(object_t&&) noexcept = default;  // Need it!
+
+
+  friend void draw(const object_t &x, ostream &out, size_t position)
+  {
+    x.self_->draw_(out, position);
+  }  // разрешаем доступ к закрытым частям
+
+private:
+  struct concept_t {
+    virtual ~concept_t() {} //= default;
+    virtual concept_t* copy_() const = 0;
+    virtual void draw_(ostream& out, size_t position) const = 0;
+  };
+
+  // Шаблонный класс и обычный конструктор.
+  template<typename T>
+  struct model : concept_t {
+    model(const T& x) : data_(/*move*/(x)) { }
+    void draw_(ostream& out, size_t position) const
+    {
+      // !!Most important - it's terminal function
+      draw(data_, out, position);
+    }
+
+    concept_t* copy_() const { return new model(*this); }
+
+    T data_;
+  };
+
+  // std::unique_ptr<int_model_t> self_;
+  //std::unique_ptr<concept_t> self_;
+  //std::unique_ptr<concept_t>
+  concept_t* self_;
+};
+
+//using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
 typedef vector<object_t> document_t;
 
-void draw(const object_t& x, ostream& out, size_t position)
-{ out << string(position, ' ') << x << endl; }
-
-void draw(const document_t& x, ostream& out, size_t position)
+void draw(const document_t&x, ostream &out, size_t position)
 {
   out << string(position, ' ') << "<document>" << endl;
-  // for (const auto& e : x) draw(e, out, position + 2); // C++11
-  // C++98 without explicit loop and boost imposible. 2 arg max
-  //
-  // std::for_each не выходит замкнуть сторонние параметры
-  // можно создать объект, но как быть с сохранением ostream& it's link!!
-  //
-  // http://www.boost.org/doc/libs/1_55_0/doc/html/foreach.html
-  foreach_(const object_t& e, x) draw(e, out, position);
-
+  for (document_t::const_iterator e = x.begin(), end = x.end(); e != end; ++e)
+    draw(e, out, position + 2);
   out << string(position, ' ') << "</document>" << endl;
+}
+
+// не нужно ничего наследовать.
+class my_class_t {
+
+};
+
+void draw(const my_class_t&, ostream& out, size_t position)
+{ out << string(position, ' ') << "my_class_t()" << endl; }
+
+TEST(EvelC11, App) {
+  // TODO:
+  document_t document;
+  document.reserve(5);
+
+  document.push_back(0);
+  //document.push_back(string("hello"));
+  document.push_back(2);
+  //document.push_back(my_class_t());
+
+  std::reverse(document.begin(), document.end());
+
+  draw(document, cout, 0);
+
+  //object_t a(document);
+  //object_t b(my_class_t());
+  //a = b;  // not compiled if diff. types
+  //b = a;
+  // http://en.cppreference.com/w/cpp/language/typeid
+  // RTII cost:
+  // http://stackoverflow.com/questions/579887/how-expensive-is-rtti
+  assert(typeid(document[0]) == typeid(document[1]));
 }
 
 

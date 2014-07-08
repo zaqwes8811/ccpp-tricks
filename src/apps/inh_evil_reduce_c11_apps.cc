@@ -170,17 +170,20 @@ private:
 };
 */
 
+
+// If no-C++11 много копирований.
 template<typename T>
 void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
 { out << string(position, ' ') << x << endl; }
 
+//template<typename T>  // не тут
 class object_t {
 public:
-  object_t(string x) : self_(new string_model_t(move(x)))  // by value
+  // шаблонный конструктор
+  // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
+  template<typename T>
+  object_t(T x) : self_(new model<T>(/*move*/(x)))  // by value/ специализируем шаблонный класс
   {}
-
-  object_t(int x) : self_(new int_model_t(move(x)))
-  { cout << "ctor\n";}
 
   // Not compiled
   //object_t(const object_t& x) : self_(new int_model_t(*x.self_))
@@ -188,18 +191,20 @@ public:
   { cout << "copy\n";}  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
   // Speed up
-  object_t(object_t&&) noexcept = default;
+  //object_t(object_t&&) noexcept = default;
 
   object_t& operator=(const object_t& x)
   { object_t tmp(x);
-    *this = std::move(tmp);  // if no move assign progr. is failed
-    //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+    //*this = std::move(tmp);  // if no move assign progr. is failed
+    std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
     return *this; }
-  object_t& operator=(object_t&&) noexcept = default;  // Need it!
+  //object_t& operator=(object_t&&) noexcept = default;  // Need it!
 
 
   friend void draw(const object_t &x, ostream &out, size_t position)
-  { x.self_->draw_(out, position); }  // разрешаем доступ к закрытым частям
+  {
+    x.self_->draw_(out, position);
+  }  // разрешаем доступ к закрытым частям
 
 private:
   struct concept_t {
@@ -208,24 +213,19 @@ private:
     virtual void draw_(ostream& out, size_t position) const = 0;
   };
 
-  struct string_model_t : concept_t {
-    string_model_t(const string& x) : data_(move(x)) { }
+  // Шаблонный класс и обычный конструктор.
+  template<typename T>
+  struct model : concept_t {
+    model(const T& x) : data_(/*move*/(x)) { }
     void draw_(ostream& out, size_t position) const
-    {draw(data_, out, position);}
+    {
+      // !!Most important - it's terminal function
+      draw(data_, out, position);
+    }
 
-    concept_t* copy_() const { return new string_model_t(*this); }
+    concept_t* copy_() const { return new model(*this); }
 
-    string data_;
-  };
-
-  struct int_model_t : concept_t {
-    int_model_t(const int& x) : data_(move(x)) { }
-    void draw_(ostream& out, size_t position) const
-    {draw(data_, out, position);}
-
-    concept_t* copy_() const { return new int_model_t(*this); }
-
-    int data_;
+    T data_;
   };
 
   // std::unique_ptr<int_model_t> self_;
@@ -241,6 +241,14 @@ void draw(const document_t&x, ostream &out, size_t position)
   out << string(position, ' ') << "</document>" << endl;
 }
 
+// не нужно ничего наследовать.
+class my_class_t {
+
+};
+
+void draw(const my_class_t&, ostream& out, size_t position)
+{ out << string(position, ' ') << "my_class_t()" << endl; }
+
 TEST(EvelC11, App) {
   // TODO:
   document_t document;
@@ -249,12 +257,16 @@ TEST(EvelC11, App) {
   document.emplace_back(0);
   document.emplace_back(string("hello"));
   document.emplace_back(2);
-  document.emplace_back(3);
+  document.emplace_back(my_class_t());
 
-  //std::reverse(document.begin(), document.end());
+  std::reverse(document.begin(), document.end());
 
   draw(document, cout, 0);
 
+  //object_t a(document);
+  //object_t b(my_class_t());
+  //a = b;  // not compiled if diff. types
+  //b = a;
   // http://en.cppreference.com/w/cpp/language/typeid
   // RTII cost:
   // http://stackoverflow.com/questions/579887/how-expensive-is-rtti
