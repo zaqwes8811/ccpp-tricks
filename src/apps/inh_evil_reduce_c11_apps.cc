@@ -171,7 +171,8 @@ private:
 */
 
 
-// If no-C++11 много копирований.
+/// BAD: If no-C++11 много копирований. И много обращений к куче
+// Хотя.. что выделяется в куче? Хендлы или сами объекты?
 template<typename T>
 void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
 { out << string(position, ' ') << x << endl; }
