@@ -242,7 +242,7 @@ public:
 
 
 TEST(Sutter, Stackstrange) {
-  Stack<TestThrow> stack;
+  EXPECT_THROW(Stack<TestThrow>(), std::runtime_error);// stack;
 }
 
 namespace util {
