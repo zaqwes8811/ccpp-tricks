@@ -19,6 +19,9 @@ using std::endl;
 using std::cout;
 using std::vector;
 
+// C++11
+using std::move;
+
 //using object_t = int;  // step 2
 
 /*
@@ -72,7 +75,7 @@ private:
   std::unique_ptr<int_model_t> self_;
 };*/
 
-using std::move;
+
 /*
 class object_t {
 public:
@@ -170,9 +173,12 @@ private:
 };
 */
 
+namespace step4 {
 
 /// BAD: If no-C++11 много копирований. И много обращений к куче
 // Хотя.. что выделяется в куче? Хендлы или сами объекты?
+//
+// Если используется полиморфизм, то и сами объекты создаются в куче!
 template<typename T>
 void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
 { out << string(position, ' ') << x << endl; }
@@ -183,23 +189,25 @@ public:
   // шаблонный конструктор
   // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
   template<typename T>
-  object_t(T x) : self_(new model<T>(/*move*/(x)))  // by value/ специализируем шаблонный класс
+  object_t(T x) : self_(new model<T>(move(x)))  // by value/ специализируем шаблонный класс
   {}
 
   // Not compiled
   //object_t(const object_t& x) : self_(new int_model_t(*x.self_))
   object_t(const object_t& x) : self_(x.self_->copy_())
-  { cout << "copy\n";}  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+  {
+    //cout << "copy\n";
+  }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
   // Speed up
-  //object_t(object_t&&) noexcept = default;
+  object_t(object_t&&) noexcept = default;
 
   object_t& operator=(const object_t& x)
   { object_t tmp(x);
-    //*this = std::move(tmp);  // if no move assign progr. is failed
-    std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+    *this = std::move(tmp);  // if no move assign progr. is failed
+    //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
     return *this; }
-  //object_t& operator=(object_t&&) noexcept = default;  // Need it!
+  object_t& operator=(object_t&&) noexcept = default;  // Need it!
 
 
   friend void draw(const object_t &x, ostream &out, size_t position)
@@ -217,7 +225,7 @@ private:
   // Шаблонный класс и обычный конструктор.
   template<typename T>
   struct model : concept_t {
-    model(const T& x) : data_(/*move*/(x)) { }
+    model(const T& x) : data_(move(x)) { }
     void draw_(ostream& out, size_t position) const
     {
       // !!Most important - it's terminal function
@@ -247,10 +255,28 @@ class my_class_t {
 
 };
 
+
 void draw(const my_class_t&, ostream& out, size_t position)
 { out << string(position, ' ') << "my_class_t()" << endl; }
 
+}  // namespace
+
+namespace ps_sample {
+  /*
+using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
+
+/// Ps
+using history_t = vector<document_t>;
+void commit(history_t& x) { assert(x.size()); x.push_back(x.back()); }
+void undo(history_t& x) { assert(x.size()); x.pop_back(); }
+document_t current(history_t& x) { assert(x.size()); return x.back(); }
+*/
+}
+
 TEST(EvelC11, App) {
+  using step4::document_t;
+  using step4::my_class_t;
+
   // TODO:
   document_t document;
   document.reserve(5);
@@ -272,6 +298,10 @@ TEST(EvelC11, App) {
   // RTII cost:
   // http://stackoverflow.com/questions/579887/how-expensive-is-rtti
   assert(typeid(document[0]) == typeid(document[1]));
+}
+
+TEST(EvelPs, App) {
+
 }
 
 // Other example
