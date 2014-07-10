@@ -18,6 +18,8 @@
 #include <typeinfo>  // не хотелось бы включать, но похоже нужно
 
 #include <gtest/gtest.h>
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 using std::ostream;
 using std::string;
@@ -314,7 +316,7 @@ void draw(const T& x, ostream& out, size_t position)  // object_t -> int and mov
 class object_t {
 public:
   template<typename T>
-  object_t(T x) : self_(new model<T>(move(x)))  // by value/ специализируем шаблонный класс
+  object_t(const T& x) : self_(new model<T>(move(x)))  // by value/ специализируем шаблонный класс
   {}
 
   object_t(const object_t& x) : self_(x.self_->copy_())
@@ -379,11 +381,79 @@ document_t& current(history_t& x) {
   assert(x.size());
   return x.back();
 }
+}
+
+namespace ps_sample_shared {
+// Если большие объекты, но почему так работает? Почему не копий?
+template<typename T>
+void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
+{ out << string(position, ' ') << x << endl; }
+
+class object_t {
+public:
+  template<typename T>
+  // make_ptr
+  object_t(const T& x) : self_(boost::make_shared<model<T>>(move(x))) {}
+
+  friend void draw(const object_t &x, ostream &out, size_t position)
+  { x.self_->draw_(out, position); }
+
+private:
+  struct concept_t {
+    virtual ~concept_t() = default;
+    virtual void draw_(ostream& out, size_t position) const = 0;
+  };
+
+  template<typename T>
+  struct model : concept_t {
+    model(const T& x) : data_(move(x)) { }
+    void draw_(ostream& out, size_t position) const
+    { draw(data_, out, position); }
+    T data_;
+  };
+
+  // std::unique_ptr<int_model_t> self_;
+  //std::
+  boost::shared_ptr<const concept_t> self_;  // ссылки на immutable!! поэтому мы можем возвращаться
+  // если подставляет части, то целиком. Это и защищает от копирования.
+  // В случае с фотошопом все понятно, иначе пришлось бы копировать все, хотя части были бы неизменными.
+  // Но пиксель, например, может быть меньше указателя.
+};
+
+
+using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
+
+void draw(const document_t&x, ostream &out, size_t position)
+{
+  out << string(position, ' ') << "<document>" << endl;
+  for (const auto& e : x) draw(e, out, position + 2);
+  out << string(position, ' ') << "</document>" << endl;
+}
+
+// не нужно ничего наследовать.
+class my_class_t { };
+
+void draw(const my_class_t&, ostream& out, size_t position)
+{ out << string(position, ' ') << "my_class_t()" << endl; }
+
+/// Ps
+using history_t = vector<document_t>;
+void commit(history_t& x) {
+  assert(x.size());
+  x.push_back(x.back());
+}
+
+void undo(history_t& x) { assert(x.size()); x.pop_back(); }
+
+document_t& current(history_t& x) {
+  assert(x.size());
+  return x.back();
+}
 
 }
 
 TEST(EvelPs, App) {
-  using namespace ps_sample;
+  using namespace ps_sample_shared;
   history_t h(1);
 
   // Работаем с верхним элементом
