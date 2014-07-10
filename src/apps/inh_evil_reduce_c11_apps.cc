@@ -26,11 +26,6 @@ namespace step0 {
 using object_t = int;  // step 2
 }
 
-/*
-void draw(const string& x, ostream& out, size_t position)  // object_t -> int and move here
-{ out << string(position, ' ') << x << endl; }
-*/
-
 namespace step1 {
 void draw(const int& x, ostream& out, size_t position)  // object_t -> int and move here
 { out << string(position, ' ') << x << endl; }
@@ -82,7 +77,10 @@ private:
 };
 }
 
-/*
+namespace step3 {
+  void draw(const int& x, ostream& out, size_t position)  // object_t -> int and move here
+  { out << string(position, ' ') << x << endl; }
+
 class object_t {
 public:
   object_t(const int& x) : self_(new int_model_t(x))
@@ -115,12 +113,19 @@ private:
   };
   std::unique_ptr<int_model_t> self_;
 };
-*/
+}
+
+namespace step4 {
+void draw(const int& x, ostream& out, size_t position)  // object_t -> int and move here
+{ out << string(position, ' ') << x << endl; }
+
+void draw(const string& x, ostream& out, size_t position)  // object_t -> int and move here
+{ out << string(position, ' ') << x << endl; }
 
 // "Don't allow polymorphism to complicate client code"
 // и все равно много обращений к куче. Но суть думаю в том, что пользователю не нужно
 // будет думать об этом.
-/*class object_t {
+class object_t {
 public:
   object_t(const string& x) : self_(new string_model_t(move(x)))
   {}
@@ -177,9 +182,9 @@ private:
   // std::unique_ptr<int_model_t> self_;
   std::unique_ptr<concept_t> self_;
 };
-*/
+}
 
-namespace step4 {
+namespace step5 {
 
 /// BAD: If no-C++11 много копирований. И много обращений к куче
 // Хотя.. что выделяется в куче? Хендлы или сами объекты?
@@ -356,8 +361,8 @@ document_t current(history_t& x) { assert(x.size()); return x.back(); }
 }
 
 TEST(EvelC11, App) {
-  using step4::document_t;
-  using step4::my_class_t;
+  using step5::document_t;
+  using step5::my_class_t;
 
   // TODO:
   document_t document;
@@ -384,10 +389,14 @@ TEST(EvelC11, App) {
 
 TEST(EvelPs, App) {
   using namespace ps_sample;
+  history_t h(1);
+
 
 }
 
-// Other example
+// TODO: add features to class
+
+// TODO: Other example, or something
 // http://www.codeguru.com/cpp/misc/misc/templatizedclasses/article.php/c14955/Polymorphism-and-TemplateBased-Designs.htm
 
 
