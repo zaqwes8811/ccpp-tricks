@@ -395,7 +395,15 @@ TEST(EvelPs, App) {
 
   commit(h);  // сохраняем текущую и ее копируем на верх.
 
-  //current(h).emplace_back(current(h));
+  current(h).emplace_back(current(h));
+  current(h).emplace_back(my_class_t());
+  current(h)[1] = string("World");
+
+  draw(current(h), cout, 0);
+  cout << "-------------" << endl;
+
+  undo(h);
+  draw(current(h), cout, 0);
 
 }
 
@@ -406,6 +414,7 @@ TEST(EvelPs, App) {
 
 
 //TODO: boost::any
+// Strange thing.
 // http://www.boost.org/doc/libs/1_55_0/doc/html/any.html
 // http://stackoverflow.com/questions/9105381/boost-any-get-original-type
 // http://sandfly.net.nz/blog/2009/12/the-c-boost-libraries-part-6-boostany/
