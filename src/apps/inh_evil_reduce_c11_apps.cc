@@ -22,17 +22,19 @@ using std::vector;
 // C++11
 using std::move;
 
-//using object_t = int;  // step 2
+namespace step0 {
+using object_t = int;  // step 2
+}
 
 /*
-void draw(const int& x, ostream& out, size_t position)  // object_t -> int and move here
-{ out << string(position, ' ') << x << endl; }
-
 void draw(const string& x, ostream& out, size_t position)  // object_t -> int and move here
 { out << string(position, ' ') << x << endl; }
 */
 
-/*
+namespace step1 {
+void draw(const int& x, ostream& out, size_t position)  // object_t -> int and move here
+{ out << string(position, ' ') << x << endl; }
+
 // step 3: remove
 class object_t {
 public:
@@ -44,9 +46,13 @@ public:
 
 private:
   int self_;
-};*/
+};
+}
 
-/*
+namespace step2 {
+void draw(const int& x, ostream& out, size_t position)  // object_t -> int and move here
+{ out << string(position, ' ') << x << endl; }
+
 class object_t {
 public:
   object_t(const int& x) : self_(new int_model_t(x))
@@ -73,8 +79,8 @@ private:
     int data_;
   };
   std::unique_ptr<int_model_t> self_;
-};*/
-
+};
+}
 
 /*
 class object_t {
@@ -262,15 +268,91 @@ void draw(const my_class_t&, ostream& out, size_t position)
 }  // namespace
 
 namespace ps_sample {
-  /*
-using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
+  template<typename T>
+  void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
+  { out << string(position, ' ') << x << endl; }
+
+  //template<typename T>  // не тут
+  class object_t {
+  public:
+    // шаблонный конструктор
+    // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
+    template<typename T>
+    object_t(T x) : self_(new model<T>(move(x)))  // by value/ специализируем шаблонный класс
+    {}
+
+    // Not compiled
+    //object_t(const object_t& x) : self_(new int_model_t(*x.self_))
+    object_t(const object_t& x) : self_(x.self_->copy_())
+    {
+      //cout << "copy\n";
+    }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+
+    // Speed up
+    object_t(object_t&&) noexcept = default;
+
+    object_t& operator=(const object_t& x)
+    { object_t tmp(x);
+      *this = std::move(tmp);  // if no move assign progr. is failed
+      //std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+      return *this; }
+    object_t& operator=(object_t&&) noexcept = default;  // Need it!
+
+
+    friend void draw(const object_t &x, ostream &out, size_t position)
+    {
+      x.self_->draw_(out, position);
+    }  // разрешаем доступ к закрытым частям
+
+  private:
+    struct concept_t {
+      virtual ~concept_t() = default;
+      virtual concept_t* copy_() const = 0;
+      virtual void draw_(ostream& out, size_t position) const = 0;
+    };
+
+    // Шаблонный класс и обычный конструктор.
+    template<typename T>
+    struct model : concept_t {
+      model(const T& x) : data_(move(x)) { }
+      void draw_(ostream& out, size_t position) const
+      {
+        // !!Most important - it's terminal function
+        draw(data_, out, position);
+      }
+
+      concept_t* copy_() const { return new model(*this); }
+
+      T data_;
+    };
+
+    // std::unique_ptr<int_model_t> self_;
+    std::unique_ptr<concept_t> self_;
+  };
+
+  using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
+
+  void draw(const document_t&x, ostream &out, size_t position)
+  {
+    out << string(position, ' ') << "<document>" << endl;
+    for (const auto& e : x) draw(e, out, position + 2);
+    out << string(position, ' ') << "</document>" << endl;
+  }
+
+  // не нужно ничего наследовать.
+  class my_class_t {
+
+  };
+
+
+  void draw(const my_class_t&, ostream& out, size_t position)
+  { out << string(position, ' ') << "my_class_t()" << endl; }
 
 /// Ps
 using history_t = vector<document_t>;
 void commit(history_t& x) { assert(x.size()); x.push_back(x.back()); }
 void undo(history_t& x) { assert(x.size()); x.pop_back(); }
 document_t current(history_t& x) { assert(x.size()); return x.back(); }
-*/
 }
 
 TEST(EvelC11, App) {
@@ -301,6 +383,7 @@ TEST(EvelC11, App) {
 }
 
 TEST(EvelPs, App) {
+  using namespace ps_sample;
 
 }
 
