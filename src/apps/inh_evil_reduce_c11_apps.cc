@@ -408,7 +408,10 @@ private:
   struct model : concept_t {
     model(const T& x) : data_(move(x)) { }
     void draw_(ostream& out, size_t position) const
-    { draw(data_, out, position); }
+    {
+      // а как сделать метод?
+      draw(data_, out, position);
+    }
     T data_;
   };
 

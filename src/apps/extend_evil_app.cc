@@ -34,24 +34,49 @@ public:
   friend void draw(const object_t &x, ostream &out, size_t position)
   { x.self_->draw_(out, position); }
 
+  friend int id(const object_t &x);
+  //{ return x.self_->getId(); }
+
 private:
-  struct concept_t {
+  class concept_t {
+  public:
     virtual ~concept_t() = default;
     virtual void draw_(ostream& out, size_t position) const = 0;
+
+    // NVI
+    int getId() const {
+      int id = this->getId_();
+      assert(id >= 0);
+      return id;
+    }
+
+  private:
+    virtual int getId_() const = 0;
   };
 
   template<typename T>
   struct model : concept_t {
     model(const T& x) : data_(move(x)) { }
     void draw_(ostream& out, size_t position) const
-    { draw(data_, out, position); }
+    {
+      draw(data_, out, position); // она шаблонная
+    }
+
     T data_;
+  private:
+    virtual int getId_() const {
+      // вызывается просто метод класса - весь полиморфизм спрятан
+      return data_.getId();
+    }
   };
 
   // std::unique_ptr<int_model_t> self_;
   //std::
   boost::shared_ptr<const concept_t> self_;  // ссылки на immutable
 };
+
+int id(const object_t& x)  // object_t -> int and move here
+{ return x.self_->getId(); }
 
 using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
 
@@ -83,6 +108,9 @@ class my_class_t {
 public:
   my_class_t() {}
   my_class_t(const my_class_t&) { cout << "copy my_class\n"; }
+
+//private:
+  int getId() const { return 0; }
 };
 
 void draw(const my_class_t&, ostream& out, size_t position)
@@ -98,9 +126,13 @@ TEST(EvelPsExtend, App) {
   //current(h).emplace_back(0);
   //current(h).emplace_back(string("Hello!"));
   current(h).emplace_back(my_class_t());
+  current(h).emplace_back(my_class_t());
+  current(h).emplace_back(my_class_t());
 
   draw(current(h), cout, 0);
   cout << "-------------" << endl;
+  std::reverse(current(h).begin(), current(h).end());
+  int i = id(current(h)[0]);
 
   commit(h);  // сохраняем текущую и ее копируем на верх.
   cout << "-------------" << endl;
