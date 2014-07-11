@@ -1,6 +1,9 @@
-
-// "Any class that manages a resource (a wrapper, like a smart pointer) needs to implement The Big Three. "
+// ctor_rule_of_three_raii_and_swap_test.cc
+//
+// "Any class that manages a resource (a wrapper, like a smart pointer) needs
+// to implement The Big Three. "
 // http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
+//
 // !!!Need manage only one resouce!!!
 //
 // Stack:
@@ -32,6 +35,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <new>  // for placement new
 
 #include <gtest/gtest.h>
 #include <loki/ScopeGuard.h>
@@ -40,6 +44,51 @@ using std::cout;
 using std::endl;
 using std::vector;
 using std::ostreambuf_iterator;
+
+// TODO: new and delete in depth - менеджеры памяти
+
+// TODO:
+// ref-counting
+// http://www.cplusplus.com/forum/beginner/81321/
+// http://www.parashift.com/c++-faq/ref-count-with-cow.html
+// http://www.gotw.ca/gotw/043.htm
+
+// TODO:
+// thread-safe copy ctor and assign
+// http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
+// http://home.roadrunner.com/~hinnant/mutexes/locking.html
+// Summary:
+//   лучше сперва вообще запретить.
+// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
+
+// TODO:
+// полиморфные операторы
+// Assign:
+// http://stackoverflow.com/questions/669818/virtual-assignment-operator-c
+
+// TODO:
+// deep and shallow copy
+//
+// http://www.fredosaurus.com/notes-cpp/oop-condestructors/shallowdeepcopy.html - desigin
+// Вообще похоже должны быть ресурсы и ими объект владеет. Не? А какие ресурсы? Вот мьютекс например?
+//
+// http://www.fredosaurus.com/notes-cpp/oop-condestructors/copyconstructors.html
+// http://stackoverflow.com/questions/1936942/writing-a-deep-copy-copying-pointer-value
+//
+// http://www.learncpp.com/cpp-tutorial/912-shallow-vs-deep-copying/
+// http://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
+//
+// Вообще не понятно, если объкт не владеет, или указатель на нединамическую память или used DI
+// http://stackoverflow.com/questions/255612/dynamically-allocating-an-array-of-objects/255744#255744
+
+
+// TODO:
+// impl. copy by assign or revert, i don't remember + swap
+// http://en.wikipedia.org/wiki/Assignment_operator_(C%2B%2B)
+// Реализация через swap и конструктор копирования
+
+// TODO: Failde ctor
+// http://www.gotw.ca/gotw/066.htm
 
 class matrix {
 public:
@@ -73,7 +122,7 @@ public:
     nrows_ = mc.rget();
     ncols_ = mc.cget();
     m_ = new double [nrows_*ncols_];
-    //TODO: fill
+    // TODO: fill
   }
 
   // Step 4: assign operator
@@ -98,7 +147,7 @@ public:
       nrows_ = mc.rget();
       ncols_ = mc.cget();
       m_ = new double[nrows_ * ncols_];
-      //TODO: fill
+      // TODO: fill
     }
 
     // Step 6: if chained - Runtime Error(gcc): The program has unexpectedly finished.
@@ -113,7 +162,7 @@ private:
   int ncols_;
   double* m_;
 
-  //TODO: disable copy and assign
+  // TODO: disable copy and assign
 };
 
 class holder {
@@ -133,7 +182,7 @@ void foo(matrix mat) {
 
 }
 
-TEST(STL, CopyAndAssign) {
+TEST(Resources, CopyAndAssign) {
   matrix darray(10, 20);
   for (int i = 0; i < 10; ++i)
     for (int j = 0; j < 20; j++)
@@ -168,73 +217,72 @@ TEST(STL, CopyAndAssign) {
   const matrix k(ref_d);  // copy ctor
 }
 
-//TODO:
+// TODO:
 //exception and copy and assign ops
 // http://stackoverflow.com/questions/4172722/what-is-the-rule-of-three?rq=1
 // http://gotw.ca/gotw/059.htm
 // http://www.gotw.ca/gotw/059.htm
-class person
-{
-    char* name;
-    int age;
+class person {
+  char* name;
+  int age;
 
 public:
 
-    // the constructor acquires a resource:
-    // in this case, dynamic memory obtained via new[]
-    person(const char* the_name, int the_age)
-    {
-        name = new char[strlen(the_name) + 1];
-        strcpy(name, the_name);
-        age = the_age;
-    }
+  // the constructor acquires a resource:
+  // in this case, dynamic memory obtained via new[]
+  person(const char* the_name, int the_age)
+  {
+      name = new char[strlen(the_name) + 1];
+      strcpy(name, the_name);
+      age = the_age;
+  }
 
-    // the destructor must release this resource via delete[]
-    ~person()
-    {
-      delete[] name;
-    }
+  // the destructor must release this resource via delete[]
+  ~person()
+  {
+    delete[] name;
+  }
 
-    // 1. copy constructor
-    person(const person& that)
-    {
-        name = new char[strlen(that.name) + 1];
-        strcpy(name, that.name);
-        age = that.age;
-    }
+  // 1. copy constructor
+  person(const person& that)
+  {
+      name = new char[strlen(that.name) + 1];
+      strcpy(name, that.name);
+      age = that.age;
+  }
 
-    // 2. copy assignment operator
-    person& operator=(const person& that)
-    {
-        if (this != &that)
-        {
-            delete[] name;
-            // DANGER!!
-            // This is a dangerous point in the flow of execution!
-            // We have temporarily invalidated the class invariants,
-            // and the next statement might throw an exception,
-            // leaving the object in an invalid state :(
-            name = new char[strlen(that.name) + 1];
-            strcpy(name, that.name);
-            age = that.age;
-        }
-        return *this;
-    }
+  // 2. copy assignment operator
+  person& operator=(const person& that)
+  {
+      if (this != &that)
+      {
+          delete[] name;
+          // DANGER!!
+          // This is a dangerous point in the flow of execution!
+          // We have temporarily invalidated the class invariants,
+          // and the next statement might throw an exception,
+          // leaving the object in an invalid state :(
+          name = new char[strlen(that.name) + 1];
+          strcpy(name, that.name);
+          age = that.age;
+      }
+      return *this;
+  }
 
-    /*
+  /*
 // 2. copy assignment operator
-    person& operator=(const person& that)
-    {
-        char* local_name = new char[strlen(that.name) + 1];
-        // If the above statement throws,
-        // the object is still in the same state as before.
-        // None of the following statements will throw an exception :)
-        strcpy(local_name, that.name);
-        delete[] name;
-        name = local_name;
-        age = that.age;
-        return *this;
-    }
+  person& operator=(const person& that)
+  {
+      char* local_name = new char[strlen(that.name) + 1];
+      // If the above statement throws,
+      // the object is still in the same state as before.
+      // None of the following statements will throw an exception :)
+      strcpy(local_name, that.name);
+      delete[] name;
+      name = local_name;
+      age = that.age;
+      return *this;
+  }
 */
 };
 
@@ -263,7 +311,7 @@ TEST(Resources, ScopedGuard) {
   //closeIt.Dismiss();  // not need?
 }
 
-TEST(Res, Guards) {
+TEST(Resources, Guards) {
   // Проблема в том, что хотелось бы не использовать Loki.
   // Можно использовать smart_ptrs у функциями удаления, но не у всех есть такая особенность.
   // shared_ptrs лучше для этого не использовать.
@@ -277,7 +325,7 @@ void del_array(T* p) {
   delete [] p;
 }
 
-TEST(RAII, SafeMakeSetArrays) {
+TEST(Resources, SafeMakeSetArrays) {
   // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=3
   // http://loki-lib.sourceforge.net/index.php?n=Idioms.ScopeGuardPointer
   try {
@@ -298,41 +346,39 @@ TEST(RAII, SafeMakeSetArrays) {
   } catch (...) {}
 }
 
+namespace no_heap_poly {
+// TODO: no-heap poly.
+// http://www.barrgroup.com/Embedded-Systems/How-To/Polymorphism-No-Heap-Memory
+typedef char Note;
+  class Instrument {
+  public:
+    virtual void playNote(Note key) = 0;
+  };
 
-//TODO:
-//thread-safe copy ctor and assign
-// http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
-// http://home.roadrunner.com/~hinnant/mutexes/locking.html
-// Summary:
-//   лучше сперва вообще запретить.
-// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
+  class GenericInstrument : public Instrument {
+    char buf[40];   // max size of Instr.
+  public:
+    virtual void playNote(Note key) {
+      this->playNote(key); // enforce late binding
+    }
+  };
 
-//TODO:
-//полиморфные операторы
-//Assign:
-// http://stackoverflow.com/questions/669818/virtual-assignment-operator-c
+  class Configuration {
 
-//TODO:
-//deep and shallow copy
-//
-// http://www.fredosaurus.com/notes-cpp/oop-condestructors/shallowdeepcopy.html - desigin
-// Вообще похоже должны быть ресурсы и ими объект владеет. Не? А какие ресурсы? Вот мьютекс например?
-//
-// http://www.fredosaurus.com/notes-cpp/oop-condestructors/copyconstructors.html
-// http://stackoverflow.com/questions/1936942/writing-a-deep-copy-copying-pointer-value
-//
-// http://www.learncpp.com/cpp-tutorial/912-shallow-vs-deep-copying/
-// http://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
-//
-// Вообще не понятно, если объкт не владеет, или указатель на нединамическую память или used DI
-// http://stackoverflow.com/questions/255612/dynamically-allocating-an-array-of-objects/255744#255744
+  public:
+    GenericInstrument i;
+  };
+}
+
+TEST(Resources, Board) {
+  //Instrument *i;
+  //i = new Piano;
+  //i->playNote(key);
+}
 
 
-//TODO:
-//impl. copy by assign or revert, i don't remember + swap
-// http://en.wikipedia.org/wiki/Assignment_operator_(C%2B%2B)
-// Реализация через swap и конструктор копирования
 
-// TODO: Failde ctor
-// http://www.gotw.ca/gotw/066.htm
+
+
+
 

@@ -20,7 +20,7 @@
 // - Basic - нет утечек и объекты в согл., но возможно непредсказуемом состоянии
 // - Strong - обеспечивает семантику транзакций
 // - Nofail - бессбойность - destructors, resource free, swap
-//TODO: Когда какую? Минимально строгую, в которой не нуждается вызывающий код. - don't understood...
+// TODO: Когда какую? Минимально строгую, в которой не нуждается вызывающий код. - don't understood...
 //
 /// Own Summary:
 // - RAII, ScopeLocks
@@ -38,6 +38,22 @@
 
 using std::logic_error;
 using std::cout;
+
+// TODO: часть 9
+
+// TODO:
+//Not-throw swap
+// http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Non-throwing_swap
+// http://www.gotw.ca/gotw/059.htm
+// http://stackoverflow.com/questions/11485776/exception-safety-regarding-swap-operation-whats-so-wrong-with-that
+// http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom!!
+
+// TODO:
+// copy-and-swap idiom
+// http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
+
+
+// TODO: p. 339
 
 class Session {
 public:
@@ -70,7 +86,7 @@ TEST(Sutter, ExceptionBase) {
 //   - ..
 //   - Безопасное присваивание - ?
 //   - конструктор по умолчанию
-//TODO: снизить требование
+// TODO: снизить требование
 template<class T> class Stack
 {
 public:
@@ -89,7 +105,7 @@ public:
   T Pop_nosafe();  // if empty throw
   void Pop_better_but(T& result);
   // safe
-  T& Top();  //TODO: const?
+  T& Top();  // TODO: const?
   void Pop();
 
 private:
@@ -98,7 +114,7 @@ private:
   size_t vused_;  // количество реально исп. объектов
 };
 
-//TODO: я не верю что это безопасно! это неуправлемый ресурс же?
+// TODO: я не верю что это безопасно! это неуправлемый ресурс же?
 template<class T>
 Stack<T>::Stack() :
   //http://stackoverflow.com/questions/377178/how-does-the-standard-new-operator-work-in-c
@@ -369,22 +385,6 @@ TEST(Sutter, StackFirst) {
   a.Push(9);
   stackInh = a;
 }
-
-//TODO: часть 9
-
-//TODO:
-//Not-throw swap
-// http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Non-throwing_swap
-// http://www.gotw.ca/gotw/059.htm
-// http://stackoverflow.com/questions/11485776/exception-safety-regarding-swap-operation-whats-so-wrong-with-that
-// http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom!!
-
-//TODO:
-// copy-and-swap idiom
-// http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
-
-
-//TODO: p. 339
 
 // TODO: Exception on construction
 // http://www.gotw.ca/gotw/066.htm
