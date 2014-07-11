@@ -25,6 +25,8 @@ template<typename T>
 void draw(const T& x, ostream& out, size_t position)  // object_t -> int and move here
 { out << string(position, ' ') << x << endl; }
 
+
+// TODO: Whay efficient?
 class object_t {
 public:
   template<typename T>
@@ -54,15 +56,26 @@ private:
     virtual int getId_() const = 0;
   };
 
+  // Объекты выделяются в куче и главный объект в них тоже.
+  // TODO: в чем профит то по скорости?
+  // http://www.cplusplus.com/forum/general/77963/
+  // http://www.barrgroup.com/Embedded-Systems/How-To/Polymorphism-No-Heap-Memory
+  //
+  // "Do your own mem. managment - don't create gerbage for your client to clean up."
+  //
+  // "Returning objects from functions, passing read-only arguments, and passing
+  // rvalues as sink arguments do not require copying"
   template<typename T>
   struct model : concept_t {
     model(const T& x) : data_(move(x)) { }
     void draw_(ostream& out, size_t position) const
     {
       draw(data_, out, position); // она шаблонная
+      //cout << sizeof(*this) << endl;
+      //cout << sizeof(data_) << endl;
     }
 
-    T data_;
+    T data_;  // главный вопрос в куче ли? Да - см в Мейсере 35
   private:
     virtual int getId_() const {
       // вызывается просто метод класса - весь полиморфизм спрятан
@@ -107,10 +120,14 @@ namespace external_space  {
 class my_class_t {
 public:
   my_class_t() {}
-  my_class_t(const my_class_t&) { cout << "copy my_class\n"; }
+  my_class_t(const my_class_t&) { cout << "copy mc\n"; }
+  int arr[10];
 
 //private:
   int getId() const { return 0; }
+private:
+  static void *operator new (size_t size);
+  static void operator delete(void *ptr);
 };
 
 void draw(const my_class_t&, ostream& out, size_t position)
@@ -146,7 +163,6 @@ TEST(EvelPsExtend, App) {
 
   undo(h);
   draw(current(h), cout, 0);
-
 }
 
 // TODO: add features to class
