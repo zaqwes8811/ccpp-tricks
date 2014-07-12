@@ -288,7 +288,7 @@ public:
 
 int my_fclose ( FILE * stream ) {
   if (stream)
-    fclose(stream);
+    return fclose(stream);
 }
 
 TEST(Resources, ScopedGuard) {
@@ -350,30 +350,61 @@ namespace no_heap_poly {
 // TODO: no-heap poly.
 // http://www.barrgroup.com/Embedded-Systems/How-To/Polymorphism-No-Heap-Memory
 typedef char Note;
-  class Instrument {
-  public:
-    virtual void playNote(Note key) = 0;
-  };
+class Instrument {
+public:
+  virtual void playNote(Note key) = 0;
+};
 
-  class GenericInstrument : public Instrument {
-    char buf[40];   // max size of Instr.
-  public:
-    virtual void playNote(Note key) {
-      this->playNote(key); // enforce late binding
-    }
-  };
+class GenericInstrument : public Instrument {
+  // буффер должен быть первой переменной?
+  char buf[40];   // max size of Instr.
+public:
+  virtual void playNote(Note key) {
+    this->playNote(key); // enforce late binding
+  }
+};
 
-  class Configuration {
+class Configuration {
 
-  public:
-    GenericInstrument i;
-  };
+public:
+  GenericInstrument i;
+};
+
+class Piano : public Instrument {
+  int attr;
+
+public:
+  Piano() { assert(sizeof(*this) <= sizeof (GenericInstrument)); }
+  virtual void playNote(Note key)
+  { cout << "Piano " << key << endl; }
+};
+
+class Violin : public Instrument {
+  int attr1;
+  int attr2;
+public:
+  Violin() { assert(sizeof(*this) <= sizeof (GenericInstrument)); }
+  virtual void playNote(Note key)
+  { cout << "Violin " << key << endl; }
+};
+
+// Mem pool?
+static Configuration c1, c2;
 }
 
 TEST(Resources, Board) {
+  // Placment
+  // new http://stackoverflow.com/questions/6783993/placement-new-and-delete
+
   //Instrument *i;
   //i = new Piano;
   //i->playNote(key);
+  using namespace no_heap_poly;
+
+  Instrument* inst = new(&c1.i) Piano;
+
+  inst->playNote('c');
+  c1.i.playNote('c');
 }
 
 
