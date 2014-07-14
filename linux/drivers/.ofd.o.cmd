@@ -389,6 +389,50 @@ deps_/home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ofd.o := \
   /usr/src/linux-headers-3.2.0-4-common/include/trace/events/module.h \
   /usr/src/linux-headers-3.2.0-4-common/include/trace/define_trace.h \
   include/linux/version.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/kdev_t.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/fs.h \
+    $(wildcard include/config/fs/posix/acl.h) \
+    $(wildcard include/config/security.h) \
+    $(wildcard include/config/quota.h) \
+    $(wildcard include/config/fsnotify.h) \
+    $(wildcard include/config/ima.h) \
+    $(wildcard include/config/epoll.h) \
+    $(wildcard include/config/debug/writecount.h) \
+    $(wildcard include/config/file/locking.h) \
+    $(wildcard include/config/auditsyscall.h) \
+    $(wildcard include/config/block.h) \
+    $(wildcard include/config/fs/xip.h) \
+    $(wildcard include/config/migration.h) \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/limits.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/blk_types.h \
+    $(wildcard include/config/blk/dev/integrity.h) \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/dcache.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/rculist.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/rculist_bl.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/list_bl.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/bit_spinlock.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/path.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/radix-tree.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/prio_tree.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/pid.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/capability.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/semaphore.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/fiemap.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/shrinker.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/quota.h \
+    $(wildcard include/config/quota/netlink/interface.h) \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/percpu_counter.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/dqblk_xfs.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/dqblk_v1.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/dqblk_v2.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/dqblk_qtree.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/nfs_fs_i.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/nfs.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/sunrpc/msg_prot.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/inet.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/fcntl.h \
+  /usr/src/linux-headers-3.2.0-4-common/arch/x86/include/asm/fcntl.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/asm-generic/fcntl.h \
 
 /home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ofd.o: $(deps_/home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ofd.o)
 

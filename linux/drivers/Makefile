@@ -1,4 +1,5 @@
-# http://www.linuxdevcenter.com/pub/a/linux/2007/07/05/devhelloworld-a-simple-introduction-to-device-drivers-under-linux.html
+# Tutorial:
+# !!http://www.linuxdevcenter.com/pub/a/linux/2007/07/05/devhelloworld-a-simple-introduction-to-device-drivers-under-linux.html
 # 
 # Get kernel tree for driver comp.:
 # http://linux.seindal.dk/2004/08/15/getting-a-debian-kernel-source-tree-for-driver-compilation/

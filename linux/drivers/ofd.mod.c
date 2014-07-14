@@ -18,6 +18,8 @@ static const struct modversion_info ____versions[]
 __used
 __attribute__((section("__versions"))) = {
 	{ 0xa6942b40, "module_layout" },
+	{ 0x7485e15e, "unregister_chrdev_region" },
+	{ 0x29537c9e, "alloc_chrdev_region" },
 	{ 0x50eedeb8, "printk" },
 };
 
