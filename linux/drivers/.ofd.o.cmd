@@ -433,6 +433,24 @@ deps_/home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ofd.o := \
   /usr/src/linux-headers-3.2.0-4-common/include/linux/fcntl.h \
   /usr/src/linux-headers-3.2.0-4-common/arch/x86/include/asm/fcntl.h \
   /usr/src/linux-headers-3.2.0-4-common/include/asm-generic/fcntl.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/device.h \
+    $(wildcard include/config/debug/devres.h) \
+    $(wildcard include/config/devtmpfs.h) \
+    $(wildcard include/config/sysfs/deprecated.h) \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/ioport.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/klist.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/pm.h \
+    $(wildcard include/config/pm.h) \
+    $(wildcard include/config/pm/sleep.h) \
+    $(wildcard include/config/pm/runtime.h) \
+    $(wildcard include/config/pm/clk.h) \
+    $(wildcard include/config/pm/generic/domains.h) \
+  /usr/src/linux-headers-3.2.0-4-common/arch/x86/include/asm/device.h \
+    $(wildcard include/config/acpi.h) \
+    $(wildcard include/config/intel/iommu.h) \
+    $(wildcard include/config/amd/iommu.h) \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/pm_wakeup.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/cdev.h \
 
 /home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ofd.o: $(deps_/home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ofd.o)
 
