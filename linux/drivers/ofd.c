@@ -129,6 +129,7 @@ static void __exit ofd_exit(void)  // dtor
   cdev_del(&c_dev);
   device_destroy(cl, first);
   class_destroy(cl);
+  
   unregister_chrdev_region(first, 1);
   printk(KERN_INFO "Alvida: ofd unregistered");  
 }
