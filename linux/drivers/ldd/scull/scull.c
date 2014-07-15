@@ -1,108 +1,62 @@
-
-// dmesg | tail -7
-
+#include <linux/init.h>
 #include <linux/module.h>
-#include <linux/version.h>
-#include <linux/kernel.h>
 
-#include <linux/types.h>
-#include <linux/kdev_t.h>
 #include <linux/fs.h>
 
-#include <linux/device.h>
-#include <linux/cdev.h>
+/// header
+#ifndef SCULL_MAJOR
+#define SCULL_MAJOR 0   /* dynamic major by default */
+#endif
 
-static dev_t first;  // gl var for the first dev number
+#ifndef SCULL_NR_DEVS
+#define SCULL_NR_DEVS 4    /* scull0 through scull3 */
+#endif
+/// header
 
-// Step 5
+MODULE_LICENSE("Dual BSD/GPL");
 
-static struct cdev c_dev;
-static struct class *cl;
+int scull_major =   SCULL_MAJOR;
+int scull_minor =   0;
+int scull_nr_devs = SCULL_NR_DEVS;
 
-/// IO
-static struct file_operations pugs_fops =
+static int scull_init_module(void)
 {
-  .owner = THIS_MODULE,
-  .open = my_open,
-  .release = my_close,
-  .read = my_read,
-  .write = my_write
-};
-/// IO
-
-static int __init ofd_init(void)  // ctor
-{
-  printk(KERN_INFO "Namaskar: ofd registered");
-  //return -1;
+  int result, i;
+  dev_t dev = 0;
   
-  // Step 4
-  if (alloc_chrdev_region(&first, 0, 1, "Shweta3") < 0)
-  {
-    return -1;    
+  /// Get <M, M>
+  if (scull_major) {
+    // static alloc.?
+    dev = MKDEV(scull_major, scull_minor);
+    result = register_chrdev_region(dev, scull_nr_devs, "scull");
+  } else {
+    result = alloc_chrdev_region(&dev, scull_minor, scull_nr_devs,
+				 "scull");
+    scull_major = MAJOR(dev);
   }
+  
+  /// Don't connect with name!!
+  
+  ///
+  if (result < 0) {
+    printk(KERN_WARNING "scull: can't get major %d\n", scull_major);
+    return result;
+  }
+  
+  printk(KERN_ALERT "Hello, world\n");
+  return 0;
+}
+
+
+static void scull_cleanup_module(void)
+{
+  dev_t devno = MKDEV(scull_major, scull_minor);
+  
+  
+  /* */
+  unregister_chrdev_region(devno, scull_nr_devs);
+  printk(KERN_ALERT "Goodbye, cruel world\n");
+}
  
-  if ((cl = class_create(THIS_MODULE, "chardvr")) == NULL)
-  {
-    unregister_chrdev_region(first, 1);
-    return -1;
-  }
-  
-  if (device_create(cl, NULL, first, NULL, "mynull") == NULL)
-  {
-    class_destroy(cl);
-    unregister_chrdev_region(first, 1);
-    return -1;
-  }
-  
-  // init
-  cdev_init(&c_dev, &pugs_fops);
-  
-  if (cdev_add(&c_dev, first, 1) == -1)
-  {
-    device_destroy(cl, first);
-    class_destroy(cl);
-    unregister_chrdev_region(first, 1);
-    return -1;
-  }
-  
-  
-  // TODO: Where? 
-  // int register_chrdev_region(dev_t first, unsigned int cnt, char *name);
-  //
-  // http://stackoverflow.com/questions/9835850/allocating-device-numbers
-  //
-  //printk(KERN_INFO "<Maj, Min>: <%d, %d>\n", MAJOR(first), MINOR(first));
-  return 0;  
-  
-  // show in 
-  // cat /proc/devices, but not in /dev/*
-  //
-  // need map
-  // ls -l /dev | grep "250,"
-  // mknod /dev/ofcd0 c 250 0
-  // mknod /dev/ofcd1 c 250 1
-  // chmod a+w /dev/ofcd*
-  // ls -l /dev/ofcd*
-  //
-  // automap?
-}
-
-static void __exit ofd_exit(void)  // dtor
-{
-  // leak if no unregistered?
-  //unregister_chrdev_region(first, 3);  // почему 3?
-  cdev_del(&c_dev);
-  device_destroy(cl, first);
-  class_destroy(cl);
-  
-  unregister_chrdev_region(first, 1);
-  printk(KERN_INFO "Alvida: ofd unregistered");  
-}
-
-module_init(ofd_init);
-module_exit(ofd_exit);
-
-// Info
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Anil Kumar Pugalia <email_at_sarika-pugs_dot_com>");
-MODULE_DESCRIPTION("Our First Driver");
+module_init(scull_init_module);
+module_exit(scull_cleanup_module);

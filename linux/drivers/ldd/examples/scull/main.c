@@ -558,6 +558,7 @@ struct file_operations scull_fops = {
 	.release =  scull_release,
 };
 
+/// ctor and dtor
 /*
  * Finally, the module stuff
  */
