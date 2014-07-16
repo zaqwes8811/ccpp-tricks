@@ -432,6 +432,16 @@ deps_/home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ldd/scull/scull.o := \
   /usr/src/linux-headers-3.2.0-4-common/include/linux/fcntl.h \
   /usr/src/linux-headers-3.2.0-4-common/arch/x86/include/asm/fcntl.h \
   /usr/src/linux-headers-3.2.0-4-common/include/asm-generic/fcntl.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/cdev.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/slab.h \
+    $(wildcard include/config/slab/debug.h) \
+    $(wildcard include/config/failslab.h) \
+    $(wildcard include/config/slub.h) \
+    $(wildcard include/config/slob.h) \
+    $(wildcard include/config/debug/slab.h) \
+    $(wildcard include/config/slab.h) \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/slab_def.h \
+  /usr/src/linux-headers-3.2.0-4-common/include/linux/kmalloc_sizes.h \
 
 /home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ldd/scull/scull.o: $(deps_/home/zaqwes/work/in-the-vicinity-cc/linux/drivers/ldd/scull/scull.o)
 

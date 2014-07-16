@@ -19,6 +19,7 @@ __used
 __attribute__((section("__versions"))) = {
 	{ 0xa6942b40, "module_layout" },
 	{ 0x7485e15e, "unregister_chrdev_region" },
+	{ 0x12da5bb2, "__kmalloc" },
 	{ 0x50eedeb8, "printk" },
 	{ 0x29537c9e, "alloc_chrdev_region" },
 	{ 0xd8e484f0, "register_chrdev_region" },
