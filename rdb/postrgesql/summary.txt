@@ -1,0 +1,8 @@
+https://wiki.debian.org/PostgreSql
+http://stackoverflow.com/questions/3004523/postgresql-database-default-location-on-linux
+https://help.ubuntu.com/10.04/serverguide/postgresql.html
+
+Client auth:
+http://www.postgresql.org/docs/8.4/static/client-authentication.html
+Есть разные аккаунты
+http://stackoverflow.com/questions/7038342/password-authentication-failed-for-user-postgres?lq=1
