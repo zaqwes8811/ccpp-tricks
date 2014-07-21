@@ -30,6 +30,10 @@ int main(int argc, char* argv[])
 	cout << "Can't open database" << endl;
 	guard.Dismiss();
       }
+      
+      // Actions
+      
+      
     }
 
     // POINT - disconnected
