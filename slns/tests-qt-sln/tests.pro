@@ -35,7 +35,6 @@ SOURCES += \
     ../../src/apps/persist_apps.cc \
     ../../src/apps/compact_apps.cc \
     ../../src/apps/no_new_loops_apps.cc \
-    ../../src/apps/linux_apps.cc \
     #../../src/cpp11/base_test.cc
     ../../src/apps/inh_evil_reduce_c98_apps.cc \
     ../../src/learn/meyers/big_three_and_swap_test.cc \
@@ -44,7 +43,9 @@ SOURCES += \
     ../../src/stl/algs_test.cc \
     ../../src/stl/base_ops_test.cc \
     ../../src/stl/iter_func_test.cc \
-    ../../src/launcher.cc
+    ../../src/launcher.cc \
+    ../../src/apps/dvr_linux_apps.cc \
+    ../../src/apps/refcounter_pimpl_apps.cc
 
 HEADERS += \
     ../../third_party/loki-0.1.7/include/loki/ScopeGuard.h
