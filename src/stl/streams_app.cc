@@ -24,7 +24,7 @@ ostream& operator<<(ostream& os, const vector<T>& v)
 {
   for_each(begin(v), end(v), 
     [&os](const T& item) {
-      os << item << ' ';});
+      os << item << '/';});
   os << endl;
   return os;
 }
@@ -36,6 +36,7 @@ int main() {
   string filename("hello.tmp");
   string::size_type idx = filename.find('.');  // возвращает позицию первого совпадения
   assert(idx != string::npos);
+  //assert(distance(idx, string::npos) == 4);  // не компилируется
   assert(typeid(idx) == typeid(string::size_type));  // !!
   
   string base_name = filename.substr(/*1000 - std::out_of_range*/0, (idx+1)-1);  // второй аргумент - количество символов!
@@ -53,20 +54,24 @@ int main() {
   
   vector<string> words;
   
+  // TODO: интервалы в строках - открытые, закрытые?
   while (beg_idx != string::npos) {
-    string::size_type end_idx = for_tream.find_first_of(delims);
+    // ищем первый разделительный символ
+    string::size_type end_idx = for_tream.find_first_of(delims, beg_idx);
     if (end_idx == string::npos)
       end_idx = for_tream.length();
     
-    words.push_back(for_tream.substr(beg_idx, end_idx-beg_idx));
-    cout << words;
+    words.push_back(for_tream.substr(beg_idx, end_idx-beg_idx));  // [begin, N штук
     
+    // Но кажется лучше не испоьзовать npos and size_type
+    //for (int i = end_idx-1; i >= static_cast<int>(beg_idx);  // приведение типов обязательно!!
+
     // Next interval
     beg_idx = for_tream.find_first_not_of(delims, end_idx);
   }
-  
   cout << words;
   
+  // DANGER: в c++98 не поддерживаются регулярные выражения, but in C++11 - yes
 
   /// std::streams
   // istream - in
