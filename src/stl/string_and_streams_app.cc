@@ -33,6 +33,7 @@ static ostream& operator<<(ostream& os, const vector<T>& v)
 }
 }
 
+
 int main() {
   /// std::string
   // TODO: что с юникодом?
