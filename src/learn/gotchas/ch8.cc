@@ -60,20 +60,27 @@ private:
 
 // G83
 // Проблема в том, что указатель на выделенную в куча и не в куче память не различимы.
-class Role {};
+struct Role {
+//public:
+  
+};
 class Employee {
 public:
   virtual ~Employee() { delete role_; }
   void adoptRole( Role *newRole ); // take ownership
+  
   void shareRole( const Role *sharedRole ); // does not own
   void copyRole( const Role *roleToCopy ); // set role to clone
   const Role *getRole() const;
+  
   // . . .
   
   // нужны все функции копирования
   // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
   // TODO: как обозначить, что нужно передать что-то созданное в куче?
-  Employee* createAdoptRoleHeapAlloc(Role* newRole) {
+  // Precond.:
+  //   HeapAlloc
+  static Employee* createWithAdoptRole(Role* newRole) {
     return new Employee(newRole);
   }
   
@@ -87,7 +94,7 @@ private:
   Employee& operator=(const Employee&);
   Employee(const Employee&);
   
-  Role* role_;  // own => new Big Three
+  Role* const role_;  // own => new Big Three
 };
 
 // можно использовать EmployeeMaker, это хоть какая-то защита
@@ -108,6 +115,9 @@ int main() {
   // DANGER: runtime failure
   //BoundedString* p_raw = &d;
   //auto_ptr<BoundedString> p(p_raw);  // вобщем классу передать владение не просто.
+  
+  Role* r = new Role;
+  auto_ptr<Employee> e(Employee::createWithAdoptRole(r));
   
   return 0;
 }
