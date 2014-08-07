@@ -79,8 +79,8 @@ public:
   // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
   // TODO: как обозначить, что нужно передать что-то созданное в куче?
   // Precond.:
-  //   HeapAlloc
-  static Employee* createWithAdoptRole(Role* newRole) {
+  //   Heap Alloc - объект берет на себя обязательства по управлению временем жизни
+  static Employee* createMakeCommitment(Role* newRole) {
     return new Employee(newRole);
   }
   
@@ -117,7 +117,7 @@ int main() {
   //auto_ptr<BoundedString> p(p_raw);  // вобщем классу передать владение не просто.
   
   Role* r = new Role;
-  auto_ptr<Employee> e(Employee::createWithAdoptRole(r));
+  auto_ptr<Employee> e(Employee::createMakeCommitment(r));
   
   return 0;
 }
