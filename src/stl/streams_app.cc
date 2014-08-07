@@ -19,7 +19,15 @@
 
 using namespace std;
 
-
+template<typename T>
+ostream& operator<<(ostream& os, const vector<T>& v) 
+{
+  for_each(begin(v), end(v), 
+    [&os](const T& item) {
+      os << item << ' ';});
+  os << endl;
+  return os;
+}
 
 int main() {
   /// std::string
@@ -42,9 +50,22 @@ int main() {
   const string delims("\t ");
   string for_tream = "h.\t \t no way";  // разбить на слова
   string::size_type beg_idx = for_tream.find_first_not_of(delims);  // поиск с начала?
+  
+  vector<string> words;
+  
   while (beg_idx != string::npos) {
+    string::size_type end_idx = for_tream.find_first_of(delims);
+    if (end_idx == string::npos)
+      end_idx = for_tream.length();
     
+    words.push_back(for_tream.substr(beg_idx, end_idx-beg_idx));
+    cout << words;
+    
+    // Next interval
+    beg_idx = for_tream.find_first_not_of(delims, end_idx);
   }
+  
+  cout << words;
   
 
   /// std::streams
