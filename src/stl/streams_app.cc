@@ -28,10 +28,24 @@ int main() {
   string filename("hello.tmp");
   string::size_type idx = filename.find('.');  // возвращает позицию первого совпадения
   assert(idx != string::npos);
-  assert(typeid(idx) == typeid(string::size_type));
+  assert(typeid(idx) == typeid(string::size_type));  // !!
   
-  string base_name = filename.substr(0, idx);  // второй аргумент - количество символов!
+  string base_name = filename.substr(/*1000 - std::out_of_range*/0, (idx+1)-1);  // второй аргумент - количество символов!
   assert(base_name == "hello");
+  //base_name = filename.substr(filename.find('x'));  // exception
+  string tmp_name = filename;
+  tmp_name.replace(idx+1, string::npos, "h");  // похоже убирает лишние символы
+  assert(tmp_name == "hello.h");
+  assert(tmp_name.size() < filename.size());
+  
+  // поиск в обратном направлении
+  const string delims("\t ");
+  string for_tream = "h.\t \t no way";  // разбить на слова
+  string::size_type beg_idx = for_tream.find_first_not_of(delims);  // поиск с начала?
+  while (beg_idx != string::npos) {
+    
+  }
+  
 
   /// std::streams
   // istream - in
