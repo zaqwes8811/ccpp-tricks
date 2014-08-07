@@ -1,7 +1,7 @@
 # http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 
 CC=g++
-APP=streams_app
+APP=string_and_streams_app
 BOOST=/home/zaqwes/work/third_party/boost_1_55_0
 CCFLAGS=-I$(BOOST) -O2
 

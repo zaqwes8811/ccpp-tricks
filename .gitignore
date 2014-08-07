@@ -25,3 +25,4 @@
 *~
 /deployer/dist/*
 *.ipch
+*.app

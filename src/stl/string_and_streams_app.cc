@@ -69,9 +69,34 @@ int main() {
     // Next interval
     beg_idx = for_tream.find_first_not_of(delims, end_idx);
   }
-  cout << words;
+  
+  // C-strings
+  string s;
+  const char* p = s.c_str();
+  s += "ext";
+  // !!! p is invalid!!!
+  
+  // capacity() - как у вектора 
+  //   - нужно учитывать, если используются ссылки, указатели или итераторы или если важна производительность
+  // [] - работает по разному для const and non-const string
+  //
+  // TODO: WTF?
+  // https://www.sgi.com/tech/stl/basic_string.html - "has very unusual iterator invalidation semantics"
+  // begin, end для неконстант могут стать невалидной!!
+  // http://www.cplusplus.com/forum/general/29533/ - похоже ошибка перевода
+  // https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=29032683
+  
+  // std::string someStringReturningFunction();
+  /* ... */
+  //const char* str = someStringReturningFunction().c_str();  // tmp object
+  //  CERT C++ Secure Coding Standard
+  
   
   // DANGER: в c++98 не поддерживаются регулярные выражения, but in C++11 - yes
+  // DANGER: смена регистра 
+  //   http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case - Boost
+  // LIBRARY: http://site.icu-project.org/ ICU
+  // ICU in embedded world - http://thebugfreeblog.blogspot.ru/2013/05/cross-building-icu-for-applications-on.html
 
   /// std::streams
   // istream - in
