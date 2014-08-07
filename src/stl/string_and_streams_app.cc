@@ -19,14 +19,17 @@
 
 using namespace std;
 
+namespace {
+ // https://www.securecoding.cert.org/confluence/display/cplusplus/DCL15-CPP.+Declare+file-scope+objects+or+functions+that+do+not+need+external+linkage+in+an+unnamed+namespace
 template<typename T>
-ostream& operator<<(ostream& os, const vector<T>& v) 
+static ostream& operator<<(ostream& os, const vector<T>& v) 
 {
   for_each(begin(v), end(v), 
     [&os](const T& item) {
       os << item << '/';});
   os << endl;
   return os;
+}
 }
 
 int main() {
