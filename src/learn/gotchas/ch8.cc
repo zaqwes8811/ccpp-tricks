@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <memory>
 
 using namespace std;
  
@@ -58,16 +59,39 @@ private:
 };
 
 // G83
+// Проблема в том, что указатель на выделенную в куча и не в куче память не различимы.
 class Role {};
 class Employee {
 public:
-  virtual ~Employee();
+  virtual ~Employee() { delete role_; }
   void adoptRole( Role *newRole ); // take ownership
   void shareRole( const Role *sharedRole ); // does not own
   void copyRole( const Role *roleToCopy ); // set role to clone
   const Role *getRole() const;
   // . . .
+  
+  // нужны все функции копирования
+  // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
+  // 
+  Employee* createAdoptRole(Role* newRole) {
+    return new Employee(newRole);
+  }
+  
+  // Stack creating
+  //
+  
+protected:
+  explicit Employee(Role *newRole) : role_(newRole) { }
+  
+private:
+  Employee& operator=(const Employee&);
+  Employee(const Employee&);
+  
+  Role* role_;  // own => new Big Three
 };
+
+// можно использовать EmployeeMaker, это хоть какая-то защита
+// он нужен не для того. Можно скрыть конструктор
 
  
 }  // namespace..
@@ -80,6 +104,10 @@ int main() {
   //s.set('a');  // не даст установить
   d < s;
   d.length();
+  
+  // DANGER: runtime failure
+  //BoundedString* p_raw = &d;
+  //auto_ptr<BoundedString> p(p_raw);  // вобщем классу передать владение не просто.
   
   return 0;
 }
