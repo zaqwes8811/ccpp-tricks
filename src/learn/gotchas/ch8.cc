@@ -72,8 +72,8 @@ public:
   
   // нужны все функции копирования
   // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
-  // 
-  Employee* createAdoptRole(Role* newRole) {
+  // TODO: как обозначить, что нужно передать что-то созданное в куче?
+  Employee* createAdoptRoleHeapAlloc(Role* newRole) {
     return new Employee(newRole);
   }
   
