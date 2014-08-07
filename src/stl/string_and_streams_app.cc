@@ -19,6 +19,7 @@
 
 using namespace std;
 
+// замена static. И все равно... не похоже норм. Можно пихать сюда функторы.
 namespace {
  // https://www.securecoding.cert.org/confluence/display/cplusplus/DCL15-CPP.+Declare+file-scope+objects+or+functions+that+do+not+need+external+linkage+in+an+unnamed+namespace
 template<typename T>
