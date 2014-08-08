@@ -66,6 +66,9 @@ struct Role {
 };
 
 class EmployeeMaker;
+
+// Trouble: один конструктор не защищает от глупостей. Просто конструктора не достаточно.
+// Лучше раздеять use and obj graph building.
 class Employee {
 public:
   virtual ~Employee() { delete role_; }
@@ -74,9 +77,7 @@ public:
   void shareRole( const Role *sharedRole ); // does not own
   void copyRole( const Role *roleToCopy ); // set role to clone
   const Role *getRole() const;
-  
-  // . . .
-  
+
   // TODO: нужны все функции копирования
 
   
@@ -85,11 +86,16 @@ public:
   
 protected:
   // Напрямую создать не можем
+  // http://stackoverflow.com/questions/16785069/why-cant-a-derived-class-call-protected-member-function-in-this-code
   // http://accu.org/index.php/journals/1390 - Uses of Classes with only Private and Protected Constructors
   // http://stackoverflow.com/questions/1057221/what-are-practical-uses-of-a-protected-constructor
   // http://stackoverflow.com/questions/4524325/c-protected-class-constructor
   explicit Employee(Role *newRole) : role_(newRole) { }
-  friend class EmployeeMaker;  // имеет доступ и к приватным частям
+  
+  // TODO: как избавиться от friend? пока не понятно как. Закрытый конструктор не так то просто вызвать
+  // имеет доступ и к приватным частям
+  // может иметь много builder-ов
+  friend class EmployeeMaker;  
   
   void say_hello() {}
   
@@ -120,7 +126,10 @@ public:
   }
 };
 
+// http://stackoverflow.com/questions/120876/c-superclass-constructor-calling-rules
 ///*
+// NO WAY: http://answerstop.org/question/466561/one-question-about-protected-constructor
+// Еще проблема в том, что в наследуемом лежат данные базового => размер растет!
 class EmployeeMakerInh : public Employee {
 public:
   //EmployeeMakerInh() : 
@@ -130,16 +139,24 @@ public:
   //   Heap Alloc - объект берет на себя обязательства по управлению временем жизни
   
   // TODO: почему не дает создать?
-  /*static Employee* create(
+/*
+protected:
+  static Employee* create(
     //Role* newRole
     ) {
     // Защита улучшена. MakeCommitment не нужна, т.к. сами создаем.
     Role* r = new Role;
 
-    Employee* emp = new Employee(r);  // не выходит создать
+    Employee* emp = new Employee(r);  // не выходит создать - нет доступк к конструктору
     //emp->role_;
     return emp;
-  }*/
+  }
+*/
+
+private:
+  EmployeeMakerInh() : Employee(new Role) /* есть доступ к конструктору */ { 
+    Employee::say_hello();  // методы может вызывать
+  }
 };
 //*/
  
