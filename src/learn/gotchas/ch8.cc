@@ -64,6 +64,8 @@ struct Role {
 //public:
   
 };
+
+class EmployeeMaker;
 class Employee {
 public:
   virtual ~Employee() { delete role_; }
@@ -75,31 +77,71 @@ public:
   
   // . . .
   
-  // нужны все функции копирования
-  // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
-  // TODO: как обозначить, что нужно передать что-то созданное в куче?
-  // Precond.:
-  //   Heap Alloc - объект берет на себя обязательства по управлению временем жизни
-  static Employee* createMakeCommitment(Role* newRole) {
-    return new Employee(newRole);
-  }
+  // TODO: нужны все функции копирования
+
   
   // Stack creating
   //
   
 protected:
+  // Напрямую создать не можем
+  // http://accu.org/index.php/journals/1390 - Uses of Classes with only Private and Protected Constructors
+  // http://stackoverflow.com/questions/1057221/what-are-practical-uses-of-a-protected-constructor
+  // http://stackoverflow.com/questions/4524325/c-protected-class-constructor
   explicit Employee(Role *newRole) : role_(newRole) { }
+  friend class EmployeeMaker;  // имеет доступ и к приватным частям
+  
+  void say_hello() {}
   
 private:
   Employee& operator=(const Employee&);
   Employee(const Employee&);
   
+  // Must be heap alloc.
   Role* const role_;  // own => new Big Three
 };
 
+// DANGER: ctor vs named ctor vs fabric vs maker()
+//Луше сделать фабрику. Возможно это даже лучше именованного конструктора
 // можно использовать EmployeeMaker, это хоть какая-то защита
 // он нужен не для того. Можно скрыть конструктор
+class EmployeeMaker {
+public:
+    // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
+  // TODO: как обозначить, что нужно передать что-то созданное в куче?
+  // Precond.:
+  //   Heap Alloc - объект берет на себя обязательства по управлению временем жизни
+  static Employee* create(/*Role* newRole*/) {
+    // Защита улучшена. MakeCommitment не нужна, т.к. сами создаем.
+    Role* r = new Role;
+    Employee* emp = new Employee(r);
+    //emp->role_;
+    return emp;
+  }
+};
 
+///*
+class EmployeeMakerInh : public Employee {
+public:
+  //EmployeeMakerInh() : 
+    // Если корректно реализована, то создает только в куче. Хотя можно еще в статической области
+  // TODO: как обозначить, что нужно передать что-то созданное в куче?
+  // Precond.:
+  //   Heap Alloc - объект берет на себя обязательства по управлению временем жизни
+  
+  // TODO: почему не дает создать?
+  /*static Employee* create(
+    //Role* newRole
+    ) {
+    // Защита улучшена. MakeCommitment не нужна, т.к. сами создаем.
+    Role* r = new Role;
+
+    Employee* emp = new Employee(r);  // не выходит создать
+    //emp->role_;
+    return emp;
+  }*/
+};
+//*/
  
 }  // namespace..
 
@@ -116,8 +158,10 @@ int main() {
   //BoundedString* p_raw = &d;
   //auto_ptr<BoundedString> p(p_raw);  // вобщем классу передать владение не просто.
   
-  Role* r = new Role;
-  auto_ptr<Employee> e(Employee::createMakeCommitment(r));
+  
+  auto_ptr<Employee> e(EmployeeMaker::create());
+  
+  //EmployeeMakerInh();
   
   return 0;
 }
