@@ -67,6 +67,7 @@ struct Role {
 
 class EmployeeMaker;
 
+// !!! // http://accu.org/index.php/journals/1390 - Uses of Classes with only Private and Protected Constructors
 // Trouble: один конструктор не защищает от глупостей. Просто конструктора не достаточно.
 // Лучше раздеять use and obj graph building.
 class Employee {
@@ -79,15 +80,20 @@ public:
   const Role *getRole() const;
 
   // TODO: нужны все функции копирования
+private:
+  // Not ready provide
+  Employee& operator=(const Employee&);
+  Employee(const Employee&);
 
-  
+public:
   // Stack creating
   //
   
-protected:
+//private:  
+protected:  // можно будет отнаследовать и законно создать
+  // если конструкторы закрыты, то закрыт все!
   // Напрямую создать не можем
   // http://stackoverflow.com/questions/16785069/why-cant-a-derived-class-call-protected-member-function-in-this-code
-  // http://accu.org/index.php/journals/1390 - Uses of Classes with only Private and Protected Constructors
   // http://stackoverflow.com/questions/1057221/what-are-practical-uses-of-a-protected-constructor
   // http://stackoverflow.com/questions/4524325/c-protected-class-constructor
   explicit Employee(Role *newRole) : role_(newRole) { }
@@ -100,12 +106,16 @@ protected:
   void say_hello() {}
   
 private:
-  Employee& operator=(const Employee&);
-  Employee(const Employee&);
-  
   // Must be heap alloc.
   Role* const role_;  // own => new Big Three
 };
+
+// Тоже как бы часть интерфейс класса, но не обязательно ее делать челном класса
+// Но проблема если есть например многопоточная блокировка. Можно ее сделать доступной, но она должна быть еще и 
+//   рекурсивной иначе selflock, но рекурсивная иногда оверхед. Либо сделать агрегат.
+void doSomethingCompose(Employee& e) {
+  //e
+}
 
 // DANGER: ctor vs named ctor vs fabric vs maker()
 //Луше сделать фабрику. Возможно это даже лучше именованного конструктора
@@ -158,8 +168,6 @@ private:
     Employee::say_hello();  // методы может вызывать
   }
 };
-//*/
- 
 }  // namespace..
 
 int main() {
@@ -179,6 +187,7 @@ int main() {
   auto_ptr<Employee> e(EmployeeMaker::create());
   
   //EmployeeMakerInh();
+
   
   return 0;
 }
