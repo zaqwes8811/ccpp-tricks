@@ -96,3 +96,45 @@ public:
 // class ...
 
 /// Virtual inh.
+class Parent 
+{ } ;
+
+// единый общий под объект базового класса Parent, а не каждый свою! 
+class Child1 : virtual public Parent 
+{ } ;
+class Child2 : virtual public Parent 
+{ } ;
+
+class GrandChild : public Child1,  public Child2
+{ };
+
+// Next ier.
+class Animal 
+{
+ public:
+  void eat() {}  // Метод определяется для данного класса
+ //...
+};
+ 
+class Mammal : virtual public Animal  // !
+{
+ public:
+  int getHairColor(); 
+ //...
+};
+ 
+class WingedAnimal : virtual public Animal // !
+{
+ public:
+  void flap();
+  void eat() { cout << "Wind\n"; }
+ //...
+};
+ 
+// A bat is a winged mammal
+class Bat : public Mammal, public WingedAnimal {};   //<--- обратите внимание, что метод eat() не переопределен в Bat
+ 
+TEST(Core, VirtInh) {
+  Bat bat;
+  bat.eat();  // без виртуальности нет однозначности
+}
