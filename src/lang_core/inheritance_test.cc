@@ -96,6 +96,7 @@ public:
 // class ...
 
 /// Virtual inh.
+// http://cpp.com.ru/lippman/c18.html
 class Parent 
 { } ;
 
@@ -112,7 +113,7 @@ class GrandChild : public Child1,  public Child2
 class Animal 
 {
  public:
-  void eat() {}  // Метод определяется для данного класса
+  virtual void eat() {}  // Метод определяется для данного класса
  //...
 };
  
