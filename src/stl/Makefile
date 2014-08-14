@@ -3,7 +3,8 @@
 CC=g++
 APP=string_and_streams_app
 BOOST=/home/zaqwes/work/third_party/boost_1_55_0
-CCFLAGS=-I$(BOOST) -O2
+LOKI=../../third_party/loki-0.1.7/include
+CCFLAGS=-I$(BOOST) -I$(LOKI) -O2 
 
 # http://stackoverflow.com/questions/10363646/compiling-c11-with-g
 all:

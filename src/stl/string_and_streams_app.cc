@@ -16,8 +16,10 @@
 // 3rdpary
 #include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
+#include <loki/ScopeGuard.h>
 
 using namespace std;
+using namespace Loki;
 
 // замена static. И все равно... не похоже норм. Можно пихать сюда функторы.
 namespace {
@@ -33,75 +35,16 @@ static ostream& operator<<(ostream& os, const vector<T>& v)
 }
 }
 
-
+namespace {
+  
+// Можно похоже только указатели передавать
+void restore_stream_flags(ostream& o, ios::fmtflags old_flags) {
+  o.flags(old_flags);
+}
+  
+}
+    
 int main() {
-  /// std::string
-  // TODO: что с юникодом?
-  // string, wstring, C-string
-  string filename("hello.tmp");
-  string::size_type idx = filename.find('.');  // возвращает позицию первого совпадения
-  assert(idx != string::npos);
-  //assert(distance(idx, string::npos) == 4);  // не компилируется
-  assert(typeid(idx) == typeid(string::size_type));  // !!
-  
-  string base_name = filename.substr(/*1000 - std::out_of_range*/0, (idx+1)-1);  // второй аргумент - количество символов!
-  assert(base_name == "hello");
-  //base_name = filename.substr(filename.find('x'));  // exception
-  string tmp_name = filename;
-  tmp_name.replace(idx+1, string::npos, "h");  // похоже убирает лишние символы
-  assert(tmp_name == "hello.h");
-  assert(tmp_name.size() < filename.size());
-  
-  // поиск в обратном направлении
-  const string delims("\t ");
-  string for_tream = "h.\t \t no way";  // разбить на слова
-  string::size_type beg_idx = for_tream.find_first_not_of(delims);  // поиск с начала?
-  
-  vector<string> words;
-  
-  // TODO: интервалы в строках - открытые, закрытые?
-  while (beg_idx != string::npos) {
-    // ищем первый разделительный символ
-    string::size_type end_idx = for_tream.find_first_of(delims, beg_idx);
-    if (end_idx == string::npos)
-      end_idx = for_tream.length();
-    
-    words.push_back(for_tream.substr(beg_idx, end_idx-beg_idx));  // [begin, N штук
-    
-    // Но кажется лучше не испоьзовать npos and size_type
-    //for (int i = end_idx-1; i >= static_cast<int>(beg_idx);  // приведение типов обязательно!!
-
-    // Next interval
-    beg_idx = for_tream.find_first_not_of(delims, end_idx);
-  }
-  
-  // C-strings
-  string s;
-  const char* p = s.c_str();
-  s += "ext";
-  // !!! p is invalid!!!
-  
-  // capacity() - как у вектора 
-  //   - нужно учитывать, если используются ссылки, указатели или итераторы или если важна производительность
-  // [] - работает по разному для const and non-const string
-  //
-  // TODO: WTF?
-  // https://www.sgi.com/tech/stl/basic_string.html - "has very unusual iterator invalidation semantics"
-  // begin, end для неконстант могут стать невалидной!!
-  // http://www.cplusplus.com/forum/general/29533/ - похоже ошибка перевода
-  // https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=29032683
-  
-  // std::string someStringReturningFunction();
-  /* ... */
-  //const char* str = someStringReturningFunction().c_str();  // tmp object
-  //  CERT C++ Secure Coding Standard
-  //
-  // DANGER: в c++98 не поддерживаются регулярные выражения, but in C++11 - yes
-  // DANGER: смена регистра 
-  //   http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case - Boost
-  // LIBRARY: http://site.icu-project.org/ ICU
-  // ICU in embedded world - http://thebugfreeblog.blogspot.ru/2013/05/cross-building-icu-for-applications-on.html
-
   /// std::streams
   // istream - in
   // ostream - out
@@ -120,5 +63,24 @@ int main() {
   //  Есть обертки проверки условий operator!(), например, или operator void*() - но вообще вроде бы это не хорошо
   //
   // TODO: есть какие-то пропуски. в чем суть?
+  
+  // Point: форматирование
+  // TODO: на консоль и в файл
+  vector<int> vi;
+  int a[] = {3, 8, 9, 0, 9};
+  vi.insert(vi.begin(), a, a+5);
+  cout << vi;
+  
+  {
+    // И как тут применить guard?
+    // http://www.codeproject.com/Articles/18453/Automatic-resource-cleanup-a-lightweight-scope-gua
+    ios::fmtflags old_flags =  cout.flags();
+    ScopeGuard g1 = MakeGuard(&restore_stream_flags, ByRef(cout), old_flags);
+
+    cout.setf(ios::showpos | ios::showbase);// | ios::uppercase);
+    cout.setf(ios::internal, ios::adjustfield);
+    cout << hex << 9 << endl;  // не очень - хотелось бы выводить число нулей
+  }
+  
 
 }

@@ -28,6 +28,11 @@
 // Классы с сылками похоже лучше не присваивать. см Саттера 9.N
 //
 // http://www.slideshare.net/pohjus/c-constructor-copy-constructor-and-assignment-operator-presentation
+//
+/// ScopeGuard
+// - можно передавать и не один аргумент функции
+// - можно передвать *this
+// - метод можно вызывать с аргументами
 
 
 #include <stdio.h>
