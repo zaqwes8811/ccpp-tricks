@@ -1,8 +1,13 @@
-// http://alenacpp.blogspot.ru/2005/03/blog-post.html
+// http://alenacpp.blogspot.ru/2005/03/blog-post.html !!!
 // http://www.gotw.ca/gotw/031.htm
+
+#include <iostream>
 
 // Third party
 #include <gtest/gtest.h>
+
+using std::cout;
+using std::endl;
 
 class VDtor {
 public:
@@ -47,9 +52,11 @@ class Derived: public OnlyDynamic
 
 // Plan B
 class Lock                                // «запирающий» класс
-{ Lock() { }
-  Lock(const Lock&);
+{ 
   friend class Usable;
+  Lock() { }
+  Lock(const Lock&) { }
+  
 public:
 };
 
@@ -59,12 +66,13 @@ public:
   Usable() { cout << "Usable!"; }
 };
 
-class Derived: public Usable {};        // формально не запрещено
+class Derived2: public Usable {};        // формально не запрещено
 
 
 TEST(Lang, DisableInh) {
-  Derived d; // must not compiled
-  Derived *p = new Derived;  // !!! можно!
+  //Derived2 d; // must not compiled
+  Usable u;
+  //Derived2 *p = new Derived2;  // !!! можно!
 }
 
 // http://www.gotw.ca/gotw/040.htm
@@ -82,3 +90,9 @@ public:
   A* a;
 };
 */
+
+// class CDerived : private CBase - pub and prot -> private
+// class CDerived : protected CBase - pub and prot -> prot
+// class ...
+
+/// Virtual inh.

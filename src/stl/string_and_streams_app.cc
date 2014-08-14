@@ -95,8 +95,7 @@ int main() {
   /* ... */
   //const char* str = someStringReturningFunction().c_str();  // tmp object
   //  CERT C++ Secure Coding Standard
-  
-  
+  //
   // DANGER: в c++98 не поддерживаются регулярные выражения, but in C++11 - yes
   // DANGER: смена регистра 
   //   http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case - Boost
@@ -121,7 +120,5 @@ int main() {
   //  Есть обертки проверки условий operator!(), например, или operator void*() - но вообще вроде бы это не хорошо
   //
   // TODO: есть какие-то пропуски. в чем суть?
-    
 
-  
 }
