@@ -1,5 +1,6 @@
 // http://alenacpp.blogspot.ru/2005/03/blog-post.html !!!
 // http://www.gotw.ca/gotw/031.htm
+// http://habrahabr.ru/post/51229/ C++ MythBusters. Миф о виртуальных функциях
 
 #include <iostream>
 
@@ -114,7 +115,7 @@ class GrandChild : public Child1,  public Child2
 class Animal 
 {
  public:
-  virtual void eat() {}  // Метод определяется для данного класса
+  void eat() {}  // Метод определяется для данного класса
  //...
 };
  
@@ -136,7 +137,30 @@ class WingedAnimal : virtual public Animal // !
 // A bat is a winged mammal
 class Bat : public Mammal, public WingedAnimal {};   //<--- обратите внимание, что метод eat() не переопределен в Bat
  
+ 
+class A {
+public:
+    virtual void f();
+};
+
+class B {
+public:
+    virtual void f();
+};
+
+class C: public A, public B {
+public:
+    virtual void fA();
+    virtual void fB();
+};
+
 TEST(Core, VirtInh) {
   Bat bat;
+  
+  // вызывается перекрытая!
   bat.eat();  // без виртуальности нет однозначности
 }
+
+/// override and overload
+// http://logic.pdmi.ras.ru/~smal/aptu/cpp10/2010_11_26.html
+
