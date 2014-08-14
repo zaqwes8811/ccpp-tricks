@@ -95,7 +95,8 @@ public:
 // class CDerived : protected CBase - pub and prot -> prot
 // class ...
 
-/// Virtual inh.
+/// Virtual and multi inh.
+// http://www.amse.ru/courses/cpp1/2010.05.14.html
 // http://cpp.com.ru/lippman/c18.html
 class Parent 
 { } ;
