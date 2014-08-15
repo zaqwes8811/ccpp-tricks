@@ -1,6 +1,10 @@
 // http://alenacpp.blogspot.ru/2005/03/blog-post.html !!!
 // http://www.gotw.ca/gotw/031.htm
 // http://habrahabr.ru/post/51229/ C++ MythBusters. Миф о виртуальных функциях
+//
+// vtable - http://www.programmerinterview.com/index.php/c-cplusplus/how-vtables-work/
+//
+// TODO: как работает полиморфизм в С++?
 
 #include <iostream>
 
