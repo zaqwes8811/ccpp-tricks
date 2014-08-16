@@ -108,6 +108,7 @@ int main()
   // http://forum.vingrad.ru/forum/topic-341831.html
   // Вообще переопределять конструктор копирования ответственной дело 
   // http://www.cyberguru.ru/cpp/cpp-velvet-way2-page14.html
+  // !!! http://www.cyberguru.ru/cpp/cpp-programming-rules2-page44.html 
   
   
   return 0;
