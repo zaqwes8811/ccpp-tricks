@@ -24,6 +24,7 @@ public:
   
 protected:
   // нужен чтобы можно было создать копированием
+  // !!! передавать обязательно по ссылке? похоже если нет, то будет рекурсия.
   B(const B& rhs) : i(rhs.i) { }  // он нужен, т.к. мы создаем копированием
   
 private:
@@ -55,6 +56,43 @@ void Transubstantiate(B& obj) {
   Transmogrify(&obj); // срезка!!
 }
 
+/// 
+class Base
+{
+  public:
+    Base(){}
+    Base(char* arg1, int arg2){}
+    Base(const Base &object){}
+    
+    virtual ~Base(){}
+    
+    Base& operator=(const Base &object){}
+    virtual void Method1() = 0;
+    void Method2(){};
+  private:
+    int size;
+    char* data;
+};
+class Derived: public Base
+{
+  public:
+    Derived(): Base(){}
+    Derived(char * arg1, int arg2, char *arg3, int arg4): Base(arg3, arg4){}
+    
+    // Danger
+    //Derived(const Derived& object) : Base((Base &) object) { }
+    // Правильно, но может бысть срезка, если еще наследовать
+    Derived(const Derived& object) : Base(object) { }
+    
+    
+    ~Derived(){}
+    Derived& operator=(const Derived &object){}
+    virtual void Method1(){}
+  private:
+    int size;
+    char* data;
+};
+
 int main() 
 {
   // 54 - срезка
@@ -65,6 +103,11 @@ int main()
   // TODO: а как контейнеры будут с этими классами
   // Похоже лучше в контейнере хранить указатели, иначе похоже будет происходить что-то ужасное
   
+  
+  // TODO: конструктор копирования при насделовании
+  // http://forum.vingrad.ru/forum/topic-341831.html
+  // Вообще переопределять конструктор копирования ответственной дело 
+  // http://www.cyberguru.ru/cpp/cpp-velvet-way2-page14.html
   
   
   return 0;

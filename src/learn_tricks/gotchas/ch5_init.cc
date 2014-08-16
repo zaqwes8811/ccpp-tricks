@@ -40,7 +40,7 @@ int main()
 {
   // Initialize not assign
   SloppyCopy<int> sloppy;
-  f(sloppy);  // init, not assign?
+  f(sloppy);  // init, not assign
   
   return 0;
 }
