@@ -18,6 +18,10 @@
 // - Invent a new alg (Write a paper)
 //
 // No raw loops -> coding standart
+//
+// Use libs - Boost and ASL(похоже не развиватеся)
+//
+//http://stackoverflow.com/questions/2179999/c-adobe-source-libraries-impressions - 
 
 #include <iostream>
 #include <vector>
@@ -75,7 +79,7 @@ ostream& operator<<(ostream& o, const vector<T>& a)
 // Хорошо бы вернуть что-то - новое положение отрезка - [f_new, l_new)
 // TODO: почему такое обобщение?
 // TODO: похоже есть дыры
-template <typename I >
+template <typename I >  // I models RandomAccessIterator
 int /*pair<I, I>*/ slide(I f, I l, I p) {
   if (p < f) rotate(p, f, l);
   
