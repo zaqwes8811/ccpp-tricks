@@ -1,6 +1,13 @@
+// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
+//
+
+Why no raw loops?
+- Difficule reason about and dificult to prove post conditions
+
+#include <iostream>
+#include <vector>
 
 /*
-// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
 void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
   int fixed_index = GetPanelIndex(expanded_panels_, *fixed_panel);
 
@@ -26,3 +33,8 @@ void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
     //
   }
 }*/
+
+int main() {
+  
+  return 0;
+}
