@@ -1,11 +1,27 @@
 // http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
 //
 
-Why no raw loops?
-- Difficule reason about and dificult to prove post conditions
+// Raw loop - A raw loop is any loop inside function where the function serve purpose larger then
+// tha algorithm implemented by the loop.
+//
+//Why no raw loops?
+//- Difficule reason about and dificult to prove post conditions
+//- Error prone and likly to fail under non-obvios conditions
+//- Introduce non-obvios performance problems
+//- Complicates reasoning about the surronding code
+// - отравляет код вокруг цикла
+//
+// Alternatives:
+// - Use an existing alg. (Prefer standart algs if availabel)
+// - Implement a know algorithm as a general function (contribute to library - внутреннюю или открытую
+//   сперва нужно сделать как можно конкретнее, поюзать и понять где можно генереализовать)
+// - Invent a new alg (Write a paper)
+//
+// No raw loops -> coding standart
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 /*
 void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
@@ -34,7 +50,73 @@ void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
   }
 }*/
 
-int main() {
+using namespace std;
+
+namespace {
   
+template <typename T>
+class Action {
+public:
+  explicit Action(ostream* o_) : o(o_) { }
+  void operator()(const T& elem) const {
+    *o << elem << " ";
+  }
+  ostream* const o;
+}; 
+ 
+template <typename T>
+ostream& operator<<(ostream& o, const vector<T>& a) 
+{
+  for_each(a.begin(), a.end(), Action<T>(&o));
+  o << endl;
+  return o;
+}
+
+// Хорошо бы вернуть что-то - новое положение отрезка - [f_new, l_new)
+// TODO: почему такое обобщение?
+// TODO: похоже есть дыры
+template <typename I >
+int /*pair<I, I>*/ slide(I f, I l, I p) {
+  if (p < f) rotate(p, f, l);
+  
+  // Ветка выполняется!!
+  if (l < p) {
+    rotate(f, l, p);
+    // [p, p+(l-f)) ?
+  }
+  
+  // TODO: а остальные случаи
+  
+  return 0;
+}
+
+}
+
+int main() {
+  // first
+  {
+    int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
+    const int kSize = sizeof(arr) / sizeof(arr[0]);
+    vector<int> v;
+    v.insert(v.begin(), arr, arr + kSize);
+    vector<int>::iterator it = v.begin();
+    cout << v;
+    
+    size_t f = 3;
+    size_t l = 6+1;  // [)
+    size_t p = kSize-1;  // )
+    
+    slide(it+f, it+l, it+p);
+    
+    cout << v;
+    
+    f = 5;
+    l = kSize-1;  // [)
+    p = 3;  // )
+    
+    slide(it+f, it+l, it+p);
+    
+    cout << v;
+  }
   return 0;
 }
