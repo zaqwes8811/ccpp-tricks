@@ -22,6 +22,7 @@
 // Use libs - Boost and ASL(похоже не развиватеся)
 //
 //http://stackoverflow.com/questions/2179999/c-adobe-source-libraries-impressions - 
+// !! https://github.com/stlab/adobe_source_libraries
 
 #include <iostream>
 #include <vector>
