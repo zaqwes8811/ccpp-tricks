@@ -21,8 +21,15 @@
 //
 // Use libs - Boost and ASL(похоже не развиватеся)
 //
-//http://stackoverflow.com/questions/2179999/c-adobe-source-libraries-impressions - 
+// ASL:
+// http://stackoverflow.com/questions/6461621/how-to-compile-asl-boost-based-adobe-c-gui-library-on-linux
+// http://stackoverflow.com/questions/2179999/c-adobe-source-libraries-impressions - 
 // !! https://github.com/stlab/adobe_source_libraries
+// Нужны какие-то потчи на буст. http://stlab.adobe.com/asl_readme.html
+// http://stackoverflow.com/questions/6397501/how-to-compile-asl-boost-based-adobe-c-gui-library-on-windows-7
+//
+// Boost:
+// Range: http://www.boost.org/doc/libs/1_41_0/libs/range/doc/boost_range.html
 
 #include <iostream>
 #include <vector>
@@ -148,7 +155,8 @@ int main() {
     cout << v;
     
     size_t edge = 4;
-    stable_partition(v.begin(), v.end(), bind2nd(less<int>(), 4));
+    stable_partition(v.begin(), v.begin()+edge, not1(bind2nd(less<int>(), 4)));
+    stable_partition(v.begin()+edge, v.end(), bind2nd(less<int>(), 4));
     
     cout << v;
     
