@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 
-SOURCES += ./no_raw_loops_app.cc #\
+SOURCES += ./goal_no_raw_loops_app.cc #\
   #../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
   #../launcher.cc
 
