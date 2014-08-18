@@ -97,6 +97,19 @@ int /*pair<I, I>*/ slide(I f, I l, I p) {
 
 }
 
+class IntSequence {
+private:
+  int value;
+public:
+  IntSequence(int init) : value(init) { }
+  int operator()() {
+    return value++;
+  }
+};
+
+// rotate
+// stable_partition
+// stable_sort
 int main() {
   // first
   {
@@ -123,5 +136,34 @@ int main() {
     
     cout << v;
   }
+  cout << endl;
+  
+  // second
+  {
+    int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
+    const int kSize = sizeof(arr) / sizeof(arr[0]);
+    vector<int> v;
+    v.insert(v.begin(), arr, arr + kSize);
+    vector<int>::iterator it = v.begin();
+    cout << v;
+    
+    size_t edge = 4;
+    stable_partition(v.begin(), v.end(), bind2nd(less<int>(), 4));
+    
+    cout << v;
+    
+    /*
+    IntSequence seq(1);
+    // частичной специялизации похоже нет
+    //generate_n<insert_iterator<vector<int> >, int, IntSequence&>(v.begin(), 4, seq); 
+    generate_n<vector<int>::iterator, int, IntSequence&>(v.begin(), 4, seq);
+    cout << v;
+    
+    generate_n<vector<int>::iterator, int, IntSequence&>(v.begin(), 4, seq);
+    cout << v;
+    */
+  }
+  
+  
   return 0;
 }
