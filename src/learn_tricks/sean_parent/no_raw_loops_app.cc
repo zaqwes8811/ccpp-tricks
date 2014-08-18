@@ -114,10 +114,18 @@ public:
   }
 };
 
+template <typename I, typename S>
+pair<I, I> gather(I f, I l, I p, S s) {
+  return make_pair(stable_partition(f, p, not1(s)), 
+    stable_partition(p, l, s)
+  );
+}
+
 // rotate
 // stable_partition
 // stable_sort
 int main() {
+  // TODO: ошибочный ввод
   // first
   {
     int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
@@ -154,11 +162,15 @@ int main() {
     vector<int>::iterator it = v.begin();
     cout << v;
     
-    size_t edge = 4;
-    stable_partition(v.begin(), v.begin()+edge, not1(bind2nd(less<int>(), 4)));
-    stable_partition(v.begin()+edge, v.end(), bind2nd(less<int>(), 4));
+    size_t edge = distance(v.begin(), v.end());
+    pair<vector<int>::iterator, vector<int>::iterator> range 
+      = gather(v.begin(), v.end(), v.begin()+edge, bind2nd(less<int>(), 4));
     
     cout << v;
+    
+    vector<int> tmp;
+    copy(range.first, range.second, back_insert_iterator<std::vector<int> >(tmp));
+    cout << tmp;
     
     /*
     IntSequence seq(1);
