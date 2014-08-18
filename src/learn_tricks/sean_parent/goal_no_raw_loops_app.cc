@@ -310,8 +310,9 @@ int main() {
     // TODO: расстояние может быть отрицательным?
     //assert(distance(adobe::lower_bound(tmp, 7), adobe::upper_bound(tmp, 2)) >= 0);
     
-    copy(adobe::lower_bound(tmp, 2), // may be include
-	 adobe::upper_bound(tmp, 7), // ) итератор указывает на > 7, и мы его не включаем в копирование
+    // Можно передать пару!!
+    adobe::copy(make_pair(adobe::lower_bound(tmp, 2), // may be include
+	 adobe::upper_bound(tmp, 7)), // ) итератор указывает на > 7, и мы его не включаем в копирование
 	 back_insert_iterator<vector<int> >(range_));
     cout << range_;
     
