@@ -200,8 +200,8 @@ int main() {
   {
     int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
     const int kSize = sizeof(arr) / sizeof(arr[0]);
-    vector<int> v;
-    v.insert(v.begin(), arr, arr + kSize);
+    vector<int> v(arr, arr + kSize);  // можно в констр., можно вставить, можно назначить
+    //v.insert(v.begin(), arr, arr + kSize);
     vector<int>::iterator it = v.begin();
     cout << v;
     
