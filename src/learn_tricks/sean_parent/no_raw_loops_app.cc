@@ -30,11 +30,22 @@
 //
 // Boost:
 // Range: http://www.boost.org/doc/libs/1_41_0/libs/range/doc/boost_range.html
+// http://stackoverflow.com/questions/13286876/boostrange-iterator-and-boostiterator-range-confusion - есть еще 
+//   ссылка внутри, но там скорее к С++11
+// Есть еще алгоритмы
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
+// 3rdparty::common
+#include <adobe/algorithm/find.hpp>
+#include <adobe/algorithm/for_each.hpp>  // ничего не возвращает
+#include <boost/range/iterator_range.hpp>
+#include <boost/range/algorithm.hpp>
+#include <boost/range/iterator.hpp>
+#include <boost/bind.hpp>
+//#include <boost/bind/placeholders.hpp>
 /*
 void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
   int fixed_index = GetPanelIndex(expanded_panels_, *fixed_panel);
@@ -62,7 +73,17 @@ void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
   }
 }*/
 
-using namespace std;
+using std::rotate;
+using std::stable_partition;
+using std::pair;
+using std::vector;
+using std::ostream;
+using std::for_each;
+using std::back_insert_iterator;
+using std::bind2nd;
+using std::less;
+using std::cout;
+using std::endl;
 
 namespace {
   
@@ -83,6 +104,25 @@ ostream& operator<<(ostream& o, const vector<T>& a)
   o << endl;
   return o;
 }
+
+//struct print
+//{
+    //template<typename T>
+    void print(const int& t) //const
+    {
+        cout << t << " ";
+    }
+//};
+
+struct Printer
+{
+    //template<typename T>
+    void operator()(const int& t) const
+    {
+        cout << t << " ";
+	//return 0;
+    }
+};
 
 // Хорошо бы вернуть что-то - новое положение отрезка - [f_new, l_new)
 // TODO: почему такое обобщение?
@@ -124,6 +164,9 @@ pair<I, I> gather(I f, I l, I p, S s) {
 // rotate
 // stable_partition
 // stable_sort
+//
+// For sorted:
+// lower_bound 
 int main() {
   // TODO: ошибочный ввод
   // first
@@ -171,6 +214,28 @@ int main() {
     vector<int> tmp;
     copy(range.first, range.second, back_insert_iterator<std::vector<int> >(tmp));
     cout << tmp;
+    
+    // NO CHECK
+    cout << *adobe::find(v, 8) << endl;
+    
+    //
+    // Functors vs bind - http://stackoverflow.com/questions/17810018/functors-vs-stdbind
+    /// Work
+    //boost::for_each(boost::make_iterator_range(v.begin(), v.begin()+4) ,print());
+    //
+    /// Not work with functors
+    // F - ConvertibleToFunction?
+    // http://stackoverflow.com/questions/9453380/iterating-over-a-stdmap-using-boostbind
+    // http://stlab.adobe.com/group__for__each.html
+    // Указатель на функция передается, но объект нет.
+    //adobe::for_each(make_pair(v.begin(), v.begin()+4), Printer());//&print); // With ptr work
+    // boost::peaceholder::_1
+    // http://stackoverflow.com/questions/356950/c-functors-and-their-uses
+    //
+    // Boost.Bind
+    // http://www.boost.org/doc/libs/1_55_0/libs/bind/bind.html
+    //adobe::for_each(v.begin(), v.begin()+4, &Printer::operator());
+    cout << endl;
     
     /*
     IntSequence seq(1);
