@@ -13,4 +13,5 @@ INCLUDEPATH += /home/zaqwes/work/third_party/source_release \
   /home/zaqwes/work/third_party/boost_1_55_0
   #../../third_party/gmock-1.6.0/fused-src/
 
-LIBS += -lpthread -lrt -ltbb
+# -ltbb не достаточно
+LIBS += -lpthread -lrt -ltbbmalloc -ltbb
