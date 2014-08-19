@@ -103,24 +103,6 @@ using boost::end;
 
 namespace {
   
-template <typename T>
-class Action {
-public:
-  explicit Action(ostream* o_) : o(o_) { }
-  void operator()(const T& elem) const {
-    *o << elem << " ";
-  }
-  ostream* const o;
-}; 
- 
-template <typename T>
-ostream& operator<<(ostream& o, const vector<T>& a) 
-{
-  for_each(a.begin(), a.end(), Action<T>(&o));
-  o << endl;
-  return o;
-}
-
 //struct print
 //{
     //template<typename T>
