@@ -11,6 +11,8 @@
 // Sutter:
 // http://channel9.msdn.com/Shows/Going+Deep/C-and-Beyond-2012-Herb-Sutter-Concurrency-and-Parallelism
 // DANGER: Хм, премешенный лог...
+//
+// Qt and C++11 http://qt-project.org/forums/viewthread/28185
 
 #include <iostream>
 

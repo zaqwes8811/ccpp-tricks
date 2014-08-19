@@ -8,7 +8,7 @@ OBJECTS_DIR = obj
 QMAKE_CXXFLAGS += -O2 -std=c++11 -Wall -Wno-deprecated -pg
 
 
-SOURCES += ./goal_no_raw_loops_app.cc ./goal_no_raw_sync_primitives_app.cc \
+SOURCES += ./ch9_conc_parall_test.cc \
   ../../../third_party/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
   ../../launcher.cc
 
