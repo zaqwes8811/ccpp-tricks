@@ -1,4 +1,4 @@
-/// "Easy reason about."
+/// "Easy reason about." Если в цикле много условий то не слишком ли он много на себя берет?
 //
 // http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
 //
@@ -56,6 +56,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 //#include <boost/bind/placeholders.hpp>
+
+#include <gtest/gtest.h>
 
 // Inner
 #include "reuse/view.h"
@@ -184,7 +186,7 @@ ostream& operator<<(ostream& o, const employee& e)
 //
 // For sorted:
 // lower_bound 
-int main() {
+TEST(SeanParent, NoRawLoops) {
   // TODO: ошибочный ввод
   // first
   {
@@ -305,30 +307,6 @@ int main() {
     
   }
   
-  // Interface symetry
-  {
-    vector<employee> v;
-    v.push_back(employee("Lugansky"));
-    v.push_back(employee("Barbar"));
-    v.push_back(employee("Parent"));
-    v.push_back(employee("Parent"));
-    v.push_back(employee("Parent"));
-    v.push_back(employee("Yeng"));
-    
-    adobe::random_shuffle(v);
-    
-    // сортируем и ищем 
-    // DANGER: не согласованный интерфейс. BAD!!
-    //adobe::sort(v, [](const employee& e0, const employee& e1) { return e0.last < e1.last; });
-    //auto a = adobe::lower_bound(v, "Parent", [](emp, !!!string) { return e.last < string; };
-    adobe::sort(v, less<string>(), &employee::get_last);  // можно и &employee::last
-    // auto p = 
-    cout << *adobe::lower_bound(v, "Parent", less<string>(), &employee::get_last);
-    cout << endl;
-    // Норм, но лучше сделать с getter
-    cout << v;
-  }
-  
   // Chrome
   {
     // Похоже суть перенести фиксированную панель ближе к началу
@@ -371,6 +349,36 @@ int main() {
     
   }
   
-  
-  return 0;
+  // use libraries
+  {
+    // Boost, ASL
+    //
+    // Have many variants of simple, common algorithm such as find() and copy()
+    //
+    // Interface symetry
+    {
+      vector<employee> v;
+      v.push_back(employee("Lugansky"));
+      v.push_back(employee("Barbar"));
+      v.push_back(employee("Parent"));
+      v.push_back(employee("Parent"));
+      v.push_back(employee("Parent"));
+      v.push_back(employee("Yeng"));
+      
+      adobe::random_shuffle(v);
+      
+      // сортируем и ищем 
+      // DANGER: не согласованный интерфейс. BAD!!
+      //adobe::sort(v, [](const employee& e0, const employee& e1) { return e0.last < e1.last; });
+      //auto a = adobe::lower_bound(v, "Parent", [](emp, !!!string) { return e.last < string; };
+      adobe::sort(v, less<string>(), &employee::get_last);  // можно и &employee::last
+      // auto p = 
+      cout << *adobe::lower_bound(v, "Parent", less<string>(), &employee::get_last);
+      cout << endl;
+      // Норм, но лучше сделать с getter
+      cout << v;
+    }
+    
+    // Далать тело for_each как можно меньше
+  }
 }
