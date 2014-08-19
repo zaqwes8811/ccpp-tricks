@@ -2,6 +2,15 @@
 // TBB Ref. Man. - https://software.intel.com/en-us/node/506045
 //
 // Task based parallelizm - https://software.intel.com/ru-ru/node/506100
+// В курсе по CUDA from NVIDIA упоминалось про похожую фичу
+// 
+// !! https://software.intel.com/en-us/articles/optimizing-game-architectures-with-intel-threading-building-blocks
+//
+// http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
+//
+// Sutter:
+// http://channel9.msdn.com/Shows/Going+Deep/C-and-Beyond-2012-Herb-Sutter-Concurrency-and-Parallelism
+// DANGER: Хм, премешенный лог...
 
 #include <iostream>
 
@@ -29,19 +38,25 @@ public:
     FibTask( long n_, long* sum_ ) :
         n(n_), sum(sum_)
     {}
+    
     task* execute() {      // Overrides virtual function task::execute
         if( n<CutOff ) {
             *sum = SerialFib(n);
         } else {
             long x, y;
+            
+            // TODO: а утечки нет?
             FibTask& a = *new( allocate_child() ) FibTask(n-1,&x);
             FibTask& b = *new( allocate_child() ) FibTask(n-2,&y);
+            
             // Set ref_count to 'two children plus one for the wait".
-            set_ref_count(3);
+            set_ref_count(2+1);  // ! +1
+            
             // Start b running.
             spawn( b );
             // Start a running and wait for all children (a and b).
             spawn_and_wait_for_all(a);
+            
             // Do the sum
             *sum = x+y;
         }
@@ -53,7 +68,10 @@ public:
 
 long ParallelFib( long n ) {
     long sum;
+    
+    // !! Alloc ROOT
     FibTask& a = *new(task::allocate_root()) FibTask(n,&sum);
+    
     task::spawn_root_and_wait(a);
     return sum;
 }
