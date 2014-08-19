@@ -9,10 +9,15 @@
 
 #include <iostream>
 
+// C++11
+#include <future>
+
 #include "tbb/task_scheduler_init.h"
 #include "tbb/task.h"
 
 #include <gtest/gtest.h>
+
+using namespace std;
 
 namespace {
   
@@ -64,7 +69,17 @@ TEST(SeanParent, NoRawSync)
   // PPL(MS), libdispatch(Apple), TBB
 }
 
+int f(int x, int y) 
+{
+  
+  return x;
+}
+
+// C++11 acync http://www.drdobbs.com/cpp/c11s-async-template/240001196
 TEST(TBB, AsyncTry) 
 {
   //ParallelFib(25);
+  int x = 0;
+  int y = 0;
+  auto result = async([=] { return f(x, y); });
 }

@@ -1,4 +1,5 @@
-
+/// Task based parallelizm 
+//
 // TBB Ref. Man. - https://software.intel.com/en-us/node/506045
 //
 // Task based parallelizm - https://software.intel.com/ru-ru/node/506100
@@ -83,8 +84,9 @@ long ParallelFib( long n ) {
 // No locks, thread -> task
 TEST(SeanParent, NoRawSync) 
 {
-  // async
-  // Libs:
+  // std::async
+  //
+  // Libs - реализовано более чем в std::
   // PPL(MS), libdispatch(Apple), TBB
 }
 
