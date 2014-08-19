@@ -15,4 +15,4 @@ INCLUDEPATH += /home/zaqwes/work/third_party/source_release \
   ../../../third_party/gmock-1.6.0/fused-src/ \
   ../../
 
-LIBS += -lpthread -lrt
+LIBS += -lpthread -lrt -ltbb
