@@ -12,8 +12,8 @@ int main(int argc, char* argv[])
   // Run
   testing::InitGoogleTest(&argc, argv);
   //testing::GTEST_FLAG(print_time) = true;
-  RUN_ALL_TESTS();
+  int result = RUN_ALL_TESTS();
   setlocale(LC_ALL, crtLocale);
   //system("pause");
-  return 0;
+  return result;
 }
