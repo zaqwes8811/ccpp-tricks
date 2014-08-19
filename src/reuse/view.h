@@ -2,6 +2,8 @@
 #define REUSE_VIEW_H_
 
 #include <vector>
+#include <list>
+
 #include <ostream>
 #include <algorithm>
 
@@ -23,6 +25,15 @@ std::ostream& operator<<(std::ostream& o, const std::vector<T>& a)
   o << std::endl;
   return o;
 }
+
+template <typename T>
+std::ostream& operator<<(std::ostream& o, const std::list<T>& a) 
+{
+  std::for_each(a.begin(), a.end(), Action<T>(&o));
+  o << std::endl;
+  return o;
+}
+
 
 }
 

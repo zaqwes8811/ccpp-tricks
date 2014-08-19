@@ -57,6 +57,9 @@
 #include <boost/range/end.hpp>
 //#include <boost/bind/placeholders.hpp>
 
+// Inner
+#include "reuse/view.h"
+
 /*
 void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
   int fixed_index = GetPanelIndex(expanded_panels_, *fixed_panel);
@@ -100,6 +103,8 @@ using std::string;
 
 using boost::begin;
 using boost::end;
+
+using view::operator<<;
 
 namespace {
   
@@ -322,6 +327,48 @@ int main() {
     cout << endl;
     // Норм, но лучше сделать с getter
     cout << v;
+  }
+  
+  // Chrome
+  {
+    // Похоже суть перенести фиксированную панель ближе к началу
+    int arr[] = {1, 2, 3, 123, 8, 8, 8, 117, 2, 1};
+    vector<int> v(arr, arr + sizeof(arr) / sizeof(arr[0]));
+    vector<int> expanded_panels_ = v;
+    cout << v;
+    
+    {
+      int fixed_index = 7;
+      vector<int>::iterator p = adobe::find(expanded_panels_, 123);//2); похоже предусловия не такие
+      vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
+      assert(p != expanded_panels_.end());
+      assert(p <= f);
+      // итераторы портяться, но расстояние останется
+      int delta = distance(expanded_panels_.begin(), p);
+
+      int ref = expanded_panels_[fixed_index];
+      expanded_panels_.erase(f);  // что-то сдало не активно
+      
+      cout << expanded_panels_;
+      
+      expanded_panels_.insert(expanded_panels_.begin() + delta, ref);
+      cout << expanded_panels_;
+    }
+    
+    // rotate version
+    {
+      expanded_panels_ = v;
+      int fixed_index = 7;
+
+      vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
+      vector<int>::iterator p = adobe::find(expanded_panels_, 123);//2); похоже предусловия не такие
+      
+      assert((p <= p+1) && (p+1 <= f+1));
+      //rotate(p, p+1, f+1);
+      rotate(p, f, f+1);  // не правильно - на самом деле смотря что нужно
+      cout << expanded_panels_;  // не эквивалентно!
+    }
+    
   }
   
   

@@ -10,7 +10,8 @@ SOURCES += ./goal_no_raw_loops_app.cc #\
   #../launcher.cc
 
 INCLUDEPATH += /home/zaqwes/work/third_party/source_release \
-  /home/zaqwes/work/third_party/boost_1_55_0
+  /home/zaqwes/work/third_party/boost_1_55_0 \
   #../../third_party/gmock-1.6.0/fused-src/
+  ../../
 
 LIBS += -lpthread -lrt
