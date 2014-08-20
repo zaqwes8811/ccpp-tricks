@@ -87,7 +87,10 @@ TEST(SeanParent, NoRawSync)
   // std::async
   //
   // Libs - реализовано более чем в std::
+  // Библиотеки лучше. Даже новый стандарт не решает. Sheduler
+  //  http://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1795/ 
   // PPL(MS), libdispatch(Apple), TBB
+  // Похоже что-то есть и в Boost.
 }
 
 TEST(TBB, AsyncTry) 
