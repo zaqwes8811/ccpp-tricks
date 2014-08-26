@@ -22,7 +22,8 @@ using namespace tbb;
 using namespace std;
 
 namespace {
-typedef concurrent_hash_map<int, int> TaskTable;
+typedef concurrent_hash_map<long, long> TaskTable;
+TaskTable g_task_table;
   
 long SerialFib(long n) {
   if (n < 2)
@@ -31,7 +32,7 @@ long SerialFib(long n) {
     return SerialFib(n-1)+SerialFib(n-2);
 }
 
-const long CutOff = 4;
+const long CutOff = 2;
 
 class FibTask : public task {
 public:
@@ -42,10 +43,20 @@ public:
   {}
   
   task* execute() {
+    const bool connect = true;
     // Если решена то вернуть результат
+    if (connect) {
+      TaskTable::const_accessor a;
+      if (g_task_table.find(a, n)) {
+        *sum = a->second;
+        return NULL;
+      }
+    }
     
-    if (n < CutOff) {
-      *sum = SerialFib(n);
+    /// No atomic 
+    // в это время с таблицей может происходить что угодно
+    if (n < 2) { //CutOff) {
+      *sum = n;//SerialFib(n);    
     } else {
       long x = 0;
       long y = 0;
@@ -61,9 +72,17 @@ public:
       
       // Do sum
       *sum = x+y;
-      
-      // сохраняем результат в хэштаблице
     }
+    /// No atomic
+    
+    if (connect) {
+      TaskTable::accessor a;
+      // записи не должно быть, но она есть иногда! Похоже так и должно быть
+      //assert(!g_task_table.find(a, n));  
+      if (g_task_table.insert(a, n))
+        a->second = *sum;
+    }
+      
     return NULL;
   }
 };
@@ -76,16 +95,35 @@ long ParallelFib(long n) {
 }
 }
 
+// ускорение просто чудовищное
 TEST(TBB, ParallelFibNoDynPro) {
-  long n = 4;//38;
+  long n = 
+  //30;
+  38;
   long r = ParallelFib(n);
-  //assert(r == 39088169);
+  cout << r << "\n";
+  assert(r == 39088169);
+  //assert(r == 832040);
   
+  int key = 19;
+  int value = 32;
+  TaskTable task_table;
+  // Transaction
   {
     // http://stackoverflow.com/questions/23501591/tbb-concurrent-hash-map-find-insert
     // http://www.threadingbuildingblocks.org/docs/help/reference/containers_overview/concurrent_hash_map_cls.htm
     // Похоже интерфейс не такой как у stl-like versions
-    TaskTable task_table;
+    TaskTable::accessor a;
+    task_table.insert(a, key);
+    a->second = value;
+  }
+  
+  {
+    TaskTable::const_accessor a;
+    assert(task_table.find(a, key));
+    assert(a->second == value);
+    
+    assert(!task_table.find(a, key+10));
   }
   
 }
