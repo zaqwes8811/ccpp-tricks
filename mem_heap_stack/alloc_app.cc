@@ -12,7 +12,9 @@
 // Intel TBB 
 // http://www.threadingbuildingblocks.org/docs/help/tbb_userguide/Memory_Allocation.htm#tutorial_Memory_Allocation
 // perf. - https://software.intel.com/en-us/articles/controlling-memory-consumption-with-intel-threading-building-blocks-intel-tbb-scalable
-
+//
+// Аллокатор может кэшировать память!
+// https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
 #include <vector>
 #include <iostream>
 

@@ -1,3 +1,12 @@
+#include <gtest/gtest.h>
+
+#include <cassert>
+#include <string>
+#include <vector>
+
+using namespace std;
+  
+TEST(STL, Strings) {
   /// std::string
   // TODO: что с юникодом?
   // string, wstring, C-string
@@ -64,3 +73,4 @@
   //   http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case - Boost
   // LIBRARY: http://site.icu-project.org/ ICU
   // ICU in embedded world - http://thebugfreeblog.blogspot.ru/2013/05/cross-building-icu-for-applications-on.html
+}
