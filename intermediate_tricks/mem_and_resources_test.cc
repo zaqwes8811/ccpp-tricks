@@ -59,14 +59,6 @@ using std::ostreambuf_iterator;
 // http://www.gotw.ca/gotw/043.htm
 
 // TODO:
-// thread-safe copy ctor and assign
-// http://stackoverflow.com/questions/5070161/designing-a-thread-safe-copyable-class
-// http://home.roadrunner.com/~hinnant/mutexes/locking.html
-// Summary:
-//   лучше сперва вообще запретить.
-// http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
-
-// TODO:
 // полиморфные операторы
 // Assign:
 // http://stackoverflow.com/questions/669818/virtual-assignment-operator-c

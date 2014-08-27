@@ -1,6 +1,7 @@
 // Guide:
 //   https://software.intel.com/en-us/articles/intel-guide-for-developing-multithreaded-applications
 //   !! https://software.intel.com/ru-ru/node/506045
+//   https://software.intel.com/ru-ru/node/506099 - Task Based parallelizm
 // 
 // Design patterns:
 //   https://software.intel.com/ru-ru/node/506112
