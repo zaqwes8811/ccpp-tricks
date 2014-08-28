@@ -16,17 +16,21 @@ _3RD_PARTY=../3rdparty
 QMAKE_CXXFLAGS += -O3  -Wall -Wno-deprecated -pg -std=c++11
 
 SOURCES += \
+  ./boost_cc11/thread_safe_boost_sync_test.cc \
+  ./boost_cc11/use_mutex_test.cc \
+  ./boost_cc11/high_level_prim_test.cc \
+  ./boost_cc11/prod_consumer_pattern_test.cc \
+  ./tbb/base_test.cc
+  
+SOURCES += \
   ../launcher.cc \
   $$_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
-  ./tbb/base_test.cc #\
-  #w3_dyn_pro.cc \
-  #$$DETAILS/details/io_details.cc
-
 
 INCLUDEPATH += \
   $$BOOST $$DETAILS $$DETAILS/.. \
   $$_3RD_PARTY/gmock-1.6.0/fused-src/
 
 LIBS += -lpthread -lrt -ltbb
+LIBS += -L$$BOOST/stage/lib -lboost_thread -lboost_system
 
 OBJECTS_DIR = obj
