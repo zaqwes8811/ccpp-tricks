@@ -8,6 +8,7 @@ CONFIG -= qt
 BOOST=/home/zaqwes/work/third_party/boost_1_55_0
 DETAILS=..
 _3RD_PARTY=../3rdparty
+ADOBE_SL=/home/zaqwes/work/third_party/source_release
 
 # но лучше бы 11 убрать, т.к. не ясно нужно ли доопределять некоторые функции
 # -std=c++11
@@ -27,7 +28,10 @@ SOURCES += \
   $$_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
 
 INCLUDEPATH += \
-  $$BOOST $$DETAILS $$DETAILS/.. \
+  $$BOOST \
+  $$DETAILS \
+  $$DETAILS/.. \
+  $$ADOBE_SL \
   $$_3RD_PARTY/gmock-1.6.0/fused-src/
 
 LIBS += -lpthread -lrt -ltbb
