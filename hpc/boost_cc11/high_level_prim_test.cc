@@ -2,8 +2,6 @@
 //  Sean Parent - "No raw sync", Sutter, Intel TBB (планеровщик и task based parallelism)
 //  Tasks better.
 //
-// Tut.
-//   http://www.justsoftwaresolutions.co.uk/threading/multithreading-in-c++0x-part-8-futures-and-promises.html
 
 // Thread -> improve latency
 // Task -> improve throughtput - not I/O, not ...
@@ -26,6 +24,10 @@
 #include <adobe/algorithm/generate.hpp>
 
 #include <gtest/gtest.h>
+
+// TODO:
+// Tut.
+//   http://www.justsoftwaresolutions.co.uk/threading/multithreading-in-c++0x-part-8-futures-and-promises.html
  
 /// Advanced?
 // Barrier
@@ -220,4 +222,32 @@ TEST(ThCpp11, MapReduce) {
 TEST(ThCpp11, Sync) {
   
 }
+
+/// Message passing - procuder/consumer
+// wait -> notify. DANGER: no state - if noti. -> wait - no waik
+// DANGER: Spurious wakeups !!! Add additional state
+/*
+Producer
+v = true;
+cond.notify_one();
+
+Consumer:
+while(!v) {
+  cond.wait(?);
+}
+
+Lock protocol
+
+{
+  lock_guard(mtx);
+  v = true;
+}
+cond.notify_one();
+
+// 
+unique_lock lck(mtx);
+while (!v) {
+  cond.wait(lck);
+}
+*/
 }
