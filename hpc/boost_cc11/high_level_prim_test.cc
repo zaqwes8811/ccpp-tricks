@@ -226,7 +226,8 @@ TEST(ThCpp11, Sync) {
 /// Message passing - procuder/consumer
 // wait -> notify. DANGER: no state - if noti. -> wait - no waik
 // DANGER: Spurious wakeups !!! Add additional state
-/*
+/* 
+// http://www.youtube.com/watch?v=309Y-QlIvew&index=9&list=PL1835A90FC78FF8BE
 Producer
 v = true;
 cond.notify_one();
@@ -244,10 +245,18 @@ Lock protocol
 }
 cond.notify_one();
 
-// 
+// DANGER: Atomically unlock and enter wait state!!
 unique_lock lck(mtx);
 while (!v) {
-  cond.wait(lck);
+  cond.wait(lck);  // похоже по этому передается лок
+  ..
+  v = false;
 }
+
+OR
+
+un..
+cond.wait(lck, [&v](){ return v; });
+v = false;
 */
 }
