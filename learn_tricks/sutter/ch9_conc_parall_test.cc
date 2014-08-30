@@ -19,7 +19,9 @@
 #include <iostream>
 
 // C++11
+/*
 #include <future>
+*/
 
 #include "tbb/task_scheduler_init.h"
 #include "tbb/task.h"
@@ -48,10 +50,10 @@ TEST(TBB, AsyncTry)
   //ParallelFib(25);
   int x = 0;
   int y = 0;
-  auto result = async([=] { return f(x, y); });
+  //auto result = async([=] { return f(x, y); });
   
   // time...
-  int res = result.get();
+  //int res = result.get();
   
   // http://stackoverflow.com/questions/22597948/using-boostfuture-with-then-continuations
   // TODO; это типа зависимые задачи?
