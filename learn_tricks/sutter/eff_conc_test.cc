@@ -1,6 +1,30 @@
 // Eff conc.
 // http://herbsutter.com/2009/11/11/effective-concurrency-prefer-structured-lifetimes-%E2%80%93-local-nested-bounded-deterministic/
+
+// TODO: The Pillars of Concurrency
+// 1. Responsiveness and Isolation via Async Agents
+// 2. Throuthput and Scalability via conc. collections
+// 3. Consistency via Safely Shared Res.
+// http://www.drdobbs.com/parallel/the-pillars-of-concurrency/200001985?pgno=2
+
 #define BOOST_THREAD_PROVIDES_FUTURE
+
+/*
+//https://github.com/mirror/boost/blob/master/libs/thread/example/executor.cpp
+#define BOOST_THREAD_VERSION 4
+#define BOOST_THREAD_PROVIDES_EXECUTORS
+#define BOOST_THREAD_USES_LOG_THREAD_ID
+#define BOOST_THREAD_QUEUE_DEPRECATE_OLD
+
+#include <boost/thread/thread_pool.hpp>
+#include <boost/thread/user_scheduler.hpp>
+#include <boost/thread/executor.hpp>
+#include <boost/thread/future.hpp>
+#include <boost/assert.hpp>
+#include <string>
+#include <boost/thread/caller_context.hpp>
+*/
+
 
 #include <cstdio>
 
@@ -27,6 +51,9 @@ namespace boost {
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/future.hpp>
 #include <boost/throw_exception.hpp>  // sudden
+#include <boost/bind.hpp>
+
+
 
 //using boost::unique_future;
 
@@ -164,11 +191,66 @@ TEST(ThPool, SFLib) //void func()
   // while (&tp){int i = 3; ++i;}
 } 
 
+// !!! http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
+// Для портабельной передач исключений между потоками нужна фичи языка
+// http://stackoverflow.com/questions/8876459/boost-equivalent-of-stdasync
 TEST(ThPool, Own) {
   boost::packaged_task<int> task(task_int_1);
-  boost::future<int> fi=task.get_future();
-  boost::thread thread(boost::move(task));
+  boost::future<int> fi = task.get_future();
+  boost::thread thread(boost::move(task));  // если закомменить, то деадлок
   EXPECT_THROW(fi.get(), std::runtime_error);
+
+  //
+  //boost::future<int> fii =
+      //boost::async(task_int_1);
+  //decay_copy(boost::forward<F>(f))();
+  //fii.get();
+}
+
+
+// http://stackoverflow.com/questions/14422319/boost-threading-conceptualization-questions
+// Non compiled
+//
+// http://www.mr-edd.co.uk/blog/
+class Data {
+
+};
+
+int run_sim(Data*) { return 0; }
+const unsigned nsim = 50;
+TEST(TMP, Test) {
+  // https://github.com/mirror/boost/blob/master/libs/thread/example/executor.cpp
+  //boost::executor_adaptor<boost::thread_pool> ea;
+
+  unsigned nprocs = boost::thread::hardware_concurrency();
+  if (nprocs == 0)
+    nprocs = 2;   // cannot determine number of cores, let's say 2
+
+  Data data[nsim];
+  boost::future<int> futures[nsim];
+  int results[nsim];
+
+  for (unsigned i=0; i<nsim; ++i)
+  {
+    if ( ((i+1) % nprocs) != 0 ) {
+      // DANGER:
+      //futures[i] =
+          //boost::async(boost::bind(&run_sim, &data[i]));  // не компилируется
+      ;
+    } else
+      results[i] = run_sim(&data[i]);
+  }
+
+  for (unsigned i=0; i<nsim; ++i)
+    if ( ((i+1) % nprocs) != 0 )
+      results[i] = futures[i].get();
+}
+
+// http://stackoverflow.com/questions/4084777/creating-a-thread-pool-using-boost/4085345#4085345
+// http://think-async.com/Asio/Recipes
+// DANGER: а как с ошибками то быть?
+TEST(ThPool, Asio) {
+
 }
 }
 
@@ -176,3 +258,5 @@ TEST(ThPool, Own) {
 // А как быть со всякими асинхоронными api?
 //
 // Way: hide it inside sync API
+
+// TODO: Boost.Thread supply
