@@ -19,6 +19,7 @@ QMAKE_CXXFLAGS += -O3  -Wall -Wno-deprecated -pg -std=c++11
 SOURCES += \
   ./boost_cc11/thread_safe_boost_sync_test.cc \
   ./boost_cc11/use_mutex_test.cc \
+  pools_test.cc \
   ./boost_cc11/high_level_prim_test.cc \
   ./boost_cc11/prod_consumer_pattern_test.cc \
   ./tbb/base_test.cc
@@ -32,7 +33,8 @@ INCLUDEPATH += \
   $$DETAILS \
   $$DETAILS/.. \
   $$ADOBE_SL \
-  $$_3RD_PARTY/gmock-1.6.0/fused-src/
+  $$_3RD_PARTY/gmock-1.6.0/fused-src/ \
+  /home/zaqwes/work/third_party/threadpool-0_2_5-src/threadpool 
 
 LIBS += -lpthread -lrt -ltbb
 LIBS += -L$$BOOST/stage/lib -lboost_thread -lboost_system
