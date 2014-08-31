@@ -9,13 +9,6 @@
 // Alternatives:
 //   http://www.ibm.com/developerworks/library/j-jtp0730/ -  thread-per-task
 //
-// Dynamic parallelism NVIDIA:
-//   https://www.udacity.com/course/viewer#!/c-cs344/l-137986669/m-137938845
-// Src: Bulk parallelism
-// Nested parallelism
-// Task parallelism
-// Recursive parallelism
-//
 // Scheduler:
 //  http://www.threadingbuildingblocks.org/docs/help/index.htm#tbb_userguide/Task-Based_Programming.htm
 //
