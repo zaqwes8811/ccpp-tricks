@@ -6,7 +6,7 @@ CONFIG -= qt
 OBJECTS_DIR = obj
 
 # -std=c++11
-QMAKE_CXXFLAGS += -O2  -Wall -Wno-deprecated -pg
+QMAKE_CXXFLAGS += -O2  -Wall -Wno-deprecated 
 
 _3RD_PARTY=../../3rdparty
 BOOST=/home/zaqwes/work/third_party/boost_1_55_0

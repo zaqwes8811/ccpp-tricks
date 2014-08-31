@@ -1,11 +1,13 @@
 // Eff conc.
 // http://herbsutter.com/2009/11/11/effective-concurrency-prefer-structured-lifetimes-%E2%80%93-local-nested-bounded-deterministic/
+#define BOOST_THREAD_PROVIDES_FUTURE
 
 #include <cstdio>
 
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <stdexcept>
 
 #include <gtest/gtest.h>
 
@@ -23,6 +25,10 @@ namespace boost {
 #include <boost/thread.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
+#include <boost/thread/future.hpp>
+#include <boost/throw_exception.hpp>  // sudden
+
+//using boost::unique_future;
 
 // Non-Boost yet
 #include <boost/threadpool.hpp>
@@ -100,7 +106,7 @@ void task_1()
 void task_2()
 {
   print(string("  task_2()\n"));
-  //throw 5;
+  throw 5;
 }
 
 void task_3()
@@ -113,17 +119,41 @@ void task_with_parameter(int value)
   print("  task_with_parameter(" + to_string(value) + ")\n");
 }
 
+int task_int_1()
+{
+  print("  task_int_1()\n");
+  //throw 9;
+  // http://www.boost.org/doc/libs/1_55_0/libs/exception/doc/frequently_asked_questions.html
+  // https://groups.google.com/forum/#!topic/boost-list/E0C_gZDuydk
+  BOOST_THROW_EXCEPTION(std::runtime_error(""));
+  //boost::throw_exception(std::runtime_error(""));
+  return 1;
+}
+
+// Не все хорошо стыкуется если C++98
+// С С++11 похоже есть расходжения
+// DANGER: похоже лучше свой пул.
 TEST(ThPool, SFLib) //void func()
 { 
   using namespace boost::threadpool;
+  //using boost::unique_future;
+  
   //print("  Create a new thread pool\n");
   pool tp(2); // tp is handle to the pool
 
   // Add tasks
   tp.schedule(&task_1);
-  tp.schedule(&task_2);
+  //unique_future<void> f = tp.schedule(&task_2);
   tp.schedule(&task_3);
   tp.schedule(boost::bind(task_with_parameter, 4));
+  //boost::threadpool::future<int> res = schedule(tp, &task_int_1);
+  //unique_future<int> res1 =
+  //schedule(tp, &task_int_1);  // th::fut - не для продакшена, а так не ловит исключения
+  try {
+    //res.get();
+  } catch (runtime_error& e) {
+    
+  }
 
   // The pool handle tp is allocated on stack and will 
   // be destructed if it gets out of scope. Before the 
@@ -133,6 +163,13 @@ TEST(ThPool, SFLib) //void func()
   // (until all tasks are processed).
   // while (&tp){int i = 3; ++i;}
 } 
+
+TEST(ThPool, Own) {
+  boost::packaged_task<int> task(task_int_1);
+  boost::future<int> fi=task.get_future();
+  boost::thread thread(boost::move(task));
+  EXPECT_THROW(fi.get(), std::runtime_error);
+}
 }
 
 // TODO: Avoid Exposing Concurrency: Hide It Inside Synchronous Methods
