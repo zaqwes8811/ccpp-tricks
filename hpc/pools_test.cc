@@ -15,6 +15,12 @@
 // Thinks:
 //   ошибки лучше передавать в вызывающую функцию. future и прочие работают, но как скрестить с asio
 //
+//
+// Effective pools:
+//  - Sutter
+//  - http://www.ibm.com/developerworks/library/j-jtp0730/
+//    "Understand your tasks." - может для разных типов задач разные пулы
+
 #define BOOST_THREAD_PROVIDES_FUTURE
 
 /*
