@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 #include <string>
 #include <iostream>
 #include <memory>
@@ -170,7 +172,7 @@ private:
 };
 }  // namespace..
 
-int main() {
+TEST(G, NxCh8) {
   using namespace gotchas;
   const BoundedString s(5);
   //const  // not compiled
@@ -187,7 +189,4 @@ int main() {
   auto_ptr<Employee> e(EmployeeMaker::create());
   
   //EmployeeMakerInh();
-
-  
-  return 0;
 }

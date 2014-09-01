@@ -8,6 +8,8 @@ behavior of an object. Assignment is never performed on raw storage.
 
  */
 
+#include <gtest/gtest.h>
+
 #include <iostream>
 
 using namespace std;
@@ -36,11 +38,39 @@ void f(SloppyCopy<int> s) {
   
 }
 
-int main() 
+TEST(G, Nx) 
 {
   // Initialize not assign
   SloppyCopy<int> sloppy;
   f(sloppy);  // init, not assign
-  
-  return 0;
 }
+
+/// Scoping!!! no reuse args
+
+/// DANGER: Assign and inh.
+
+/// Virtuality mem. map
+
+// Gotcha #54: Copy Constructor Base Initialization
+class M {
+public:
+  M();
+  M( const M & );
+  ~M();
+  M &operator =( const M & );
+  // . . .
+};
+class B {
+public:
+  virtual ~B();
+  
+protected:
+  B();
+  B( const B & );
+  B &operator =( const B & );
+// . . .
+};
+
+class D: public B {
+  M m_;
+};

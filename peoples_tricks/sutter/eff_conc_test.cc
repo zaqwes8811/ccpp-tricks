@@ -12,11 +12,23 @@
 
 // TODO: Use Thread Pools Correctly: Keep Tasks Short and Nonblocking
 // http://stackoverflow.com/questions/3988128/c-thread-pool - good pool
+// По крайней мере один готовый работать - как-то так
 
 // TODO: Sharing Is the Root of All Contention
 // Even with races no fast in multicore system!
 // "Yes, using locks and CAS incurs waiting and overhead expenses, 
 // but those all arise from the root cause of having a mutable shared object at all."
+/*
+ Prefer isolation: 
+ Make resources private and unshared, where possible; 
+ sometimes duplicating resources is the answer, like providing an extra crayon or a copy of an object or an additional core. 
+ Otherwise, prefer immutability: 
+ Make shared resources immutable, where possible, so that no concurrency control is required and no contention arises. 
+ Finally, use mutable shared state when you can't avoid it, but understand that it's fundamentally an enemy of 
+ scalability and minimize touching it in performance-sensitive code including inner loops. 
+ Avoid false sharing by making sure that objects that should be usable concurrently 
+ by different threads stay on different cache lines
+ */
 
 // TODO: Avoid Exposing Concurrency: Hide It Inside Synchronous Methods
 // А как быть со всякими асинхоронными api?
@@ -27,6 +39,9 @@
 // thread interrurpt - но а если объект потока не доступен?
 //
 //  Join the thread before destroying or use an scoped thread.
+
+// TODO: Understanding Parallel Performance
+// не обязательно все запускать в новых потоках - можно часть работы сделать и в этом
 
 // TODO: Effective Concurrency: Eliminate False Sharing
 // http://habrahabr.ru/company/intel/blog/143446/
