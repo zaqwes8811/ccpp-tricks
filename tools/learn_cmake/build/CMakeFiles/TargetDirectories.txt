@@ -1,2 +1,0 @@
-/home/zaqwes/work/in-the-vicinity-cc/tools/learn_cmake/build/CMakeFiles/../a.app.dir
-/home/zaqwes/work/in-the-vicinity-cc/tools/learn_cmake/build/CMakeFiles/gtest.dir

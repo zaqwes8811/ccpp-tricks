@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/../a.app.dir/home/zaqwes/work/in-the-vicinity-cc/launcher.cc.o  -o ../a.app -rdynamic libgtest.so -lpthread -Wl,-rpath,/home/zaqwes/work/in-the-vicinity-cc/tools/learn_cmake/build 
