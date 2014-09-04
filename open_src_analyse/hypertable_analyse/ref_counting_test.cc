@@ -1,3 +1,9 @@
+/// "Shared ptr as good as global vars" Sean Parent
+// http://cs.brown.edu/~jwicks/boost/libs/smart_ptr/sp_techniques.html
+// http://www.boost.org/doc/libs/1_37_0/libs/smart_ptr/sp_techniques.html#com
+// DANGER: ref counting and GC http://stackoverflow.com/questions/17646509/why-do-garbage-collectors-wait-before-deallocating/17647062#17647062
+
+
 //#include "app/config.h"
 // http://www.chromium.org/blink/coding-style#TOC-include-Statements
 
@@ -20,27 +26,46 @@
 #include <set>
 
 // C
-// FIXME: System specific - а как быть если были включены?
+
+// System specific
+// FIXME: A как быть если были включены? Может в config.h?
 // http://www.chromium.org/developers/coding-style
 
 using std::cout;
 using std::endl;
 
+// shared vs intrusive 
+//   http://boost.2283326.n4.nabble.com/intrusive-ptr-vs-shared-ptr-td4641535.html
+//   http://baptiste-wicht.com/posts/2011/11/boost-intrusive_ptr.html
+// "Another case where it's interesting to use an intrusive_ptr is when dealing with 
+// libraries using a lot of raw pointers, 
+// because you can create several intrusive_ptr to the same raw pointer without any problem."
+// FIXME: да, но библиотечные классы, то обычные, в них нет встроенного счетчика?
+// множественное наследование? http://transportempire.com/?intrusive-pointer,19
+//   потенциально можно передать ссылку и не удалять - стековый объект - но в чем смысл то?
+// About COM: http://www.gamedev.net/topic/582850-boost-intrusive-pointer-intrusive_ptr/
+// Кстатит можно вызывать не delete а делать какие-то действия - но есть ли польза если стековая переменная
+//   и вообще тогда есть деструктор.
+// http://legalizeadulthood.wordpress.com/2009/01/11/direct3d-programming-tip-3-use-smart-pointers/
+//
 // As a general rule, if it isn't obvious whether intrusive_ptr better fits 
 //  your needs than shared_ptr, try a shared_ptr-based design first.
 //
 // Cons:
 //   нет weak-пары
+//
+// Похоже в com-объекты уже встоены счетчики
+// Intrusive use cases: http://blog.chrisd.info/a-use-case-for-intrusive-pointers/
+// !!http://alsharabi.blogspot.nl/2009/06/boostintrusiveptr-is-one-of-six-smart.html
+// http://www.boost.org/community/counted_body.html
+//
+// https://code.google.com/p/chromiumembedded/wiki/UsingTheCAPI
+//
+// Shared vs Intr.
+// http://www.gamedev.ru/code/forum/?id=34739
 TEST(Ref, BoostIntr) {
   
 }
-
-// http://www.boost.org/community/counted_body.html
-
-// https://code.google.com/p/chromiumembedded/wiki/UsingTheCAPI
-
-// Shared vs Intr.
-// http://www.gamedev.ru/code/forum/?id=34739
 
 // зачем наследовать?
 namespace Hypertable_analyse {
