@@ -1,14 +1,30 @@
+//#include "app/config.h"
+// http://www.chromium.org/blink/coding-style#TOC-include-Statements
 
-#include <deque>
-#include <set>
-#include <algorithm>
+// App - включает только необходимое
+// Порядок правда - хотя по идее не должен влиять
+#define G_ZAQWES_ANALYSE
+#include "Common/ReferenceCount.h" 
+// FIXME: todo->fixme
 
+/// Все хедеры, что нужны интерфейсам приложения включены, остались для реализации
+
+// 3rdparty
+#include <boost/intrusive_ptr.hpp>
 #include <gtest/gtest.h>
 
-#include <boost/intrusive_ptr.hpp>
+// C++
+#include <algorithm>
+#include <deque>
+#include <ostream>
+#include <set>
 
+// C
+// FIXME: System specific - а как быть если были включены?
+// http://www.chromium.org/developers/coding-style
 
-//#include "Common/ReferenceCount.h"
+using std::cout;
+using std::endl;
 
 // As a general rule, if it isn't obvious whether intrusive_ptr better fits 
 //  your needs than shared_ptr, try a shared_ptr-based design first.
@@ -27,6 +43,29 @@ TEST(Ref, BoostIntr) {
 // http://www.gamedev.ru/code/forum/?id=34739
 
 // зачем наследовать?
+namespace Hypertable_analyse {
+// ApplicationHandler(EventPtr &event) : m_event(event) {
+  
+using Hypertable::ReferenceCount;
+class Widget : public ReferenceCount {
+public:
+  ~Widget() {
+    cout << "dtor" << endl;
+  }
+};
+
+typedef boost::intrusive_ptr<Widget> WidgetPtr;
+
+TEST(Hy, RefConuting) {
+  Widget w;
+  Widget k;
+  //w = k;  // non-copyble - только ссылки
+  WidgetPtr w_ptr(new Widget());
+  WidgetPtr w_a_ptr;
+  w_a_ptr = w_ptr;
+}
+  
+}
 
 
 /// Theory

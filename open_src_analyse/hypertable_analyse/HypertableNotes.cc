@@ -41,3 +41,4 @@ foreach_ht(ThreadHandleMap::value_type &val, m_thread_handle_map) {
 
 
 /// RefCounting and Pimpl
+// обычные указатели тоже используют, но похоже за интерфейсом класса

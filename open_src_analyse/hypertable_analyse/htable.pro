@@ -13,6 +13,7 @@ SOURCES += \
   ../../launcher.cc
 
 INCLUDEPATH += \
+  /home/zaqwes/work-analyse/hypertable/src/cc \
   /home/zaqwes/work/third_party/source_release \
   /home/zaqwes/work/third_party/boost_1_55_0 \
   $$OWN_3RD_PARTY/gmock-1.6.0/fused-src/ \
