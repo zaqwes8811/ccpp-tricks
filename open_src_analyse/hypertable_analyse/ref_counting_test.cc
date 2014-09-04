@@ -1,4 +1,7 @@
 
+#include <deque>
+#include <set>
+#include <algorithm>
 
 #include <gtest/gtest.h>
 
@@ -16,6 +19,142 @@ TEST(Ref, BoostIntr) {
   
 }
 
+// http://www.boost.org/community/counted_body.html
+
 // https://code.google.com/p/chromiumembedded/wiki/UsingTheCAPI
 
+// Shared vs Intr.
+// http://www.gamedev.ru/code/forum/?id=34739
+
 // зачем наследовать?
+
+
+/// Theory
+namespace Counting_Handle {
+
+struct deleter {
+  template <typename deletion_type>
+  void operator()(deletion_type to_delete) const {
+    delete to_delete;  // удаляет одни элемент
+  }
+};
+
+//typename <typedef element_type>
+template < typename element_type, typename destructor = deleter>
+class counting_ptr {
+public:
+  explicit counting_ptr(element_type* countee=0);
+  counting_ptr(const counting_ptr &);
+  counting_ptr(element_type*, destructor); // step 2
+  ~counting_ptr();
+  counting_ptr &operator=(const counting_ptr &);
+  element_type *operator->() const;
+  element_type &operator*() const;
+  
+private:
+  destructor destruct;
+};
+
+template <typename resource_type>
+class resource_factory {
+public:
+  typedef typename resource_type::initializer_type initializer_type;
+  resource_factory(initializer_type);
+  resource_type* create() {
+    return new resource_type(initializer);
+  }
+  
+  typedef counting_ptr<resource_type> pointer;
+  pointer create_1()
+  {
+    return pointer(new resource_type(initializer));
+  } 
+  
+  // удаление - фабрика и разрушает тоже?
+  class disposer
+  {
+  public:
+    // неявное преобразование
+    disposer(resource_factory *home) : home(home) {}
+    void operator()(resource_type *to_dispose) const
+    {
+      home->dispose(to_dispose);
+    }
+  private:
+    resource_factory *home;
+  };
+  
+  typedef counting_ptr<resource_type, disposer> pointer_full;
+  pointer_full create_2()
+  {
+    return pointer_full(new resource_type(initializer), this);  // что-то здесь не так
+  }
+  
+  // объекто-крошилка, и она передается умному указателю
+  void dispose(resource_type *);
+
+
+  // ...
+private:
+  initializer_type initializer;
+  // ...
+};
+}
+// problem - не совсем понял в чем она
+
+namespace Exlicitly_counting_object {
+  
+template <typename element_type>
+class counting_ptr
+{
+public:
+  //....
+  size_t count() const;
+  //....
+};
+
+
+template<typename resource_type>
+class resource_factory
+{
+public:
+  //....
+  typedef typename resource_type::initializer_type initializer_type;
+  
+  // а что она вообще делает-то? переиспользует объекты что ли?
+  typedef counting_ptr<resource_type> pointer;
+  pointer create()
+  {
+    resource_type *result = 0;
+    if(spare.empty())
+    {
+      result = new resource_type(initializer);
+    }
+    else
+    {
+      result = spare.front();
+      result->reset(initializer);
+      spare.pop_front();
+    }
+    live.insert(result);
+    return pointer(result, this);
+  }
+  
+  void dispose(resource_type *to_dispose)
+  {
+    live.erase(to_dispose);
+    spare.push_back(to_dispose);
+  }
+  
+  void clear()
+  {
+    std::for_each(spare.begin(), spare.end(), Counting_Handle::deleter());
+    spare.clear();
+  }
+private:
+  std::deque<resource_type *> spare;
+  std::set<resource_type *> live;
+  initializer_type initializer;
+};
+ 
+}
