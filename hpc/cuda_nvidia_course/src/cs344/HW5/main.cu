@@ -11,6 +11,8 @@
 #include <sys/time.h>
 #endif
 
+#include <cuda_runtime.h>
+
 #include <thrust/random/normal_distribution.h>
 #include <thrust/random/linear_congruential_engine.h>
 #include <thrust/random/uniform_int_distribution.h>
@@ -21,6 +23,36 @@ using thrust::random::normal_distribution;
 
 #include "reference_calc.h"
 
+template <class Type> __device__ __host__ Type cudaMin2( Type a, Type b ) {
+  // I - +inf
+  return a < b ? a : b;
+}
+
+template <class Type> __device__ __host__ Type cudaMax2( Type a, Type b ) {
+  // I - -inf
+  return a > b ? a : b;
+}
+
+__global__ void simple_histo_kernel(
+    const float * const d_logLuminance, const int size,
+    unsigned int * const d_histo, const int numBins,
+    float min_logLum, float logLumRange)
+{ 
+  int globalId = threadIdx.x + blockDim.x * blockIdx.x;
+  if (globalId >= size)
+    return; 
+    
+  float value = d_logLuminance[globalId];
+
+  // bin
+  unsigned int bin = cudaMin2(
+      static_cast<unsigned int>(numBins - 1), 
+      static_cast<unsigned int>((value - min_logLum) / logLumRange * numBins));
+
+  // Inc global memory. Partial histos not used.
+  atomicAdd(&(d_histo[bin]), 1);
+}
+
 void computeHistogram(const unsigned int *const d_vals,
                       unsigned int* const d_histo,
                       const unsigned int numBins,
@@ -28,6 +60,26 @@ void computeHistogram(const unsigned int *const d_vals,
 
 int main(void)
 {
+  int deviceCount;
+  cudaGetDeviceCount(&deviceCount);
+  if (deviceCount == 0) {
+      fprintf(stderr, "error: no devices supporting CUDA.\n");
+      exit(EXIT_FAILURE);
+  }
+  int dev = 0;
+  cudaSetDevice(dev);
+
+  cudaDeviceProp devProps;
+  if (cudaGetDeviceProperties(&devProps, dev) == 0)
+  {
+      printf("Using device %d:\n", dev);
+      printf("%s; global mem: %dB; compute v%d.%d; clock: %d kHz\n",
+              devProps.name, (int)devProps.totalGlobalMem, 
+              (int)devProps.major, (int)devProps.minor, 
+              (int)devProps.clockRate);
+  }
+  
+  // Work
   const unsigned int numBins = 1024;
   const unsigned int numElems = 10000 * numBins;
   const float stddev = 100.f;
@@ -66,6 +118,7 @@ int main(void)
 
   GpuTimer timer;
 
+  // FIXME: не найдено ни одного GPU
   checkCudaErrors(cudaMalloc(&d_vals,    sizeof(unsigned int) * numElems));
   checkCudaErrors(cudaMalloc(&d_histo,   sizeof(unsigned int) * numBins));
   checkCudaErrors(cudaMemset(d_histo, 0, sizeof(unsigned int) * numBins));
@@ -75,6 +128,7 @@ int main(void)
   timer.Start();
   computeHistogram(d_vals, d_histo, numBins, numElems);
   timer.Stop();
+  
   int err = printf("Your code ran in: %f msecs.\n", timer.Elapsed());
 
   if (err < 0) {
