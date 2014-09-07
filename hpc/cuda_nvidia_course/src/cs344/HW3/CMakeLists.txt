@@ -14,7 +14,7 @@ cmake_minimum_required(VERSION 2.8)
 # packages                                                                                                                                                                                                 
 find_package(CUDA)
 
-set(OpenCV "/home/zaqwes/work/opencv_2.3.1")
+set(OpenCV "/home/zaqwes/work/third_party/opencv_2.3.1")
 
 include_directories(${OpenCV}/include)
 
@@ -33,5 +33,5 @@ file( GLOB  hdr *.hpp *.h )
 file( GLOB  cu  *.cu)
 SET (HW3_files main.cpp loadSaveImage.cpp reference_calc.cpp compare.cpp)
     
-CUDA_ADD_EXECUTABLE(HW3 ${HW3_files} ${hdr} ${cu})
+CUDA_ADD_EXECUTABLE(HW3.app ${HW3_files} ${hdr} ${cu})
 

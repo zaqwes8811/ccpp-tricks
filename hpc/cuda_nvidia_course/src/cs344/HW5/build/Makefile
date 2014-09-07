@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/zaqwes/work/parallelize/cuda/src/cs344/HW3
+CMAKE_SOURCE_DIR = /home/zaqwes/work/in-the-vicinity-cc/hpc/cuda_nvidia_course/src/cs344/HW5
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/zaqwes/work/parallelize/cuda/src/cs344/HW3
+CMAKE_BINARY_DIR = /home/zaqwes/work/in-the-vicinity-cc/hpc/cuda_nvidia_course/src/cs344/HW5/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zaqwes/work/parallelize/cuda/src/cs344/HW3/CMakeFiles /home/zaqwes/work/parallelize/cuda/src/cs344/HW3/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zaqwes/work/in-the-vicinity-cc/hpc/cuda_nvidia_course/src/cs344/HW5/build/CMakeFiles /home/zaqwes/work/in-the-vicinity-cc/hpc/cuda_nvidia_course/src/cs344/HW5/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zaqwes/work/parallelize/cuda/src/cs344/HW3/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zaqwes/work/in-the-vicinity-cc/hpc/cuda_nvidia_course/src/cs344/HW5/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -99,96 +99,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named HW3
+# Target rules for targets named a.app
 
 # Build rule for target.
-HW3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 HW3
-.PHONY : HW3
+a.app: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 a.app
+.PHONY : a.app
 
 # fast build rule for target.
-HW3/fast:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/build
-.PHONY : HW3/fast
-
-compare.o: compare.cpp.o
-.PHONY : compare.o
-
-# target to build an object file
-compare.cpp.o:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/compare.cpp.o
-.PHONY : compare.cpp.o
-
-compare.i: compare.cpp.i
-.PHONY : compare.i
-
-# target to preprocess a source file
-compare.cpp.i:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/compare.cpp.i
-.PHONY : compare.cpp.i
-
-compare.s: compare.cpp.s
-.PHONY : compare.s
-
-# target to generate assembly for a file
-compare.cpp.s:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/compare.cpp.s
-.PHONY : compare.cpp.s
-
-loadSaveImage.o: loadSaveImage.cpp.o
-.PHONY : loadSaveImage.o
-
-# target to build an object file
-loadSaveImage.cpp.o:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/loadSaveImage.cpp.o
-.PHONY : loadSaveImage.cpp.o
-
-loadSaveImage.i: loadSaveImage.cpp.i
-.PHONY : loadSaveImage.i
-
-# target to preprocess a source file
-loadSaveImage.cpp.i:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/loadSaveImage.cpp.i
-.PHONY : loadSaveImage.cpp.i
-
-loadSaveImage.s: loadSaveImage.cpp.s
-.PHONY : loadSaveImage.s
-
-# target to generate assembly for a file
-loadSaveImage.cpp.s:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/loadSaveImage.cpp.s
-.PHONY : loadSaveImage.cpp.s
-
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/main.cpp.s
-.PHONY : main.cpp.s
+a.app/fast:
+	$(MAKE) -f CMakeFiles/a.app.dir/build.make CMakeFiles/a.app.dir/build
+.PHONY : a.app/fast
 
 reference_calc.o: reference_calc.cpp.o
 .PHONY : reference_calc.o
 
 # target to build an object file
 reference_calc.cpp.o:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/reference_calc.cpp.o
+	$(MAKE) -f CMakeFiles/a.app.dir/build.make CMakeFiles/a.app.dir/reference_calc.cpp.o
 .PHONY : reference_calc.cpp.o
 
 reference_calc.i: reference_calc.cpp.i
@@ -196,7 +124,7 @@ reference_calc.i: reference_calc.cpp.i
 
 # target to preprocess a source file
 reference_calc.cpp.i:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/reference_calc.cpp.i
+	$(MAKE) -f CMakeFiles/a.app.dir/build.make CMakeFiles/a.app.dir/reference_calc.cpp.i
 .PHONY : reference_calc.cpp.i
 
 reference_calc.s: reference_calc.cpp.s
@@ -204,7 +132,7 @@ reference_calc.s: reference_calc.cpp.s
 
 # target to generate assembly for a file
 reference_calc.cpp.s:
-	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/reference_calc.cpp.s
+	$(MAKE) -f CMakeFiles/a.app.dir/build.make CMakeFiles/a.app.dir/reference_calc.cpp.s
 .PHONY : reference_calc.cpp.s
 
 # Help Target
@@ -213,18 +141,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... HW3"
+	@echo "... a.app"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... compare.o"
-	@echo "... compare.i"
-	@echo "... compare.s"
-	@echo "... loadSaveImage.o"
-	@echo "... loadSaveImage.i"
-	@echo "... loadSaveImage.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... reference_calc.o"
 	@echo "... reference_calc.i"
 	@echo "... reference_calc.s"
