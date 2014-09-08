@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstdio>
 #include <fstream>
+#include <algorithm>
+
 #include "utils.h"
 #include "timer.h"
 #include <cstdio>
@@ -16,6 +18,8 @@
 #include <thrust/random/normal_distribution.h>
 #include <thrust/random/linear_congruential_engine.h>
 #include <thrust/random/uniform_int_distribution.h>
+
+#include <thrust/sort.h>
 
 using thrust::random::normal_distribution;
 //using thrust::random::experimental;
@@ -86,9 +90,19 @@ int main(void)
     vals[i] = std::min((unsigned int) std::max((int)normalDist(rng), 0), numBins - 1);
   }
 
+  GpuTimer timer;
+  timer.Start();
+  //std::sort(vals, vals + numElems);  // сортировка увеличила время работы на стороне gpu
+  //std::random_shuffle(vals, vals+numElems);  // реально не влияет, т.к. создается перемешанный
+  timer.Stop();
+  
+  int err_ = printf("Your code ran in: %f msecs.\n", timer.Elapsed());
+  //thrust
+  
+
   unsigned int *d_vals, *d_histo;
 
-  GpuTimer timer;
+  //GpuTimer timer;
 
   // FIXME: не найдено ни одного GPU
   checkCudaErrors(cudaMalloc(&d_vals,    sizeof(unsigned int) * numElems));
