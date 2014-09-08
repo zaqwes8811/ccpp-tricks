@@ -34,7 +34,9 @@
 
 #include "utils.h"
 
-static const int g_chunk = 4;
+
+#include <cstdio>
+static const int g_chunk = 8;
 //__device__ __constant__   // падает произв
 static const int d_chunk = g_chunk;
 
@@ -81,7 +83,7 @@ void histo_kernel_bins_shared_any_any(
   extern   // если захардкодить размер, то быстрее не будет
   __shared__ unsigned int local_histo[];
   //__shared__ 
-  unsigned slice[d_chunk];
+  
 
   int g_id = blockDim.x * blockIdx.x + threadIdx.x;
   if (g_id >= numElems)
@@ -95,6 +97,7 @@ void histo_kernel_bins_shared_any_any(
   for (int i = threadIdx.x; i < numBins; i += blockDim.x) 
     local_histo[i] = 0;
 
+  unsigned slice[d_chunk];
   for (int i = 0; i < d_chunk; ++i) {
     // bin
     const unsigned bin = d_vals[ref+i];  // read is coal.
@@ -107,11 +110,12 @@ void histo_kernel_bins_shared_any_any(
   for (int i = 0; i < d_chunk; ++i) {
     // bin
     //const unsigned bin = d_vals[ref+i];  // read is coal.
+    const int bin = slice[i];
 
     // Inc global memory. Partial histos not used.
     // если поток столько же скольно и бинов, то гонок не будет
     //++local_histo[bin];  // значения могут быть одинаковыми
-    atomicAdd(&(local_histo[slice[i]]), 1);
+    atomicAdd(&(local_histo[bin]), 1);
   }
 
   __syncthreads();  // ждем пока посчитают все потоки
@@ -120,7 +124,52 @@ void histo_kernel_bins_shared_any_any(
   for (int i = threadIdx.x; i < numBins; i += blockDim.x) {
     const unsigned int value = local_histo[i];
       if (value)  // уменьшило время но не на много
-        atomicAdd(&(d_histo[i]), value);  // write is coal.
+        // 1:10000
+        atomicAdd(&(d_histo[i]), value);  // write is coal., но большая конкуренция
+  }
+}
+
+static __global__ 
+void histo_kernel_bins_shared_any_any_no_reduce(
+    const unsigned int * const d_vals,
+          unsigned int * const d_histos, 
+    const unsigned int numBins,
+    const unsigned int numElems)    
+{ 
+  extern   // если захардкодить размер, то быстрее не будет
+  __shared__ unsigned int local_histo[];
+  //__shared__ 
+  
+
+  int g_id = blockDim.x * blockIdx.x + threadIdx.x;
+  if (g_id >= numElems)
+    return; 
+
+  int ref = g_id * d_chunk;
+  //if (ref+d_chunk >= numElems);
+  //  return;
+
+
+  for (int i = threadIdx.x; i < numBins; i += blockDim.x) 
+    local_histo[i] = 0;
+
+  unsigned slice[d_chunk];
+  for (int i = 0; i < d_chunk; ++i) {
+    // bin
+    const unsigned bin = d_vals[ref+i];  // read is coal.
+    slice[i] = bin;
+  }
+  __syncthreads();
+
+  // каждый поток обрабатывает отрезок
+  for (int i = 0; i < d_chunk; ++i) {
+    const int bin = slice[i];
+    atomicAdd(&(local_histo[bin]), 1);
+  }  
+  __syncthreads(); 
+
+  for (int i = threadIdx.x; i < numBins; i += blockDim.x) {
+    d_histos[i + numBins * blockIdx.x] = local_histo[i];
   }
 }
 
@@ -167,6 +216,25 @@ void histo_kernel_bins_shared_any_tblock(
   }
 }
 
+static __global__ 
+void resude_kernel(
+    const unsigned int * const d_vals,
+          unsigned int * const d_histo, 
+    const unsigned int numBins,
+    const unsigned int numElems) 
+  {
+  
+  for (int j = 0; j < numBins; ++j) {
+    int sum = 0;
+    for (int i = j; ; i += numBins) {
+      if (i > numElems)
+        break;
+      sum += d_vals[i];  
+    }
+    d_histo[j] = sum;
+  }
+}
+
 void computeHistogram(const unsigned int* const d_vals, //INPUT
                             unsigned int* const d_histo,      //OUTPUT
                       const unsigned int numBins,
@@ -179,6 +247,7 @@ void computeHistogram(const unsigned int* const d_vals, //INPUT
 
 	int threads = 1024;  // пробую меньше, чем число бинов
   int blocks = ceil((1.0f*numElems) / threads);
+  printf("blocks: %d\n", blocks);
   //blocks /= 8;
   //int sub_hist_blocks = ceil((1.0f*numElems) / numBins);
 
@@ -188,18 +257,25 @@ void computeHistogram(const unsigned int* const d_vals, //INPUT
   //thrust::sort(d_vals, d_vals + numElems);
   // Если отсортировать, то бины которые по середине будут писать практически в одно место - это ограничивает конкуренцию
 
+  unsigned int *d_vals_;
+  checkCudaErrors(cudaMalloc(&d_vals_,    sizeof(unsigned int) * numElems));
   //if you want to use/launch more than one kernel,
   //feel free
   //src_histo_kernel<<< blocks, threads >>>(d_vals, d_histo, numBins, numElems);
   // 
   // Память может быть большей чем размеры блоков, просто правильно нужно будет обновить глоб. гист.
   //histo_kernel_bins_shared_any_tblock
-  histo_kernel_bins_shared_any_any
+  //histo_kernel_bins_shared_any_any
+  histo_kernel_bins_shared_any_any_no_reduce
   <<< 
     //blocks, threads/g_chunk, (numBins)* sizeof(unsigned int) /*+ 225*/ >>>
     blocks, threads/g_chunk, (numBins+4)* sizeof(unsigned int) + 225 >>>
-    (d_vals, d_histo, numBins, numElems);
+    (d_vals, 
+    //d_histo, 
+      d_vals_,
+    numBins, numElems);
   //histo_kernel_bins_shared<<< sub_hist_blocks, numBins, numBins * sizeof(unsigned int) >>>(d_vals, d_histo, numBins, numElems);
-
+  resude_kernel<<<1, 1>>>(d_vals_, d_histo, numBins, numElems);
   cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+  cudaFree(d_vals_);
 }
