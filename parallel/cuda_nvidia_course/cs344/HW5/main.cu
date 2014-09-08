@@ -23,35 +23,7 @@ using thrust::random::normal_distribution;
 
 #include "reference_calc.h"
 
-template <class Type> __device__ __host__ Type cudaMin2( Type a, Type b ) {
-  // I - +inf
-  return a < b ? a : b;
-}
 
-template <class Type> __device__ __host__ Type cudaMax2( Type a, Type b ) {
-  // I - -inf
-  return a > b ? a : b;
-}
-
-__global__ void simple_histo_kernel(
-    const float * const d_logLuminance, const int size,
-    unsigned int * const d_histo, const int numBins,
-    float min_logLum, float logLumRange)
-{ 
-  int globalId = threadIdx.x + blockDim.x * blockIdx.x;
-  if (globalId >= size)
-    return; 
-    
-  float value = d_logLuminance[globalId];
-
-  // bin
-  unsigned int bin = cudaMin2(
-      static_cast<unsigned int>(numBins - 1), 
-      static_cast<unsigned int>((value - min_logLum) / logLumRange * numBins));
-
-  // Inc global memory. Partial histos not used.
-  atomicAdd(&(d_histo[bin]), 1);
-}
 
 void computeHistogram(const unsigned int *const d_vals,
                       unsigned int* const d_histo,

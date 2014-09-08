@@ -27,6 +27,41 @@
 
 #include "utils.h"
 
+template <class Type> __device__ __host__ Type cuda_min2( Type a, Type b ) {
+  // I - +inf
+  return a < b ? a : b;
+}
+
+template <class Type> __device__ __host__ Type cuda_max2( Type a, Type b ) {
+  // I - -inf
+  return a > b ? a : b;
+}
+
+//static 
+__global__ void src_histo_kernel(
+    const unsigned int * const d_vals,
+          unsigned int * const d_histo, 
+    const unsigned int numBins,
+    const unsigned int numElems
+    //float min_logLum, float logLumRange
+    )
+{ 
+  int g_id = threadIdx.x + blockDim.x * blockIdx.x;
+  if (g_id >= numElems)
+    return; 
+    
+  //float value = d_vals[g_id];
+
+  // bin
+  unsigned int bin = d_vals[g_id];
+  //cuda_min2(
+  //    static_cast<unsigned int>(numBins - 1), 
+  //    static_cast<unsigned int>((value - min_logLum) / logLumRange * numBins));
+
+  // Inc global memory. Partial histos not used.
+  atomicAdd(&(d_histo[bin]), 1);
+}
+
 __global__
 void yourHisto(const unsigned int* const vals, //INPUT
                unsigned int* const histo,      //OUPUT
@@ -41,14 +76,18 @@ void yourHisto(const unsigned int* const vals, //INPUT
 }
 
 void computeHistogram(const unsigned int* const d_vals, //INPUT
-                      unsigned int* const d_histo,      //OUTPUT
+                            unsigned int* const d_histo,      //OUTPUT
                       const unsigned int numBins,
                       const unsigned int numElems)
 {
   //TODO Launch the yourHisto kernel
+  const int maxThreadsPerBlock = 1024;
+	int threads = maxThreadsPerBlock;
+  int blocks = ceil((1.0f*numElems) / maxThreadsPerBlock);
 
   //if you want to use/launch more than one kernel,
   //feel free
+  src_histo_kernel<<< blocks, threads >>>(d_vals, d_histo, numBins, numElems);
 
   cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 }
