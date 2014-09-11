@@ -1,12 +1,15 @@
 // http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms
 // http://tinf2.vub.ac.be/~dvermeir/c++/EuroPLoP98.html
 
+/// Pure VI
+
 /// NVI
 // http://en.wikipedia.org/wiki/Fragile_base_class
 // http://clean-cpp.org/interfaces-done-right/
 
 /// Pimpl habr
 // http://stackoverflow.com/questions/60570/why-should-the-pimpl-idiom-be-used
+// Testing: http://stackoverflow.com/questions/2785206/the-pimpl-idiom-and-testability?rq=1
 //
 // Cons:
 //   неэффективно, проблемы с inline и константной семантных метовдов
@@ -17,12 +20,18 @@
 // Pro:
 //   - скрывает детали реализации - remove from *.h file
 //   - уменьшает время компиляции
+//   - можно сделать swap and assign exception safe
 //   - классы с d-указателями хорошо подходят для транзакционно-ориентированного и безопасного относительно исключений кода.
 //   - это возможность сократить дополнительные динамические выделения памяти - можно сделать члены values тогда память будет выдел
 //     большим куском - но есть какая-то проблема c последовательностью распределений памяти
 //
-// Summary:
+// Decision:
 //   решение проблема громоздкие, а значит не для всех классов системы, а значит система должна быть реально большой.
+//   http://stackoverflow.com/questions/825018/pimpl-idiom-vs-pure-virtual-class-interface?rq=1 - что-то в этом есть. pimpl помогает 
+//     реализовать копирующие функции.
+//   "However, I only ever use pImpl to implement Value types (type 1), 
+//    and only sometimes when I really want to minimize coupling and compile-time dependencies."
+//   http://stackoverflow.com/questions/843389/the-pimpl-idiom-in-practice?rq=1
 //
 // FIXME: что-то с константностью
 // habr.
