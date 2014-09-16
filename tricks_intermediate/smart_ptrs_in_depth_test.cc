@@ -20,20 +20,20 @@ template <class T>
 class CountedPtr {
 private:
   T* ptr;
-  long count;
+  long* count;
 public:
   explicit CountedPtr(T* p=0) 
     : ptr(p), count(new long(1)) { }
   
   // Copy - по значению
   CountedPtr(const CountedPtr<T>& p) : ptr(p.ptr), count(p.count) {
-      ++*count;  // счетчик уже нового объекта?
+      ++(*count);  // счетчик уже нового объекта?
   }
   
 private:
   // throw()
   void dispose() {
-    if (--*count == 0) {
+    if (--(*count) == 0) {
       delete count;
       delete ptr;
     }
@@ -41,7 +41,7 @@ private:
 };
 
 // http://www.parashift.com/c++-faq/ref-count-simple.html
-}
+
 
 TEST(ImT, STLBookSmartPtr) {
   
@@ -49,4 +49,5 @@ TEST(ImT, STLBookSmartPtr) {
 
 TEST(ImT, AdaptBoostIntrusivePtr) {
   
+}
 }

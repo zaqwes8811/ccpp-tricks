@@ -47,6 +47,31 @@ using std::string;
 namespace habr_version {
 typedef int SomeThing;
 
+// V0
+template <typename T>
+class deep_const_ptr 
+{
+    T * p;
+public:
+    explicit deep_const_ptr( T * t ) : p( t ) {}
+
+    const T & operator*() const { return *p; }
+    T & operator*() { return *p; }
+
+    const T * operator->() const { return p; }
+    T * operator->() { return p; }
+};
+
+// Необычный оператор присваивания
+/*
+Handle& Handle::operator=(const Handle &other) {
+  if(this != &other) {
+      *smile = *(other.smile);
+  }
+  return *this;
+}
+*/
+
 class Class
 {
 
@@ -62,6 +87,9 @@ public:
     // ...
   }
 
+  ~Class();
+  Class();
+
   Class &operator=(const Class &other)
   {
       // это может не сработать, но не изменит *this
@@ -72,74 +100,53 @@ public:
   }
 
   // DANGER)0 - const
-  SomeThing& someThing() const;
+  const SomeThing& someThing() const;
 
-  // V0
-  template <typename T>
-  class deep_const_ptr 
-  {
-      T * p;
-  public:
-      explicit deep_const_ptr( T * t ) : p( t ) {}
-
-      const T & operator*() const { return *p; }
-      T & operator*() { return *p; }
-
-      const T * operator->() const { return p; }
-      T * operator->() { return p; }
-  };
+  void f(double n);
 
   // V2 - перегрузка
   const Private * d_func() const { return d_; }
   Private * d_func() { return d_; }
-
-  // Необычный оператор присваивания
-  /*
-  Handle& Handle::operator=(const Handle &other) {
-    if(this != &other) {
-        *smile = *(other.smile);
-    }
-    return *this;
-  }
-  */
-
 };
 
-// *.cc
-class Class::Private {  // !!
+// *.cc - порадок определений некоторых функция важен
+class Class::Private {  // !! нужно определить до определения конструктора и дектруктора
 public:
   bool canAcceptN(double num) const { return num != 0 ; }
   double n;
 
-  Class * const q; // back-link
+  Class * //const 
+  q; // back-link
 
-  SomeThing& someThing() const { return s_; }
+  const SomeThing& someThing() const { return s_; }
 public:
   // не передаем
     explicit Private( /*Class * qq*/ ) : q( 0 ) {}
   SomeThing s_;
 };
 
-Class::Class() : d(new Private) {
+Class::Class() : d_(new Private) {
 
   // обр ссылка -  в самом конце, до этого нельзя
-  d->q = this;
+  d_->q = this;
 }
 
 Class::~Class()
 {
     // http://stackoverflow.com/questions/4190703/is-it-safe-to-delete-a-null-pointer
     // if (d)  ??  // Wrong - не нужно проверять
-    delete d;  // кажется проверяет указатель на ноль
+    delete d_;  // кажется проверяет указатель на ноль
 }
+
+
 
 void Class::f(double n)
 {
-    if (d->canAcceptN(n))
-        d->n = n;
+    if (d_->canAcceptN(n))
+        d_->n = n;
 }
 
-SomeThing & Class::someThing() const {
+const SomeThing & Class::someThing() const {
   // for const meth. this is const
   const Private* d = d_func();
   return d->someThing();
