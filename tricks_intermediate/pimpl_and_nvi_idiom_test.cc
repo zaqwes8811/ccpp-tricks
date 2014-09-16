@@ -1,3 +1,11 @@
+
+#include <boost/shared_ptr.hpp>
+
+#include <algorithm>
+#include <string>
+
+using std::string;
+
 // http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms
 // http://tinf2.vub.ac.be/~dvermeir/c++/EuroPLoP98.html
 
@@ -36,11 +44,21 @@
 // FIXME: что-то с константностью
 // habr.
 // *.h
+namespace habr_version {
+typedef int SomeThing;
+
 class Class
 {
+
+private:
+  // no assign and copy ctor
+  class Private; // предварительное объявление
+  Private* d_;    // сокрытие деталей реализации
+  // d - не константен! 
+
 public:
   void swap(Class& rhs) {
-    std::swap(d, rhs.d);
+    std::swap(d_, rhs.d_);
     // ...
   }
 
@@ -54,11 +72,7 @@ public:
   }
 
   // DANGER)0 - const
-  SomeThing & Class::someThing() const {
-    // for const meth. this is const
-    const Private* d = d_func();
-    return d->someThing;
-  }
+  SomeThing& someThing() const;
 
   // V0
   template <typename T>
@@ -80,18 +94,15 @@ public:
   Private * d_func() { return d_; }
 
   // Необычный оператор присваивания
+  /*
   Handle& Handle::operator=(const Handle &other) {
     if(this != &other) {
         *smile = *(other.smile);
     }
     return *this;
   }
+  */
 
-private:
-  // no assign and copy ctor
-  class Private; // предварительное объявление
-  Private* d_;    // сокрытие деталей реализации
-  // d - не константен! 
 };
 
 // *.cc
@@ -101,17 +112,19 @@ public:
   double n;
 
   Class * const q; // back-link
+
+  SomeThing& someThing() const { return s_; }
 public:
   // не передаем
     explicit Private( /*Class * qq*/ ) : q( 0 ) {}
+  SomeThing s_;
 };
 
-Class::Class()
-    : d(new Private) {
+Class::Class() : d(new Private) {
 
-      // обр ссылка -  в самом конце, до этого нельзя
-      d->q = this;
-    }
+  // обр ссылка -  в самом конце, до этого нельзя
+  d->q = this;
+}
 
 Class::~Class()
 {
@@ -126,6 +139,14 @@ void Class::f(double n)
         d->n = n;
 }
 
+SomeThing & Class::someThing() const {
+  // for const meth. this is const
+  const Private* d = d_func();
+  return d->someThing();
+}
+}  // namespace...
+
+namespace drdobbs_version {
 // Dr.Dobbs
 // http://www.drdobbs.com/cpp/making-pimpl-easy/205918714
 class Book
@@ -145,3 +166,4 @@ class Book
     struct Implementation;
     boost::shared_ptr<Implementation> impl_;
 };
+}  // namespace ..

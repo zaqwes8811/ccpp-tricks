@@ -88,3 +88,14 @@ NVIDIA CUDA Course
     otherwise,
       pass it by reference to non-constant (T& x).
 
+- Declare as explicit all constructors that receive only one argument, except for the copy constructors of concrete classes.
+- Declare conversion operators only to keep compatibility with an obsolete library (in C++11, declare them explicit).
+- Use the Pimpl idiom only when you want to make the rest of the program independent from the implementation of a class.
+  It should not, therefore, be used for classes whose public member functions are called frequently.
+
+- Iterators and function objects[edit] Ensure that custom iterators and function objects are tiny and do not allocate dynamic memory.
+
+/// Allocations and deallocations
+- Fixed length arrays - замена вектору, в нем доступ к куче
+- Allocating many small objects[edit] If you have to allocate many objects of the same size, use a block allocator.
+
