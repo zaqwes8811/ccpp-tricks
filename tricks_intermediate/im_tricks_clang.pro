@@ -5,6 +5,14 @@ CONFIG -= app_bundle
 CONFIG -= qt
 OBJECTS_DIR = obj
 
+# compilers
+# /home/zaqwes/tools/third_party/llvm-build/Release+Asserts/bin/
+QMAKE_CXX=clang++
+QMAKE_CXXFLAGS += -emit-llvm
+#QMAKE_CXX = clang++
+QMAKE_CC = clang
+QMAKE_LINK = clang++  #llvm-ld
+
 SOURCES += \
   pimpl_and_nvi_idiom_test.cc \
   smart_ptrs_in_depth_test.cc \

@@ -32,6 +32,8 @@ NVIDIA CUDA Course
 
 */
 
+/*
+/// @BIG: general
 /// Performance improving features
 - The most efficient types
 - Function-objects - лучше их передавать, а не указатели на функции
@@ -99,3 +101,109 @@ NVIDIA CUDA Course
 - Fixed length arrays - замена вектору, в нем доступ к куче
 - Allocating many small objects[edit] If you have to allocate many objects of the same size, use a block allocator.
 
+/// Memory access
+- Access memory in increasing addresses order. In particular: 
+   3) in class constructors and in assignment operators (operator=), access member variables in the order of declaration.
+- Keep the compiler default memory alignment.
+- Grouping functions in compilation units - не понял
+- Define every global variable in the compilation unit in which it is used most often.
+- Private functions and variables in compilation units
+
+/// Thread usage
+- In a multicore system, if you can split a CPU-intensive operation across several threads, use as many worker threads as there are processor cores.
+- Use of multi-threaded libraries.
+  If you are developing a single-threaded application, don't use libraries designed only for multi-threaded applications.
+- ...
+
+/// Input/Output
+- Store text files in a compressed format[edit] Disk have much less bandwidth than processors. 
+  By (de)compressing on the fly, the CPU can speed up I/O. Ну наверное, для конф. файлов точно не подходит, если они не меняются из
+  интефейса.
+- Binary format[edit] Instead of storing data in text mode, store them in a binary format.
+- Open files[edit] Instead of opening and closing an often needed file every 
+  time you access it, open it only the first time you access it, and close it when you are finished using it.
+  Так делал - типа уменьшал область видимости. Но тут нужно аккуратно. Да уменьшать нужно, но открывать часто не стоит.
+- Instead of doing many I/O operations on single small or tiny objects, do I/O operations on a 4 KB buffer containing many objects.
+- Memory-mapped file
+
+/// Memoization - короче кеширование - там трюки со static 
+- Look-up table
+- One-place cache
+- N-places cache
+
+/// Sorting
+- To sort a data set according an integer key having a small range, use the counting sort algorithm.
+- If you have to split a sequence according a criterion, use a partitioning algorithm, instead of a sorting one.
+- If you have to partition or sort a sequence for which equivalent entities may be swapped, don't use a stable algorithm.
+  те что сохраняют порядок несколько медленнее обычных
+- If you have to pick out the first N elements from a sequence, 
+  or the Nth element in a sequence, use an order partitioning algorithm, instead of a sorting one.
+- 
+
+/// Other techniques
+- If you have to do many searches in a !!!rarely changed collection, instead of using a search tree or a hash table, 
+  you can get a speed up if you put the data in an array, sort the array, and do binary searches on it. Лучше локальность ссылок
+- If for a list you don't need bidirectional iterators, you don't need to insert elements at the end or before the 
+  current element, and you don't need to know how many elements there are in the list, use a singly-linked list, instead of a doubly-linked list.
+
+/// @BIG: Code optimization - only in bottlenecks after prof
+/// Allocations and deallocations
+- Before adding elements to a vector or to a string object, call its member function reserve with a size big enough for most cases.
+- To empty a vector<T> x object without deallocating its memory, use the statement x.resize(0);;
+ to empty it and deallocate its memory, use the statement vector<T>().swap(x);.
+- !!!For every copyable concrete class T which, directly or indirectly, owns some dynamic memory, redefine the appropriate !!!swap functions.
+
+/// Run-time support
+- For every bottleneck, move before the bottleneck the try keywords, and after the bottleneck the matching catch clauses.
+- To perform input/output operations, instead of using the C++ streams, use the old C functions, declared in the cstdio header.
+
+// Instruction count
+- In switch statements, sort the cases by decreasing probability.
+- If an integer value is a constant in the application code, but is a variable in library code, make it a template parameter.
+- If you have to write a library abstract base class such that in every algorithm 
+  in the application code only one class derived from such base class will be used, use the Curiously Recurring Template Pattern.
+  http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
+- If an object that implements the Strategy design pattern (aka Policy) is a constant in every algorithm of the 
+  application code, eliminate such an object, make static all its members, and add its class as a template parameter.
+
+// Constructions and destructions
+- For non-inlined functions, try to declare a return type for which an object 
+  copy moves no more than 8 bytes. If unfeasible, at least construct the result object in the return statement.
+- If a variable is declared in the body of a loop, and an assignment to it costs less 
+  than a construction plus a destruction, move that declaration before the loop.
+- To avoid costly conversions, define overloaded functions for the most typical argument types.
+
+// Pipeline - Modern processors handle branches efficiently only if they can predict them. 
+// In bottlenecks, the hard-to-predict branches should be avoided.
+- Instead of a conditional expression in which both cases are constants, use a look-up table with two-places.
+
+// Memory access
+- Put near in the same compilation unit all the function definitions belonging to the same bottleneck.
+
+// Faster operations
+- Arrange the member variables of classes and structures in such a way 
+  that the most used variables are in the first 128 bytes, and then sorted from the longest object to the shortest.
+  The sorting minimized the paddings (or holes) caused by the alignment requirements, and so generates a more compact structure.
+- http://www.graphics.stanford.edu/~seander/bithacks.html
+- Instead of processing a single array of aggregate objects, process in parallel two or more arrays having the same length.
+  interlive can help*/
+
+/// From Alexandresky
+// http://www.slideshare.net/andreialexandrescu1/three-optimization-tips-for-c
+
+/// Facebook
+// https://www.facebook.com/notes/facebook-engineering/three-optimization-tips-for-c/10151361643253920
+
+/*
+Commonly given advice about approaching optimization in general, and optimization of C++ code in particular, includes:
+- Quoting Knuth more or less out of context
+- The classic one-two punch: (a) Don't do it; (b) Don't do it yet
+- Focus on algorithms, not on micro-optimization
+- Most programs are I/O bound (!!) отсюда процветание асинхронности?
+- Avoid constructing objects unnecessarily
+- Use C++11's rvalue references to implement move constructors
+
+// other
+- Minimize array writes. Save for a few obvious patterns, array accesses are not registered.
+  (!!!) Don't forget--computers are good at computation. The whole business of dealing with memory is more awkward.
+*/
