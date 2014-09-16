@@ -9,6 +9,7 @@ SOURCES += \
   pimpl_and_nvi_idiom_test.cc \
   smart_ptrs_in_depth_test.cc \
   move_idiom_test.cc \
+  mem_pools_test.cc \
   smart_ptrs_in_depth_test.cc \
   mem_and_resources_test.cc \
   ../3rdparty/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
