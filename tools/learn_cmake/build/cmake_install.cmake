@@ -1,4 +1,4 @@
-# Install script for directory: /home/zaqwes/work/in-the-vicinity-cc/tools/learn_cmake
+# Install script for directory: /home/zaqwes/work/in-the-vicinity-cc/tools/learn_cmake/clang
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
