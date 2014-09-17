@@ -140,4 +140,25 @@ TEST(STL, FindAdja) {
                       doubled);
   assert(*pos == 2);
 }
+
+// [value, bound)
+struct pred_upper_bound {
+  explicit pred_upper_bound(int b) : boundary(b) {}
+  int boundary;
+  bool operator()(const int value) const {
+    return value < boundary;
+  }
+};
+
+TEST(STL, AllInOne) {
+  //
+  vector<int> coll;
+  insert_elems(coll, 1, 9);
+  insert_elems(coll, 1, 9);
+  cout << coll;
+
+  // считаем по (==) - equal for objects
+  assert(2 == count(coll.begin(), coll.end(), 9));
+  assert(2 == count_if(coll.begin(), coll.end(), pred_upper_bound(2)));
+}
 }  // namespace
