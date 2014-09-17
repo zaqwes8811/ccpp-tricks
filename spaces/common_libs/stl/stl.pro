@@ -20,7 +20,8 @@ SOURCES += \
   algs/own_test.cc \
   string_test.cc \
   streams_test.cc \
-  iter_fun_pred_adapter_test.cc 
+  iters_test.cc \
+  fun_pred_adapter_test.cc 
 
 SOURCES += \
   $$LOCAL_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \

@@ -4,6 +4,7 @@
 #include "visuality/view.h"
 
 #include <gtest/gtest.h>
+//#include <
 
 #include <vector>
 #include <algorithm>
@@ -159,6 +160,13 @@ TEST(STL, AllInOne) {
 
   // считаем по (==) - equal for objects
   assert(2 == count(coll.begin(), coll.end(), 9));
-  assert(2 == count_if(coll.begin(), coll.end(), pred_upper_bound(2)));
+  assert(4 == count_if(coll.begin(), coll.end(), pred_upper_bound(3)));
+
+  assert(coll.end() == find(coll.begin(), coll.end(), 89));
+
+  // преобразуем бинарный в унарный
+  assert(coll.end() 
+    == find_if(coll.begin(), coll.end(), bind2nd(greater<int>(), 7))
+  );
 }
 }  // namespace
