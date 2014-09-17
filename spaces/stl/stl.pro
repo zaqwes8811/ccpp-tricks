@@ -15,11 +15,11 @@ SOURCES += \
   algs/nomod_test.cc \
   algs/mod_test.cc \
   algs/sorted_test.cc \
-  iter_func_test.cc \
+  algs/own_test.cc \
   string_test.cc \
   io_test.cc \
   streams_test.cc \
-  fun_pred_adapter_test.cc 
+  iter_fun_pred_adapter_test.cc 
 
 SOURCES += \
   $$_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \

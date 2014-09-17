@@ -15,6 +15,8 @@
 #include <valarray>
 #include <numeric>
 
+namespace {
+
 using std::for_each;
 using std::transform;
 using std::vector;
@@ -138,86 +140,4 @@ TEST(STL, FindAdja) {
                       doubled);
   assert(*pos == 2);
 }
-
-// summary:
-// p. 303 - не должен изменять состояние
-
-class Nth {
-private:
-  int nth;
-  int count;
-public:
-  Nth(int n) : nth(n), count(0) {}
-
-  // лучше пердавать по значению или по конст. ссылке.
-  // не должны менятся свойства как предиката, но константность лучше сперва поставить
-  bool operator() (int) /* must be const, but accamulate? best make const */ {
-    return ++count == nth;
-  }
-};
-
-class IntSequence {
-public:
-  int value;
-public:
-  IntSequence(int ini) : value(ini) {}
-  int operator()() {
-    return value++;
-  }
-};
-
-TEST(STL, PredicateWithState) {
-  IntSequence a(1);
-  a();
-  a();
-  assert(a.value == 3);
-  IntSequence b = a;
-  assert(b.value == 3);  // так а как состояние обнуляется? меняется копия!
-
-  // функтор != предикат
-  // for_each единственная может вернуть предикат - наверное не совсем предикат
-}
-
-TEST(STL, WrongPredicate) {
-  using std::remove_if;
-
-  list<int> coll;
-  insert_elems(coll, 1, 9);
-  print_elems(coll);
-
-  // del 3
-  list<int>::iterator pos;
-  pos = remove_if(coll.begin(), coll.end(),
-                  Nth(3));
-
-  coll.erase(pos, coll.end());
-  print_elems(coll, "nth removed: ");  // !! удален и 6 тоже!!
-}
-
-
-/// Numeric
-TEST(STL, InclusiveScan) {
-  using std::partial_sum;
-  using std::minus;
-  using std::rotate;
-
-  vector<int> coll;
-  insert_elems(coll, 1, 6);
-
-  vector<int> out;
-
-  // equal inclusive scan
-  partial_sum(coll.begin(), coll.end(),
-              back_inserter(out));
-
-  // exclusive scan from incl. scan
-  //for_each(coll.begin(), coll.end(), bind2nd(minus<int>(), ));  // V1 - don't work
-  print_elems(out);
-
-  // V2
-  rotate(out.begin(), out.end()-1, out.end());
-  if (out.begin() != out.end()) out.front() = 0;  // need add I elem
-
-  print_elems(out);
-  assert(out.at(0) == 0);
-}
+}  // namespace
