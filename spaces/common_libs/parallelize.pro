@@ -7,7 +7,7 @@ CONFIG -= qt
 # Libs
 BOOST=/home/zaqwes/work/third_party/boost_1_55_0
 DETAILS=..
-_3RD_PARTY=../3rdparty
+_3RD_PARTY=../../3rdparty
 ADOBE_SL=/home/zaqwes/work/third_party/source_release
 
 # но лучше бы 11 убрать, т.к. не ясно нужно ли доопределять некоторые функции
@@ -23,7 +23,7 @@ SOURCES += \
   tbb/base_test.cc
   
 SOURCES += \
-  ../launcher.cc \
+  ../../toolbox/launcher.cc \
   $$_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
 
 INCLUDEPATH += \

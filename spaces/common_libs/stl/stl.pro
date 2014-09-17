@@ -7,7 +7,9 @@ CONFIG -= qt
 # -pg -std=c++11
 QMAKE_CXXFLAGS += -O2  -Wall -Wno-deprecated 
 
-_3RD_PARTY=../../3rdparty
+LOCAL_3RD_PARTY=../../../3rdparty
+TOOLBOX = ../../../toolbox
+GLOBAL_3RD_PARTY = /home/zaqwes/work/third_party
 
 SOURCES += \
   alg_composite/insert_remove_erase_test.cc \
@@ -21,15 +23,15 @@ SOURCES += \
   iter_fun_pred_adapter_test.cc 
 
 SOURCES += \
-  $$_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
-  ../../launcher.cc
+  $$LOCAL_3RD_PARTY/gmock-1.6.0/fused-src/gmock-gtest-all.cc \
+  $$TOOLBOX/launcher.cc
 
 INCLUDEPATH += \
-  /home/zaqwes/work/third_party/source_release \
-  /home/zaqwes/work/third_party/boost_1_55_0 \
-  $$_3RD_PARTY/gmock-1.6.0/fused-src/ \
-  $$_3RD_PARTY/loki-0.1.7/include/ \
-  ../../
+  $$GLOBAL_3RD_PARTY/source_release \
+  $$GLOBAL_3RD_PARTY/boost_1_55_0 \
+  $$LOCAL_3RD_PARTY/gmock-1.6.0/fused-src/ \
+  $$LOCAL_3RD_PARTY/loki-0.1.7/include/ \
+  $$TOOLBOX
   
 OBJECTS_DIR = obj
 
