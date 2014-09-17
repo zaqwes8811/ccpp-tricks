@@ -38,6 +38,7 @@ using std::distance;
 using std::deque;
 
 using namespace view;
+using namespace std;
 
 TEST(STL, Find) {
   // . . . [4 ... 4] . . .
@@ -153,20 +154,164 @@ struct pred_upper_bound {
 
 TEST(STL, AllInOne) {
   //
-  vector<int> coll;
-  insert_elems(coll, 1, 9);
-  insert_elems(coll, 1, 9);
-  cout << coll;
+  vector<int> v;
+  insert_elems(v, 1, 9);
+  insert_elems(v, 1, 9);
+  cout << v;
 
   // считаем по (==) - equal for objects
-  assert(2 == count(coll.begin(), coll.end(), 9));
-  assert(4 == count_if(coll.begin(), coll.end(), pred_upper_bound(3)));
+  assert(2 == count(v.begin(), v.end(), 9));
+  assert(4 == count_if(v.begin(), v.end(), pred_upper_bound(3)));
 
-  assert(coll.end() == find(coll.begin(), coll.end(), 89));
+  assert(v.end() == find(v.begin(), v.end(), 89));
 
   // преобразуем бинарный в унарный
-  assert(coll.end() 
-    == find_if(coll.begin(), coll.end(), bind2nd(greater<int>(), 7))
+  assert(v.end() 
+    != find_if(v.begin(), v.end(), bind2nd(greater<int>(), 7))
   );
+
+  // поиск подряд идущих
+  std::vector<int>::iterator it = search_n(v.begin(), v.end(), 2, 7);
+  assert(it == v.end());  // нет заданного числа повторений
+
+  // вставка перед элеметом на который указывает - отодвигает элемент, на кот. указывает
+  v.insert(v.begin()+7, 7);  // не действительными могут стать итер. как все после, так и вообще
+  v.insert(v.end(), 17);  // перед end!
+  cout << v;
+
+  assert(v.end() == search_n(
+      v.begin(), v.end(), 
+      4, 
+      9, 
+      greater<int>()));  // можно без связывания
+
+  vector<int> pattern;
+  insert_elems(pattern, 1, 2);
+
+  // FIXME: а если интервал, который ищем больше исходного? да кажется все равно
+  /// поиск паттерна
+  {
+    // from begin
+    int count = 0;
+    vector<int>::iterator start = v.begin();
+    while (true) {
+      it = search(
+          start, v.end(), 
+          pattern.begin(), pattern.end());
+
+      if (it == v.end()) 
+        break;
+
+      // next step
+      start = it;
+      advance(start, pattern.size());  
+
+      // processing
+      cout << vector<int>(it, start);  // интервал валдный, т.к. раз нашли, значит все норм
+      ++count;
+    }
+    assert(count == 2);
+
+    // from end
+  }
+
+  // 
+  vector<int>::iterator stop = v.end();
+  while (true) {
+    it = find_end(
+          v.begin(), stop, 
+          pattern.begin(), pattern.end());
+
+    if (it == stop)  // not v.end()
+      break;
+
+    stop = it;// - pattern.size();
+
+    advance(it, pattern.size());
+    cout << vector<int>(stop, it);  // интервал валдный, т.к. раз нашли, значит все норм
+  }
+
+  // поиск вероятных
+}
+
+//equal_to<string::value_type>()  // удаляет все
+//bind2nd(equal_to<char>(), ' ');  // нужен был бинарный предикат
+struct spaces_purger
+{
+  bool operator()(string::value_type f, string::value_type n) const {
+    return isspace(f) && isspace(n);
+  }
+};
+
+
+// distance(s.begin()+offset, s.end())) 
+// substr не катит - возвращает копию
+// http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+
+/*
+{
+  //Idx offset = 0;
+  Idx end_it = string::npos;
+
+  while (true) {
+    Idx endpos = s.rfind(" ");
+
+    if (endpos != end_it) 
+      break;
+
+    string tmp(s.begin() + (endpos + 1), end_it);
+    tmp.append(" ");
+
+    // найденный итерато не действителен
+    cout << s << "<" << endl;
+    break;
+  }
+
+  //s.insert(s.begin(), tmp.begin(), tmp.end());
+  //s.erase(s.begin() + endpos + tmp.size(), s.end());
+}
+*/
+//typedef string::size_type Idx;
+// http://stackoverflow.com/questions/1011790/why-does-stdstring-findtext-stdstringnpos-not-return-npos
+TEST(OJ, Reverse) {
+  string s("  the   skyy is  blue   ");
+  s = "a";
+  s = "   ";
+  
+  // убираем повторяющиеся пробелы
+  s.erase(
+      unique(s.begin(), s.end(), spaces_purger()), 
+      s.end());
+
+  if (s == " ") s = "";
+  
+  {
+    // trim - no copy
+    string::size_type endpos = s.find_last_not_of(" ");  // size_t нельзя!!!
+    // раз не равно, то можно еще прибавить
+    if (string::npos != endpos) s.erase(s.begin()+endpos+1, s.end()); 
+
+    string::size_type startpos = s.find_first_not_of(" ");
+    if( string::npos != startpos ) s.erase(s.begin(), s.begin()+startpos);
+  }
+
+  // Real work
+  // нарезать слишком долго
+  // чтобы не искать с конца вращаем всю строку
+  reverse(s.begin(), s.end());
+  
+  {
+    // вращает отдельные слова
+    string::size_type offset = 0;
+    while (true) {
+      string::size_type space_pos = s.find(" ", offset);  
+      if (space_pos == string::npos) {
+        reverse(s.begin()+offset, s.end());  // последнюю не найдет
+        break;
+      }
+      reverse(s.begin()+offset, s.begin()+space_pos);
+      offset = space_pos+1;
+    }
+  }
 }
 }  // namespace

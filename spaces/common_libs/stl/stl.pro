@@ -13,7 +13,8 @@ GLOBAL_3RD_PARTY = /home/zaqwes/work/third_party
 
 SOURCES += \
   alg_composite/insert_remove_erase_test.cc \
-  containers_test.cc \
+  containers/containers_test.cc \
+  containers/containers_benchmark.cc \
   algs/nomod_test.cc \
   algs/mod_test.cc \
   algs/sorted_test.cc \

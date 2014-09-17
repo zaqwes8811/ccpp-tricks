@@ -2,6 +2,17 @@
 // http://www.boost.org/doc/libs/1_54_0/libs/ptr_container/doc/ptr_container.html
 // https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
 //
+// Chooose:
+//   если длина известна, то лучше выбрать C-arr, std::array, boost::array - "Opt. C++"
+//
+// (!): если очень мало пишем, но очень много ищем, то лучше использовать вектор, сортировать при добавлении и использовать алг. для 
+//   сорт. конейнеров, а не bst or hashtable. у вектора хорошая локальность кеша. но что-то все равно с локальностью не так.
+//   или не вектор, если не хранить в куче, а массив. но массивы не изменяемые по длине.
+//
+// Списки плохи для вычислений - плохая локалность ссылок
+//
+// Singly-linked lists - порой тоже полезны
+//
 #include "visuality/view.h"
 
 #include <gtest/gtest.h>
@@ -11,8 +22,6 @@
 #include <algorithm>
 #include <stdexcept>
 #include <list>
-
-
 
 using std::cout;
 using std::endl;
