@@ -10,14 +10,13 @@ QMAKE_CXXFLAGS += -O2  -Wall -Wno-deprecated
 _3RD_PARTY=../../3rdparty
 
 SOURCES += \
-  insert_remove_erase_test.cc \
+  alg_composite/insert_remove_erase_test.cc \
   containers_test.cc \
   algs/nomod_test.cc \
   algs/mod_test.cc \
   algs/sorted_test.cc \
   algs/own_test.cc \
   string_test.cc \
-  io_test.cc \
   streams_test.cc \
   iter_fun_pred_adapter_test.cc 
 
