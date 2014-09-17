@@ -1,7 +1,10 @@
 // Value based and ref-based interface
 // http://www.boost.org/doc/libs/1_54_0/libs/ptr_container/doc/ptr_container.html
 // https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
+//
+#include "visuality/view.h"
 
+#include <gtest/gtest.h>
 
 #include <vector>
 #include <iostream>
@@ -9,10 +12,7 @@
 #include <stdexcept>
 #include <list>
 
-#include <gtest/gtest.h>
 
-//
-#include "reuse/view.h"
 
 using std::cout;
 using std::endl;

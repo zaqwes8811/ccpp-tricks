@@ -1,3 +1,9 @@
+// Inner 
+#include "visuality/view.h"
+
+
+
+#include <gtest/gtest.h>
 
 #include <vector>
 #include <algorithm>
@@ -12,15 +18,10 @@
 #include <boost/range/end.hpp>
 #include <boost/range/begin.hpp>
 
-#include <gtest/gtest.h>
-
-// Inner 
-#include "reuse/view.h"
-
 using namespace std;
 using view::operator<<;
-using boost::end;
-using boost::begin;
+//using boost::end;
+//using boost::begin;
 
 // copy(... inserter/back_inserter/front_ins) -> должны заменяться интервальными функциями, insert, например
 
@@ -68,16 +69,16 @@ TEST(STL, RemoveInsertErase)
   
   // удаление
   // для списка лучше использовать собственное удаление
-  v1.erase(adobe::remove(v1, 1), end(v1)); // что-то не то
+  v1.erase(adobe::remove(v1, 1), boost::end(v1)); // что-то не то
   cout << v1;
   
   //
-  v1.erase(adobe::remove_if(v1, bad_value), end(v1));
+  v1.erase(adobe::remove_if(v1, bad_value), boost::end(v1));
   cout << v1;
   
   /// List
   list<int> l;
-  l.assign(begin(v2), end(v2));
+  l.assign(boost::begin(v2), boost::end(v2));
   cout << l;
   l.remove(1);  // реально удаляет
   cout << l;
