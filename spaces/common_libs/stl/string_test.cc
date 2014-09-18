@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 
 using namespace std;
 using namespace boost;
@@ -507,4 +508,52 @@ TEST(O_J, WordBreak2List) {
 
 TEST(OJ, WordBreak2DP) {
   // создаем что-то вроде сетки
+}
+
+TEST(Dyn, MaxGrow) {
+  // http://e-maxx.ru/algo/longest_increasing_subseq_log
+  int arr[] = {5, 2, 8, 6, 3, 6, 9, 7};
+  vector<int> v(arr, arr+8);
+
+  //list<int>
+  vector<int> d(v.size(), 0);
+  for (int i=0; i<v.size(); ++i) {
+    d[i] = 1;
+
+    // поиск со стиранием значения
+    for (int j = 0; j < i; ++j)
+      if (v[j] < v[i]) // включаем в ответ
+        d[i] = max (d[i], 1 + d[j]);
+  }
+  cout << v;
+  cout << d;
+  // 
+}
+
+TEST(Dyn, MaxCont) {
+  // http://e-maxx.ru/algo/longest_increasing_subseq_log
+  //
+  // Если на каком-то этапе не возрастает, то не обязательно она потом не возрастет. Это не как в жадном
+  //
+  // vn in Opt
+  //
+  // vn not in Opt
+  //
+  int arr[] = {5, 15, -30, 10, -5, 40, 10, -100};
+  vector<int> v(arr, arr+8);
+  cout << v;
+
+  //list<int>
+  vector<int> d(v.size(), 0);
+  vector<int> e = v;
+  std::partial_sum(v.rbegin(), v.rend(), e.begin());  // постоянно считаем их - сейчас считаем за раз
+  cout << e;
+
+
+  // O(2^n) - BAAD!!
+  for (int i = 0; i < v.size(); ++i) {
+    d[i] = *max_element(e.begin(), e.begin()+i);  // добавление константы на положение максимиума не влияет
+  }
+  cout << d;
+  // 
 }
