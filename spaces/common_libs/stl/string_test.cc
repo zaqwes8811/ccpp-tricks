@@ -3,6 +3,8 @@
 #include <gtest/gtest.h>
 
 #include <boost/unordered_set.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 #include <cassert>
 #include <string>
@@ -225,12 +227,15 @@ TEST(OJ, WordBreak2) {
     // будет похоже на дерево
     // нужно как-то делиться
     vector<string> store;
+
+    // много вставляем и удаляем, может список
+
     //store.reserve(1000);
-    vector<string::size_type> spaces;
+    //vector<string::size_type> spaces;
     //spaces.reserve(1000);
 
     store.push_back(s);
-    spaces.push_back(string::npos);
+    //spaces.push_back(string::npos);
 
     // one word
     string::size_type idx = 0;
@@ -242,8 +247,113 @@ TEST(OJ, WordBreak2) {
       // можно удалять путь, копия уже есть    
 
       string tail;
+      string first_part;
+      string::size_type i = 
+          //spaces[idx];  // принципиально скорости не прибыло
+          value.rfind(" ");
+
+      if (i == string::npos) { 
+        tail = value; 
+      } else {
+        tail = value.substr(i+1, string::npos);
+        first_part = value.substr(0, i+1);
+      }
+
+      if (dict.find(tail) == dict.end()) {
+        store.erase(store.begin()+idx);  // строка тупиковая
+        //spaces.erase(spaces.begin()+idx);
+      } else {
+        ++idx;
+      }
+
+      // calc
+      {
+        string::size_type offset = 0;
+        string tmp;
+        while (true) {
+          if (tail.begin()+offset == tail.end())
+            break;
+
+          tmp += tail.at(offset);
+          if (dict.find(tmp) != dict.end()) {
+            string new_record = tail;
+            new_record.insert(offset+1, " ");  // сдвигает всю строку
+
+            // not correct
+            //begin.insert(begin.end(), new_record.begin(), new_record.end());  // no speed up
+            //first_part += new_record;  // будет превышен объем памяти
+
+            //shared_ptr<string> ptr = make_shared<string>(begin+new_record);
+            store.push_back(first_part + new_record);
+
+            //spaces.push_back(begin.size()+(offset+1));  // нужно с конца
+          } 
+          ++offset;
+        }
+      }
+
+      
+      
+    }
+    r = store;
+  }
+
+  // prost-processing
+  // удяляем строчки с невалидными записями
+  cout << "Result: ";
+  cout << r;
+}
+
+TEST(O_J, WordBreak2) {
+  string s("catsanddog");
+  //s = "dogsand";
+
+  unordered_set<string> dict;
+  //dict.insert("b");
+  ///*
+  dict.insert("cat");
+  dict.insert("cats");
+  dict.insert("and");
+  dict.insert("sand");
+  dict.insert("dog");
+  //*/
+
+  vector<
+  shared_ptr<
+  string
+  > 
+  > r;
+  for (int i = 0; i < 100000; ++i) {
+    // all word wariants
+    // будет похоже на дерево
+    // нужно как-то делиться
+    //vector<string> store;
+    vector<shared_ptr<string> > store;
+
+    // много вставляем и удаляем, может список
+
+    //store.reserve(1000);
+    //vector<string::size_type> spaces;
+    //spaces.reserve(1000);
+    shared_ptr<string> ptr = make_shared<string>(s);
+
+    store.push_back(ptr);
+    //spaces.push_back(string::npos);
+
+    // one word
+    string::size_type idx = 0;
+    while (true) {
+      if (idx >= store.size())
+        break;
+
+      string value = *store[idx];
+      // можно удалять путь, копия уже есть    
+
+      string tail;
       string begin;
-      string::size_type i = spaces[idx];  // rfind - но особого ускорения не вышло
+      string::size_type i = 
+          //spaces[idx];  // принципиально скорости не прибыло
+          value.rfind(" ");
 
       if (i == string::npos) { 
         tail = value; 
@@ -252,28 +362,36 @@ TEST(OJ, WordBreak2) {
         begin = value.substr(0, i+1);
       }
 
-      if (dict.find(tail) == dict.end()) {
-        store.erase(store.begin()+idx);  // строка тупиковая
-        spaces.erase(spaces.begin()+idx);
-      } else {
-        ++idx;
+      // calc
+      {
+        string::size_type offset = 0;
+        string tmp;
+        while (true) {
+          if (tail.begin()+offset == tail.end())
+            break;
+
+          tmp += tail.at(offset);
+          if (dict.find(tmp) != dict.end()) {
+            string new_record = tail;
+            new_record.insert(offset+1, " ");  // сдвигает всю строку
+
+            // not correct
+            //begin.insert(begin.end(), new_record.begin(), new_record.end());  // no speed up
+
+            shared_ptr<string> ptr = make_shared<string>(begin+new_record);
+            store.push_back(ptr);
+
+            //spaces.push_back(begin.size()+(offset+1));  // нужно с конца
+          } 
+          ++offset;
+        }
       }
 
-      // calc
-      string::size_type offset = 0;
-      string tmp;
-      while (true) {
-        if (tail.begin()+offset == tail.end())
-          break;
-
-        tmp += tail.at(offset);
-        if (dict.find(tmp) != dict.end()) {
-          string new_record = tail;
-          new_record.insert(offset+1, " ");
-          store.push_back(begin + new_record);
-          spaces.push_back(begin.size()+(offset+1));  // нужно с конца
-        } 
-        ++offset;
+      if (dict.find(tail) == dict.end()) {
+        store.erase(store.begin()+idx);  // строка тупиковая
+        //spaces.erase(spaces.begin()+idx);
+      } else {
+        ++idx;
       }
       
     }
