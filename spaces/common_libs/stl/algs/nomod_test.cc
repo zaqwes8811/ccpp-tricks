@@ -231,87 +231,31 @@ TEST(STL, AllInOne) {
     cout << vector<int>(stop, it);  // интервал валдный, т.к. раз нашли, значит все норм
   }
 
-  // поиск вероятных
-}
-
-//equal_to<string::value_type>()  // удаляет все
-//bind2nd(equal_to<char>(), ' ');  // нужен был бинарный предикат
-struct spaces_purger
-{
-  bool operator()(string::value_type f, string::value_type n) const {
-    return isspace(f) && isspace(n);
-  }
-};
-
-
-// distance(s.begin()+offset, s.end())) 
-// substr не катит - возвращает копию
-// http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
-
-/*
-{
-  //Idx offset = 0;
-  Idx end_it = string::npos;
-
-  while (true) {
-    Idx endpos = s.rfind(" ");
-
-    if (endpos != end_it) 
-      break;
-
-    string tmp(s.begin() + (endpos + 1), end_it);
-    tmp.append(" ");
-
-    // найденный итерато не действителен
-    cout << s << "<" << endl;
-    break;
-  }
-
-  //s.insert(s.begin(), tmp.begin(), tmp.end());
-  //s.erase(s.begin() + endpos + tmp.size(), s.end());
-}
-*/
-//typedef string::size_type Idx;
-// http://stackoverflow.com/questions/1011790/why-does-stdstring-findtext-stdstringnpos-not-return-npos
-TEST(OJ, Reverse) {
-  string s("  the   skyy is  blue   ");
-  s = "a";
-  s = "   ";
-  
-  // убираем повторяющиеся пробелы
-  s.erase(
-      unique(s.begin(), s.end(), spaces_purger()), 
-      s.end());
-
-  if (s == " ") s = "";
-  
+  // поиск частей паттерна
   {
-    // trim - no copy
-    string::size_type endpos = s.find_last_not_of(" ");  // size_t нельзя!!!
-    // раз не равно, то можно еще прибавить
-    if (string::npos != endpos) s.erase(s.begin()+endpos+1, s.end()); 
-
-    string::size_type startpos = s.find_first_not_of(" ");
-    if( string::npos != startpos ) s.erase(s.begin(), s.begin()+startpos);
-  }
-
-  // Real work
-  // нарезать слишком долго
-  // чтобы не искать с конца вращаем всю строку
-  reverse(s.begin(), s.end());
-  
-  {
-    // вращает отдельные слова
-    string::size_type offset = 0;
+    vector<int>::iterator start = v.begin();
     while (true) {
-      string::size_type space_pos = s.find(" ", offset);  
-      if (space_pos == string::npos) {
-        reverse(s.begin()+offset, s.end());  // последнюю не найдет
+      assert(distance(start, v.end()) >= 0);  // O(1) - random; O(n) - other
+
+      it = find_first_of(
+          start, v.end(),  // start <= end
+          pattern.begin(), pattern.end());
+      if (it == v.end())
         break;
-      }
-      reverse(s.begin()+offset, s.begin()+space_pos);
-      offset = space_pos+1;
+
+      // inc
+      start = it;
+      // http://bytes.com/topic/c/answers/63628-how-do-you-keep-advance-going-beyond-end
+      // http://stackoverflow.com/questions/5916239/stdadvance-behavior-when-advancing-beyond-end-of-container
+      advance(start, 1);  //
+
+      // processing
+      cout << *it << endl;
+
     }
   }
+
+  // search_n - это поиск конкретных повсторяющихся, это любых повторяющихся
 }
+
 }  // namespace

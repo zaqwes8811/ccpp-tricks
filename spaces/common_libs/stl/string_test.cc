@@ -1,10 +1,14 @@
 #include <gtest/gtest.h>
 
+#include <boost/unordered_set.hpp>
+
 #include <cassert>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+using namespace boost;
   
 TEST(STL, Strings) {
   /// std::string
@@ -73,4 +77,97 @@ TEST(STL, Strings) {
   //   http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case - Boost
   // LIBRARY: http://site.icu-project.org/ ICU
   // ICU in embedded world - http://thebugfreeblog.blogspot.ru/2013/05/cross-building-icu-for-applications-on.html
+}
+
+
+//equal_to<string::value_type>()  // удаляет все
+//bind2nd(equal_to<char>(), ' ');  // нужен был бинарный предикат
+struct spaces_purger
+{
+  bool operator()(string::value_type f, string::value_type n) const {
+    return isspace(f) && isspace(n);
+  }
+};
+
+
+// distance(s.begin()+offset, s.end())) 
+// substr не катит - возвращает копию
+// http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+
+/*
+{
+  //Idx offset = 0;
+  Idx end_it = string::npos;
+
+  while (true) {
+    Idx endpos = s.rfind(" ");
+
+    if (endpos != end_it) 
+      break;
+
+    string tmp(s.begin() + (endpos + 1), end_it);
+    tmp.append(" ");
+
+    // найденный итерато не действителен
+    cout << s << "<" << endl;
+    break;
+  }
+
+  //s.insert(s.begin(), tmp.begin(), tmp.end());
+  //s.erase(s.begin() + endpos + tmp.size(), s.end());
+}
+*/
+//typedef string::size_type Idx;
+// http://stackoverflow.com/questions/1011790/why-does-stdstring-findtext-stdstringnpos-not-return-npos
+//
+// In place
+//   http://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance
+TEST(OJ, Reverse) {
+  // O(n) но с несколькими константами
+
+  string s("  the   skyy is  blue   ");
+  s = "a";
+  s = "   ";
+  const char splitter(' ');
+  
+  // убираем повторяющиеся пробелы
+  s.erase(
+      unique(s.begin(), s.end(), spaces_purger()), 
+      s.end());  // O(n)
+
+  if (s == " ") s = "";
+  
+  {
+    // trim - no copy
+    string::size_type startpos = s.find_first_not_of(splitter);
+    if( string::npos != startpos ) s.erase(s.begin(), s.begin()+startpos);
+
+    string::size_type endpos = s.find_last_not_of(splitter);  // size_t нельзя!!!
+    // раз не равно, то можно еще прибавить
+    if (string::npos != endpos) s.erase(s.begin()+endpos+1, s.end()); 
+  }
+
+  // Real work
+  // нарезать слишком долго
+  // чтобы не искать с конца вращаем всю строку
+  reverse(s.begin(), s.end());  // O(n)
+  
+  {
+    // вращает отдельные слова
+    string::size_type offset = 0;
+    while (true) {
+      // если превышает, то просто не найдет
+      string::size_type space_pos = s.find(splitter, offset);  
+      if (space_pos == string::npos) {
+        reverse(s.begin()+offset, s.end());  // последнюю не найдет
+        break;
+      }
+      reverse(s.begin()+offset, s.begin()+space_pos);
+      offset = space_pos+1;  // раз мы здесь, то +1 максимум станет концом строки
+    }
+  }
+}
+
+TEST(OJ, WordBreak) {
+
 }
