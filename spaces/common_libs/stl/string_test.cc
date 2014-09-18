@@ -211,13 +211,15 @@ private:
 // all word wariants
 // будет похоже на дерево
 // нужно как-то делиться
+//
+// FIXME: плохой алгоритма - на одном из случаем просто захлебнулся - тут микрооптимизация не поможет.
 TEST(OJ, WordBreak2) {
-  string s("catsanddog");
+  string s("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
   //s = "dogsand";
 
   unordered_set<string> dict;
   //dict.insert("b");
-  ///*
+  /*
   dict.insert("cat");
   dict.insert("cats");
   dict.insert("and");
@@ -225,23 +227,35 @@ TEST(OJ, WordBreak2) {
   dict.insert("dog");
   //*/
 
-  vector<string> r;
-  for (int i = 0; i < 100000; ++i) {
-    vector<string> store;
+  dict.insert("a");
+  dict.insert("aa");
+  dict.insert("aaa");
+  dict.insert("aaaa");
+  dict.insert("aaaaa");
+  dict.insert("aaaaaa");
+  dict.insert("aaaaaaa");
+  dict.insert("aaaaaaaa");
+  dict.insert("aaaaaaaaa");
+  dict.insert("aaaaaaaaaa");
+
+  vector
+  //list
+  <string> r;
+  for (int i = 0; i < 1; ++i) {
+    vector
+    //list
+    <string> store;
 
     store.push_back(s);
 
     // one word
-    //string::size_type idx = 0;
-    //while (true) {
     for (vector<string>::iterator elem = store.begin(); ; ) {
       // много на себя берет - и вставляет и удаляет
-
       if (elem == store.end())
         break;
 
-      string value = *elem;//store[idx];
-      cout << value << endl;
+      string value = *elem;
+      size_t diff = distance(store.begin(), elem);
       // можно удалять путь, копия уже есть    
 
       string tail;
@@ -263,23 +277,22 @@ TEST(OJ, WordBreak2) {
           if (tail.begin()+offset == tail.end())
             break;
 
-          tmp += tail.at(offset);
+          tmp += tail[offset];
           if (dict.find(tmp) != dict.end()) {
             string new_record = tail;
             new_record.insert(offset+1, " ");  // сдвигает всю строку
-            store.push_back(first_part + new_record);
+            store.push_back(first_part + new_record);  // делает невалидными итераторы
           } 
           ++offset;
         }
       }
 
-      // remove
+      // remove - нужно восстановить итератор
       // elem уже не валидный
+      elem = store.begin();
+      advance(elem, diff);
       if (dict.find(tail) == dict.end()) {
-        //store.begin()+idx
-        //cout << store << *elem << endl;
         elem = store.erase(elem);  // строка тупиковая
-        cout << store << endl;
       } else {
         ++elem;
       }
@@ -385,6 +398,98 @@ TEST(O_J, WordBreak2) {
         ++idx;
       }
       
+    }
+    r = store;
+  }
+
+  // prost-processing
+  // удяляем строчки с невалидными записями
+  cout << "Result: ";
+  cout << r;
+}
+
+TEST(O_J, WordBreak2List) {
+  string s("catsanddog");
+  //s = "dogsand";
+
+  unordered_set<string> dict;
+  //dict.insert("b");
+  ///*
+  dict.insert("cat");
+  dict.insert("cats");
+  dict.insert("and");
+  dict.insert("sand");
+  dict.insert("dog");
+  //*/
+
+  //vector
+  list
+  <string> r;
+  for (int i = 0; i < 100000; ++i) {
+    //vector
+    list
+    <string> store;
+
+    store.push_back(s);
+
+    // one word
+    //string::size_type idx = 0;
+    //while (true) {
+    for (
+      //vector
+      list
+      <string>::iterator elem = store.begin(); ; ) {
+      // много на себя берет - и вставляет и удаляет
+
+      if (elem == store.end())
+        break;
+
+      string value = *elem;//store[idx];
+      //size_t diff = distance(store.begin(), elem);
+      //cout << value << endl;
+      // можно удалять путь, копия уже есть    
+
+      string tail;
+      string first_part;
+      string::size_type i = value.rfind(" ");
+
+      if (i == string::npos) { 
+        tail = value; 
+      } else {
+        tail = value.substr(i+1, string::npos);
+        first_part = value.substr(0, i+1);
+      }
+
+      // calc
+      {
+        string::size_type offset = 0;
+        string tmp;
+        while (true) {
+          if (tail.begin()+offset == tail.end())
+            break;
+
+          tmp += tail.at(offset);
+          if (dict.find(tmp) != dict.end()) {
+            string new_record = tail;
+            new_record.insert(offset+1, " ");  // сдвигает всю строку
+            store.push_back(first_part + new_record);  // делает невалидными итераторы
+          } 
+          ++offset;
+        }
+      }
+
+      // remove - нужно восстановить итератор
+      // elem уже не валидный
+      //elem = store.begin();
+      //advance(elem, diff);
+      if (dict.find(tail) == dict.end()) {
+        //store.begin()+idx
+        //cout << store << *elem << endl;
+        elem = store.erase(elem);  // строка тупиковая
+        //cout << store << endl;
+      } else {
+        ++elem;
+      }
     }
     r = store;
   }
