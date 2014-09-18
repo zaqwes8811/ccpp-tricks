@@ -304,6 +304,7 @@ TEST(OJ, WordBreak2) {
   cout << r;
 }
 
+// gcc4.7 - строки похоже с подсчетом ссылок!
 TEST(O_J, WordBreak2) {
   string s("catsanddog");
   //s = "dogsand";
