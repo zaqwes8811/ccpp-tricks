@@ -207,6 +207,10 @@ private:
 // Похоже реально нужно копить в дерево - или вектор списков
 //
 // FIXME: time limit
+//
+// all word wariants
+// будет похоже на дерево
+// нужно как-то делиться
 TEST(OJ, WordBreak2) {
   string s("catsanddog");
   //s = "dogsand";
@@ -223,47 +227,32 @@ TEST(OJ, WordBreak2) {
 
   vector<string> r;
   for (int i = 0; i < 100000; ++i) {
-    // all word wariants
-    // будет похоже на дерево
-    // нужно как-то делиться
     vector<string> store;
 
-    // много вставляем и удаляем, может список
-
-    //store.reserve(1000);
-    //vector<string::size_type> spaces;
-    //spaces.reserve(1000);
-
     store.push_back(s);
-    //spaces.push_back(string::npos);
 
     // one word
-    string::size_type idx = 0;
-    while (true) {
-      if (idx >= store.size())
+    //string::size_type idx = 0;
+    //while (true) {
+    for (vector<string>::iterator elem = store.begin(); ; ) {
+      // много на себя берет - и вставляет и удаляет
+
+      if (elem == store.end())
         break;
 
-      string value = store[idx];
+      string value = *elem;//store[idx];
+      cout << value << endl;
       // можно удалять путь, копия уже есть    
 
       string tail;
       string first_part;
-      string::size_type i = 
-          //spaces[idx];  // принципиально скорости не прибыло
-          value.rfind(" ");
+      string::size_type i = value.rfind(" ");
 
       if (i == string::npos) { 
         tail = value; 
       } else {
         tail = value.substr(i+1, string::npos);
         first_part = value.substr(0, i+1);
-      }
-
-      if (dict.find(tail) == dict.end()) {
-        store.erase(store.begin()+idx);  // строка тупиковая
-        //spaces.erase(spaces.begin()+idx);
-      } else {
-        ++idx;
       }
 
       // calc
@@ -278,22 +267,22 @@ TEST(OJ, WordBreak2) {
           if (dict.find(tmp) != dict.end()) {
             string new_record = tail;
             new_record.insert(offset+1, " ");  // сдвигает всю строку
-
-            // not correct
-            //begin.insert(begin.end(), new_record.begin(), new_record.end());  // no speed up
-            //first_part += new_record;  // будет превышен объем памяти
-
-            //shared_ptr<string> ptr = make_shared<string>(begin+new_record);
             store.push_back(first_part + new_record);
-
-            //spaces.push_back(begin.size()+(offset+1));  // нужно с конца
           } 
           ++offset;
         }
       }
 
-      
-      
+      // remove
+      // elem уже не валидный
+      if (dict.find(tail) == dict.end()) {
+        //store.begin()+idx
+        //cout << store << *elem << endl;
+        elem = store.erase(elem);  // строка тупиковая
+        cout << store << endl;
+      } else {
+        ++elem;
+      }
     }
     r = store;
   }
@@ -344,6 +333,7 @@ TEST(O_J, WordBreak2) {
     // one word
     string::size_type idx = 0;
     while (true) {
+    
       if (idx >= store.size())
         break;
 
