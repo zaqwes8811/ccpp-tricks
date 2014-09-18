@@ -3,9 +3,11 @@
 
 #include <gtest/gtest.h>
 
-#include <vector>
 #include <algorithm>
+#include <iterator>
 #include <numeric>  // partial sum
+#include <valarray>
+#include <vector>
 
 using namespace std;
 using namespace view;
@@ -36,13 +38,6 @@ TEST(STL, InclusiveScan) {
   print_elems(out);
   assert(out.at(0) == 0);
 }
-
-#include <iterator>
-#include <numeric>
-#include <valarray>
-#include <vector>
-
-#include <gtest/gtest.h>
 
 // Using stable_partition, but how be with predicate - it must be stateless
 //   how check buy mask.
