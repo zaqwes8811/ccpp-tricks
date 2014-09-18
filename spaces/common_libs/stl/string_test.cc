@@ -213,6 +213,9 @@ private:
 // нужно как-то делиться
 //
 // FIXME: плохой алгоритма - на одном из случаем просто захлебнулся - тут микрооптимизация не поможет.
+//   DP просто необходимо.
+//
+// FIXME: алгоритм вышел очень большим... и не прошел тесты.
 TEST(OJ, WordBreak2) {
   string s("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
   //s = "dogsand";
