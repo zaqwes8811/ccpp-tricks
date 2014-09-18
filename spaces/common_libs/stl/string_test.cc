@@ -297,7 +297,7 @@ TEST(OJ, WordBreak2) {
       elem = store.begin();
       advance(elem, diff);
       if (dict.find(tail) == dict.end()) {
-        elem = store.erase(elem);  // строка тупиковая
+        elem = store.erase(elem);  // строка тупиковая и похоже отсюда и идет экспоненциальность - в ней много одинаковых подзадач
       } else {
         ++elem;
       }
@@ -503,4 +503,8 @@ TEST(O_J, WordBreak2List) {
   // удяляем строчки с невалидными записями
   cout << "Result: ";
   cout << r;
+}
+
+TEST(OJ, WordBreak2DP) {
+  // создаем что-то вроде сетки
 }
