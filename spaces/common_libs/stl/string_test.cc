@@ -208,6 +208,8 @@ private:
 //
 // FIXME: time limit
 //
+// FIXME: O(2^n) - очень плохо
+//
 // all word wariants
 // будет похоже на дерево
 // нужно как-то делиться
@@ -244,7 +246,7 @@ TEST(OJ, WordBreak2) {
   vector
   //list
   <string> r;
-  for (int i = 0; i < 1; ++i) {
+  for (int i = 0; i < 0; ++i) {  // exp time stop...
     vector
     //list
     <string> store;
