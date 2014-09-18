@@ -120,3 +120,24 @@ TEST(STL, OwnCompact) {
   assert(dist.size() == active_elems_count);
 }
 
+struct op {
+  bool operator()(int elem, bool mask_elem) {
+    return mask_elem;
+  }
+};
+
+TEST(Own, CompactOnSearch) {
+  vector<int> mask(10);
+  for (int i=0; i<10; ++i) {
+    mask[i] = i % 2;
+  }
+
+  vector<int> src(10);
+  for (int i = 0; i < 10; ++i) src[i] = i;  //  0  1  2  3  4  5  6  7  8  9
+
+  vector<int> dist;  // FIXME: reverse 
+
+  // Work
+  //search()  // ищет последовательность - тут не тот случай - NOT WORK
+}
+

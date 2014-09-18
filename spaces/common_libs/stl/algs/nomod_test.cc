@@ -256,6 +256,46 @@ TEST(STL, AllInOne) {
   }
 
   // search_n - это поиск конкретных повсторяющихся, это любых повторяющихся
+  v.insert(v.begin(), 3, 1);
+  cout << v;
+  {
+    vector<int>::iterator start = v.begin();
+    while (true) {
+      assert(distance(start, v.end()) >= 0);  // O(1) - random; O(n) - other
+
+      it = adjacent_find(start, v.end());
+      if (it == v.end())
+        break;
+
+      // раз нашли, значит есть запас в 2 элемента
+
+      // inc
+      start = it;
+      advance(start, 1);  //
+
+      // processing
+      cout << vector<int>(it, it+2);
+    }
+  }
+
+  // equal - mismatch
+  {
+    vector<int> first(3, 1);
+    vector<int> second(3, 1);
+    pair<vector<int>::iterator, vector<int>::iterator> finded = mismatch (
+        first.begin(), first.end(), v.begin());
+
+    // не нашлось, но для первого указание - end, а для второго до куда дошли
+    cout << vector<int>(finded.first, first.end());
+    cout << vector<int>(finded.second, v.end());
+
+    // lexical - f < l
+    assert(!lexicographical_compare(first.begin(), first.end(), second.begin(), second.end()));
+    second.push_back(3);
+    assert(lexicographical_compare(first.begin(), first.end(), second.begin(), second.end()));
+    second[0] = 0;  // теперь первая послед. стала больше
+    assert(!lexicographical_compare(first.begin(), first.end(), second.begin(), second.end()));
+  }
 }
 
 }  // namespace
