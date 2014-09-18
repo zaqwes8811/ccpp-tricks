@@ -539,14 +539,17 @@ TEST(Dyn, MaxCont) {
   //
   // vn not in Opt
   //
-  int arr[] = {5, 15, -30, 10, -5, 40, 10, -100};
-  vector<int> v(arr, arr+8);
+  // Решение херня!
+  //
+  int arr[] = {-10, 5, 15, -30, 10, -5, 40, 10, -10, -10, -10, 90, 90};
+  vector<int> v(arr, arr+sizeof arr / sizeof arr[0]);
   cout << v;
 
   //list<int>
   vector<int> d(v.size(), 0);
   vector<int> e = v;
   std::partial_sum(v.rbegin(), v.rend(), e.begin());  // постоянно считаем их - сейчас считаем за раз
+  //reverse(e.begin(), e.end());
   cout << e;
 
 
