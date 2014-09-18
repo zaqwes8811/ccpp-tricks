@@ -14,7 +14,7 @@ class Action {
 public:
   explicit Action(std::ostream* o_) : o(o_) { }
   void operator()(const T& elem) const {
-    *o << elem << " ";
+    *o << elem << ", ";
   }
   std::ostream* const o;
 }; 

@@ -1,3 +1,5 @@
+#include "visuality/view.h"
+
 #include <gtest/gtest.h>
 
 #include <boost/unordered_set.hpp>
@@ -9,6 +11,7 @@
 
 using namespace std;
 using namespace boost;
+using namespace view;
   
 TEST(STL, Strings) {
   /// std::string
@@ -168,6 +171,117 @@ TEST(OJ, Reverse) {
   }
 }
 
-TEST(OJ, WordBreak) {
+/*
+// tooo much code
+class acc {
+public:
+  explicit acc(const string& _rest) : rest(_rest), it(0) {}
+  string summary;
+  string current;
 
+  string::size_type it;
+  const string rest;  // raw rest
+
+  ass split() {
+    commit_();
+    ass a(" ");
+    return a;
+  }
+
+private:
+  // слово была найдено
+  void commit_() {
+    summary += current;
+    summary += " ";
+    string().swap(current);
+  }
+};
+*/
+
+// а если d, d, no-d, d - склеит вместе - похоже все последовательность не валидна
+//
+// Dyn. progr. по идее должна решаться рекурсивно, но нам нужны все валиные треки
+// 
+// Похоже реально нужно копить в дерево - или вектор списков
+//
+// FIXME: time limit
+TEST(OJ, WordBreak2) {
+  string s("catsanddog");
+  //s = "dogsand";
+
+  unordered_set<string> dict;
+  //dict.insert("b");
+  ///*
+  dict.insert("cat");
+  dict.insert("cats");
+  dict.insert("and");
+  dict.insert("sand");
+  dict.insert("dog");
+  //*/
+
+  vector<string> r;
+  for (int i = 0; i < 100000; ++i) {
+    // all word wariants
+    // будет похоже на дерево
+    // нужно как-то делиться
+    vector<string> store;
+    //store.reserve(1000);
+    vector<string::size_type> spaces;
+    //spaces.reserve(1000);
+
+    store.push_back(s);
+    spaces.push_back(string::npos);
+
+    // one word
+    string::size_type idx = 0;
+    while (true) {
+      if (idx >= store.size())
+        break;
+
+      string value = store[idx];
+      // можно удалять путь, копия уже есть    
+
+      string tail;
+      string begin;
+      string::size_type i = spaces[idx];  // rfind - но особого ускорения не вышло
+
+      if (i == string::npos) { 
+        tail = value; 
+      } else {
+        tail = value.substr(i+1, string::npos);
+        begin = value.substr(0, i+1);
+      }
+
+      if (dict.find(tail) == dict.end()) {
+        store.erase(store.begin()+idx);  // строка тупиковая
+        spaces.erase(spaces.begin()+idx);
+      } else {
+        ++idx;
+      }
+
+      // calc
+      string::size_type offset = 0;
+      string tmp;
+      while (true) {
+        if (tail.begin()+offset == tail.end())
+          break;
+
+        tmp += tail.at(offset);
+        if (dict.find(tmp) != dict.end()) {
+          string new_record = tail;
+          new_record.insert(offset+1, " ");
+          store.push_back(begin + new_record);
+          spaces.push_back(begin.size()+(offset+1));  // нужно с конца
+        } 
+        ++offset;
+      }
+      
+    }
+    r = store;
+  }
+
+  // prost-processing
+  // удяляем строчки с невалидными записями
+  cout << "Result: ";
+  cout << r;
 }
