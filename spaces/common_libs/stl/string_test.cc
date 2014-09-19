@@ -531,7 +531,7 @@ TEST(Dyn, MaxGrow) {
 }
 
 TEST(Dyn, MaxCont) {
-  // http://e-maxx.ru/algo/longest_increasing_subseq_log
+  // http://e-maxx.ru/algo/maximum_average_segment
   //
   // Если на каком-то этапе не возрастает, то не обязательно она потом не возрастет. Это не как в жадном
   //
@@ -541,22 +541,49 @@ TEST(Dyn, MaxCont) {
   //
   // Решение херня!
   //
-  int arr[] = {-10, 5, 15, -30, 10, -5, 40, 10, -10, -10, -10, 90, 90};
+  int arr[] = {5, 15, -30, 10, -5, 40, 10, -10, -11};//, 10, -5, 40, 11};
   vector<int> v(arr, arr+sizeof arr / sizeof arr[0]);
   cout << v;
 
-  //list<int>
-  vector<int> d(v.size(), 0);
-  vector<int> e = v;
-  std::partial_sum(v.rbegin(), v.rend(), e.begin());  // постоянно считаем их - сейчас считаем за раз
-  //reverse(e.begin(), e.end());
-  cout << e;
+  vector<int> s(v.size(), 0);  // +1
+  vector<int> d(v.size()+1, 0);
+  partial_sum(v.begin(), v.end(), /*++*/s.begin());  // постоянно считаем их - сейчас считаем за раз
+  cout << s;
 
-
-  // O(2^n) - BAAD!!
-  for (int i = 0; i < v.size(); ++i) {
-    d[i] = *max_element(e.begin(), e.begin()+i);  // добавление константы на положение максимиума не влияет
+  // s[r] - s[l-1] -> max -> нужно вычесть минимум -> min(s[0, r-1])
+  // Solve
+  // значение суммы может потерятья, а оно нужно для поиска мимимуму - не все берется в решение
+  // sum += v[r];  // s[r] int sum = 0;
+  d[0] = v[0];
+  for (int r=0; r < v.size(); ++r) {
+    int max_sum_r_elem = s[r] - *min_element(s.begin(), s.begin()+r);  // как считать - все равно. можно и локальными переменными
+    d[r+1] = max(d[r], max_sum_r_elem);  
   }
+
+  // Reconstruct - только по dr не вышло
+  int ans_l = 0, ans_r = 0;
+  int value = d.back();  // не проверяю не пустоту
+  for (int r=0; r < d.size() - 1; ++r) {
+    // ищем последний перепад - если активности нет, до конца, то последовательность найдена
+    if (d[r+1] != d[r]) {
+      ans_r = r+1;  // не вкл. )
+    }
+  }
+
+  ans_l = ans_r-1;
+  while (true) {
+    value -= v[ans_l];
+    if (!value)
+      break;
+    --ans_l;
+  }
+  
+
+  // Result
+  cout << "Result: " << d.back() << " : ";
+  assert(ans_l <= ans_r);
+  cout << vector<int>(v.begin()+ans_l, v.begin()+ans_r);
+
   cout << d;
   // 
 }
