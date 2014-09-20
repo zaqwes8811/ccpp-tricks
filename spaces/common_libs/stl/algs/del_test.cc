@@ -70,6 +70,9 @@ TEST(STL, Remove_fun) {
   // v0 - partion
   // v1 - delete, set null, del null - конт. не должен сод. null-elems
   //   !!! static_cast<Widget*>(0) !!! не просто 0
+
+  // copy_if
+  // remove_copy_if(begin,end,destBegin,not1(p));  // !BAD impl
 }
 
 TEST(stl, unique_fun) {
