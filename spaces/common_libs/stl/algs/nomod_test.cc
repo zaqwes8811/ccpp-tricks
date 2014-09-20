@@ -289,7 +289,7 @@ TEST(STL, AllInOne) {
     cout << vector<int>(finded.first, first.end());
     cout << vector<int>(finded.second, v.end());
 
-    // Так можно сортировать массивы разноразмерный векторов. просто проверять на эквив. нельзя
+    // Так можно сортировать массивы разноразмерный векторов. просто проверять на эквив. нельзя.
     // lexical - f < l
     assert(!lexicographical_compare(first.begin(), first.end(), second.begin(), second.end()));
     second.push_back(3);
