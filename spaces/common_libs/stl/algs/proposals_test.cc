@@ -12,6 +12,10 @@
 using namespace std;
 using namespace view;
 
+TEST(stl, reduce) {
+
+}
+
 /// Numeric
 TEST(STL, InclusiveScan) {
   using std::partial_sum;
@@ -40,7 +44,7 @@ TEST(STL, InclusiveScan) {
 }
 
 TEST(stl, ExclScan) {
-  
+
 }
 
 // Using stable_partition, but how be with predicate - it must be stateless
