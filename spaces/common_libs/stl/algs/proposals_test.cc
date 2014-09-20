@@ -1,5 +1,9 @@
 // cotainer <- glue_iter <- algor.
 //
+// используя итераторы можно на основе контейнеров делать свои алгоритмы
+//
+//
+// Sean Paretn Ch9 - Seasoning
 //
 #include "visuality/view.h"
 
@@ -13,6 +17,9 @@
 
 using namespace std;
 using namespace view;
+
+// slide
+// slice
 
 TEST(stl, reduce) {
 
@@ -52,9 +59,12 @@ TEST(stl, ExclScan) {
   //for_each(coll.begin(), coll.end(), bind2nd(minus<int>(), ));  // V1 - don't work
   print_elems(out);
 
-  // V2
-  rotate(out.begin(), out.end()-1, out.end());  // O(n)
-  if (out.begin() != out.end()) out.front() = 0;  // need add I elem
+  // V2 - т.е. мы просто сдвигаем отсортированный - хрень какая-то
+  if (!out.empty()) {
+    int I = 0;
+    rotate(out.begin(), --out.end(), out.end());  // O(n)?  or O(n^2)
+    out.front() = I;  // need add I elem
+  }
 
   print_elems(out);
   assert(out.at(0) == 0);
