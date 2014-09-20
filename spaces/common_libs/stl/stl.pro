@@ -18,6 +18,7 @@ SOURCES += \
   algs/nomod_test.cc \
   algs/mod_test.cc \
   algs/sorted_test.cc \
+  algs/sort_test.cc \
   algs/own_test.cc \
   algs/del_test.cc \
   string_test.cc \
