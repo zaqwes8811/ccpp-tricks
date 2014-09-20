@@ -8,6 +8,7 @@
 #include <deque>
 #include <functional>
 #include <iostream>
+#include <iterator>
 #include <list>
 #include <numeric>
 #include <string>
@@ -22,7 +23,10 @@ using namespace view;
 
 //Del
 // для списков есть более эффективные функции
+// те что с copy похоже не меняют входного интервала
 TEST(STL, Remove_fun) {
+  // http://www.gotw.ca/gotw/051.htm
+
   using std::less;
 
   vector<int> coll;
@@ -35,7 +39,11 @@ TEST(STL, Remove_fun) {
   pos = remove(coll.begin(), coll.end(),
                5);
   print_elems(coll, "size not changed: ");
-  coll.erase(pos, coll.end());
+  
+  // своя erase уже знает что делать с элементами, на вход идут итератор
+  vector<int>::iterator next = coll.erase(pos, coll.end());  // Возвращает VALIDE(!!!) итератор
+  // с ассоциативными не все так просто.
+
   print_elems(coll, "size changed: ");
 
   coll.erase(remove_if(
@@ -46,9 +54,18 @@ TEST(STL, Remove_fun) {
   print_elems(coll, "removed < 4: ");
 
   // удаления с копированием
-
+  // http://stackoverflow.com/questions/11928115/why-doesnt-stdremove-copy-if-actually-remove
+  coll.clear();
+  insert_elems(coll, 1, 7);
+  vector<int> c_save = coll;
+  cout << coll;
+  vector<int> e;
+  remove_copy_if(coll.begin(), coll.end(), back_inserter(e), bind2nd(less<int>(), 4));
+  cout << e << coll;
+  assert(coll == c_save);
 }
 
 TEST(stl, unique_fun) {
+  // удаляем одинаковые соседние, либо условно копирует
 
 }
