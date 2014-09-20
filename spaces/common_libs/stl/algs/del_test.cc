@@ -63,6 +63,13 @@ TEST(STL, Remove_fun) {
   remove_copy_if(coll.begin(), coll.end(), back_inserter(e), bind2nd(less<int>(), 4));
   cout << e << coll;
   assert(coll == c_save);
+
+  //
+  // FIXME: из-за особенностей remove возникает проблема с удалением 
+  //   указателей на динамическую память, или не управл. хендлов.
+  // v0 - partion
+  // v1 - delete, set null, del null - конт. не должен сод. null-elems
+  //   !!! static_cast<Widget*>(0) !!! не просто 0
 }
 
 TEST(stl, unique_fun) {
