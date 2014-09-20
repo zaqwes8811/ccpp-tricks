@@ -39,6 +39,10 @@ TEST(STL, InclusiveScan) {
   assert(out.at(0) == 0);
 }
 
+TEST(stl, ExclScan) {
+  
+}
+
 // Using stable_partition, but how be with predicate - it must be stateless
 //   how check buy mask.
 //
@@ -140,4 +144,6 @@ TEST(Own, CompactOnSearch) {
   // Work
   //search()  // ищет последовательность - тут не тот случай - NOT WORK
 }
+
+// copy_if right impl!! Meyser Eff. STL 34
 
