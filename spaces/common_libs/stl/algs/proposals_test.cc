@@ -27,10 +27,6 @@ TEST(stl, reduce) {
 
 /// Numeric
 TEST(STL, InclusiveScan) {
-  using std::partial_sum;
-  using std::minus;
-  using std::rotate;
-
   vector<int> coll;
   insert_elems(coll, 1, 6);
 
@@ -42,10 +38,6 @@ TEST(STL, InclusiveScan) {
 }
 
 TEST(stl, ExclScan) {
-  using std::partial_sum;
-  using std::minus;
-  using std::rotate;
-
   vector<int> coll;
   insert_elems(coll, 1, 6);
 
@@ -171,6 +163,10 @@ TEST(Own, CompactOnSearch) {
   // Work
   //search()  // ищет последовательность - тут не тот случай - NOT WORK
 }
+
+// compact можно сделать через for_each - для нее похоже могут возникать побобные эффекты
+//  тогда маску можно передать в конструктор (или указатель, со ссылками похоже лучше так не делать)
+//  и по ходу вычислять индекс.
 
 // copy_if right impl!! Meyser Eff. STL 34
 
