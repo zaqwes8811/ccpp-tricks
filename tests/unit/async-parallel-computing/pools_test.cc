@@ -20,6 +20,28 @@
 //  - Sutter
 //  - http://www.ibm.com/developerworks/library/j-jtp0730/
 //    "Understand your tasks." - может для разных типов задач разные пулы
+//
+// Pools
+//   http://stackoverflow.com/questions/16677287/boostthreadpoolpool-vs-boostthread-group
+//   http://stackoverflow.com/questions/19500404/how-to-create-a-thread-pool-using-boost-in-c
+//   http://techiesaint.wordpress.com/2012/12/16/implementing-threadpool-pattern-in-c-using-boostthread-pool/
+//   http://www.tonicebrian.com/2012/05/23/thread-pool-in-c/
+//
+// Hand-maded threadpool
+//   http://stackoverflow.com/questions/22284557/thread-pool-implementation-using-pthreads
+//   http://rextester.com/discussion/XHA86284/ThreadPool
+//   http://www.youtube.com/watch?v=FfbZfBk-3rI
+
+// TODO: Try http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
+//   но это не на пуле, это просто так
+//
+// About own thread pool
+//   http://codereview.stackexchange.com/questions/40536/simple-thread-pool-in-c
+//
+// http://stackoverflow.com/questions/19500404/how-to-create-a-thread-pool-using-boost-in-c
+// Похоже нужен планеровщик. Не очень понял последную часть
+//
+// http://thisthread.blogspot.co.il/2011/04/multithreading-with-asio.html
 
 #define BOOST_THREAD_PROVIDES_FUTURE
 
@@ -73,24 +95,33 @@ namespace boost {
 // Non-Boost yet
 //#include <boost/threadpool.hpp>
 
-// Hand-maded threadpool
-//   http://stackoverflow.com/questions/22284557/thread-pool-implementation-using-pthreads
-//   http://rextester.com/discussion/XHA86284/ThreadPool
-//   http://www.youtube.com/watch?v=FfbZfBk-3rI
-
-// TODO: Try http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
-//   но это не на пуле, это просто так
-//
-// About own thread pool
-//   http://codereview.stackexchange.com/questions/40536/simple-thread-pool-in-c
-//
-// http://stackoverflow.com/questions/19500404/how-to-create-a-thread-pool-using-boost-in-c
-// Похоже нужен планеровщик. Не очень понял последную часть
-//
-// http://thisthread.blogspot.co.il/2011/04/multithreading-with-asio.html
-namespace
-{
+namespace {
+using namespace std;
+boost::mutex m_io_monitor;
 boost::mutex mio; // 1
+
+
+std::string ans("forty two");
+
+int int_no_params()
+{
+  return 42;
+}
+
+int int_with_params(int param)
+{
+  return param;
+}
+
+std::string string_no_params()
+{
+  return std::string("forty two");
+}
+
+std::string string_with_params(std::string & param)
+{
+  return param;
+}
 
 void logMsg(const std::string& reason, int i)
 {
@@ -118,119 +149,6 @@ void jobTwo(int millisecs, boost::exception_ptr& error)
   }
 }
 
-void run(int tNumber) 
-{
-  /*boost::asio::io_service svc;
-  boost::asio::io_service::work work(svc);
-  boost::thread_group threads;
-  
-  // Как получить исключение
-  for(int i = 0; i < tNumber; ++i) // 4
-    threads.create_thread(boost::bind(&boost::asio::io_service::run, &svc));
- 
-  svc.post(boost::bind(jobOne, 1)); // 5
-  svc.post(boost::bind(jobOne, 1));
-  
-  boost::exception_ptr error;
-  svc.post(boost::bind(jobTwo, 50, boost::ref(error)));
- 
-  svc.stop(); // 6
-  threads.join_all(); // 7
-  
-  if (error)
-    boost::rethrow_exception(error);
-  */
-  
-  // https://gist.github.com/snaewe/1393807
-  boost::asio::io_service svc;  // 2.
-  boost::thread_group threads;
- 
-  boost::exception_ptr error;  // похоже одна на поток
-  {
-    std::auto_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(svc)); //3.
-    for (int i = 0; i < tNumber; ++i)   // 4.
-      threads.create_thread (boost::bind (&boost::asio::io_service::run, &svc));
- 
-    svc.post(boost::bind(jobOne, 2)); // 5.
-    svc.post(boost::bind(jobOne, 1));
-    
-    svc.post(boost::bind(jobTwo, 50, boost::ref(error)));
- 
-    //svc.stop ();          // 6.
-  }
-  threads.join_all ();      // 7.
-
-  EXPECT_TRUE(error);
-  EXPECT_THROW(boost::rethrow_exception(error), std::runtime_error);
-
-}
-
-TEST(ThPool, AsioVersionCheck) {
-  // http://www.boost.org/doc/libs/1_47_0/libs/exception/doc/tutorial_exception_ptr.html
-  run(4);  // если нет планировщика, то лучше потоков побольше чем ядер
-}
-
-
-std::string ans("forty two");
-
-int int_no_params()
-{
-  return 42;
-}
-
-int int_with_params(int param)
-{
-  return param;
-}
-
-std::string string_no_params()
-{
-  return std::string("forty two");
-}
-
-std::string string_with_params(std::string & param)
-{
-  return param;
-}
-
-// http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
-// http://stackoverflow.com/questions/4084777/creating-a-thread-pool-using-boost/4085345#4085345
-// http://think-async.com/Asio/Recipes
-// DANGER: а как с ошибками то быть?
-TEST(ThPool, Asio) {
-  typedef boost::packaged_task<std::string> task_t;
-  boost::asio::io_service io_service;
-  boost::thread_group threads;
-  boost::asio::io_service::work work(io_service);
-
-  for (int i = 0; i < 3; ++i)
-    threads.create_thread(boost::bind(&boost::asio::io_service::run, &io_service));
-
-  
-  boost::shared_ptr<task_t> example =  boost::make_shared<task_t>(boost::bind(&string_with_params, ans));
-  // unique_
-  boost::future<std::string> f = example->get_future();
-  
-  // одну задачу
-  io_service.post(boost::bind(&task_t::operator(), example));
-  std::string answer = f.get();
-  std::cout << "string_with_params: " << answer << std::endl;
-  io_service.stop();
-  
-  threads.join_all();
-}
-
-}
-
-// Pools
-//   http://stackoverflow.com/questions/16677287/boostthreadpoolpool-vs-boostthread-group
-//   http://stackoverflow.com/questions/19500404/how-to-create-a-thread-pool-using-boost-in-c
-//   http://techiesaint.wordpress.com/2012/12/16/implementing-threadpool-pattern-in-c-using-boostthread-pool/
-//   http://www.tonicebrian.com/2012/05/23/thread-pool-in-c/
-
-namespace {
-using namespace std;
-boost::mutex m_io_monitor;
 
 void print(string text)
 {
@@ -285,6 +203,101 @@ int task_int_1()
   //}
 }
 
+// http://stackoverflow.com/questions/14422319/boost-threading-conceptualization-questions
+// Non compiled
+//
+// http://www.mr-edd.co.uk/blog/
+class Data {
+
+};
+
+int run_sim(Data*) { return 0; }
+const unsigned nsim = 50;
+
+void run(int tNumber) 
+{
+  /*boost::asio::io_service svc;
+  boost::asio::io_service::work work(svc);
+  boost::thread_group threads;
+  
+  // Как получить исключение
+  for(int i = 0; i < tNumber; ++i) // 4
+    threads.create_thread(boost::bind(&boost::asio::io_service::run, &svc));
+ 
+  svc.post(boost::bind(jobOne, 1)); // 5
+  svc.post(boost::bind(jobOne, 1));
+  
+  boost::exception_ptr error;
+  svc.post(boost::bind(jobTwo, 50, boost::ref(error)));
+ 
+  svc.stop(); // 6
+  threads.join_all(); // 7
+  
+  if (error)
+    boost::rethrow_exception(error);
+  */
+  
+  // https://gist.github.com/snaewe/1393807
+  boost::asio::io_service svc;  // 2.
+  boost::thread_group threads;
+ 
+  boost::exception_ptr error;  // похоже одна на поток
+  {
+    std::auto_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(svc)); //3.
+    for (int i = 0; i < tNumber; ++i)   // 4.
+      threads.create_thread (boost::bind (&boost::asio::io_service::run, &svc));
+ 
+    svc.post(boost::bind(jobOne, 2)); // 5.
+    svc.post(boost::bind(jobOne, 1));
+    
+    svc.post(boost::bind(jobTwo, 50, boost::ref(error)));
+ 
+    //svc.stop ();          // 6.
+  }
+  threads.join_all ();      // 7.
+
+  EXPECT_TRUE(error);
+  EXPECT_THROW(boost::rethrow_exception(error), std::runtime_error);
+}
+
+namespace tests {
+TEST(ThPool, AsioVersionCheck) {
+  // http://www.boost.org/doc/libs/1_47_0/libs/exception/doc/tutorial_exception_ptr.html
+  run(4);  // если нет планировщика, то лучше потоков побольше чем ядер
+}
+
+// http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
+// http://stackoverflow.com/questions/4084777/creating-a-thread-pool-using-boost/4085345#4085345
+// http://think-async.com/Asio/Recipes
+// DANGER: а как с ошибками то быть?
+TEST(ThPool, AsioBase) {
+  using boost::shared_ptr;
+  using boost::make_shared;
+  using boost::bind;
+  using std::string;
+
+  typedef boost::packaged_task<std::string> task_t;
+  boost::asio::io_service io_service;
+  boost::thread_group threads;
+  boost::asio::io_service::work work(io_service);
+
+  for (int i = 0; i < 3; ++i)
+    threads.create_thread(bind(&boost::asio::io_service::run, &io_service));
+
+  shared_ptr<task_t> example = make_shared<task_t>(bind(&string_with_params, ans));
+  boost::future<string> f = example->get_future();
+  
+  // одну задачу
+  io_service.post(boost::bind(&task_t::operator(), example));
+
+  string answer = f.get();
+  std::cout << "string_with_params: " << answer << std::endl;
+
+  // stop pull
+  io_service.stop();
+  threads.join_all();
+}
+
 // Не все хорошо стыкуется если C++98
 // С С++11 похоже есть расходжения
 // DANGER: похоже лучше свой пул.
@@ -335,17 +348,6 @@ TEST(ThPool, Own) {
   //fii.get();
 }
 
-
-// http://stackoverflow.com/questions/14422319/boost-threading-conceptualization-questions
-// Non compiled
-//
-// http://www.mr-edd.co.uk/blog/
-class Data {
-
-};
-
-int run_sim(Data*) { return 0; }
-const unsigned nsim = 50;
 /*
 TEST(TMP, Test) {
   // https://github.com/mirror/boost/blob/master/libs/thread/example/executor.cpp
@@ -376,4 +378,5 @@ TEST(TMP, Test) {
 }
 */
 }
+}  // space
 
