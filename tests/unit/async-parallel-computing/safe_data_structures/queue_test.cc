@@ -170,7 +170,7 @@ struct BoundedBlockingQueueTerminateException
 
 */
 template<typename T>
-class bounded_blocking_queue : public boost::noncopyable {
+class concurent_try_queue : public boost::noncopyable {
 public:
   // types
   typedef T value_type;
@@ -178,7 +178,7 @@ public:
   typedef T& reference;
   typedef const T& const_reference;
 
-  explicit bounded_blocking_queue(int size)
+  explicit concurent_try_queue(int size)
       : cm_size(size), m_nblocked_pop(0), m_nblocked_push(0)
       , m_with_blocked(false)
       , m_stopped(false)
@@ -188,7 +188,7 @@ public:
     }
   }
 
-  ~bounded_blocking_queue() {
+  ~concurent_try_queue() {
     stop(true);
   }
 
@@ -212,8 +212,8 @@ public:
           return false;
 
       //m_q.push(x);  // bad
-      m_q.splice(boost::end(m_q), tmp);
-      //m_q.splice(m_q.end(), tmp);
+      //m_q.splice(boost::end(m_q), tmp);
+      m_q.splice(m_q.end(), tmp);
     }
     //if (m_with_blocked) m_pop_cv.notify_one();
     return true;
@@ -307,7 +307,7 @@ private:
 }  // space
 
 TEST(ThreadSafeDS, TBBAssignTest) {
-  fix_extern_space::bounded_blocking_queue<int> q(10);
+  fix_extern_space::concurent_try_queue<int> q(10);
   int r = 0;
   EXPECT_TRUE(q.try_push(r));
   EXPECT_TRUE(q.try_pop(r));
