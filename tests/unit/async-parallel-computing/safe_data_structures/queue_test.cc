@@ -33,6 +33,29 @@
   http://stackoverflow.com/questions/1164023/is-there-a-production-ready-lock-free-queue-or-hash-implementation-in-c
 */
 
+// TODO: из толков от яндекса
+// https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
+// Для контейнеров нужна внешняя синхронизация.
+//
+// ref base and value base - похоже не то же самое что смартпоинтеры в контейнерах
+//
+// Нельзя зывать чужой код под "замком"!!
+/*
+
+// кстати в плане исключений все было норм.
+void push(const T& t){
+  //node* p_node = new node(t);  // TODO: сделать безопасным в плане искл.
+  // http://www.gotw.ca/publications/using_auto_ptr_effectively.htm
+  auto_ptr<node> p_node(new node(t));
+  lock_guard lck(mtx);
+
+  p_node->next = head;
+
+  head = p_node.release();  // not get!!
+}
+// когда забираем из стека, то тоже можно захватить auto_ptr'ом
+*/
+
 #include <gtest/gtest.h>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
@@ -62,7 +85,7 @@ using boost::lock_guard;
 using std::list;
 
 namespace interfaces_mt_ds {
-/// Существующие интерфейсы
+// Существующие интерфейсы
 // Boost - lookfree ds
 // TBB - best but...
 // С++11 - потокобезопасные контейнеры - таких там нет
@@ -98,62 +121,6 @@ private:
 };
 }
 
-// TODO: очередь от Шена
-// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
-//
-// В вопросах кто-то не лестно отозвался о реализации, но что он сказал?
-template <typename T>
-class concurent_queue 
-{
-  mutex mutex_;
-  list<T> q_;
-public:
-  void enqueue(T x) {
-    // allocation here
-    list<T> tmp;
-    tmp.push_back(move(x));
-    
-    // threading
-    {
-      lock_guard<mutex> lock(mutex_);
-      // вроде бы константное время
-      q_.splice(end(q_), tmp);
-      
-      // для вектора может неожиданно потреб. реаллокация
-    }
-  }
-  
-  // ...
-};
-
-
-// TODO: из толков от яндекса
-// https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
-// Для контейнеров нужна внешняя синхронизация.
-//
-// ref base and value base - похоже не то же самое что смартпоинтеры в контейнерах
-//
-// Нельзя зывать чужой код под "замком"!!
-/*
-
-// кстати в плане исключений все было норм.
-void push(const T& t){
-  //node* p_node = new node(t);  // TODO: сделать безопасным в плане искл.
-  // http://www.gotw.ca/publications/using_auto_ptr_effectively.htm
-  auto_ptr<node> p_node(new node(t));
-  lock_guard lck(mtx);
-  
-  p_node->next = head;
-  
-  head = p_node.release();  // not get!!
-}
-// когда забираем из стека, то тоже можно захватить auto_ptr'ом
-*/
-
-TEST(DS, TBBAssignTest) {
-  
-}
-
 namespace fix_extern_space {
 /** Pro
    http://stackoverflow.com/questions/20488854/implementation-of-a-bounded-blocking-queue-using-c
@@ -172,16 +139,12 @@ template<typename T>
 class bounded_blocking_queue : public boost::noncopyable {
 private:
   std::queue<T> m_q;  // FIXME: to list
-  boost::mutex mtx;
-  boost::
-  //mutex::
-  condition_variable_any cond1; // q.empty() condition
-  boost::
-  //mutex::
-  condition_variable_any cond2; // q.size() == size condition
-  int nblocked1;
-  int nblocked2;
-  bool stopped;
+  boost::mutex m_mtx;
+  boost::condition_variable_any m_pop_cv; // q.empty() condition
+  boost::condition_variable_any m_push_cv; // q.size() == size condition
+  int m_nblocked_pop;
+  int m_nblocked_push;
+  bool m_stopped;
   int m_size;
 
 public:
@@ -192,7 +155,7 @@ public:
   typedef const T& const_reference;
 
   bounded_blocking_queue(int size)
-      : m_size(size), nblocked1(0), nblocked2(0), stopped(false) {
+      : m_size(size), m_nblocked_pop(0), m_nblocked_push(0), m_stopped(false) {
     if (m_size < 1){
         // BOOST_THROW_EXCEPTION
     }
@@ -203,56 +166,59 @@ public:
   }
 
   bool empty() {
-    boost::mutex::scoped_lock lock(mtx);
+    boost::mutex::scoped_lock lock(m_mtx);
     return m_q.empty();
   }
 
   std::size_t size() {
-    boost::mutex::scoped_lock lock(mtx);
+    boost::mutex::scoped_lock lock(m_mtx);
     return m_q.size();
   }
 
-  bool try_push(const T& item) {
-    boost::mutex::scoped_lock lock(mtx);
-    if (m_q.size() == size)
-        return false;
+  bool try_push(const T& elem) {
+    {
+      boost::mutex::scoped_lock lock(m_mtx);
+      if (m_q.size() == m_size)//size)
+          return false;
 
-    m_q.push(item);
-    lock.unlock();
-    cond1.notify_one();
+      m_q.push(elem);  // bad
+    }
+    m_pop_cv.notify_one();
     return true;
   }
 
 private:
   void push(const T& item) {
-    boost::mutex::scoped_lock lock(mtx);
+    {
+      boost::mutex::scoped_lock lock(m_mtx);
 
-    ++nblocked2;
-    while (!stopped && m_q.size() == size)
-      cond2.wait(lock);
-    --nblocked2;
+      ++m_nblocked_push;
+      while (!m_stopped && m_q.size() == size)
+        m_push_cv.wait(lock);
+      --m_nblocked_push;
 
-    if (stopped) {
-      cond2.notify_all();
-      BOOST_THROW_EXCEPTION(BoundedBlockingQueueTerminateException());
+      if (m_stopped) {
+        m_push_cv.notify_all();
+        BOOST_THROW_EXCEPTION(BoundedBlockingQueueTerminateException());
+      }
+
+      m_q.push(item);
     }
-
-    m_q.push(item);
-    //lock.unlock(mtx);  // why?
-    cond1.notify_one();
+    m_pop_cv.notify_one();
   }
 
 public:
   bool try_pop(T& popped) {
-      boost::mutex::scoped_lock lock(mtx);
+    {
+      boost::mutex::scoped_lock lock(m_mtx);
       if (m_q.empty())
           return false;
 
       popped = m_q.front();
       m_q.pop();
-      //lock.unlock(mtx);  // why?
-      cond2.notify_one();
-      return true;
+    }
+    m_push_cv.notify_one();
+    return true;
   }
 
   /**
@@ -260,37 +226,71 @@ public:
   */
 private:
   void pop(T& popped) {
-      boost::mutex::scoped_lock lock(mtx);
+    boost::mutex::scoped_lock lock(m_mtx);
 
-      ++nblocked1;
-      while (!stopped && m_q.empty())
-          cond1.wait(lock);
-      --nblocked1;
+    ++m_nblocked_pop;
+    while (!m_stopped && m_q.empty())
+        m_pop_cv.wait(lock);
+    --m_nblocked_pop;
 
-      if (stopped) {
-          cond1.notify_all();
-          BOOST_THROW_EXCEPTION(BoundedBlockingQueueTerminateException());
-      }
+    if (m_stopped) {
+      m_pop_cv.notify_all();
+      BOOST_THROW_EXCEPTION(BoundedBlockingQueueTerminateException());
+    }
 
-      popped = m_q.front();
-      m_q.pop();
-      cond2.notify_one();
+    popped = m_q.front();
+    m_q.pop();
+    m_push_cv.notify_one();
   }
 
 public:
   void stop(bool wait) {
-    boost::mutex::scoped_lock lock(mtx);
-    stopped = true;
-    cond1.notify_all();
-    cond2.notify_all();
+    boost::mutex::scoped_lock lock(m_mtx);
+    m_stopped = true;
+    m_pop_cv.notify_all();
+    m_push_cv.notify_all();
 
     if (wait) {
-      while (nblocked1)
-        cond1.wait(lock);
-      while (nblocked2)
-        cond2.wait(lock);
+      while (m_nblocked_pop)
+        m_pop_cv.wait(lock);
+      while (m_nblocked_push)
+        m_push_cv.wait(lock);
     }
   }
 };
+
+//
+// TODO: очередь от Шена
+// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
+//
+// В вопросах кто-то не лестно отозвался о реализации, но что он сказал?
+template <typename T>
+class concurent_queue
+{
+  mutex mutex_;
+  list<T> q_;
+public:
+  void enqueue(T x) {
+    // allocation here
+    list<T> tmp;
+    tmp.push_back(x);//move(x));
+
+    // threading
+    {
+      lock_guard<mutex> lock(mutex_);
+      // вроде бы константное время
+      q_.splice(end(q_), tmp);
+
+      // для вектора может неожиданно потреб. реаллокация
+    }
+  }
+
+  // ...
+};
+
+}  // space
+
+TEST(DS, TBBAssignTest) {
+
 }
 

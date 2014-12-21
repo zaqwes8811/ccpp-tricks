@@ -239,9 +239,8 @@ void process_data() {}
 void wait_for_data_to_process()
 {
     boost::unique_lock<boost::mutex> lock(mut);
-    while(!data_ready)
-    {
-        cond.wait(lock);
+    while(!data_ready) {
+      cond.wait(lock);
     }
     process_data();
 }
