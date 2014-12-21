@@ -86,7 +86,9 @@ elseif (UNIX)
     #
     # http://stackoverflow.com/questions/9511422/undefined-reference-to-clock-gettime-gcc-4-6-cmake
     # http://www.unix.com/man-page/opensolaris/3lib/librt/
-    link_libraries(boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+    #
+    # https://software.intel.com/en-us/forums/topic/285308
+    link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
   endif()
 endif()
 
@@ -135,6 +137,8 @@ file( GLOB mibTest  ${unitTests}/canary/smash_test_mib/*.c)
 file( GLOB canaryTestHttp  ${unitTests}/canary/*.cc ${Tests}/canary/*.h)
 file( GLOB proTests
   ${unitTests}/tricks_peoples/sean_parent/*.cc
+  ${unitTests}/tricks_intermediate/*.cc
+  ${unitTests}/mem_heap_stack/*.cc
   ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
   ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
 file( GLOB testsRtos

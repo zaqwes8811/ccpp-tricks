@@ -15,11 +15,12 @@
 //
 // Аллокатор может кэшировать память!
 // https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
+
+#include <gtest/gtest.h>
+#include <tbb/scalable_allocator.h>
+
 #include <vector>
 #include <iostream>
-
-// 3rdparty::common
-#include <tbb/scalable_allocator.h>
 
 using namespace std;
 
@@ -33,9 +34,7 @@ void foo(const Vector<int>::Type& v) {
   
 }
 
-int main() {
-  
-  /// Intel TBB
+TEST(Alloc, TBB) {
   Vector<int>::Type v;
   //v.reserve(100000);  // don't link
   v.push_back(9);
@@ -43,6 +42,4 @@ int main() {
   // аллокатор нужно указывать
   Vector<int>::Type c_copy = v;
   foo(v);
-  
-  return 0;
 }
