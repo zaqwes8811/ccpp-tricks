@@ -71,7 +71,7 @@ namespace boost {
 //using boost::unique_future;
 
 // Non-Boost yet
-#include <boost/threadpool.hpp>
+//#include <boost/threadpool.hpp>
 
 // Hand-maded threadpool
 //   http://stackoverflow.com/questions/22284557/thread-pool-implementation-using-pthreads
@@ -290,7 +290,7 @@ int task_int_1()
 // DANGER: похоже лучше свой пул.
 TEST(ThPool, SFLib) //void func()
 { 
-  using namespace boost::threadpool;
+  /*using namespace boost::threadpool;
   //using boost::unique_future;
   
   //print("  Create a new thread pool\n");
@@ -308,7 +308,7 @@ TEST(ThPool, SFLib) //void func()
     //res.get();
   } catch (runtime_error& e) {
     
-  }
+  }*/
 
   // The pool handle tp is allocated on stack and will 
   // be destructed if it gets out of scope. Before the 

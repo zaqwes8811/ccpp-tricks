@@ -3,7 +3,7 @@
 # http://www.cmake.org/Wiki/CMake_Useful_Variables
 # -DCMAKE_BUILD_TYPE=Debug
 
-project(dist-control-system)
+project(cc-space)
 cmake_minimum_required(VERSION 2.8)
 
 #Message(${CMAKE_CURRENT_LIST_DIR})
@@ -82,7 +82,11 @@ elseif (UNIX)
     link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
     # how split embedded form just linux
     # http://stackoverflow.com/questions/9534126/automatically-linking-socket-shared-library-in-nix
-    link_libraries(pthread boost_system)
+    # http://stackoverflow.com/questions/14835605/linking-with-gcc-fails-after-switching-boost-version-from-1-52-to-1-53
+    #
+    # http://stackoverflow.com/questions/9511422/undefined-reference-to-clock-gettime-gcc-4-6-cmake
+    # http://www.unix.com/man-page/opensolaris/3lib/librt/
+    link_libraries(boost_system boost_thread pthread rt)  # !! pthread and rt last!!
   endif()
 endif()
 
@@ -130,7 +134,7 @@ file( GLOB externMibApi
 file( GLOB mibTest  ${unitTests}/canary/smash_test_mib/*.c)
 file( GLOB canaryTestHttp  ${unitTests}/canary/*.cc ${Tests}/canary/*.h)
 file( GLOB proTests  ${unitTests}/production/*.cc)
-file( GLOB testsRtos  ${unitTests}/extern/*.cc)
+file( GLOB testsRtos  ${unitTests}/async-parallel-computing/*.cc)
 
 # Pack
 set( unitTests ${mibTest} ${canaryTestHttp} ${proTests} ${testsRtos})
