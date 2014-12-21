@@ -17,11 +17,12 @@
 
 #include <iostream>
 
-#include "tbb/task_scheduler_init.h"
-#include "tbb/task.h"
+//#include "tbb/task_scheduler_init.h"
+//#include "tbb/task.h"
 
 #include <gtest/gtest.h>
 
+/*
 namespace {
 using namespace tbb;
 
@@ -97,3 +98,4 @@ TEST(TBB, AsyncTry)
 {
   ParallelFib(25);
 }
+*/

@@ -34,7 +34,7 @@ include_directories(${Extern}/mongoose-5.2/)
 include_directories(${Extern}/smash-vx.y-fix/)
 include_directories(${Extern}/jsoncpp-src-0.6.0-rc2/include)
 include_directories(${BigExtern}/boost_1_57_0)
-include_directories(${Pro}/crosscuttings)
+include_directories(${BigExtern}/asl_1.0.43)
 include_directories(${unitTests})
 
 # link the libraries to the executable
@@ -94,7 +94,7 @@ message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
 # Sources
 file( GLOB canaryHttp
-  ${Source}/canary/http/*.cc
+
   ${Source}/canary/http/*.c
   ${Source}/canary/http/*.h
   ${Source}/canary/*.cc
@@ -134,6 +134,7 @@ file( GLOB externMibApi
 file( GLOB mibTest  ${unitTests}/canary/smash_test_mib/*.c)
 file( GLOB canaryTestHttp  ${unitTests}/canary/*.cc ${Tests}/canary/*.h)
 file( GLOB proTests
+  ${unitTests}/tricks_peoples/sean_parent/*.cc
   ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
   ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
 file( GLOB testsRtos

@@ -36,19 +36,14 @@
 //   ссылка внутри, но там скорее к С++11
 // Есть еще алгоритмы
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
+#include "reuse/visuality/view.h"
 
-// 3rdparty::common
 #include <adobe/algorithm/find.hpp>
 #include <adobe/algorithm/for_each.hpp>  // ничего не возвращает
 #include <adobe/algorithm/sort.hpp>
 #include <adobe/algorithm/lower_bound.hpp>
 #include <adobe/algorithm/upper_bound.hpp>
 #include <adobe/algorithm/random_shuffle.hpp>
-
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/range/iterator.hpp>
@@ -59,8 +54,10 @@
 
 #include <gtest/gtest.h>
 
-// Inner
-#include "reuse/view.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
 
 /*
 void PanelBar::RepositionExpandedPanels(Panel* fixed_panel) {
@@ -186,7 +183,7 @@ ostream& operator<<(ostream& o, const employee& e)
 //
 // For sorted:
 // lower_bound 
-TEST(SeanParent, NoRawLoops) {
+TEST(SeanParent_, NoRawLoops) {
   // TODO: ошибочный ввод
   // first
   {
