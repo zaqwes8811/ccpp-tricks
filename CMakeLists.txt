@@ -133,8 +133,11 @@ file( GLOB externMibApi
 # unittests
 file( GLOB mibTest  ${unitTests}/canary/smash_test_mib/*.c)
 file( GLOB canaryTestHttp  ${unitTests}/canary/*.cc ${Tests}/canary/*.h)
-file( GLOB proTests  ${unitTests}/production/*.cc)
-file( GLOB testsRtos  ${unitTests}/async-parallel-computing/*.cc)
+file( GLOB proTests
+  ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
+  ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
+file( GLOB testsRtos
+  ${unitTests}/async-parallel-computing/*.cc)
 
 # Pack
 set( unitTests ${mibTest} ${canaryTestHttp} ${proTests} ${testsRtos})

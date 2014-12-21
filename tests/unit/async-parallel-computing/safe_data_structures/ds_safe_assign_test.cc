@@ -8,19 +8,33 @@
 //
 // вообще конструирование и присваивание не совсем одно и то же. Присваиваем существующема.
 
-// C
-#include <pthread.h>
+#include <gtest/gtest.h>
+#if __cplusplus > 199711L
+#else
+#  include <boost/thread/mutex.hpp>
+#  include <boost/thread.hpp>
+#endif
 
-// C++
+#if __cplusplus > 199711L
+#  include <mutex>
+#  include <thread>
+#endif
 #include <list>
 #include <ostream>
+#include <vector>
 
-// C++11
-#include <mutex>
-#include <thread>
+#include <pthread.h>
 
-// 3rdparty
-#include <gtest/gtest.h> 
+#if __cplusplus > 199711L
+using std::thread;
+using std::mutex;
+#else
+using boost::mutex;
+using boost::thread;
+using boost::unique_lock;
+using boost::defer_lock;
+using boost::lock;
+#endif
  
 // TODO:
 // thread-safe copy ctor and assign
@@ -31,7 +45,7 @@
 // http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
 class A
 {
-  mutable std::mutex  mut_;
+  mutable mutex  mut_;
   std::vector<double> data_;
 
 public:
@@ -43,9 +57,9 @@ public:
     if (this != &rhs)  // важно, чтобы не было самоблокировки
     {
       // Так захватывает он лок или нет?  
-      std::unique_lock<std::mutex> lhs_lock(mut_,     std::defer_lock);
-      std::unique_lock<std::mutex> rhs_lock(rhs.mut_, std::defer_lock);
-      std::lock(lhs_lock, rhs_lock);  // похоже правильно обрабатывает a = a
+      unique_lock<mutex> lhs_lock(mut_,     defer_lock);
+      unique_lock<mutex> rhs_lock(rhs.mut_, defer_lock);
+      lock(lhs_lock, rhs_lock);  // похоже правильно обрабатывает a = a
       
       // V0
       //std::unique_lock<std::mutex> lhs_lock(mut_);
@@ -87,8 +101,8 @@ public:
         {
             // assign data ...
             // expensive code here ... !!!
-            ExclusiveLock lhs_lock(mut_, boost::defer_lock);  // свой эксклюзивный
-            SharedLock rhs_lock(mut_, boost::defer_lock);
+            ExclusiveLock lhs_lock(mut_, defer_lock);  // свой эксклюзивный
+            SharedLock rhs_lock(mut_, defer_lock);
             boost::lock(lhs_lock, rhs_lock);
             data_ = rhs.data_;
         }
@@ -102,18 +116,18 @@ public:
 };
 
 TEST(DS, Mutex) {
-  std::mutex mut;
+  mutex mut;
   
   // http://stackoverflow.com/questions/20516773/stdunique-lockstdmutex-or-stdlock-guardstdmutex
-  std::unique_lock<std::mutex> lk(mut, std::defer_lock);
+  unique_lock<mutex> lk(mut, defer_lock);
   assert(lk.owns_lock() == false);
   
   A a, b;
   
-  std::thread t1(task1, &a, &b);
-  std::thread t2(task1, &b, &a);
-  std::thread t3(task1, &a, &a);
-  std::thread t4(task1, &a, &a);
+  thread t1(task1, &a, &b);
+  thread t2(task1, &b, &a);
+  thread t3(task1, &a, &a);
+  thread t4(task1, &a, &a);
   t1.join();
   t2.join();
   t3.join();

@@ -1,17 +1,19 @@
+/**
 // TODO: multiple consumers 
 // TODO: нельзя прочитать до истечения некоторого интервала времени после вставки
 // TODO: а как разблокировать очередь - завершить поток? wait some time?
- 
-// Sys 
-// DANGER: unlock unlocked - undef. beh.
-#include <pthread.h>
 
-// C++
+*/
+ 
+#include <boost/noncopyable.hpp>
+//#include <boost/lockfree/queue.hpp>
+#include <gtest/gtest.h>
+
 #include <list>
 #include <iostream>
 
-#include <boost/noncopyable.hpp>
-#include <gtest/gtest.h>
+// DANGER: unlock unlocked - undef. beh.
+#include <pthread.h>
 
 using std::list;
 
@@ -265,6 +267,36 @@ private:
 };
 }
 
+#if __cplusplus > 199711L
+class Fake {
+public:
+  Fake() {
+    std::cout << "ctor\n";
+  }
+  Fake(const Fake& rhs) {
+    std::cout << "copy ctor\n";
+  }
+  Fake& operator=(const Fake& rhs) {
+    std::cout << "assign operator\n";
+    return *this;
+  }
+private:
+  Fake(Fake&&) = delete;
+  Fake& operator=(Fake&&) = delete;
+};
+
+void foo(Fake& fake) {
+  Fake tmp;
+  fake = tmp;  // assign
+}
+
+TEST(Lang, LRefThinking) {
+  Fake f;
+  foo(f);
+}
+#endif
+
+#if __cplusplus > 199711L
 namespace {
 class Fake {
 public:
@@ -290,3 +322,4 @@ TEST(Lang, Ref) {
   Fake fake1;
   fake1 = ref;
 }
+#endif
