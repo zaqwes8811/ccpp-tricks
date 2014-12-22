@@ -104,7 +104,7 @@ public:
   }
 
   ~concurent_try_queue() {
-    stop(true);
+    //stop(true);
   }
 
   bool empty() {

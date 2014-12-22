@@ -1,72 +1,21 @@
-//
-// Задачи должны быть завершаемые.
-//
-// http://www.threadingbuildingblocks.org/docs/help/index.htm#tbb_userguide/Task-Based_Programming.htm
-// "..algorithms composed from non-blocking tasks."
-// I/O or mutex
-// http://www.ibm.com/developerworks/library/j-jtp0730/
-//
-// Alternatives:
-//   http://www.ibm.com/developerworks/library/j-jtp0730/ -  thread-per-task
-//
-// Scheduler:
-//  http://www.threadingbuildingblocks.org/docs/help/index.htm#tbb_userguide/Task-Based_Programming.htm
-//
-// Thinks:
-//   ошибки лучше передавать в вызывающую функцию. future и прочие работают, но как скрестить с asio
-//
-//
-// Effective pools:
-//  - Sutter
-//  - http://www.ibm.com/developerworks/library/j-jtp0730/
-//    "Understand your tasks." - может для разных типов задач разные пулы
-//
-// Pools
-//   http://stackoverflow.com/questions/16677287/boostthreadpoolpool-vs-boostthread-group
-//   http://stackoverflow.com/questions/19500404/how-to-create-a-thread-pool-using-boost-in-c
-//   http://techiesaint.wordpress.com/2012/12/16/implementing-threadpool-pattern-in-c-using-boostthread-pool/
-//   http://www.tonicebrian.com/2012/05/23/thread-pool-in-c/
-//
-// Hand-maded threadpool
-//   http://stackoverflow.com/questions/22284557/thread-pool-implementation-using-pthreads
-//   http://rextester.com/discussion/XHA86284/ThreadPool
-//   http://www.youtube.com/watch?v=FfbZfBk-3rI
-
-// TODO: Try http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
-//   но это не на пуле, это просто так
-//
-// About own thread pool
-//   http://codereview.stackexchange.com/questions/40536/simple-thread-pool-in-c
-//
-// http://stackoverflow.com/questions/19500404/how-to-create-a-thread-pool-using-boost-in-c
-// Похоже нужен планеровщик. Не очень понял последную часть
-//
-// http://thisthread.blogspot.co.il/2011/04/multithreading-with-asio.html
 
 #define BOOST_THREAD_PROVIDES_FUTURE
 
-/*
 //https://github.com/mirror/boost/blob/master/libs/thread/example/executor.cpp
-#define BOOST_THREAD_VERSION 4
-#define BOOST_THREAD_PROVIDES_EXECUTORS
-#define BOOST_THREAD_USES_LOG_THREAD_ID
-#define BOOST_THREAD_QUEUE_DEPRECATE_OLD
+//#define BOOST_THREAD_VERSION 4
+//#define BOOST_THREAD_PROVIDES_EXECUTORS
+//#define BOOST_THREAD_USES_LOG_THREAD_ID
+//#define BOOST_THREAD_QUEUE_DEPRECATE_OLD
 
-#include <boost/thread/thread_pool.hpp>
-#include <boost/thread/user_scheduler.hpp>
-#include <boost/thread/executor.hpp>
-#include <boost/thread/future.hpp>
-#include <boost/assert.hpp>
-#include <string>
-#include <boost/thread/caller_context.hpp>
-*/
+#include "async_parallel/thread_pools.h"
 
-#include <cstdio>
-
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <stdexcept>
+//#include <boost/thread/thread_pool.hpp>
+//#include <boost/thread/user_scheduler.hpp>
+//#include <boost/thread/executor.hpp>
+//#include <boost/thread/future.hpp>
+//#include <boost/assert.hpp>
+//#include <string>
+//#include <boost/thread/caller_context.hpp>
 
 #include <gtest/gtest.h>
 
@@ -89,6 +38,14 @@ namespace boost {
 #include <boost/throw_exception.hpp>  // sudden
 #include <boost/bind.hpp>
 #include <boost/exception_ptr.hpp>
+
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <stdexcept>
+
+#include <cstdio>
+
 
 //using boost::unique_future;
 
@@ -118,8 +75,10 @@ std::string string_no_params()
   return std::string("forty two");
 }
 
-std::string string_with_params(std::string & param)
+std::string funcReturnStringWithParams(std::string & param)
 {
+  //boost::this_thread::sleep()
+  //sleep(3);
   return param;
 }
 
@@ -261,9 +220,35 @@ void run(int tNumber)
 }
 
 namespace tests {
+using boost::shared_ptr;
+using boost::make_shared;
+using boost::bind;
+
+class Templ {
+
+};
+
 TEST(ThPool, AsioVersionCheck) {
   // http://www.boost.org/doc/libs/1_47_0/libs/exception/doc/tutorial_exception_ptr.html
   run(4);  // если нет планировщика, то лучше потоков побольше чем ядер
+}
+
+TEST(ThPool, OwnAsioPool) {
+  thread_pools::AsioThreadPool p;
+
+  boost::packaged_task<std::string> task(bind(&funcReturnStringWithParams, ans));
+  boost::future<string> f = task.get_future();
+
+  p.get().post(
+        boost::bind(&boost::packaged_task<std::string>::operator(), boost::ref(task)));
+
+  EXPECT_FALSE(f.is_ready());
+  while (!f.is_ready()) {
+    //cout << "wait" << endl;
+  }
+
+  string answer = f.get();
+  std::cout << "string_with_params: " << answer << std::endl;
 }
 
 // http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
@@ -276,7 +261,6 @@ TEST(ThPool, AsioBase) {
   using boost::bind;
   using std::string;
 
-  typedef boost::packaged_task<std::string> task_t;
   boost::asio::io_service io_service;
   boost::thread_group threads;
   boost::asio::io_service::work work(io_service);
@@ -284,11 +268,14 @@ TEST(ThPool, AsioBase) {
   for (int i = 0; i < 3; ++i)
     threads.create_thread(bind(&boost::asio::io_service::run, &io_service));
 
-  shared_ptr<task_t> example = make_shared<task_t>(bind(&string_with_params, ans));
+  typedef boost::packaged_task<std::string> task_t;
+  shared_ptr<task_t> example = make_shared<task_t>(bind(&funcReturnStringWithParams, ans));
   boost::future<string> f = example->get_future();
   
   // одну задачу
   io_service.post(boost::bind(&task_t::operator(), example));
+
+  EXPECT_FALSE(f.is_ready());
 
   string answer = f.get();
   std::cout << "string_with_params: " << answer << std::endl;
