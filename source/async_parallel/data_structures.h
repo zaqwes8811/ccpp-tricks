@@ -1,91 +1,13 @@
-/**
-  \brief
-  Concurent core info:
-  http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2406.html
+#ifndef AP_DS_H_
+#define AP_DS_H_
 
-  coupled - Queue
-  https://www.quantnet.com/threads/c-multithreading-in-boost.10028/
-  http://stackoverflow.com/questions/10139251/shared-queue-in-c
-
-  concurent queue
-  http://stackoverflow.com/questions/16275112/boost-c-lock-free-queue-vs-shared-queue
-  http://www.alexey-martynov.pp.ru/index.php?data=articles&article=mt-queue
-  http://www.justsoftwaresolutions.co.uk/threading/implementing-a-thread-safe-queue-using-condition-variables.html
-  http://stackoverflow.com/questions/6959023/c-producer-consumer-queue-with-very-fast-and-reliable-handover
-  http://blog.ruslans.com/2013/08/introduction-to-high-level.html
-
-  Finded tut.:
-    https://computing.llnl.gov/tutorials/pthreads/
-     https://computing.llnl.gov/tutorials/parallel_comp/
-
-
-  Concurent code style
-    http://www.codingstandard.com/section/18-concurrency/
-
-  http://www.quora.com/What-are-the-most-commonly-used-thread-safe-queue-implementations-in-C++
-
-  http://theboostcpplibraries.com/boost.lockfree - boost loock free
-
-  http://www.boost.org/doc/libs/1_57_0/doc/html/lockfree.html
-  http://www.boost.org/doc/libs/1_57_0/doc/html/thread/sds.html#thread.sds.synchronized_queues
-
-  // Troubles
-  http://stackoverflow.com/questions/1164023/is-there-a-production-ready-lock-free-queue-or-hash-implementation-in-c
-*/
-
-// TODO: из толков от яндекса
-// https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
-// Для контейнеров нужна внешняя синхронизация.
-//
-// ref base and value base - похоже не то же самое что смартпоинтеры в контейнерах
-//
-// Нельзя зывать чужой код под "замком"!!
-/*
-
-// кстати в плане исключений все было норм.
-void push(const T& t){
-  //node* p_node = new node(t);  // TODO: сделать безопасным в плане искл.
-  // http://www.gotw.ca/publications/using_auto_ptr_effectively.htm
-  auto_ptr<node> p_node(new node(t));
-  lock_guard lck(mtx);
-
-  p_node->next = head;
-
-  head = p_node.release();  // not get!!
-}
-// когда забираем из стека, то тоже можно захватить auto_ptr'ом
-*/
-
-#include <gtest/gtest.h>
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/shared_mutex.hpp>
-//#include <boost/thread/concurrent_queues/  // experimental
-#include <boost/thread/condition_variable.hpp>
-#include <boost/thread/locks.hpp>
-#include <boost/thread/lock_algorithms.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/range/end.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread.hpp>
 
 #include <list>
-#include <ostream>
-#include <queue>
 
-#if __cplusplus > 199711L
-#  include <mutex>
-#  include <thread>
-#endif
-
-#include <pthread.h>
-
-#if __cplusplus > 199711L
-
-#else
-using boost::mutex;
-using boost::lock_guard;
-#endif
-using std::list;
-
-namespace interfaces_mt_ds {
+namespace fix_extern_space {
 // Существующие интерфейсы
 // Boost - lookfree ds
 // TBB - best but...
@@ -94,35 +16,27 @@ namespace interfaces_mt_ds {
 
 // Intel TBB
 template <typename T>
-class concurent_queue {
+class concurent_queue_ : public boost::noncopyable {
 public:
-  concurent_queue() {}
-  
+  concurent_queue_() {}
+
   void push(const T& source);
   bool try_pop(T& destination);
-  
-  bool empty() const;  // may not be precist cos pending 
-private:
-  concurent_queue(const concurent_queue&);
-  concurent_queue& operator=(const concurent_queue&);
+
+  bool empty() const;  // may not be precist cos pending
 };
 
 template <typename T>
-class concurent_bounded_queue {
+class concurent_bounded_queue : public boost::noncopyable  {
 public:
   concurent_bounded_queue() {}
-  
+
   void push(const T& source);
   bool try_pop(T& destination);
-  
-  bool empty() const;
-private:
-  concurent_bounded_queue(const concurent_bounded_queue&);
-  concurent_bounded_queue& operator=(const concurent_bounded_queue&);
-};
-}
 
-namespace fix_extern_space {
+  bool empty() const;
+};
+
 //
 // TODO: очередь от Шена
 // http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
@@ -131,17 +45,17 @@ namespace fix_extern_space {
 template <typename T>
 class concurent_queue
 {
-  mutex mutex_;
-  list<T> q_;
+  boost::mutex mutex_;
+  std::list<T> q_;
 public:
   void enqueue(T x) {
     // allocation here
-    list<T> tmp;
+    std::list<T> tmp;
     tmp.push_back(x);//move(x));
 
     // threading
     {
-      lock_guard<mutex> lock(mutex_);
+      boost::lock_guard<boost::mutex> lock(mutex_);
       // вроде бы константное время
       q_.splice(end(q_), tmp);
 
@@ -182,6 +96,7 @@ public:
       : cm_size(size), m_nblocked_pop(0), m_nblocked_push(0)
       , m_with_blocked(false)
       , m_stopped(false)
+      , m_current_size(0)
   {
     if (cm_size < 1){
         // BOOST_THROW_EXCEPTION
@@ -199,21 +114,25 @@ public:
 
   std::size_t size() {
     boost::mutex::scoped_lock lock(m_mtx);
-    return m_q.size();
+    return m_current_size;
+    //return m_q.size();  // O(n) for list
   }
 
   bool try_push(const T& x) {
-    list<T> tmp;
+    std::list<T> tmp;
     tmp.push_back(x);
 
     {
       boost::mutex::scoped_lock lock(m_mtx);
-      if (m_q.size() == cm_size)//size)
+      //if (m_q.size() == cm_size)//size)
+      //if (size() == cm_size)//size)  // self deadlock
+      if (m_current_size == cm_size)//size)
           return false;
 
       //m_q.push(x);  // bad
       //m_q.splice(boost::end(m_q), tmp);
       m_q.splice(m_q.end(), tmp);
+      m_current_size++;
     }
     //if (m_with_blocked) m_pop_cv.notify_one();
     return true;
@@ -227,6 +146,7 @@ public:
 
       popped = m_q.front();
       m_q.pop_front();  // pop()
+      m_current_size--;
     }
     //if (m_with_blocked) m_push_cv.notify_one();
     return true;
@@ -291,6 +211,7 @@ private:
   }
 
 private:
+  int m_current_size;  // for std::list
   std::
   //queue
   list
@@ -305,11 +226,4 @@ private:
   const bool m_with_blocked;
 };
 }  // space
-
-TEST(ThreadSafeDS, TBBAssignTest) {
-  fix_extern_space::concurent_try_queue<int> q(10);
-  int r = 0;
-  EXPECT_TRUE(q.try_push(r));
-  EXPECT_TRUE(q.try_pop(r));
-}
-
+#endif

@@ -96,9 +96,8 @@ message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
 # Sources
 file( GLOB canaryHttp
-
   ${Source}/canary/http/*.c
-  ${Source}/canary/http/*.h
+  ${Source}/async_parallel/*.h
   ${Source}/canary/*.cc
   ${Source}/heart/*.h
   ${Source}/canary/*.h)
