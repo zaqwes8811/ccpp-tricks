@@ -47,6 +47,8 @@
 //
 // !!http://mostlycoding.blogspot.com.es/2009/05/asio-library-has-been-immensely-helpful.html
 //
+// Magic http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
+//
 #ifndef AP_POOL_H_
 #define AP_POOL_H_
 

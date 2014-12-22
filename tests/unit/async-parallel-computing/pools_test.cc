@@ -225,7 +225,12 @@ using boost::make_shared;
 using boost::bind;
 
 class Templ {
-
+public:
+  std::pair<int, int> doTheThing(
+      const int& in
+      ) {
+    return std::make_pair(0, 9);
+  }
 };
 
 TEST(ThPool, AsioVersionCheck) {
@@ -234,13 +239,26 @@ TEST(ThPool, AsioVersionCheck) {
 }
 
 TEST(ThPool, OwnAsioPool) {
+  using boost::packaged_task;
+  using boost::future;
+  using boost::ref;
+  using boost::cref;
+
   thread_pools::AsioThreadPool p;
+  Templ templ;
 
-  boost::packaged_task<std::string> task(bind(&funcReturnStringWithParams, ans));
-  boost::future<string> f = task.get_future();
+  int in = 9;
 
-  p.get().post(
-        boost::bind(&boost::packaged_task<std::string>::operator(), boost::ref(task)));
+  // http://stackoverflow.com/questions/17286458/use-member-function-in-stdpackaged-task
+  packaged_task<std::pair<int, int> >
+      t(bind(bind(&Templ::doTheThing, ref(templ), _1), cref(in)));
+  future<std::pair<int, int> > f_memb = t.get_future();
+
+  packaged_task<std::string> task(bind(&funcReturnStringWithParams, ans));
+  future<string> f = task.get_future();
+
+  p.get().post(bind(&packaged_task<std::string>::operator(), ref(task)));
+  p.get().post(bind(&packaged_task<std::pair<int, int>  >::operator(), ref(t)));
 
   EXPECT_FALSE(f.is_ready());
   while (!f.is_ready()) {
@@ -248,7 +266,8 @@ TEST(ThPool, OwnAsioPool) {
   }
 
   string answer = f.get();
-  std::cout << "string_with_params: " << answer << std::endl;
+  std::pair<int, int> r = f_memb.get();
+  std::cout << r.second << " string_with_params: " << answer << std::endl;
 }
 
 // http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
