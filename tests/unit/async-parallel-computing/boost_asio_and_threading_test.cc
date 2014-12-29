@@ -4,6 +4,9 @@
 //
 // Lock != mutex и может строится на разных примитивах
 
+// Asio:
+// http://meetingcpp.com/tl_files/mcpp/slides/12/Boost.Asio%20-%20Asynchronous%20IO.pdf
+
 #include <gtest/gtest.h>
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
@@ -227,6 +230,8 @@ private:
 
 void serverThreadUdpFunc( boost::asio::io_service& io_service ) {
   udp_server server(io_service);
+
+  //while()  // doc 520 - can cycle
   io_service.run();  // blocked if work loaded?
 }
 
