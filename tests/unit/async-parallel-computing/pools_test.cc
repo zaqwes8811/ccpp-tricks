@@ -1,3 +1,7 @@
+// Thinking
+// http://rsdn.ru/forum/cpp.applied/5468499.flat.2
+// Buildeng boost
+//   bjam --with-system --with-thread --with-date_time --with-regex --with-serialization stage
 
 #define BOOST_THREAD_PROVIDES_FUTURE
 
