@@ -1,3 +1,6 @@
+// Troubles:
+//  http://stackoverflow.com/questions/26751180/does-the-future-generated-from-boostpackaged-task-throw-wrong-exception
+// http://exceptionsafecode.com/slides/esc.pdf
 
 #define BOOST_THREAD_PROVIDES_FUTURE
 
@@ -30,18 +33,29 @@ int throwed()
   }
 }
 
+// http://stackoverflow.com/questions/7281441/elegantly-call-c-from-c
+// http://cppsecrets.blogspot.ru/2013/12/using-lippincott-function-for.html
 // C call mech - no throw
-int helper_boundary_c() {
+typedef enum helper_Result {
+    FOO_OK,
+    FOO_ERROR1,
+    FOO_ERROR2,
+    FOO_UNKNOWN
+} helper_Result;
+
+int helper_boundaryNoThrowGuarantee_c() {
   try {
     // why future? call wrapper can throw to
     // need soo much code!
     //
     // here only std::exception - no app specific!
     //
-    // "-":
-    //   - only one task
-    //   - can throw anyway
-    //   - what kind of exception can know only inside task
+    // Cons.:
+    //   Only one task
+    //   Can throw anyway
+    //   What kind of exception can know only inside task
+    //
+    // Pro:
     boost::packaged_task<int> task(throwed);  // std::bad_alloc
     boost::future<int> fi = task.get_future();
     task();
@@ -98,5 +112,5 @@ TEST(BoostFuture, Exception) {
 }
 
 TEST(BoostFuture, Boundary) {
-  helper_boundary_c();
+  helper_boundaryNoThrowGuarantee_c();
 }
