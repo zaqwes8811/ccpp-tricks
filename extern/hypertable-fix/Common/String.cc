@@ -21,8 +21,6 @@
  * A String class based on std::string.
  */
 
-//#include "heart/config.h"
-
 #include "Compat.h"
 #include <cstdarg>
 #include <cstdio>
@@ -35,6 +33,7 @@ using namespace Hypertable;
 
 namespace Hypertable {
 
+// FIXME: no exception safe
 String format(const char *fmt, ...) {
   char buf[1024];       // should be enough for most cases
   int n, size = sizeof(buf);

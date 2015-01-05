@@ -477,11 +477,11 @@ namespace Hypertable {
 
 /** Convenience macro to create an exception stack trace */
 #define HT_EXCEPTION(_code_, _msg_) \
-  Exception(_code_, _msg_, __LINE__, HT_FUNC, __FILE__)
+  Hypertable::Exception(_code_, _msg_, __LINE__, HT_FUNC, __FILE__)
 
 /** Convenience macro to create an chained exception */
 #define HT_EXCEPTION2(_code_, _ex_, _msg_) \
-  Exception(_code_, _msg_, _ex_, __LINE__, HT_FUNC, __FILE__)
+  Hypertable::Exception(_code_, _msg_, _ex_, __LINE__, HT_FUNC, __FILE__)
 
 /** Convenience macro to throw an exception */
 #define HT_THROW(_code_, _msg_) throw HT_EXCEPTION(_code_, _msg_)
@@ -506,12 +506,12 @@ namespace Hypertable {
 /** Convenience macro to catch and rethrow exceptions with a printf-like
  * message */
 #define HT_RETHROWF(_fmt_, ...) \
-  catch (Exception &e) { HT_THROW2F(e.code(), e, _fmt_, __VA_ARGS__); } \
+  catch (Hypertable::Exception &e) { HT_THROW2F(e.code(), e, _fmt_, __VA_ARGS__); } \
   catch (std::bad_alloc &e) { \
-    HT_THROWF(Error::BAD_MEMORY_ALLOCATION, _fmt_, __VA_ARGS__); \
+    HT_THROWF(Hypertable::Error::BAD_MEMORY_ALLOCATION, _fmt_, __VA_ARGS__); \
   } \
   catch (std::exception &e) { \
-    HT_THROWF(Error::EXTERNAL, "caught std::exception: %s " _fmt_,  e.what(), \
+    HT_THROWF(Hypertable::Error::EXTERNAL, "caught std::exception: %s " _fmt_,  e.what(), \
               __VA_ARGS__); \
   } \
   catch (...) { \

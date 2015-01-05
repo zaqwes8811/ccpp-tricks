@@ -74,8 +74,13 @@ namespace Logger {
        * @param name The name of the application
        */
       LogWriter(const String &name)
-        : m_show_line_numbers(true), m_test_mode(false), m_name(name),
-          m_priority(Priority::INFO)
+        :
+          m_show_line_numbers(
+        //    false)
+        true)
+        , m_test_mode(false)
+        , m_name(name)
+        , m_priority(Priority::INFO)
         //, m_file(stdout)
         , m_out(std::cout) {
       }
@@ -126,10 +131,11 @@ namespace Logger {
       }
 
     private:
-      template<typename T>
-      friend LogWriter& operator<<(LogWriter&, const T& v);
+      // FIXME: now too much troubles - at least thread safety
+      //template<typename T>
+      //friend LogWriter& operator<<(LogWriter&, const T& v);
 
-      friend LogWriter& operator<<(LogWriter&, std::ostream& (*F)(std::ostream&));
+      //friend LogWriter& operator<<(LogWriter&, std::ostream& (*F)(std::ostream&));
 
       /** Appends a string message to the log */
       void log_string(int priority, const char *message);
@@ -166,7 +172,6 @@ namespace Logger {
   /** Accessor for the LogWriter singleton instance */
   extern LogWriter *get();
 
-  //std::
   // !! http://stackoverflow.com/questions/772355/how-to-inherit-from-stdostream
   // http://stackoverflow.com/questions/236801/should-operator-be-implemented-as-a-friend-or-as-a-member-function
   // http://msdn.microsoft.com/en-us/library/1z2f6c2k.aspx
@@ -174,20 +179,17 @@ namespace Logger {
   // http://stackoverflow.com/questions/9653751/cstdio-streams-vs-iostream-streams
   //
   // FIXME: Sync troubles. need lock to complex ops
-  template<typename T>
-  LogWriter& operator<<(LogWriter& o, const T& v) {
-    o.stream() << " /wr, " << v;
-    return o;
-  }
+  //template<typename T>
+  //LogWriter& operator<<(LogWriter& o, const T& v) {
+  //  o.stream() << " /wr, " << v;
+  //  return o;
+  //}
 
-  LogWriter& operator<<(LogWriter& o, std::ostream& (*F)(std::ostream&));
+  //LogWriter& operator<<(LogWriter& o, std::ostream& (*F)(std::ostream&));
 
   /** @} */
 
 }} // namespace Hypertable::Logger
-
-// FIXME: lock
-
 
 #define HT_LOG_BUFSZ 1024
 
@@ -199,7 +201,7 @@ namespace Logger {
 #endif
 
 // printf interface macro helper; do not use directly
-#define HT_LOG(priority, msg) do { \
+#define HT_LOG(priority, msg) do { using namespace Hypertable; \
   if (Logger::get()->is_enabled(priority)) { \
     if (Logger::get()->show_line_numbers()) \
       Logger::get()->log(priority, Hypertable::format( \
@@ -209,7 +211,7 @@ namespace Logger {
   } \
 } while (0)
 
-#define HT_LOGF(priority, fmt, ...) do { \
+#define HT_LOGF(priority, fmt, ...) do { using namespace Hypertable;\
   if (Logger::get()->is_enabled(priority)) { \
     if (Logger::get()->show_line_numbers()) \
       Logger::get()->log(priority, Hypertable::format( \
@@ -360,7 +362,7 @@ namespace Logger {
 
 #ifndef HT_DISABLE_LOG_FATAL
 #define HT_FATAL(msg) do { \
-  HT_LOG(Logger::Priority::FATAL, msg); \
+  HT_LOG(Hypertable::Logger::Priority::FATAL, msg); \
   HT_ABORT; \
 } while (0)
 #define HT_FATALF(msg, ...) do { \
@@ -409,13 +411,15 @@ namespace Logger {
 
 // Probably should be in its own file, but...
 #define HT_EXPECT(_e_, _code_) do { if (_e_); else { \
-    if (_code_ == Error::FAILED_EXPECTATION) \
+    if (_code_ == Hypertable::Error::FAILED_EXPECTATION) \
       HT_FATAL("failed expectation: " #_e_); \
     HT_THROW(_code_, "failed expectation: " #_e_); } \
 } while (0)
 
+#define HT_CHECK(_e_) HT_EXPECT((_e_), Hypertable::Error::SOFT_ASSERT)
+
 // A short cut for HT_EXPECT(expr, Error::FAILED_EXPECTATION)
 // unlike assert, it cannot be turned off
-#define HT_ASSERT(_e_) HT_EXPECT(_e_, Error::FAILED_EXPECTATION)
+#define HT_ASSERT(_e_) HT_EXPECT(_e_, Hypertable::Error::FAILED_EXPECTATION)
 
 #endif // HYPERTABLE_LOGGER_H

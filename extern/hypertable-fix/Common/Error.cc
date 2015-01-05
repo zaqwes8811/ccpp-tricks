@@ -25,16 +25,15 @@
  * This file contains all error codes used in Hypertable, the Exception
  * base class and macros for logging and error handling.
  */
-//#include "heart/config.h"
 
 #include <hypertable-fix/Common/Compat.h>
 #include "Error.h"
 
-#include <hypertable-fix/Common/Logger.h>
+#include <hypertable-fix/Common/Logger.h>  // try use own logger. was need for check need print
 #include <boost/unordered_map.hpp>
 
 #include <iomanip>
-//#include <unordered_map>
+//#include <unordered_map>  // -std=c++11
 
 using boost::unordered_map;
 
@@ -316,10 +315,10 @@ namespace {
     { Error::THRIFTBROKER_BAD_FUTURE_ID,    "THRIFT BROKER bad future id" },
 
     // own
-    { Error::ILLEGAL_STATE, "SERVICE: wrong inner state"},
-    { Error::SOFT_ASSERT, "SERVICE: not crash assert" },
-    { Error::JSON_OPERATION_ERROR, "SERVICE: error on work with json."},
-    { Error::SNMP_EMIT_ERROR, "SNMP: error emit message"},
+    { Error::ILLEGAL_STATE, "SERVICE wrong inner state"},
+    { Error::SOFT_ASSERT, "SERVICE not failed assert" },
+    { Error::JSON_OPERATION_ERROR, "SERVICE error on work with json."},
+    { Error::SNMP_EMIT_ERROR, "SNMP error emit message"},
 
     { 0, 0 }
   };
@@ -380,7 +379,10 @@ std::ostream &operator<<(std::ostream &out, const Exception &e) {
 
   if (e.line()) {
     out <<"\n\tat "<< e.func() <<" (";
-    if (Logger::get()->show_line_numbers())
+    if (
+        //true
+        Logger::get()->show_line_numbers()
+        )
       out << e.file() <<':'<< e.line();
     else
       out << relative_fname(e);
@@ -391,7 +393,10 @@ std::ostream &operator<<(std::ostream &out, const Exception &e) {
 
   for (Exception *prev = e.prev; prev; prev = prev->prev) {
     out <<"\n\tat "<< (prev->func() ? prev->func() : "-") <<" (";
-    if (Logger::get()->show_line_numbers())
+    if (
+        //true
+        Logger::get()->show_line_numbers()
+        )
       out << (prev->file() ? prev->file() : "-") <<':'<< prev->line();
     else
       out << relative_fname(*prev);

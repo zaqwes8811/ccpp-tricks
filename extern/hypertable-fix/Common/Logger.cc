@@ -26,28 +26,32 @@
  * and printf-like macros and convenience functions.
  */
 #include "hypertable-fix/Common/Compat.h"
-
-#include <string>
-
-#include <iostream>
-#include <stdio.h>
-#include <stdarg.h>
-
 #include "String.h"
 #include "Logger.h"
 //#include "Mutex.h"
+
+#include <boost/thread/mutex.hpp>
+
+#include <string>
+#include <iostream>
+
+#include <stdio.h>
+#include <stdarg.h>
 
 namespace Hypertable { namespace Logger {
 
 static String logger_name;
 static LogWriter *logger_obj = 0;
 //static Mutex mutex;
+static boost::mutex s_mtx;
 
+/*
 LogWriter& operator<<(LogWriter& o, std::ostream& (*F)(std::ostream&)) {
   o.stream() << " /wr, ";
   F(o.stream());
   return o;
 }
+*/
 
 void initialize(const String &name) {
   logger_name = name;
@@ -73,6 +77,7 @@ void LogWriter::log_string(int priority, const char *message) {
   };
 
   //ScopedLock lock(mutex);
+  boost::mutex::scoped_lock _(s_mtx);
   if (m_test_mode) {
     String v = format("%s %s : %s\n", priority_name[priority], m_name.c_str(), message);
     stream() << v;
@@ -111,8 +116,8 @@ void LogWriter::set_test_mode(int fd = -1) {
   if (fd != -1) {
     //m_file = fdopen(fd, "wt");
   }
-  m_show_line_numbers = false;
-  m_test_mode = true;
+  //m_show_line_numbers = false;
+  //m_test_mode = true;
 }
 
 void LogWriter::flush() {
