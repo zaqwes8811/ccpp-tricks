@@ -152,6 +152,10 @@ namespace Logger {
       /** The output file handle */
       //FILE *m_file;
       std::ostream& m_out;
+
+      std::ostream& stream() {
+        return m_out;
+      }
   };
 
   /** Public initialization function - creates a singleton instance of
@@ -168,9 +172,11 @@ namespace Logger {
   // http://msdn.microsoft.com/en-us/library/1z2f6c2k.aspx
   //void operator <<(LogWriter* obj, const char* msg);
   // http://stackoverflow.com/questions/9653751/cstdio-streams-vs-iostream-streams
+  //
+  // FIXME: Sync troubles. need lock to complex ops
   template<typename T>
   LogWriter& operator<<(LogWriter& o, const T& v) {
-    o.m_out << v;
+    o.stream() << " /wr, " << v;
     return o;
   }
 
@@ -179,6 +185,8 @@ namespace Logger {
   /** @} */
 
 }} // namespace Hypertable::Logger
+
+// FIXME: lock
 
 
 #define HT_LOG_BUFSZ 1024

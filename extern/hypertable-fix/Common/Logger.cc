@@ -44,7 +44,8 @@ static LogWriter *logger_obj = 0;
 //static Mutex mutex;
 
 LogWriter& operator<<(LogWriter& o, std::ostream& (*F)(std::ostream&)) {
-  F(o.m_out);
+  o.stream() << " /wr, ";
+  F(o.stream());
   return o;
 }
 
@@ -74,16 +75,11 @@ void LogWriter::log_string(int priority, const char *message) {
   //ScopedLock lock(mutex);
   if (m_test_mode) {
     String v = format("%s %s : %s\n", priority_name[priority], m_name.c_str(), message);
-    m_out << v;
-    //fprintf(m_file, v.c_str());
-        //"%s %s : %s\n", priority_name[priority], m_name.c_str(),
-        //    message);
+    stream() << v;
   } else {
     time_t t = ::time(0);
-    String v = format("%u %s %s : %s\n", (unsigned)t, priority_name[priority],
-                      m_name.c_str(), message);
-    //fprintf(m_file, v.c_str());
-    m_out << v;
+    String v = format("%u %s %s : %s\n", (unsigned)t, priority_name[priority], m_name.c_str(), message);
+    stream() << v;
   }
 
   flush();
@@ -121,7 +117,7 @@ void LogWriter::set_test_mode(int fd = -1) {
 
 void LogWriter::flush() {
   //fflush(m_file);
-  m_out.flush();
+  stream().flush();
 }
 
 }} // namespace Hypertable::

@@ -12,5 +12,9 @@ TEST(Hyp, Logger) {
 
   Logger::get()->log(Logger::Priority::INFO, "hello");
 
-  (*Logger::get()) << "hello HEX:" << std::hex << 10 << endl;
+  // it's not atomic - need lock
+  {
+    // guard _();
+    (*Logger::get()) << "hello HEX:" << std::hex << 10 << endl;
+  }
 }
