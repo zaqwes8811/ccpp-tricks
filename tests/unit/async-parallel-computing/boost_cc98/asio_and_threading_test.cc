@@ -157,7 +157,7 @@ TEST(Parallel, AsioTerminate)
 
   // Sleep for 10 seconds, then shutdown the server.
   std::cout << "Stopping service in 10 seconds..." << std::endl;
-  boost::this_thread::sleep( boost::posix_time::seconds( 3 ) );
+  boost::this_thread::sleep( boost::posix_time::seconds( 1 ) );
   std::cout << "Stopping service now!" << std::endl;
 
   // Stopping the io_service is a non-blocking call.  The threads that are
@@ -244,7 +244,7 @@ TEST(Parallel, Udp) {
 
   // Sleep for 10 seconds, then shutdown the server.
   std::cout << "Stopping service in 10 seconds..." << std::endl;
-  boost::this_thread::sleep( boost::posix_time::seconds( 3 ) );
+  boost::this_thread::sleep( boost::posix_time::seconds( 1 ) );
   std::cout << "Stopping service now!" << std::endl;
 
   // Stopping the io_service is a non-blocking call.  The threads that are
