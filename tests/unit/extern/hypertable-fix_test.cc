@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-using Hypertable::Logger::get;
+//using Hypertable::Logger::get;
 using Hypertable::Logger::Priority::ALERT;
 using Hypertable::Logger::Priority::INFO;
 //using namespace Hypertable;

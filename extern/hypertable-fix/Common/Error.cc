@@ -315,7 +315,7 @@ namespace {
     { Error::THRIFTBROKER_BAD_FUTURE_ID,    "THRIFT BROKER bad future id" },
 
     // own
-    { Error::ILLEGAL_STATE, "SERVICE wrong inner state"},
+    { Error::ILLEGAL_STATE, "SERVICE brocken invariant"},
     { Error::SOFT_ASSERT, "SERVICE not failed assert" },
     { Error::JSON_OPERATION_ERROR, "SERVICE error on work with json."},
     { Error::SNMP_EMIT_ERROR, "SNMP error emit message"},
@@ -365,13 +365,13 @@ void Error::generate_html_error_code_documentation(std::ostream &out) {
 
 namespace Hypertable {
 
-  const char *relative_fname(const Exception &e) {
-    if (e.file()) {
-      const char *ptr = strstr(e.file(), "src/cc/");
-      return ptr ? ptr : e.file();
-    }
-    return "";
+const char *relative_fname(const Exception &e) {
+  if (e.file()) {
+    const char *ptr = strstr(e.file(), "src/cc/");
+    return ptr ? ptr : e.file();
   }
+  return "";
+}
 
 std::ostream &operator<<(std::ostream &out, const Exception &e) {
   out <<"Hypertable::Exception: "<< e.message() <<" - "
