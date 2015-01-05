@@ -75,8 +75,9 @@ namespace Logger {
        */
       LogWriter(const String &name)
         : m_show_line_numbers(true), m_test_mode(false), m_name(name),
-          m_priority(Priority::INFO), m_file(stdout)
-        , m_o(std::cout) {
+          m_priority(Priority::INFO)
+        //, m_file(stdout)
+        , m_out(std::cout) {
       }
 
       /** Sets the message level; all messages with a higher level are discarded
@@ -124,25 +125,12 @@ namespace Logger {
         log_string(priority, message.c_str());
       }
 
-      //std::
-      // !! http://stackoverflow.com/questions/772355/how-to-inherit-from-stdostream
-      // http://stackoverflow.com/questions/236801/should-operator-be-implemented-as-a-friend-or-as-a-member-function
-      // http://msdn.microsoft.com/en-us/library/1z2f6c2k.aspx
-      //void operator <<(LogWriter* obj, const char* msg);
-      // http://stackoverflow.com/questions/9653751/cstdio-streams-vs-iostream-streams
-      template<typename T>
-      const LogWriter& operator<<(const T& v) const {
-        //log();
-        //out << v;
-        return *this;
-      }
-
-      const LogWriter& operator<<(std::ostream& (*F)(std::ostream&)) const {
-        //F(out);
-        return *this;
-      }
-
     private:
+      template<typename T>
+      friend LogWriter& operator<<(LogWriter&, const T& v);
+
+      friend LogWriter& operator<<(LogWriter&, std::ostream& (*F)(std::ostream&));
+
       /** Appends a string message to the log */
       void log_string(int priority, const char *message);
 
@@ -162,8 +150,8 @@ namespace Logger {
       int m_priority;
 
       /** The output file handle */
-      FILE *m_file;
-      std::ostream& m_o;
+      //FILE *m_file;
+      std::ostream& m_out;
   };
 
   /** Public initialization function - creates a singleton instance of
@@ -173,6 +161,20 @@ namespace Logger {
 
   /** Accessor for the LogWriter singleton instance */
   extern LogWriter *get();
+
+  //std::
+  // !! http://stackoverflow.com/questions/772355/how-to-inherit-from-stdostream
+  // http://stackoverflow.com/questions/236801/should-operator-be-implemented-as-a-friend-or-as-a-member-function
+  // http://msdn.microsoft.com/en-us/library/1z2f6c2k.aspx
+  //void operator <<(LogWriter* obj, const char* msg);
+  // http://stackoverflow.com/questions/9653751/cstdio-streams-vs-iostream-streams
+  template<typename T>
+  LogWriter& operator<<(LogWriter& o, const T& v) {
+    o.m_out << v;
+    return o;
+  }
+
+  LogWriter& operator<<(LogWriter& o, std::ostream& (*F)(std::ostream&));
 
   /** @} */
 
