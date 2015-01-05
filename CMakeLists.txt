@@ -118,7 +118,10 @@ file( GLOB proWebAccess ${Pro}/web_access/*.cc)
 file( GLOB proCAgent  ${Pro}/pure_c_snmp/*.c ${Pro}/pure_c_snmp/*.cc ${Pro}/pure_c_snmp/*.h)
 file( GLOB proGlue  ${Pro}/glue/*.h)
 
-file( GLOB apple  ${Extern}/apple/*.c)
+file( GLOB apple
+  ${Extern}/hypertable-fix/Common/*.cc
+  ${Extern}/hypertable-fix/*.cc)
+
 file( GLOB slre  ${Extern}/slre-1.3/*.c)
 file( GLOB mongoose  ${Extern}/mongoose-5.2/*.c)
 file( GLOB jsonCpp  ${Extern}/jsoncpp-src-0.6.0-rc2/src/lib_json/*.cpp)
@@ -138,6 +141,7 @@ file( GLOB proTests
   ${unitTests}/tricks_peoples/sean_parent/*.cc
   ${unitTests}/tricks_intermediate/*.cc
   ${unitTests}/mem_heap_stack/*.cc
+  ${unitTests}/extern/*.cc
   ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
   ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
 file( GLOB testsRtos

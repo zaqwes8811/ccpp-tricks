@@ -21,7 +21,7 @@
  * A String class based on std::string.
  */
 
-#include "heart/config.h"
+//#include "heart/config.h"
 
 #include "Compat.h"
 #include <cstdarg>

@@ -25,7 +25,7 @@
  * This file contains all error codes used in Hypertable, the Exception
  * base class and macros for logging and error handling.
  */
-#include "heart/config.h"
+//#include "heart/config.h"
 
 #include <hypertable-fix/Common/Compat.h>
 #include "Error.h"

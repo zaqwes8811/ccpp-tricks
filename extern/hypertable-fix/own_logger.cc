@@ -1,4 +1,4 @@
-#include "heart/config.h"
+#define GPATCH_SIMPLE_LOGGER
 
 #include <hypertable-fix/own_logger.h>
 #include <boost/thread/mutex.hpp>
@@ -7,15 +7,15 @@ namespace crosscuttings {
 //static const char* kPathToLogs = "logs/";
 
 #ifndef GPATCH_SIMPLE_LOGGER
-using namespace ::google;
-void InitLogger() {
-   //google::InitGoogleLogging(argv[0]);
-   InitGoogleLogging("random");
-
-   for (LogSeverity s = google::GLOG_WARNING; s < NUM_SEVERITIES; s++)
-     SetLogDestination(s, "");
-   SetLogDestination(GLOG_INFO, kPathToLogs);
-}
+//using namespace ::google;
+//void InitLogger() {
+//   //google::InitGoogleLogging(argv[0]);
+//   InitGoogleLogging("random");
+//
+//   for (LogSeverity s = google::GLOG_WARNING; s < NUM_SEVERITIES; s++)
+//     SetLogDestination(s, "");
+//   SetLogDestination(GLOG_INFO, kPathToLogs);
+//}
 #else
 static boost::mutex g_loggerMutex;
 void logToFile(std::string msg, std::string codeFile, std::string line) {

@@ -75,7 +75,8 @@ namespace Logger {
        */
       LogWriter(const String &name)
         : m_show_line_numbers(true), m_test_mode(false), m_name(name),
-          m_priority(Priority::INFO), m_file(stdout) {
+          m_priority(Priority::INFO), m_file(stdout)
+        , m_o(std::cout) {
       }
 
       /** Sets the message level; all messages with a higher level are discarded
@@ -97,12 +98,7 @@ namespace Logger {
       /** The test mode disables line numbers and timestamps and can
        * redirect the output to a separate file descriptor
        */
-      void set_test_mode(int fd = -1) {
-        if (fd != -1)
-          m_file = fdopen(fd, "wt");
-        m_show_line_numbers = false;
-        m_test_mode = true;
-      }
+      void set_test_mode(int fd/* = -1*/);
 
       /** Returns true if line numbers are printed */ 
       bool show_line_numbers() const {
@@ -110,9 +106,7 @@ namespace Logger {
       }
 
       /** Flushes the log file */
-      void flush() {
-        fflush(m_file);
-      }
+      void flush();
 
       /** Prints a debug message with variable arguments (similar to printf) */
       void debug(const char *format, ...);
@@ -128,6 +122,24 @@ namespace Logger {
       /** Prints a message */
       void log(int priority, const String &message) {
         log_string(priority, message.c_str());
+      }
+
+      //std::
+      // !! http://stackoverflow.com/questions/772355/how-to-inherit-from-stdostream
+      // http://stackoverflow.com/questions/236801/should-operator-be-implemented-as-a-friend-or-as-a-member-function
+      // http://msdn.microsoft.com/en-us/library/1z2f6c2k.aspx
+      //void operator <<(LogWriter* obj, const char* msg);
+      // http://stackoverflow.com/questions/9653751/cstdio-streams-vs-iostream-streams
+      template<typename T>
+      const LogWriter& operator<<(const T& v) const {
+        //log();
+        //out << v;
+        return *this;
+      }
+
+      const LogWriter& operator<<(std::ostream& (*F)(std::ostream&)) const {
+        //F(out);
+        return *this;
       }
 
     private:
@@ -151,6 +163,7 @@ namespace Logger {
 
       /** The output file handle */
       FILE *m_file;
+      std::ostream& m_o;
   };
 
   /** Public initialization function - creates a singleton instance of
