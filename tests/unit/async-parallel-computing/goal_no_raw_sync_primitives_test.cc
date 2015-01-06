@@ -17,12 +17,11 @@
 
 #include <iostream>
 
-//#include "tbb/task_scheduler_init.h"
-//#include "tbb/task.h"
+#include "tbb/task_scheduler_init.h"
+#include "tbb/task.h"
 
 #include <gtest/gtest.h>
 
-/*
 namespace {
 using namespace tbb;
 
@@ -80,10 +79,10 @@ long ParallelFib( long n ) {
     return sum;
 }
 } // anon. names.
-*/
+
 
 // No locks, thread -> task
-TEST(SeanParent, NoRawSync) 
+TEST(SeanParent_, NoRawSync)
 {
   // std::async
   //
@@ -94,8 +93,8 @@ TEST(SeanParent, NoRawSync)
   // Похоже что-то есть и в Boost.
 }
 
-TEST(TBB, AsyncTry) 
+TEST(TBB_, AsyncTry)
 {
-  //ParallelFib(25);
+  ParallelFib(25);
 }
 

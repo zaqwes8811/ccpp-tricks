@@ -140,11 +140,17 @@ file( GLOB mibTest  ${unitTests}/canary/smash_test_mib/*.c)
 file( GLOB canaryTestHttp  ${unitTests}/canary/*.cc ${Tests}/canary/*.h)
 file( GLOB proTests
   ${unitTests}/tricks_peoples/sean_parent/*.cc
+  ${unitTests}/tricks_peoples/sutter/*.cc
+  ${unitTests}/tricks_peoples/gotchas/*.cc
+  ${unitTests}/tricks_peoples/sutter_tasks/*.cc
+  ${unitTests}/tricks_peoples/sutter_tasks_new/*.cc
   ${unitTests}/tricks_intermediate/*.cc
+  ${unitTests}/lang_core/*.cc
   ${unitTests}/mem_heap_stack/*.cc
   ${unitTests}/extern/*.cc
   ${unitTests}/async-parallel-computing/patterns/*.cc
   ${unitTests}/stl/*.cc
+  ${unitTests}/tbb/*.cc
   ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
   ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
 file( GLOB testsRtos

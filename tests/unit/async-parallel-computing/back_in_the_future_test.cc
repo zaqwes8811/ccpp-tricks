@@ -6,11 +6,18 @@
 // Boost/Boost.Asio
 // http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/html/index.html
 
+#include <gtest/gtest.h>
+
+#include <iostream>
+
+using std::cout;
+
 // out of coroutine
-void yield();
+void yield() {}
 
 bool isInsideCoro();
 
+/*
 struct Coro {
   friend void yield();
   
@@ -24,6 +31,7 @@ struct Coro {
 private:
   // ...
 };
+*/
 
 void coro() {
   cout << '2';
@@ -31,10 +39,10 @@ void coro() {
   cout << '4';
 }
 
-{
-  cout << '1';
-  Coro c(coro);
-  cout << '3';
-  c.resume();
-  cout << '5';
+TEST(Coro, Base) {
+  //cout << '1';
+  //Coro c(coro);
+  //cout << '3';
+  //c.resume();
+  //cout << '5';
 }
