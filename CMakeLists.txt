@@ -27,6 +27,7 @@ set(Intern "./intern/")
 # Test framework
 include_directories(${GMock})
 include_directories(${Source})
+include_directories(${Source}/reuse)
 include_directories(${Extern}/slre-1.3)
 include_directories(${Extern}/loki-0.1.7/include)
 include_directories(${Extern})
@@ -96,8 +97,8 @@ message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
 # Sources
 file( GLOB canaryHttp
-  ${Source}/async_parallel/*.cc
-  ${Source}/async_parallel/*.h
+  ${Source}/async-parallel-computing/*.cc
+  ${Source}/async-parallel-computing/*.h
   ${Source}/canary/*.cc
   ${Source}/heart/*.h
   ${Source}/canary/*.h)
@@ -143,6 +144,7 @@ file( GLOB proTests
   ${unitTests}/mem_heap_stack/*.cc
   ${unitTests}/extern/*.cc
   ${unitTests}/async-parallel-computing/patterns/*.cc
+  ${unitTests}/stl/*.cc
   ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
   ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
 file( GLOB testsRtos

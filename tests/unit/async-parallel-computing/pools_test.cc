@@ -11,7 +11,7 @@
 //#define BOOST_THREAD_USES_LOG_THREAD_ID
 //#define BOOST_THREAD_QUEUE_DEPRECATE_OLD
 
-#include "async_parallel/thread_pools.h"
+#include "async-parallel-computing/thread_pools.h"
 
 //#include <boost/thread/thread_pool.hpp>
 //#include <boost/thread/user_scheduler.hpp>
