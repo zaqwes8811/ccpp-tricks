@@ -72,7 +72,7 @@ int helper_boundaryNoThrowGuarantee_c() {
   }
 }
 
-TEST(BoostFuture, Exception) {
+TEST(PureCBoundCC, Exception) {
   try {
     // all can throw!! rear but...
     boost::packaged_task<int> pt(throwed);  // std::bad_alloc
@@ -111,6 +111,6 @@ TEST(BoostFuture, Exception) {
   }
 }
 
-TEST(BoostFuture, Boundary) {
+TEST(PureCBoundCC, Boundary) {
   helper_boundaryNoThrowGuarantee_c();
 }

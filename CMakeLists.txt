@@ -142,6 +142,7 @@ file( GLOB proTests
   ${unitTests}/tricks_intermediate/*.cc
   ${unitTests}/mem_heap_stack/*.cc
   ${unitTests}/extern/*.cc
+  ${unitTests}/async-parallel-computing/patterns/*.cc
   ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
   ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
 file( GLOB testsRtos
