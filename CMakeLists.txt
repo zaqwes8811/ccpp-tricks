@@ -2,13 +2,14 @@
 # http://stackoverflow.com/questions/19912648/cmake-qtcreator-mingw-debug-mode-windows-7
 # http://www.cmake.org/Wiki/CMake_Useful_Variables
 # -DCMAKE_BUILD_TYPE=Debug
+# -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
 
 project(cc-space)
 cmake_minimum_required(VERSION 2.8)
 
 #Message(${CMAKE_CURRENT_LIST_DIR})
 
-# -DCMAKE_VERBOSE_MAKEFILE=ON
+#
 
 set(Extern "./extern/")
 set(GMock "./extern/gmock-1.6.0/fused-src")
@@ -71,25 +72,41 @@ elseif (MSVC90)
   #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
   LINK_LIBRARIES(ws2_32 WSnmp32 libboost_system-vc90-mt-1_57)# libboost_thread-vc90-mt-s-1_57.lib)
 elseif (UNIX)
-  # FIXME: -D_REENTRANT
-  if (CMAKE_SYSTEM_PROCESSOR MATCHES arm)
-    link_directories(${BigExtern}/boost_1_57_0/stage_arm/lib)
-    link_libraries(pthread boost_system)
-    message("I'm arm processor")
-    # http://stackoverflow.com/questions/11944060/how-to-detect-target-architecture-using-cmake
-    #  message( STATUS "Architecture: ${ARCHITECTURE}" ) # not work
-  else()
-    message("I'm NOT arm processor")
+  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # TOOLS:
+    #
+    # clang 3.1 >= need for ASan Ub12.04 -> 3.0
+    # !!https://solarianprogrammer.com/2013/01/17/building-clang-libcpp-ubuntu-linux/
+    # Try it! https://github.com/pacs-course/pacs/wiki/Instructions-to-install-clang-3.1-on-ubuntu-12.04.1-and-12.10
+    # http://stackoverflow.com/questions/17657261/how-to-install-clang-pre-built-binaries-ubuntu-12-04
+    # http://sohanikh.blogspot.ru/2013/02/how-to-build-llvm-from-source-on-ubuntu.html
+    add_definitions(  -Wall -g -fsanitize=address)
+    message("I'm clang")
     link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
-    # how split embedded form just linux
-    # http://stackoverflow.com/questions/9534126/automatically-linking-socket-shared-library-in-nix
-    # http://stackoverflow.com/questions/14835605/linking-with-gcc-fails-after-switching-boost-version-from-1-52-to-1-53
-    #
-    # http://stackoverflow.com/questions/9511422/undefined-reference-to-clock-gettime-gcc-4-6-cmake
-    # http://www.unix.com/man-page/opensolaris/3lib/librt/
-    #
-    # https://software.intel.com/en-us/forums/topic/285308
     link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+  else()
+    message("I'm NOT clang")
+    add_definitions(  -Wall)
+    # FIXME: -D_REENTRANT
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES arm)
+      link_directories(${BigExtern}/boost_1_57_0/stage_arm/lib)
+      link_libraries(pthread boost_system)
+      message("I'm ARM processor")
+      # http://stackoverflow.com/questions/11944060/how-to-detect-target-architecture-using-cmake
+      #  message( STATUS "Architecture: ${ARCHITECTURE}" ) # not work
+    else()
+      message("I'm NOT ARM processor")
+      link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
+      # how split embedded form just linux
+      # http://stackoverflow.com/questions/9534126/automatically-linking-socket-shared-library-in-nix
+      # http://stackoverflow.com/questions/14835605/linking-with-gcc-fails-after-switching-boost-version-from-1-52-to-1-53
+      #
+      # http://stackoverflow.com/questions/9511422/undefined-reference-to-clock-gettime-gcc-4-6-cmake
+      # http://www.unix.com/man-page/opensolaris/3lib/librt/
+      #
+      # https://software.intel.com/en-us/forums/topic/285308
+      link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+    endif()
   endif()
 endif()
 

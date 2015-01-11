@@ -1,6 +1,8 @@
 // Troubles:
 //  http://stackoverflow.com/questions/26751180/does-the-future-generated-from-boostpackaged-task-throw-wrong-exception
 // http://exceptionsafecode.com/slides/esc.pdf
+//
+// https://www.youtube.com/watch?v=W7fIy_54y-w !!
 
 #define BOOST_THREAD_PROVIDES_FUTURE
 

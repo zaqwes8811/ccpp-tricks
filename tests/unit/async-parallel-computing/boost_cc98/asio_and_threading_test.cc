@@ -20,6 +20,8 @@
 using boost::thread;
 using std::vector;
 using boost::shared_ptr;
+using std::cout;
+using std::endl;
 
 // http://stackoverflow.com/questions/4260209/creating-not-copyable-but-movable-objects-in-c
 // thread - movable
@@ -171,81 +173,123 @@ TEST(Parallel, AsioTerminate)
   std::cout << "Done waiting on server thread." << std::endl;
 }
 
+namespace {
 // http://www.boost.org/doc/libs/1_35_0/doc/html/boost_asio/tutorial/tutdaytime6.html
 // http://stackoverflow.com/questions/4808848/boost-asio-stopping-io-service
 using boost::asio::ip::udp;
-class udp_server {
+//using boost::asio;//::placeholders;
+using boost::bind;
+using boost::asio::buffer;
+
+class udp_async_server {
 public:
-  udp_server(boost::asio::io_service& io_service)
-    :
-      m_socket(io_service, udp::endpoint(udp::v4(), 1032)) // bind
+  // bind
+  udp_async_server(boost::asio::io_service& io_service)
+    : m_socket(io_service)
+    , m_rBuffer(new vector<char>(1024, 0))
   {
+    m_socket.open(udp::v4());
+    m_socket.bind(udp::endpoint(udp::v4(), 1036));
     start_receive();
   }
 
-  ~udp_server() {
-    // http://stackoverflow.com/questions/15027268/how-to-close-boost-asio-server-socket-with-all-client-sockets-connected
-    //m_socket.shutdown();
-    m_socket.close();
-  }
+  // http://stackoverflow.com/questions/15027268/how-to-close-boost-asio-server-socket-with-all-client-sockets-connected
+  //m_socket.shutdown();
+  ~udp_async_server()
+  { m_socket.close(); }
 
 private:
   void start_receive() {
-    shared_ptr<vector<char> > pVector(new vector<char>(1024, 0));
-    m_socket.async_receive_from
-        (
-        boost::asio::buffer(&(*pVector)[0], pVector->size()), m_remoteEndpoint,
-        boost::bind(&udp_server::handle_receive, this, pVector,
-          boost::asio::placeholders::error,
-          boost::asio::placeholders::bytes_transferred));
+    m_socket.async_receive_from(
+          buffer(&(*m_rBuffer)[0], m_rBuffer->size())
+        , m_remoteEndpoint
+        , bind(&udp_async_server::handle_receive, this
+             , boost::asio::placeholders::error
+             , boost::asio::placeholders::bytes_transferred));
   }
 
-  void handle_receive(
-      boost::shared_ptr<vector<char> > pBuffer
-      , const boost::system::error_code& error
-      , std::size_t bytes_transferred) {
+  void handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred) {
     if (!error || error == boost::asio::error::message_size) {
       // process request
 
       // make response
       boost::shared_ptr<std::string> message(new std::string());
 
-      m_socket.async_send_to  // async_send not compiled
-          (boost::asio::buffer(*message), m_remoteEndpoint,
-          boost::bind(&udp_server::handle_send, this, message,
-            boost::asio::placeholders::error,
-            boost::asio::placeholders::bytes_transferred));
+      // async_send not compiled
+      m_socket.async_send_to(
+          buffer(*message)
+          , m_remoteEndpoint
+          , bind(&udp_async_server::handle_send, this
+              , message
+              , boost::asio::placeholders::error
+              , boost::asio::placeholders::bytes_transferred));
 
-      start_receive();
+      start_receive();  // !!
     }
   }
-  void handle_send(
-      boost::shared_ptr<std::string> /*message*/,
-      const boost::system::error_code& /*error*/,
-      std::size_t /*bytes_transferred*/) { }
 
+  /*message*/
+  /*error*/
+  /*bytes_transferred*/
+  void handle_send(boost::shared_ptr<std::string>, const boost::system::error_code& , std::size_t) { }
+
+  // diff. obj. can used from diff threads
   udp::socket m_socket;
+  shared_ptr<vector<char> > m_rBuffer;//(new vector<char>(1024, 0));
   udp::endpoint m_remoteEndpoint;
 };
 
-void serverThreadUdpFunc( boost::asio::io_service& io_service ) {
-  udp_server server(io_service);
+class AppScopeFake {
+public:
+  bool wasTerminated() const { return s_wasTerminated; }
+  void terminate() { s_wasTerminated = true; }
+private:
+  static bool s_wasTerminated;
+};
 
-  //while()  // doc 520 - can cycle
-  io_service.run();  // blocked if work loaded?
+typedef enum kernels_Codes {
+  UNKNOWN_EXCEPTION,
+  BOOST_EXCEPTION,
+  APPLICATION_WAS_TERMINATED
+} kernels_Codes;
+
+int udpServerKernel( boost::asio::io_service& io_service, AppScopeFake app) {
+  try {
+    udp_async_server server(io_service);
+    //io_service.run();  // blocked if work loaded?
+
+    // doc 520 - can cycle
+    // FIXME: heat processor
+    while(true) {
+      io_service.poll_one();  // can't stop
+      if (app.wasTerminated())
+        return APPLICATION_WAS_TERMINATED;
+    }
+  } catch(boost::system::system_error& e) {
+    return BOOST_EXCEPTION;
+  } catch(...) {
+    return UNKNOWN_EXCEPTION;
+  }
 }
 
+bool AppScopeFake::s_wasTerminated = false;
+
 TEST(Parallel, Udp) {
+  AppScopeFake app;
+
   // http://stackoverflow.com/questions/4702512/stopping-threaded-server-loop-using-boostasio
   // http://stackoverflow.com/questions/15027268/how-to-close-boost-asio-server-socket-with-all-client-sockets-connected
+  //
+  // http://stackoverflow.com/questions/11010530/do-we-need-multiple-io-service-per-thread-for-threaded-boostasio-server-with
   boost::asio::io_service io_service;
   // Create server thread that will start accepting connections.
-  boost::thread server_thread( serverThreadUdpFunc, boost::ref( io_service ) );
+  boost::thread server_thread( udpServerKernel, boost::ref( io_service ), app);
 
   // Sleep for 10 seconds, then shutdown the server.
   std::cout << "Stopping service in 10 seconds..." << std::endl;
   boost::this_thread::sleep( boost::posix_time::seconds( 1 ) );
   std::cout << "Stopping service now!" << std::endl;
+  app.terminate();
 
   // Stopping the io_service is a non-blocking call.  The threads that are
   // blocked on io_service::run() will try to return as soon as possible, but
@@ -257,3 +301,4 @@ TEST(Parallel, Udp) {
   server_thread.join();
   std::cout << "Done waiting on server thread." << std::endl;
 }
+}  // space
