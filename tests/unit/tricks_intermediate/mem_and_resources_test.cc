@@ -283,9 +283,17 @@ public:
 */
 };
 
+// http://stackoverflow.com/questions/25147667/clang-produces-illegal-instruction-where-gcc-doesnt
 int my_fclose ( FILE * stream ) {
   if (stream)
     return fclose(stream);
+  return NULL;  // !!!
+}
+
+template<typename T>
+void del_array(T* p) {
+  cout << "array deleter\n";
+  delete [] p;
 }
 
 TEST(Resources, ScopedGuard) {
@@ -293,13 +301,20 @@ TEST(Resources, ScopedGuard) {
   // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=2
   //
   // x64 trouble? http://www.viva64.com/en/a/0049/
-  using Loki::ScopeGuard;
-  using Loki::MakeGuard;
+  //using Loki::ScopeGuard;
+  //using Loki::MakeGuard;
 
   // http://stackoverflow.com/questions/16922871/why-glibcs-fclosenull-cause-segmentation-fault-instead-of-returning-error
   FILE* topSecret = fopen("_cia.txt", "r");  // failed if file not founded
-  assert(topSecret == NULL);
-  ScopeGuard closeIt = MakeGuard(my_fclose, topSecret);
+  EXPECT_TRUE(topSecret == NULL);
+
+  // Illegal instruction (core dumped) - clang-3.4
+  int* p = new int[10];
+  Loki::ScopeGuard g = Loki::MakeGuard(del_array<int>, p);
+  Loki::ScopeGuard closeIt = Loki::MakeGuard(
+        &my_fclose,
+        //&::fclose,  // failed
+        topSecret);
 
   // ...do someting...
 
@@ -316,11 +331,7 @@ TEST(Resources, Guards) {
   // Qt - есть
 }
 
-template<typename T>
-void del_array(T* p) {
-  cout << "array deleter\n";
-  delete [] p;
-}
+
 
 TEST(Resources, SafeMakeSetArrays) {
   // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=3

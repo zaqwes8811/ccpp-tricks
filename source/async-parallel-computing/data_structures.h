@@ -196,7 +196,7 @@ private:
       boost::mutex::scoped_lock lock(m_mtx);
 
       ++m_nblocked_push;
-      while (!m_stopped && m_q.size() == size)
+      while (!m_stopped && m_q.size() == size())
         m_push_cv.wait(lock);
       --m_nblocked_push;
 
