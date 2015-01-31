@@ -81,12 +81,12 @@ elseif (UNIX)
     # https://github.com/couchbase/couchnode/blob/master/deps/lcb/cmake/Modules/GetLibcouchbaseFlags.cmake
     # http://blogs.perl.org/users/rurban/2011/11/adventures-with-clang-and-asan.html
     #IF(LCB_USE_ASAN)
-# main: address - thread, memory and ub not work in i686, only x86_64
-#-fno-omit-frame-pointer -O1
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g  -fsanitize=address")
-#-fno-omit-frame-pointer -O1
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -g  -fsanitize=address")
-# -undefined dynamic_lookup
+      # main: address - thread, memory and ub not work in i686, only x86_64
+      #-fno-omit-frame-pointer -O1
+      SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g  -fsanitize=address")
+      #-fno-omit-frame-pointer -O1
+      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -g  -fsanitize=address")
+      # -undefined dynamic_lookup
         SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}  -fsanitize=address")
         SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
     #ENDIF()
