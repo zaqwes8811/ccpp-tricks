@@ -73,35 +73,20 @@ if (UNIX)
     link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
   else()
     message("I'm NOT clang")
-    add_definitions(  -Wall)
-    # FIXME: -D_REENTRANT
-    if (CMAKE_SYSTEM_PROCESSOR MATCHES arm)
-      link_directories(${BigExtern}/boost_1_57_0/stage_arm/lib)
-      link_libraries(pthread boost_system)
-      message("I'm ARM processor")
-      # http://stackoverflow.com/questions/11944060/how-to-detect-target-architecture-using-cmake
-      #  message( STATUS "Architecture: ${ARCHITECTURE}" ) # not work
-    else()
-      IF(LCB_USE_VALGRIND)
-          # -pg
-          #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
-          #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
-          #SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -undefined dynamic_lookup -fsanitize=address")
-          #SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
-      ENDIF()
+    #add_definitions(  -Wall)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall")
 
-      message("I'm NOT ARM processor")
-      link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
-      # how split embedded form just linux
-      # http://stackoverflow.com/questions/9534126/automatically-linking-socket-shared-library-in-nix
-      # http://stackoverflow.com/questions/14835605/linking-with-gcc-fails-after-switching-boost-version-from-1-52-to-1-53
-      #
-      # http://stackoverflow.com/questions/9511422/undefined-reference-to-clock-gettime-gcc-4-6-cmake
-      # http://www.unix.com/man-page/opensolaris/3lib/librt/
-      #
-      # https://software.intel.com/en-us/forums/topic/285308
-      link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
-    endif()
+    # FIXME: -D_REENTRANT
+    IF(LCB_USE_VALGRIND)
+      # -pg
+      #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+      #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+      #SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -undefined dynamic_lookup -fsanitize=address")
+      #SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+    ENDIF()
+
+    link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
+    link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
   endif()
 endif()
 

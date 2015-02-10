@@ -3,6 +3,7 @@
 *.dep
 *.dll
 *.exe
+*.bin
 *.exe.*
 *.idb
 *.ilk
