@@ -12,10 +12,10 @@
 //
 // http://sergeyteplyakov.blogspot.ru/2012/05/c-11-faq.html
 
+#include <gtest/gtest.h>
+
 #include <vector>
 #include <algorithm>
-
-#include <gtest/gtest.h>
 
 namespace {
 // Cpp-Seasoning - где нужно move - не очень то где - конструктор и assign
