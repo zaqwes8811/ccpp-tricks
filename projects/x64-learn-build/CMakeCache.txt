@@ -174,12 +174,6 @@ CMAKE_USE_RELATIVE_PATHS:BOOL=OFF
 CMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 //Value Computed by CMake
-cc-space_BINARY_DIR:STATIC=/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn-build
-
-//Value Computed by CMake
-cc-space_SOURCE_DIR:STATIC=/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn
-
-//Value Computed by CMake
 x64-learn_BINARY_DIR:STATIC=/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn-build
 
 //Value Computed by CMake
