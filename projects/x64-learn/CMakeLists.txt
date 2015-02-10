@@ -17,7 +17,7 @@ set(unitTests "./tests/unit/")
 set(Source "source/")
 set(testsRoot "./tests")
 set(root ".")
-set(BigExtern "/home/zaqwes/work/big-3rdparty/")
+set(BigExtern "/opt/big-3rdparty/")
 set(Intern "./intern/")
 
 # Test framework
