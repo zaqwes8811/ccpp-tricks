@@ -38,12 +38,17 @@
 
 #include "reuse/visuality/view.h"
 
-#include <adobe/algorithm/find.hpp>
-#include <adobe/algorithm/for_each.hpp>  // ничего не возвращает
-#include <adobe/algorithm/sort.hpp>
-#include <adobe/algorithm/lower_bound.hpp>
-#include <adobe/algorithm/upper_bound.hpp>
-#include <adobe/algorithm/random_shuffle.hpp>
+#define NO_ASL
+
+#ifndef NO_ASL
+#  include <adobe/algorithm/find.hpp>
+#  include <adobe/algorithm/for_each.hpp>  // ничего не возвращает
+#  include <adobe/algorithm/sort.hpp>
+#  include <adobe/algorithm/lower_bound.hpp>
+#  include <adobe/algorithm/upper_bound.hpp>
+#  include <adobe/algorithm/random_shuffle.hpp>
+#endif
+
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/range/iterator.hpp>
@@ -231,8 +236,10 @@ TEST(SeanParent_, NoRawLoops) {
     copy(range.first, range.second, back_insert_iterator<std::vector<int> >(tmp));
     cout << tmp;
     
+ #ifndef NO_ASL
     // NO CHECK
     cout << *adobe::find(v, 8) << endl;
+ #endif
     
     //
     // Functors vs bind - http://stackoverflow.com/questions/17810018/functors-vs-stdbind
@@ -277,6 +284,8 @@ TEST(SeanParent_, NoRawLoops) {
     vector<int> v(arr, arr + sizeof(arr) / sizeof(arr[0]));
     
     vector<int> tmp = v;
+
+ #ifndef NO_ASL
     adobe::stable_sort(tmp);
     
     cout << tmp;
@@ -301,7 +310,7 @@ TEST(SeanParent_, NoRawLoops) {
 	 adobe::upper_bound(tmp, 7)), // ) итератор указывает на > 7, и мы его не включаем в копирование
 	 back_insert_iterator<vector<int> >(range_));
     cout << range_;
-    
+#endif
   }
   
   // Chrome
@@ -314,6 +323,7 @@ TEST(SeanParent_, NoRawLoops) {
     
     {
       int fixed_index = 7;
+ #ifndef NO_ASL
       vector<int>::iterator p = adobe::find(expanded_panels_, 123);//2); похоже предусловия не такие
       vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
       assert(p != expanded_panels_.end());
@@ -328,10 +338,12 @@ TEST(SeanParent_, NoRawLoops) {
       
       expanded_panels_.insert(expanded_panels_.begin() + delta, ref);
       cout << expanded_panels_;
+#endif
     }
     
     // rotate version
     {
+#ifndef NO_ASL
       expanded_panels_ = v;
       int fixed_index = 7;
 
@@ -342,6 +354,7 @@ TEST(SeanParent_, NoRawLoops) {
       //rotate(p, p+1, f+1);
       rotate(p, f, f+1);  // не правильно - на самом деле смотря что нужно
       cout << expanded_panels_;  // не эквивалентно!
+#endif
     }
     
   }
@@ -361,7 +374,7 @@ TEST(SeanParent_, NoRawLoops) {
       v.push_back(employee("Parent"));
       v.push_back(employee("Parent"));
       v.push_back(employee("Yeng"));
-      
+#ifndef NO_ASL
       adobe::random_shuffle(v);
       
       // сортируем и ищем 
@@ -374,6 +387,7 @@ TEST(SeanParent_, NoRawLoops) {
       cout << endl;
       // Норм, но лучше сделать с getter
       cout << v;
+#endif
     }
     
     // Далать тело for_each как можно меньше
