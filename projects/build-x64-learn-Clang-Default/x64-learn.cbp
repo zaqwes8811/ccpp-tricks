@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="x64-learn" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="blocked_tests.bin">
+         <Option output="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/blocked_tests.bin" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/zaqwes/work/big-3rdparty/asl_1.0.43" />
+            <Add directory="/home/zaqwes/work/big-3rdparty/boost_1_57_0" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/gmock-1.6.0/fused-src" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/jsoncpp-src-0.6.0-rc2/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/loki-0.1.7/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/mongoose-5.2" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/slre-1.3" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/smash-vx.y-fix" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/./tests/unit" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/reuse" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 blocked_tests.bin" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="blocked_tests.bin/fast">
+         <Option output="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/blocked_tests.bin" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/zaqwes/work/big-3rdparty/asl_1.0.43" />
+            <Add directory="/home/zaqwes/work/big-3rdparty/boost_1_57_0" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/gmock-1.6.0/fused-src" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/jsoncpp-src-0.6.0-rc2/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/loki-0.1.7/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/mongoose-5.2" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/slre-1.3" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/smash-vx.y-fix" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/./tests/unit" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/reuse" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 blocked_tests.bin/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="unittest.bin">
+         <Option output="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/unittest.bin" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/zaqwes/work/big-3rdparty/asl_1.0.43" />
+            <Add directory="/home/zaqwes/work/big-3rdparty/boost_1_57_0" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/gmock-1.6.0/fused-src" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/jsoncpp-src-0.6.0-rc2/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/loki-0.1.7/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/mongoose-5.2" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/slre-1.3" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/smash-vx.y-fix" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/./tests/unit" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/reuse" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 unittest.bin" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="unittest.bin/fast">
+         <Option output="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/unittest.bin" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/zaqwes/work/big-3rdparty/asl_1.0.43" />
+            <Add directory="/home/zaqwes/work/big-3rdparty/boost_1_57_0" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/gmock-1.6.0/fused-src" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/jsoncpp-src-0.6.0-rc2/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/loki-0.1.7/include" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/mongoose-5.2" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/slre-1.3" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/../../extern/smash-vx.y-fix" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/./tests/unit" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source" />
+            <Add directory="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/reuse" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 unittest.bin/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/zaqwes/work/in-the-vicinity-cc/projects/build-x64-learn-Clang-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/mains/launcher_tests.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/tests/viva64_test.cc">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.h">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.h">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.h">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.h">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/heart/config.h">
+      </Unit>
+      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

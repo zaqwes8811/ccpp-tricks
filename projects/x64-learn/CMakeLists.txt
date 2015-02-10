@@ -1,15 +1,13 @@
-# debig troubles
-# http://stackoverflow.com/questions/19912648/cmake-qtcreator-mingw-debug-mode-windows-7
-# http://www.cmake.org/Wiki/CMake_Useful_Variables
 # -DCMAKE_BUILD_TYPE=Debug
 # -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+#
+# x64:
+#  https://developer.apple.com/library/mac/documentation/Darwin/Conceptual/64bitPorting/building/building.html
+#  http://stackoverflow.com/questions/16273561/gcc-generic-march-for-all-the-x64-platforms
+
 
 project(x64-learn)
 cmake_minimum_required(VERSION 2.8)
-
-#Message(${CMAKE_CURRENT_LIST_DIR})
-
-#
 
 set(Extern "../../extern/")
 set(GMock "../../extern/gmock-1.6.0/fused-src")
@@ -38,11 +36,29 @@ include_directories(${unitTests})
 
 # link the libraries to the executable
 if (UNIX)
-  # gcc 4.8 ubuntu 12 http://llvm.org/docs/GettingStarted.html#getting-a-modern-host-c-toolchain
-  # cmake .. -DCMAKE_CXX_LINK_FLAGS="-Wl,-rpath,$HOME/toolchains/lib64 -L$HOME/toolchains/lib64"
-  # http://llvm.org/docs/GettingStarted.html#getting-a-modern-host-c-toolchain
+    #add_definitions(  -Wall) # not working
+    # http://stackoverflow.com/questions/15610404/gcc-does-not-give-any-warning-when-converting-from-64-bit-to-32-bit
+    #-arch x86_64  # Apple's gcc
+    # -Wshorten-64-to-32
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall -march=x86-64 -Wconversion -pedantic -Wextra")
 
-  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # gcc 4.8 ubuntu 12 http://llvm.org/docs/GettingStarted.html#getting-a-modern-host-c-toolchain
+    # cmake .. -DCMAKE_CXX_LINK_FLAGS="-Wl,-rpath,$HOME/toolchains/lib64 -L$HOME/toolchains/lib64"
+    # http://llvm.org/docs/GettingStarted.html#getting-a-modern-host-c-toolchain
+
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        # FIXME: Need toolchain. QtCreator not see it!
+        link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
+        link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+    else()
+        # FIXME: -D_REENTRANT
+        link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
+        link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+    endif()
+endif()
+
+# ASan,TSan and MSan
+IF(LCB_USE_VALGRIND)
     # Static analyser http://clang-analyzer.llvm.org/
     # https://github.com/couchbase/couchnode/blob/master/deps/lcb/cmake/Modules/GetLibcouchbaseFlags.cmake
     # http://blogs.perl.org/users/rurban/2011/11/adventures-with-clang-and-asan.html
@@ -68,27 +84,13 @@ if (UNIX)
     # http://sohanikh.blogspot.ru/2013/02/how-to-build-llvm-from-source-on-ubuntu.html
     add_definitions(  -Wall -g -fsanitize=address)
     # https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Firefox_and_Address_Sanitizer
-    message("I'm clang")
-    link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
-    link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
-  else()
-    message("I'm NOT clang")
-    #add_definitions(  -Wall)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall")
-
-    # FIXME: -D_REENTRANT
-    IF(LCB_USE_VALGRIND)
       # -pg
       #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
       #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
       #SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -undefined dynamic_lookup -fsanitize=address")
       #SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
-    ENDIF()
+ENDIF()
 
-    link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
-    link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
-  endif()
-endif()
 
 message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 

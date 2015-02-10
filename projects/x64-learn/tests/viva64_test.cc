@@ -43,7 +43,17 @@ TEST(Viva64Test, L5) {
 }
 }  // space
 
-namespace l6 {
+namespace l6_7 {
+bool FooFind(char *Array, char Value,
+             size_t Size)
+{
+  // FIXME: Danger! no warnings gcc 4.8
+  for (unsigned i = 0; i != Size; ++i)
+    if (i % 5 == 0 && Array[i] == Value)
+      return true;
+  return false;
+}
+
 TEST(Viva64Test, L6) {
   size_t pointersCount = 100;
   int **arrayOfPointers = (int **)malloc(pointersCount * 4);

@@ -3,22 +3,8 @@
 #include <hypertable-fix/own_logger.h>
 #include <boost/thread/mutex.hpp>
 
-//namespace loggers {
-// LOGloggers::logToFile((msg), std::string(__FILE__), loggers::IntToStr(__LINE__));  \
-//}  // space
 
-//namespace loggers {
 void logToFile(std::string msg, std::string codeFile, std::string line);
-
-/*
-template <typename T>
-std::string IntToStr(T tmp) {
-  std::ostringstream out;
-  out << tmp;
-  return out.str();
-}
-*/
-static const char* kPathToLogs = "logs/";
 static boost::mutex s_mtx;
 void logToFile(std::string msg, std::string codeFile, std::string line) {
   time_t seconds = time(NULL);
@@ -40,6 +26,3 @@ void logToFile(std::string msg, std::string codeFile, std::string line) {
   std::cout << value;
 
 }
-
-
-//}
