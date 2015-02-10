@@ -170,25 +170,9 @@
       </Build>
       <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.cc">
       </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc">
-      </Unit>
       <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/mains/launcher_tests.cc">
       </Unit>
       <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/tests/viva64_test.cc">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.h">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.h">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.h">
-      </Unit>
-      <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.h">
       </Unit>
       <Unit filename="/home/zaqwes/work/in-the-vicinity-cc/projects/x64-learn/source/heart/config.h">
       </Unit>

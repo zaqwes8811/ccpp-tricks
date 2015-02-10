@@ -154,114 +154,6 @@ home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all
 	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.cc.s
 .PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.cc.s
 
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.o: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.o
-
-# target to build an object file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.o:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.o
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.o
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.i: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.i
-
-# target to preprocess a source file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.i:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.i
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.i
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.s: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.s
-
-# target to generate assembly for a file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.s:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.s
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.cc.s
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.o: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.o
-
-# target to build an object file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.o:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.o
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.o
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.i: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.i
-
-# target to preprocess a source file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.i:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.i
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.i
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.s: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.s
-
-# target to generate assembly for a file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.s:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.s
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.cc.s
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.o: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.o
-
-# target to build an object file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.o:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.o
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.o
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.i: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.i
-
-# target to preprocess a source file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.i:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.i
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.i
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.s: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.s
-
-# target to generate assembly for a file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.s:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.s
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.cc.s
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.o: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.o
-
-# target to build an object file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.o:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.o
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.o
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.o
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.i: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.i
-
-# target to preprocess a source file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.i:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.i
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.i
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.i
-
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.s: home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.s
-
-# target to generate assembly for a file
-home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.s:
-	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.s
-	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.s
-.PHONY : home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.cc.s
-
 source/mains/launcher_tests.o: source/mains/launcher_tests.cc.o
 .PHONY : source/mains/launcher_tests.o
 
@@ -295,6 +187,7 @@ tests/viva64_test.o: tests/viva64_test.cc.o
 # target to build an object file
 tests/viva64_test.cc.o:
 	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/tests/viva64_test.cc.o
+	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/tests/viva64_test.cc.o
 .PHONY : tests/viva64_test.cc.o
 
 tests/viva64_test.i: tests/viva64_test.cc.i
@@ -303,6 +196,7 @@ tests/viva64_test.i: tests/viva64_test.cc.i
 # target to preprocess a source file
 tests/viva64_test.cc.i:
 	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/tests/viva64_test.cc.i
+	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/tests/viva64_test.cc.i
 .PHONY : tests/viva64_test.cc.i
 
 tests/viva64_test.s: tests/viva64_test.cc.s
@@ -311,6 +205,7 @@ tests/viva64_test.s: tests/viva64_test.cc.s
 # target to generate assembly for a file
 tests/viva64_test.cc.s:
 	$(MAKE) -f CMakeFiles/blocked_tests.bin.dir/build.make CMakeFiles/blocked_tests.bin.dir/tests/viva64_test.cc.s
+	$(MAKE) -f CMakeFiles/unittest.bin.dir/build.make CMakeFiles/unittest.bin.dir/tests/viva64_test.cc.s
 .PHONY : tests/viva64_test.cc.s
 
 # Help Target
@@ -326,18 +221,6 @@ help:
 	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.o"
 	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.i"
 	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/gmock-1.6.0/fused-src/gmock-gtest-all.s"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.o"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.i"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Error.s"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.o"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.i"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/Logger.s"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.o"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.i"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/Common/String.s"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.o"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.i"
-	@echo "... home/zaqwes/work/in-the-vicinity-cc/extern/hypertable-fix/own_logger.s"
 	@echo "... source/mains/launcher_tests.o"
 	@echo "... source/mains/launcher_tests.i"
 	@echo "... source/mains/launcher_tests.s"

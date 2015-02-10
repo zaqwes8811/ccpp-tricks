@@ -91,46 +91,18 @@ IF(LCB_USE_VALGRIND)
       #SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
 ENDIF()
 
-
 message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
 # Sources
-file( GLOB canaryHttp
-  ${Source}/async-parallel-computing/*.cc
-  ${Source}/async-parallel-computing/*.h
-  ${Source}/canary/*.cc
-  ${Source}/heart/*.h
-  ${Source}/canary/*.h)
-
-file( GLOB apple
-  ${Extern}/hypertable-fix/Common/*.cc
-  ${Extern}/hypertable-fix/*.cc)
-
+file( GLOB canaryHttp ${Source}/heart/*.h)
+file( GLOB apple ${Extern}/hypertable-fix/Common/*.cc ${Extern}/hypertable-fix/*.cc)
 
 # unittests
-file( GLOB mibTest  ${unitTests}/canary/smash_test_mib/*.c)
-file( GLOB canaryTestHttp  ${unitTests}/canary/*.cc ${Tests}/canary/*.h)
-file( GLOB proTests
-  ${unitTests}/tricks_peoples/sean_parent/*.cc
-  ${unitTests}/tricks_peoples/sutter/*.cc
-  ${unitTests}/tricks_peoples/gotchas/*.cc
-  ${unitTests}/tricks_peoples/sutter_tasks/*.cc
-  ${unitTests}/tricks_peoples/sutter_tasks_new/*.cc
-  ${unitTests}/tricks_intermediate/*.cc
-  ${unitTests}/lang_core/*.cc
-  ${unitTests}/mem_heap_stack/*.cc
-  ${unitTests}/extern/*.cc
-  ${unitTests}/async-parallel-computing/patterns/*.cc
-  ${unitTests}/stl/*.cc
-  ${unitTests}/*.cc
-  ${unitTests}/async-parallel-computing/safe_data_structures/*.cc
-  ${unitTests}/async-parallel-computing/boost_cc98/*.cc)
-file( GLOB testsRtos
-  ${unitTests}/async-parallel-computing/*.cc)
+file( GLOB proTests ${unitTests}/*.cc)
+file( GLOB blockedTestSources  ${testsRoot}/*.cc)
 
 # Pack
 set( unitTests ${mibTest} ${canaryTestHttp} ${proTests} ${testsRtos})
-set( externCode ${apple} ${slre} ${mongoose} ${jsonCpp} ${snmp} ${asn1Lib} ${externMibApi})
 set( proSources
     ${proGlue}
     ${proCommon}
@@ -144,8 +116,6 @@ set( proSources
     ${proJournals})
 
 set( canarySources ${canaryHttp})
-
-file( GLOB blockedTestSources  ${testsRoot}/*.cc)
 
 
 # Warning: run one by one and !in QtCreator only in external terminal!
@@ -164,6 +134,7 @@ add_executable(unittest.bin
     ${unitTests}
     ${externCode}
     ${proSources}
+    ${blockedTestSources}
     ${canarySources}
 )
 
