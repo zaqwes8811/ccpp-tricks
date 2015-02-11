@@ -6,6 +6,7 @@
 *.bin
 *.exe.*
 *.idb
+*.out
 *.ilk
 *.lastbuildstate
 *.log

@@ -65,7 +65,6 @@ int main(int argc, char* argv[]) {
   //return val(argc);
   //static test t;  // with static work
   //int j = t.j;
-
   //int j = 1;  // don't catch if just digit
   //int j = get();  // don't work
   //int i = global_array[j+100];  // no protection after some shift +160 example
