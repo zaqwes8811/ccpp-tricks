@@ -1,0 +1,5 @@
+CppCon 2014: Kostya Serebryany "Sanitize your C++ code"
+
+https://code.google.com/p/memory-sanitizer/wiki/MemorySanitizer
+https://code.google.com/p/thread-sanitizer/
+https://code.google.com/p/address-sanitizer/wiki/AsanCoverage
