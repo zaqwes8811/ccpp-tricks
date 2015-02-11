@@ -3,3 +3,13 @@ CppCon 2014: Kostya Serebryany "Sanitize your C++ code"
 https://code.google.com/p/memory-sanitizer/wiki/MemorySanitizer
 https://code.google.com/p/thread-sanitizer/
 https://code.google.com/p/address-sanitizer/wiki/AsanCoverage
+
+- big failure not founded
+- gcc have symbols troubles
+
+Clang
+http://stackoverflow.com/questions/24145685/how-do-i-initialize-llvms-external-symbolizer
+
+
+Other tools:
+http://google-perftools.googlecode.com/svn/trunk/doc/heap_checker.html

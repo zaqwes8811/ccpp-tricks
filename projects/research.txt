@@ -1,5 +1,0 @@
-- big failure not founded
-- gcc have symbols troubles
-
-Clang
-http://stackoverflow.com/questions/24145685/how-do-i-initialize-llvms-external-symbolizer
