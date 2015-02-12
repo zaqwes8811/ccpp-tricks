@@ -1,6 +1,7 @@
-//#include <thread>
+#include <thread>
 
 #include <boost/thread.hpp>
+#include <boost/shared_ptr.hpp>
 
 // FIXME: use boost::thread. Need rebuild boost and libstdc++?
 // http://boost.2283326.n4.nabble.com/clang-3-6-thread-sanitizer-complains-on-shared-ptr-operations-td4671416.html
@@ -41,10 +42,14 @@ void f2(int* X) {
   *X = 42;
 }
 
+void f3(boost::shared_ptr<int> X) {
+  *X = 42;
+}
+
+
 void m_not_working() {
     int X;
     // not working
-    //boost::thread t(boost::bind(&::f2, &X));
     boost::thread tt(boost::bind(
         //&::f1, boost::ref(X)
         &::f2, &X
@@ -64,13 +69,22 @@ void m_not_working() {
     tt.join();
 }
 
+struct s {
+//s(int &)
+};
+
 void m() {
-    int X;
+    boost::shared_ptr<int> pX(new int);
+    int& v = *pX;
     // not working
-    boost::thread t(boost::bind(&::f2, &X));
+    boost::thread t(
+        //boost::bind(&::f2, &(*pX))
+        [&] { v = 89; }  // work
+        );
     boost::thread tt(boost::bind(
-        //&::f1, boost::ref(X)  // not working
-        &::f2, &X
+        //&::f1, boost::ref(*pX)  // not working
+        &::f3, pX
+        //&::f2, &(*pX)
         )
     );
 
