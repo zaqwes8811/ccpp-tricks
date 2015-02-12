@@ -7,7 +7,7 @@ Some time need options
 
 Cons:
 - big failure not founded
-- gcc have symbols troubles
+- gcc have symbols troubles - FIXME: add -g https://code.google.com/p/thread-sanitizer/wiki/CppManual
 http://stackoverflow.com/questions/24145685/how-do-i-initialize-llvms-external-symbolizer
 
 TSan:
