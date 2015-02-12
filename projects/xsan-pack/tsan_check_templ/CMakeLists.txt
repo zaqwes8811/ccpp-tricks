@@ -36,7 +36,7 @@ if (UNIX)
     #-arch x86_64  # Apple's gcc
     # -Wshorten-64-to-32
     # -march=x86-64 -Wconversion -pedantic -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall")# -std=c++11")
 
     # gcc 4.8 ubuntu 12 http://llvm.org/docs/GettingStarted.html#getting-a-modern-host-c-toolchain
     # cmake .. -DCMAKE_CXX_LINK_FLAGS="-Wl,-rpath,$HOME/toolchains/lib64 -L$HOME/toolchains/lib64"
@@ -62,7 +62,7 @@ if (UNIX)
             # https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Firefox_and_Address_Sanitizer
         ENDIF()
         # FIXME: Need toolchain. QtCreator not see it!
-        link_directories(${BigExtern}/boost_1_57_0/clang_libx64/lib)
+        link_directories(${BigExtern}/boost_1_57_0/clang_tsan_lib64/lib)
         link_libraries(
             #tbb tbbmalloc
             boost_system boost_thread

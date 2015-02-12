@@ -1,4 +1,4 @@
-#include <thread>
+//#include <thread>
 
 #include <boost/thread.hpp>
 
@@ -25,21 +25,68 @@ linux-vdso.so.1 =>  (0x00007fff9d0fe000)
 
 */
 
+// Contain boost ... () opertaor
+// https://code.google.com/p/thread-sanitizer/issues/detail?id=55
+
 // FIXME: old clang?
 // FIXME: gcc?
 // FIXME: can't detect
 
-void f(int& X) {
+// not work
+void f1(int& X) {
   X = 42;
-  printf("hello");
+}
+
+void f2(int* X) {
+  *X = 42;
+}
+
+void m_not_working() {
+    int X;
+    // not working
+    //boost::thread t(boost::bind(&::f2, &X));
+    boost::thread tt(boost::bind(
+        //&::f1, boost::ref(X)
+        &::f2, &X
+        )
+    );
+    
+    //std::  // work
+    //boost:: // FIXME: non detected
+    //thread t([&] { X = 44; });
+    
+    // Main thread work
+    X = 43;  // not see
+    f2(&X);  // not see
+    f1(X);  // not see
+    
+    //t.join();
+    tt.join();
+}
+
+void m() {
+    int X;
+    // not working
+    boost::thread t(boost::bind(&::f2, &X));
+    boost::thread tt(boost::bind(
+        //&::f1, boost::ref(X)  // not working
+        &::f2, &X
+        )
+    );
+
+    //std::  // work
+    //boost:: // FIXME: non detected
+    //thread t([&] { X = 44; });
+    
+    // Main thread work
+    //X = 43;  // not see
+    //f2(&X);  // not see
+    //f1(X);  // not see
+    
+    t.join();
+    tt.join();
 }
 
 int main() {
-    int X;
-    // not working
-    boost::thread t(boost::bind(&::f, boost::ref(X)));
-    //std::thread t1([&] { X = 44; });
-    X = 43;
-    t.join();
-    //t1.join();
+    m();
 }
