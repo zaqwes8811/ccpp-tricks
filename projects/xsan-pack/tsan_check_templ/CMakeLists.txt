@@ -88,12 +88,12 @@ if (UNIX)
             # https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Firefox_and_Address_Sanitizer
         ENDIF()
         # FIXME: -D_REENTRANT
-        #link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
-        #link_libraries(
+        link_directories(${BigExtern}/boost_1_57_0/gcc_tsan_lib64/lib)
+        link_libraries(
             #tbb tbbmalloc
-        #    boost_system boost_thread
-        #    tsan
-        #    pthread rt)  # !! pthread and rt last!!
+            boost_system boost_thread
+            tsan
+            pthread rt)  # !! pthread and rt last!!
     endif()
 endif()
 
