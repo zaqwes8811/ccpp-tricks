@@ -1,9 +1,10 @@
 // Copyright (c) 2014, Cloudera, inc.
 
-//#include <gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <boost/foreach.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/locks.hpp>
+
 #include <vector>
 
 //#include "rw_semaphore.h"
@@ -36,7 +37,7 @@ void Reader(SharedState* state) {
   }
 }
 
-int main() {
+TEST(Cloudera, Sem) {
   SharedState s;
   vector<thread*> threads;
   for (int i = 0; i < 10; i++) {

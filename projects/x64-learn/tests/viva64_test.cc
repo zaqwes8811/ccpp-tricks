@@ -35,7 +35,6 @@ TEST(Viva64Test, L5) {
   for (
        //ptrdiff_t  // signed! delta can be > 0 and < 0
        size_t
-
        k = 0; k < v.size(); ++k) {
     v[k];
   }
@@ -47,7 +46,7 @@ namespace l6_7 {
 bool FooFind(char *Array, char Value,
              size_t Size)
 {
-  // FIXME: Danger! no warnings gcc 4.8
+  // FIXME: Danger! no warnings gcc 4.8 - need keys compilar
   for (unsigned i = 0; i != Size; ++i)
     if (i % 5 == 0 && Array[i] == Value)
       return true;
