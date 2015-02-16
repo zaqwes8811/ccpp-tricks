@@ -52,7 +52,7 @@ int j = 3;//argc;  // work but what the matter...
 
 // FIXME: local and static can't be indexes?
 
-int main(int argc, char* argv[]) {
+TEST(ASanTest, Banch) {
   /// Case - local buffer
   // GotIt
   //char b[100];
@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
   std::vector<int> v(8);
   int k = v[9];//.data()[900];  // if 900 - AddressSanitizer CHECK failed:
   printf("%d", k);  // no code line in GCC 4.8 and strange messages
-  return 0;//i;
+  //return 0;//i;
 
   // FIXME: Run, but how
   //testing::InitGoogleTest(&argc, argv);
