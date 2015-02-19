@@ -41,7 +41,10 @@ typedef struct {
     //int
     size_t
     request_length;
-    unsigned char request[SNMP_MAX_MSG_LENGTH];
+    unsigned char request[
+    //size_t
+    (SNMP_MAX_MSG_LENGTH)
+    ];
     unsigned char* request_varbind_sequence;
     int request_varbind_sequence_length;
 

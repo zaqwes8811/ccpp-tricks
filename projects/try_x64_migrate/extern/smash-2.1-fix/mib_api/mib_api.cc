@@ -210,7 +210,7 @@ unsigned char* mib_searchNext(
       {
         asn1OidElem_t t;
         mapiOid_t key;
-        int found = 0;
+        ptrdiff_t found = 0;
         key.namelen = currentOidLen;
         memcpy(key.name, pCurrentOid, currentOidLen * sizeof t);
 
@@ -334,7 +334,7 @@ int mib_mibCheck(const mapiTreeLeaf_t* cMib, int size) {
   }
 }
 
-int mib_findNext(
+ptrdiff_t mib_findNext(
     const mapiOid_t* const pKey
     , mapiTreeLeaf_t* const r_pResultVar)
 {
@@ -357,7 +357,7 @@ int mib_findNext(
 
     return idx;
   } catch (...) {
-    return -1;
+    return ptrdiff_t(-1);
   }
 }
 

@@ -33,6 +33,9 @@ SOFTWARE.
 #include "agent/_snmp_config.h"
 #endif
 
+#include <stddef.h>
+//#include <stdlib.h>
+
 #define SA_MAX_OID_LEN  32
 
 /* changed by H.H. */
@@ -167,7 +170,8 @@ unsigned char  *asn_build_unsigned_int64();
 #define SNMP_TRAP_PORT          162
 
 /* The maximum accepted packet length */
-#define SNMP_MAX_MSG_LENGTH    1500
+// FIXME: size_t()
+#define SNMP_MAX_MSG_LENGTH    (1500)
 #define SNMP_MAX_COMMUNITY_LENGTH  1500
 
 

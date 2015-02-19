@@ -65,6 +65,8 @@
 
 #include "asn1/asn1.h"
 
+#include <stddef.h>
+
 #define CFG_MAX_OID_SIZE 24  // Максимальная длина ключа
 
 /*access of object type*/
@@ -180,7 +182,7 @@ EXTERNC int mib_mibCheck(const mapiTreeLeaf_t* cMib, int size);
   !! http://sourceforge.net/p/net-snmp/mailman/message/21542960/
   http://stackoverflow.com/questions/2744181/how-to-call-c-function-from-c
 */
-EXTERNC int mib_findNext(const mapiOid_t* const key, mapiTreeLeaf_t* const r_pResultVar);
+EXTERNC ptrdiff_t mib_findNext(const mapiOid_t* const key, mapiTreeLeaf_t* const r_pResultVar);
 
 /**
   \attention bad api
