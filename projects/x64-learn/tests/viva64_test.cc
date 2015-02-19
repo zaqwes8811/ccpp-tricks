@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include <limits.h>
+
 using namespace std;
 
 namespace l5 {
@@ -60,5 +62,52 @@ TEST(Viva64Test, L6) {
   // deserealization binary data
   //size_t PixelCount;
   //fread(&PixelCount, sizeof(PixelCount), 1, inFile);
+}
+
+// magic
+TEST(Viva64Test, L9) {
+  // 1
+  size_t N = 5;
+  size_t ArraySize
+      = N * sizeof(intptr_t);
+      //= N*4;  // BAD
+
+  // http://stackoverflow.com/questions/1464174/size-t-vs-intptr-t
+  // http://stackoverflow.com/questions/6326338/why-when-to-use-intptr-t-for-type-casting-in-c
+  intptr_t* Array = (intptr_t* )malloc(ArraySize);
+
+
+  // 2
+  const size_t ARRAY_SIZE = 7;
+  size_t values[ARRAY_SIZE];
+  memset(values, 0, ARRAY_SIZE *
+         sizeof(size_t)  // better sizeof(values)
+         //4 // BAD
+         );
+
+  // 3
+  size_t n, r;
+  n = n >> (
+             //32  // 4*8  // BAD
+             // http://stackoverflow.com/questions/3200954/what-is-char-bit
+            CHAR_BIT * sizeof(n)
+             - r);
+
+  // 4
+  //BAD
+  // https://software.intel.com/en-us/forums/topic/348745
+#if defined(_WIN64) || defined(__amd64__)
+  #define CONST3264(a) (a##ll)
+  //i64)  // Windows
+#else
+  #define CONST3264(a)  (a)
+#endif
+  const size_t M =
+      //0xFFFFFFF0u;  // all except 4 first is 1
+      ~CONST3264(0xFu);
+
+  // 5
+//#define INVALID_RESULT (0xFFFFFFFFu)  // BAD if (r == -1)
+#define INVALID_RESULT (size_t(-1))  // Good
 }
 }
