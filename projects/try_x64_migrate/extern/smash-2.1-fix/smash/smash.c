@@ -53,77 +53,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  * ====================================================================*/
-/*
-int i = 0;
-unsigned long value = 0;
-unsigned int factor = 1;
-for (i = var_val_len-1; i >= 0; i--) {
-  value += var_val[i] * factor;
-  factor *= 256;
-}
-fprintf(stdout, "u value = %i ", value);
-fflush(stdout);
-//*/
-/*
- * Parses SEQUENCE hedaer and first integer (should be version)
- * On success it returns a pointer to the next ASN.1 field
- * If it fails it returns NULL.
- * The SNMP-version is returned in the 'version'-variable
- */
-
-/*static unsigned char* __smashParseVersion(unsigned char *snmp_data, int *length, long *version) {
-  unsigned char    type;
-
-  snmp_data = asn_parse_header(snmp_data, length, &type);
-  if (snmp_data == NULL){
-    PRINT_ERROR("bad header");
-    return NULL;
-  }
-  if (type != (ASN_SEQUENCE | ASN_CONSTRUCTOR)){
-    PRINT_ERROR("wrong auth header type");
-    return NULL;
-  }
-  snmp_data = asn_parse_int(
-      snmp_data, length, &type,
-      version, sizeof(*version));
-  return (unsigned char *)snmp_data;
-}
-*/
-
-// FIXME: to docs
-// Inner in lib
-//static unsigned char* __smashBuildVarbind(
-//    register unsigned char *data,  /* IN - pointer to the beginning of the output buffer */
-//   mapiOid_t* var_oid,  /* IN - object id of variable */
-//    unsigned char  var_val_type,  /* IN - type of variable */
-//    int    var_val_len,  /* IN - length of variable */
-//    unsigned char  *var_val,  /* IN - value of variable */
-//    register int *listlength   /* IN/OUT - number of valid bytes left in
-//           output buffer */);
-//
-//static unsigned char* __smashParseVarbind(
-//        register unsigned char* data,
-//        mapiOid_t* var_oid,
-//        unsigned char* var_val_type,
-//        int* var_val_len,
-//        unsigned char** var_val,
-//        int* listlength);
-
-/*
- * NOTE: error_index CONTAINS in the beginning the max_repetitions!!!!!!!
- */
-//static int __smashEmitListOfVarbindings(
-//    unsigned char *data, int length, unsigned char *out_data, int out_length,
-//    long non_repeaters, long *error_index,  smashSnmpPackage_t *raw_mesg, int action);
-/*
-static int __smashIsGoodValue( unsigned char inType
-                               , int inLen
-                               , unsigned char actualType
-                               , int actualLen);
-
-static void map_types_smiv2_to_smiv1_NI(unsigned char *smi_type);
-*/
-
 
 #include "common/config.h"
 
@@ -139,6 +68,9 @@ static void map_types_smiv2_to_smiv1_NI(unsigned char *smi_type);
 #include <ctype.h>
 #include <string.h>
 #include <assert.h>
+
+// http://stackoverflow.com/questions/3597743/where-is-ptrdiff-t-defined-in-c
+#include <stddef.h>
 
 #define MAX_COMMUNITIES    10 
 /* MIB search types */
@@ -171,6 +103,7 @@ static unsigned char* __parseOneVarbind(
     unsigned char **var_val,
     int* listlength)
   {
+  ptrdiff_t p;
   unsigned char varbind_type;
   int varbind_len = *listlength;
   unsigned char* varbind_start = data;
@@ -668,7 +601,7 @@ static int s_correctResponseWithLengths(
 #ifdef SNMP_GROUP
     snmpInASNParseErrs_instance++;
 #endif
-    return (int)(NULL);
+    return (ptrdiff_t)(NULL);
   } else {
     /* Make varbindlist identical                */
     /* This is done for the errors as well the SNMP SET (error_status==CREATE_IDENTICAL)  */

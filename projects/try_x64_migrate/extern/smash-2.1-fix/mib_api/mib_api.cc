@@ -14,6 +14,7 @@
 #include "common/snmp_string_abstr.h"
 
 #include <stdio.h>
+#include <stddef.h>
 
 #ifndef TRUE
 #define TRUE  1
@@ -54,7 +55,7 @@ int mib_findExact(const mapiOid_t* const key, mapiTreeLeaf_t* const r_pResultVar
     unsigned int i = 0;
     unsigned int n = 0;
     const asn1OidElem_t* pInOidName = key->name;
-    const unsigned char inOidLen = key->namelen;
+    const int inOidLen = key->namelen;
     const int elemSize = sizeof pLookUpTable[0].oid[0];
     const int sizeInOid = inOidLen * elemSize;
 
@@ -349,7 +350,7 @@ int mib_findNext(
       return -1;
 
     // http://stackoverflow.com/questions/2152986/best-way-to-get-the-index-of-an-iterator
-    int idx = std::distance(mib.begin(), r);
+    ptrdiff_t idx = std::distance(mib.begin(), r);
 
     // need real link! else return ptr to local variable!
     *r_pResultVar = s_pMibTree[idx];

@@ -59,6 +59,9 @@
 #ifndef _AGT_ENGINE_H_
 #define _AGT_ENGINE_H_
 
+// http://stackoverflow.com/questions/3597743/where-is-ptrdiff-t-defined-in-c
+//#include <stddef.h>
+
 /*
  * Error codes which must not clash with SNMP error codes (all positive).
  */
@@ -96,7 +99,7 @@
 #define RETURN_INT_ON_PARSE_ERROR(value, s)  if (value == NULL) { \
             INCR_PARSE_ERRORS; \
             PRINT_ERROR(s); \
-                     return (int)NULL; \
+                     return (ptrdiff_t)NULL; \
             }
 
 #define RETURN_ON_BUILD_ERROR(value, s)  if (value == NULL) { \
@@ -106,12 +109,12 @@
 
 #define RETURN_INT_ON_BUILD_ERROR(value, s)  if (value == NULL) { \
             PRINT_ERROR(s); \
-            return (int)NULL; \
+            return (ptrdiff_t)(NULL); \
           }
 
 #define RETURN_ON_ERROR(value, s)  if (value == NULL) { \
             PRINT_ERROR(s); \
-            return (int)NULL; \
+            return (ptrdiff_t)NULL; \
           }
 
 

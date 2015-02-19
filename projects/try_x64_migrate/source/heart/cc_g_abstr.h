@@ -1,8 +1,6 @@
 #ifndef CC_HEADERS_WEB_SERVICE_APP_TYPES_HH_
 #define CC_HEADERS_WEB_SERVICE_APP_TYPES_HH_
 
-//#include "inner_reuse/cc_text_proc.h"
-
 #include "boost/shared_ptr.hpp"
 
 #include <map>
@@ -11,7 +9,8 @@
 
 #include <boost/foreach.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/thread/mutex.hpp>
+//#include <boost/thread/mutex.hpp>
+
 #define foreach_ BOOST_FOREACH
 #define foreach_r_ BOOST_REVERSE_FOREACH
 
@@ -100,7 +99,7 @@ private:
   int rawHigh;
   int rawLow;
 
-  mutable boost::mutex m_mtx;
+  //mutable boost::mutex m_mtx;
 };
 
 class UniqueTextMessage

@@ -40,24 +40,12 @@ SOFTWARE.
   #define NULL  0
 #endif
 
-/*
- * asn_parse_int - pulls a long out of an ASN int type.
- *  On entry, datalength is input as the number of valid bytes following
- *   "data".  On exit, it is returned as the number of valid bytes
- *   following the end of this object.
- *
- *  Returns a pointer to the first byte past the end
- *   of this object (i.e. the start of the next object).
- *  Returns NULL on any error.
- */
-   
 unsigned char *
-asn_parse_int(data, datalength, type, intp, intsize)
-    register unsigned char      *data;  /* IN - pointer to start of object */
-    register int      *datalength;/* IN/OUT - number of valid bytes left in buffer */
-    unsigned char        *type;  /* OUT - asn type of object */
-    long        *intp;  /* IN/OUT - pointer to start of output buffer */
-    int          intsize;    /* IN - size of output buffer */
+asn_parse_int(register unsigned char      * data,
+              register int      *datalength,
+              unsigned char        *type,
+              long        * intp,
+              int intsize)
 {
 /*
  * ASN.1 integer ::= 0x02 asnlength byte {byte}*
@@ -148,62 +136,54 @@ asn_parse_unsigned_int(data, datalength, type, intp, intsize)
 }
 
 
-/*
- * asn_build_int - builds an ASN object containing an integer.
- *  On entry, datalength is input as the number of valid bytes following
- *   "data".  On exit, it is returned as the number of valid bytes
- *   following the end of this object.
- *
- *  Returns a pointer to the first byte past the end
- *   of this object (i.e. the start of the next object).
- *  Returns NULL on any error.
- */
-
-
 unsigned char *
-asn_build_int(data, datalength, type, intp, intsize)
-   register unsigned char *data;  /* IN - pointer to start of output buffer */
-    register int    *datalength;/* IN/OUT - number of valid bytes left in buffer */
-   unsigned char       type;  /* IN - asn type of object */
-     long   *intp;  /* IN - pointer to start of long integer */
-    int    intsize;    /* IN - size of *intp */
+asn_build_int(register unsigned char *data,
+              register int    *datalength,
+              unsigned char       type,
+              long   *intp,
+              int    intsize)
+
 {
-/*
- * ASN.1 integer ::= 0x02 asnlength byte {byte}*
- */
+  /*
+  * ASN.1 integer ::= 0x02 asnlength byte {byte}*
+  */
 
-    register long integer;
-    register unsigned long mask;
+  long integer;
+  unsigned long mask;
 
-    if (intsize != sizeof (long))
-  return NULL;
-    integer = *intp;
-    /*
-     * Truncate "unnecessary" bytes off of the most significant end of this
-     * 2's complement integer.  There should be no sequence of 9
-     * consecutive 1's or 0's at the most significant end of the
-     * integer.
-     */
-    mask = 0x1FF << ((8 * (sizeof(long) - 1)) - 1);
-    /* mask is 0xFF800000 on a big-endian machine */
-    while((((integer & mask) == 0) || ((integer & mask) == mask))
-    && intsize > 1){
-  intsize--;
-  integer <<= 8;
-    }
-    data = asn_build_header(data, datalength, type, intsize);
-    if (data == NULL)
-  return NULL;
-    if (*datalength < intsize)
-  return NULL;
-    *datalength -= intsize;
-    mask = 0xFF << (8 * (sizeof(long) - 1));
-    /* mask is 0xFF000000 on a big-endian machine */
-    while(intsize--){
-  *data++ = (unsigned char)((integer & mask) >> (8 * (sizeof(long) - 1)));
-  integer <<= 8;
-    }
-    return data;
+  if (intsize != sizeof (long))
+    return NULL;
+  integer = *intp;
+  /*
+  * Truncate "unnecessary" bytes off of the most significant end of this
+  * 2's complement integer.  There should be no sequence of 9
+  * consecutive 1's or 0's at the most significant end of the
+  * integer.
+  */
+  mask = 0x1FF << ((8 * (sizeof(long) - 1)) - 1);
+  /* mask is 0xFF800000 on a big-endian machine */
+  while((((integer & mask) == 0) || ((integer & mask) == mask))  && intsize > 1) {
+    intsize--;
+    integer <<= 8;
+  }
+  data = asn_build_header(data, datalength, type, intsize);
+
+  if (data == NULL)
+    return NULL;
+
+  if (*datalength < intsize)
+    return NULL;
+
+  *datalength -= intsize;
+
+  mask = 0xFF << (8 * (sizeof(long) - 1));
+
+  /* mask is 0xFF000000 on a big-endian machine */
+  while(intsize--){
+    *data++ = (unsigned char)((integer & mask) >> (8 * (sizeof(long) - 1)));
+    integer <<= 8;
+  }
+  return data;
 }
 
 
@@ -355,27 +335,31 @@ asn_build_string(data, datalength, type, string, strlength)
  */
 
 
+/* IN - pointer to start of object */
+/* IN/OUT - number of valid bytes left in buffer */
+/* IN - ASN type of string */
+/* IN - pointer to start of long integer */
 unsigned char *
-asn_build_IPAddress(data, datalength, type,intp)
-    unsigned char      *data;      /* IN - pointer to start of object */
-    register int    *datalength;    /* IN/OUT - number of valid bytes left in buffer */
-    unsigned char      type;      /* IN - ASN type of string */
-    register unsigned long *intp;  /* IN - pointer to start of long integer */
-{
-unsigned int i;  
+asn_build_IPAddress(unsigned char* data,
+                    int* datalength,
+                    unsigned char type,
+                    unsigned long * intp) {
+  unsigned int i;
   
 /*
  * ASN.1 IPAddress ::= 0x40 asnlength byte {byte}*
  */
-    data = asn_build_header(data, datalength, type, 4);
-    if (data == NULL)
-  return NULL;
-    if (*datalength < 4)
-  return NULL;
-    i=*intp; i=ntohl(i);
-    bcopy((char *)&i, (char *)data, 4);
-    *datalength -= 4;
-    return data + 4;
+  data = asn_build_header(data, datalength, type, 4);
+  if (data == NULL)
+    return NULL;
+
+  if (*datalength < 4)
+    return NULL;
+
+  i=*intp; i=ntohl(i);
+  bcopy((char *)&i, (char *)data, 4);
+  *datalength -= 4;
+  return data + 4;
 }
 
 
@@ -950,16 +934,17 @@ asn_build_unsigned_int64(data, datalength, type, cp, countersize)
     int intsize;
 
     if (countersize != sizeof (Counter64))
-  return NULL;
+      return NULL;
+
     intsize = 8;
     low = cp->low;
     high = cp->high;
     mask = 0xFF << (8 * (sizeof(long) - 1));
     /* mask is 0xFF000000 on a big-endian machine */
-    if ((unsigned char)((high & mask) >> (8 * (sizeof(long) - 1))) & 0x80){
-  /* if MSB is set */
-  add_null_byte = 1;
-  intsize++;
+    if ((unsigned char)((high & mask) >> (8 * (sizeof(long) - 1))) & 0x80) {
+      /* if MSB is set */
+      add_null_byte = 1;
+      intsize++;
     }
     /*
      * Truncate "unnecessary" bytes off of the most significant end of this 2's
@@ -969,12 +954,10 @@ asn_build_unsigned_int64(data, datalength, type, cp, countersize)
      */
     mask2 = 0x1FF << ((8 * (sizeof(long) - 1)) - 1);
     /* mask2 is 0xFF800000 on a big-endian machine */
-    while((((high & mask2) == 0) || ((high & mask2) == mask2))
-    && intsize > 1){
-  intsize--;
-  high = (high << 8)
-      | ((low & mask) >> (8 * (sizeof(long) - 1)));
-  low <<= 8;
+    while((((high & mask2) == 0) || ((high & mask2) == mask2)) && intsize > 1){
+      intsize--;
+      high = (high << 8) | ((low & mask) >> (8 * (sizeof(long) - 1)));
+      low <<= 8;
     }
     data = asn_build_header(data, datalength, type, intsize);
     if (data == NULL)

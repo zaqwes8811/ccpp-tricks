@@ -76,9 +76,53 @@ typedef struct {
 #define IS_CONSTRUCTOR(byte)  ((byte) & ASN_CONSTRUCTOR)
 #define IS_EXTENSION_ID(byte)  (((byte) & ASN_EXTENSION_ID) == ASN_EXTENSION_ID)
 
-unsigned char  *asn_parse_int(unsigned char *data, int *datalength, unsigned char *type, long *intp, int intsize);
+/*
+ * asn_parse_int - pulls a long out of an ASN int type.
+ *  On entry, datalength is input as the number of valid bytes following
+ *   "data".  On exit, it is returned as the number of valid bytes
+ *   following the end of this object.
+ *
+ *  Returns a pointer to the first byte past the end
+ *   of this object (i.e. the start of the next object).
+ *  Returns NULL on any error.
+ */
+
+//data;  /* IN - pointer to start of object */
+//datalength;/* IN/OUT - number of valid bytes left in buffer */
+//type;  /* OUT - asn type of object */
+//intp;  /* IN/OUT - pointer to start of output buffer */
+//int          intsize;    /* IN - size of output buffer */
+unsigned char  *asn_parse_int(unsigned char *data,
+                              int *datalength,
+                              unsigned char *type,
+                              long *intp,
+                              int intsize);
+
 unsigned char  *asn_parse_unsigned_int(unsigned char *data, int *datalength, unsigned char *type, unsigned long *intp, int intsize);
-unsigned char  *asn_build_int(/*unsigned char *data, int *datalength, unsigned char type, long *intp, int intsize*/);
+
+/*
+ * asn_build_int - builds an ASN object containing an integer.
+ *  On entry, datalength is input as the number of valid bytes following
+ *   "data".  On exit, it is returned as the number of valid bytes
+ *   following the end of this object.
+ *
+ *  Returns a pointer to the first byte past the end
+ *   of this object (i.e. the start of the next object).
+ *  Returns NULL on any error.
+ */
+/* IN - pointer to start of output buffer */
+/* IN/OUT - number of valid bytes left in buffer */
+/* IN - asn type of object */
+/* IN - pointer to start of long integer */
+/* IN - size of *intp */
+
+unsigned char  *asn_build_int(
+    unsigned char *data,
+    int *datalength,
+    unsigned char type,
+    long *intp,
+    int intsize);
+
 unsigned char  *asn_build_unsigned_int(/*unsigned char *data, int *datalength,  unsigned char type, unsigned long *intp, int intsize*/);
 
 /*
@@ -95,7 +139,15 @@ unsigned char  *asn_build_unsigned_int(/*unsigned char *data, int *datalength,  
  */
 unsigned char  *asn_parse_string(unsigned char *data, int *datalength, unsigned char *type, unsigned char *string, int *strlength);
 unsigned char  *asn_build_string(/*unsigned char *data, int *datalength, unsigned char type, unsigned char *string, int strlength*/);
-unsigned char  *asn_build_IPAddress(/*unsigned char *data, int *datalength, unsigned char type, long *intp*/);
+
+unsigned char* asn_build_IPAddress(
+    unsigned char *data,
+    int *datalength,
+    unsigned char type,
+    unsigned long * intp
+    //long * intp
+    );
+
 unsigned char  *asn_parse_header(unsigned char *data, int *datalength, unsigned char *type);
 unsigned char  *asn_build_header(/*unsigned char *data, int *datalength, unsigned char type, int length*/);
 unsigned char  *asn_build_sequence(/*unsigned char *data, int *datalength, unsigned char type, int length*/);

@@ -38,7 +38,9 @@ typedef struct {
     int originatorAddressLength;
 
     /* The SNMP request (BER-encoded data) */
-    int request_length;
+    //int
+    size_t
+    request_length;
     unsigned char request[SNMP_MAX_MSG_LENGTH];
     unsigned char* request_varbind_sequence;
     int request_varbind_sequence_length;
