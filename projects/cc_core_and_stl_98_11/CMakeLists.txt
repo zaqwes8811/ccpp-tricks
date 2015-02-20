@@ -12,6 +12,7 @@ set( LCB_USE_ASAN Y)
 #Message(${CMAKE_CURRENT_LIST_DIR})
 
 set(Extern "../../extern/")
+set(Export "../../export/")
 set(GMock "../../extern/gmock-1.6.0/fused-src")
 set(Source "source/")
 set(testsRoot "./tests")
@@ -24,6 +25,7 @@ include_directories(${GMock})
 include_directories(${Source})
 include_directories(${Extern}/loki-0.1.7/include)
 include_directories(${Extern})
+include_directories(${Export})
 include_directories(${Intern}/reuse)
 include_directories(${BigExtern}/boost_1_57_0)
 
@@ -111,7 +113,7 @@ file( GLOB proTests
     ${testsRoot}/mem_heap_stack/*.cc
     ${testsRoot}/extern/*.cc
     ${testsRoot}/stl/*.cc
-    ${testsRoot}/tbb/*.cc
+    ${testsRoot}/stephan_t_lavavej_hw/*.cc
     ${testsRoot}/*.cc)
 
 add_executable(unittest.bin
