@@ -6,24 +6,18 @@
 // Thread -> improve latency
 // Task -> improve throughtput - not I/O, not ...
 
-// App - list files
-
-#include <cassert>
+//#include <adobe/algorithm/for_each.hpp>  // какой-то странный
+//#include <adobe/algorithm/generate.hpp>
+#include <gtest/gtest.h>
 
 #include <ostream>
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
-
-// C++11
 #include <future>
 #include <thread>
 
-//
-#include <adobe/algorithm/for_each.hpp>  // какой-то странный
-#include <adobe/algorithm/generate.hpp>
-
-#include <gtest/gtest.h>
+#include <cassert>
 
 // TODO:
 // Tut.

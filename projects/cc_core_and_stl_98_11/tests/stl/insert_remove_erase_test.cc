@@ -1,29 +1,21 @@
 // при работе с циклами могут быть проблемы с недействительностью итераторов.
 //  но порой с циклами проще, если короче Мейсер stl
 //
-//
-// Inner 
+
+
 #include "visuality/view.h"
 
 #include <gtest/gtest.h>
+#include <boost/range/end.hpp>
+#include <boost/range/begin.hpp>
 
 #include <vector>
 #include <algorithm>
 #include <ostream>
 #include <list>
 
-#include <adobe/algorithm/generate.hpp>
-//#include <adobe/algorithm/generate_n.hpp>
-#include <adobe/algorithm/remove.hpp>
-#include <adobe/algorithm/random_shuffle.hpp>
-
-#include <boost/range/end.hpp>
-#include <boost/range/begin.hpp>
-
 using namespace std;
 using view::operator<<;
-//using boost::end;
-//using boost::begin;
 
 // copy(... inserter/back_inserter/front_ins) -> должны заменяться интервальными функциями, insert, например
 
@@ -66,16 +58,18 @@ TEST(STL, RemoveInsertErase)
   v1.assign(v2.begin() + v2.size() / 2, v2.end());
   v1.insert(v1.end(), v2.begin() + v2.size() / 2, v2.end());  // вставка
   v1.insert(v1.begin(), v2.begin() + v2.size() / 2, v2.end());  // вставка
-  adobe::random_shuffle(v1);
+  std::random_shuffle(v1.begin(), v1.end());
   cout << v1;
   
   // удаление
   // для списка лучше использовать собственное удаление
-  v1.erase(adobe::remove(v1, 1), boost::end(v1)); // что-то не то
+  v1.erase(std::remove(v1.begin(), v1.end(), 1), boost::end(v1)); // что-то не то
   cout << v1;
   
   //
-  v1.erase(adobe::remove_if(v1, bad_value), boost::end(v1));
+  v1.erase(std::remove_if(v1.begin(), v1.end(), bad_value),
+           boost::end(v1)  // !! Very important!! Without in compiled and work but it's incorrect
+           );
   cout << v1;
   
   /// List
