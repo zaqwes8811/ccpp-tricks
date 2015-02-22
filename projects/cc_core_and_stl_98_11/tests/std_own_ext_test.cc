@@ -104,7 +104,7 @@ TEST(STL, OwnCompactDev) {
   // http://stackoverflow.com/questions/1128535/stl-vector-reserve-and-copy
   // http://stackoverflow.com/questions/4732999/how-does-back-inserter-work
   // http://stackoverflow.com/questions/19583708/should-i-reserve-memory-when-using-stdback-inserter
-  int active_elems_count = //main_mask.count(1);  // похоже только в ассоц.
+  ptrdiff_t active_elems_count = //main_mask.count(1);  // похоже только в ассоц.
       count(main_mask.begin(), main_mask.end(), 1);
   vector<int> dist;
 
@@ -122,26 +122,30 @@ TEST(STL, OwnCompact) {
   using std::vector;
 
   vector<int> mask(10);
-  for (int i=0; i< 10; ++i) mask[i] = i % 2;
+  for (int i=0; i < 10; ++i) mask[i] = i % 2;
   vector<int> src(10);
   for (int i = 0; i < 10; ++i) src[i] = i;
 
+  // FIXME: why return diff type?
   auto activeCount = count(mask.begin(), mask.end(), 1);
 
   EXPECT_LT(activeCount, mask.size());
 
   random_shuffle(mask.begin(), mask.end());
 
-  vector<int> dist
+  vector<int> dst
       //;
       (activeCount, 0);
 
   compact(src.begin(), src.end(), mask.begin(),
-          dist.begin()
+          dst.begin()
           //back_inserter(dist)
           );
 
-  EXPECT_EQ(dist.size(), activeCount);
+  EXPECT_EQ(dst.size(), activeCount);
+
+  // http://www.codeproject.com/Articles/60082/About-size-t-and-ptrdiff-t
+  dst.size() == activeCount;
 }
 
 struct op {
