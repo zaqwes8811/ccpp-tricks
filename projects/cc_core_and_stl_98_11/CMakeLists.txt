@@ -84,18 +84,10 @@ elseif (UNIX)
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         message("I'm clang")
         link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
-        link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+        link_libraries(boost_system boost_thread pthread rt)  # !! pthread and rt last!!
     else()
         link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
-        # how split embedded form just linux
-        # http://stackoverflow.com/questions/9534126/automatically-linking-socket-shared-library-in-nix
-        # http://stackoverflow.com/questions/14835605/linking-with-gcc-fails-after-switching-boost-version-from-1-52-to-1-53
-        #
-        # http://stackoverflow.com/questions/9511422/undefined-reference-to-clock-gettime-gcc-4-6-cmake
-        # http://www.unix.com/man-page/opensolaris/3lib/librt/
-        #
-        # https://software.intel.com/en-us/forums/topic/285308
-        link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+        link_libraries(boost_system boost_thread pthread rt)  # !! pthread and rt last!!
     endif()
 endif()
 
@@ -116,7 +108,7 @@ file( GLOB proTests
     ${testsRoot}/stl/*.cc
     ${testsRoot}/stl/stephan_t_lavavej_hw/*.cc
     ${testsRoot}/*.cc
-    ${testsRoot}/algorithms/*.cc)
+    ${testsRoot}/stl/algorithms/*.cc)
 
 add_executable(unittest.bin
     ${Source}/mains/launcher_tests.cc

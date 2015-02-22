@@ -30,3 +30,10 @@ TEST(Stl, EqAndEq) {
   //op < // good
   //op <= // BAD  x comp x must be FALSE
 }
+
+// Есть проблемы в понимании равенства и эквивалентности
+//
+//
+TEST(STL, EqualAndXEqual) {
+
+}
