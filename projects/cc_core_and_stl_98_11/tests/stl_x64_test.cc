@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
+#include <list>
 
 #include <cassert>
 
@@ -57,6 +58,11 @@ TEST(STL, Strange) {
 
   // https://groups.google.com/forum/#!topic/comp.std.c/UxmPRmty-LQ%5B1-25%5D
   cout << dec << t << endl;
+
+  // impl max size even < half of size_t
+  cout << dst.max_size() << endl;
+  cout << std::list<int>().max_size() << endl;
+  cout << std::numeric_limits<ptrdiff_t>::max() << endl;
 
   // if dist(m.begin(), end()) > max ptrdiff_t => UB!
   // Need check ranges
