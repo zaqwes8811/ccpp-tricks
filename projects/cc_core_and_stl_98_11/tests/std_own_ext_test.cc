@@ -58,9 +58,9 @@ TEST(stl, ExclScan) {
 }
 
 TEST(STL, OwnCompactDev) {
-  //TODO: copy by filter C++03. In C++11 copy_if
+  //FIXME: copy by filter C++03. In C++11 copy_if
   // http://stackoverflow.com/questions/11028266/how-to-make-stdvector-from-other-vector-with-specific-filter
-  //TODO: copy by mask
+  //FIXME: copy by mask
   // http://www.cplusplus.com/reference/valarray/mask_array/
   // http://bytes.com/topic/c/answers/137137-valarray-iterators
   // http://en.cppreference.com/w/cpp/numeric/valarray
@@ -115,13 +115,6 @@ TEST(STL, OwnCompactDev) {
 }
 
 TEST(STL, OwnCompact) {
-  //TODO: copy by filter C++03. In C++11 copy_if
-  // http://stackoverflow.com/questions/11028266/how-to-make-stdvector-from-other-vector-with-specific-filter
-  //TODO: copy by mask
-  // http://www.cplusplus.com/reference/valarray/mask_array/
-  // http://bytes.com/topic/c/answers/137137-valarray-iterators
-  // http://en.cppreference.com/w/cpp/numeric/valarray
-
   using std::back_inserter;
   using std::back_insert_iterator;
   using std::count;
@@ -131,19 +124,22 @@ TEST(STL, OwnCompact) {
   vector<int> mask(10);
   for (int i=0; i< 10; ++i) mask[i] = i % 2;
   vector<int> src(10);
-  for (int i = 0; i < 10; ++i) src[i] = i;  //  0  1  2  3  4  5  6  7  8  9
-  size_t activeCount = count(mask.begin(), mask.end(), 1);
+  for (int i = 0; i < 10; ++i) src[i] = i;
+
+  auto activeCount = count(mask.begin(), mask.end(), 1);
 
   EXPECT_LT(activeCount, mask.size());
 
   random_shuffle(mask.begin(), mask.end());
 
-  vector<int> dist;
-  //(activeCount, 0);
+  vector<int> dist
+      //;
+      (activeCount, 0);
 
   compact(src.begin(), src.end(), mask.begin(),
-          //dist.begin()
-          back_inserter(dist));
+          dist.begin()
+          //back_inserter(dist)
+          );
 
   EXPECT_EQ(dist.size(), activeCount);
 }
