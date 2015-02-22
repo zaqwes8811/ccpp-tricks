@@ -31,9 +31,7 @@ TEST(Stl, EqAndEq) {
   //op <= // BAD  x comp x must be FALSE
 }
 
-// Есть проблемы в понимании равенства и эквивалентности
-//
-//
-TEST(STL, EqualAndXEqual) {
-
+TEST(STL, BackInserterBug) {
+  // std_own_ext::compact - have bug
+  // *back = ;  // ++back to, but! ++back explicit have no effect
 }

@@ -4,6 +4,10 @@
 #include <map>
 #include <string>
 
+#ifndef FROM_HERE
+#define FROM_HERE ""
+#endif
+
 namespace std_own_ext {
 template <typename K, typename V>
 V at(const std::map<K, V>& param, const K& val)
@@ -13,7 +17,7 @@ V at(const std::map<K, V>& param, const K& val)
   if (it != param.end())
     return it->second;
   else
-    throw std::invalid_argument("at: Key not founded");
+    throw std::invalid_argument(FROM_HERE);
 }
 
 template <typename K, typename V>
@@ -23,7 +27,7 @@ V at(const std::map<K, V>& param, const char* const val)
   if (it != param.end())
     return it->second;
   else
-    throw std::invalid_argument("at: Key not founded");
+    throw std::invalid_argument(FROM_HERE);
 }
 
 template <typename K, typename V>
@@ -79,11 +83,14 @@ OutputIterator compact(InputIterator in_first, InputIterator in_last,
                        OutputIterator out_first) {
 
   // DANGER: No check precond.
-  while (in_first!=in_last) {
-    if (*mask_first)
+  while (in_first != in_last) {
+    if (*mask_first) {
       *out_first = *in_first;
+      ++out_first;  //
+    }
 
-    ++out_first;
+    // http://stackoverflow.com/questions/20108022/incrementing-back-inserter-is-optional
+    //++out_first;  // look like bug - logic + ASan - work if put back_inserter
     ++in_first;
     ++mask_first;
   }
