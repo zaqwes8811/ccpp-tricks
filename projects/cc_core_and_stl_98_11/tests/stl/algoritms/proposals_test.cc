@@ -6,6 +6,7 @@
 // Sean Paretn Ch9 - Seasoning
 //
 #include "visuality/view.h"
+#include "std_own_ext.h"
 
 #include <gtest/gtest.h>
 
@@ -17,6 +18,8 @@
 
 using namespace std;
 using namespace view;
+
+using std_own_ext::compact;
 
 // slide
 // slice
@@ -60,30 +63,6 @@ TEST(stl, ExclScan) {
 
   print_elems(out);
   assert(out.at(0) == 0);
-}
-
-// Using stable_partition, but how be with predicate - it must be stateless
-//   how check buy mask.
-//
-// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
-
-// DANGER: length not follow
-template<class InputIterator, class OutputIterator>
-OutputIterator compact(InputIterator in_first, InputIterator in_last,
-                       InputIterator mask_first,
-                       OutputIterator out_first) {
-
-  // DANGER: No check precond.
-
-  while (in_first!=in_last) {
-    if (*mask_first)
-      *out_first = *in_first;
-
-    ++out_first;
-    ++in_first;
-    ++mask_first;
-  }
-  return out_first;
 }
 
 TEST(STL, OwnCompact) {

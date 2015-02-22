@@ -4,7 +4,7 @@
 # -DCMAKE_BUILD_TYPE=Debug
 # -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
 
-project(lot-of-space)
+project(cc_core_and_stl_98_11)
 cmake_minimum_required(VERSION 2.8)
 
 set( LCB_USE_ASAN Y)
@@ -25,7 +25,7 @@ include_directories(${GMock})
 include_directories(${Source})
 include_directories(${Extern}/loki-0.1.7/include)
 include_directories(${Extern})
-include_directories(${Export})
+include_directories(${Source}/../../std_own_ext)
 include_directories(${Intern}/reuse)
 include_directories(${BigExtern}/boost_1_57_0)
 
@@ -104,6 +104,7 @@ message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 file( GLOB proTests
     ${testsRoot}/sean_parent/*.cc
     ${Extern}/hypertable-fix/Common/*.cc
+    ${Source}/../../std_own_ext/*.h
     ${testsRoot}/sutter/*.cc
     ${testsRoot}/gotchas/*.cc
     ${testsRoot}/sutter_tasks/*.cc
@@ -113,8 +114,9 @@ file( GLOB proTests
     ${testsRoot}/mem_heap_stack/*.cc
     ${testsRoot}/extern/*.cc
     ${testsRoot}/stl/*.cc
-    ${testsRoot}/stephan_t_lavavej_hw/*.cc
-    ${testsRoot}/*.cc)
+    ${testsRoot}/stl/stephan_t_lavavej_hw/*.cc
+    ${testsRoot}/*.cc
+    ${testsRoot}/algorithms/*.cc)
 
 add_executable(unittest.bin
     ${Source}/mains/launcher_tests.cc

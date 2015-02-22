@@ -67,6 +67,32 @@ private:
 
 // Lavavej homework
 // http://channel9.msdn.com/Series/C9-Lectures-Stephan-T-Lavavej-Standard-Template-Library-STL-/C9-Lectures-Stephan-T-Lavavej-Standard-Template-Library-STL-2-of-n
+
+// After CUDA
+// Using stable_partition, but how be with predicate - it must be stateless
+//   how check buy mask.
+//
+// DANGER: length not follow
+template<class InputIterator, class OutputIterator>
+OutputIterator compact(InputIterator in_first, InputIterator in_last,
+                       InputIterator mask_first,
+                       OutputIterator out_first) {
+
+  // DANGER: No check precond.
+  while (in_first!=in_last) {
+    if (*mask_first)
+      *out_first = *in_first;
+
+    ++out_first;
+    ++in_first;
+    ++mask_first;
+  }
+  return out_first;
+}
+
+// After
+// http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
+
 }  // space
 
 #endif
