@@ -95,3 +95,22 @@ TEST(Cpp11, SimpleLambda) {
   });
 }
 
+TEST(Cpp11, Lava) {
+  // http://channel9.msdn.com/Series/C9-Lectures-Stephan-T-Lavavej-Standard-Template-Library-STL-/C9-Lectures-Stephan-T-Lavavej-Standard-Template-Library-STL-9-of-n
+  //std::move()
+  //std::forward
+
+  //RVal -> move sem  - more effintion without change code symantic
+  //    -> perfect forwarding - for libs
+
+  // LVal - has name - can make &
+  // lref - it alias
+  // RVal - no name - &172 - no! &(x+y) - no!
+  // string&& rr = s + t;  - bad! only example - not use it!
+  // X&& foo() - very bad!!!
+  //
+  // Temp T -> Yes const T& -> No T&
+  //
+  // If name => lval - need treat as rval -> std::move() l -> r
+}
+

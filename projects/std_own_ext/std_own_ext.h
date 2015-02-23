@@ -10,42 +10,30 @@
 
 namespace std_own_ext {
 template <typename K, typename V>
-V at(const std::map<K, V>& param, const K& val)
-{
+V at(const std::map<K, V>& param, const K& val) {
   // http://stackoverflow.com/questions/3311633/nested-templates-with-dependent-scope
   typename std::map<K, V>::const_iterator it = param.find(val);
-  if (it != param.end())
-    return it->second;
-  else
-    throw std::invalid_argument(FROM_HERE);
+  if (it != param.end()) return it->second;
+  else throw std::invalid_argument(FROM_HERE);
 }
 
 template <typename K, typename V>
-V at(const std::map<K, V>& param, const char* const val)
-{
+V at(const std::map<K, V>& param, const char* const val) {
   typename std::map<K, V>::const_iterator it = param.find(std::string(val));
-  if (it != param.end())
-    return it->second;
-  else
-    throw std::invalid_argument(FROM_HERE);
+  if (it != param.end()) return it->second;
+  else throw std::invalid_argument(FROM_HERE);
 }
 
 template <typename K, typename V>
-bool contain(const std::map<K, V>& param, const K& val)
-{
+bool contain(const std::map<K, V>& param, const K& val) {
   typename std::map<K, V>::const_iterator it = param.find(val);
-  if (it != param.end())
-    return true;
-  return false;
+  return it != param.end();
 }
 
 template <typename K, typename V>
-bool contain(const std::map<K, V>& param, const char* const val)
-{
+bool contain(const std::map<K, V>& param, const char* const val) {
   typename std::map<K, V>::const_iterator it = param.find(std::string(val));
-  if (it != param.end())
-    return true;
-  return false;
+  return it != param.end();
 }
 
 
@@ -99,6 +87,9 @@ OutputIterator compact(InputIterator in_first, InputIterator in_last,
 
 // After
 // http://channel9.msdn.com/Events/GoingNative/2013/Cpp-Seasoning
+
+// FIXME: iterator for big raw arrays >> max(vector)
+
 
 }  // space
 

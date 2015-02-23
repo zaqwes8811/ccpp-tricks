@@ -12,6 +12,14 @@
 
 using namespace std;
 
+// http://stackoverflow.com/questions/7927764/specializing-iterator-traits
+class BigPtrDiff {
+public:
+
+};
+
+// FIXME: special iterator for very big arrays
+
 namespace refer {
 
 // FIXME: if diff_type - ptrdiff_t -> 1/2 size -> overflow
@@ -45,6 +53,7 @@ TEST(STL, Strange) {
   //auto r = mask[ptrdiff_t(-1)];  // ASan - heap-buffer-overflow
 
   vector<int> dst;
+  int a[10];
 
   // http://www.codeproject.com/Articles/60082/About-size-t-and-ptrdiff-t
   dst.size() == activeCount;
@@ -60,9 +69,13 @@ TEST(STL, Strange) {
   cout << dec << t << endl;
 
   // impl max size even < half of size_t
-  cout << dst.max_size() << endl;
-  cout << std::list<int>().max_size() << endl;
-  cout << std::numeric_limits<ptrdiff_t>::max() << endl;
+  cout << hex << dst.max_size() << " : Max vector size" << endl;
+  cout << hex << " " << std::list<int>().max_size() << " : Max list size" << endl;
+  cout << hex << std::numeric_limits<ptrdiff_t>::max() << " : Max ptrdiff_t size" << endl;
+
+  auto tt = std::count(a, a+10, 1);
+
+  tt == activeCount;
 
   // if dist(m.begin(), end()) > max ptrdiff_t => UB!
   // Need check ranges
