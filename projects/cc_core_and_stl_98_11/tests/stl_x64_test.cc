@@ -72,6 +72,7 @@ TEST(STL, Strange) {
   cout << hex << dst.max_size() << " : Max vector size" << endl;
   cout << hex << " " << std::list<int>().max_size() << " : Max list size" << endl;
   cout << hex << std::numeric_limits<ptrdiff_t>::max() << " : Max ptrdiff_t size" << endl;
+  cout << hex << " " << std::vector<char>().max_size() << " : Max list size" << endl;
 
   auto tt = std::count(a, a+10, 1);
 
