@@ -78,8 +78,12 @@ if (MSVC90)
     #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
     LINK_LIBRARIES(ws2_32 WSnmp32 libboost_system-vc90-mt-1_57)# libboost_thread-vc90-mt-s-1_57.lib)
 elseif (UNIX)
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=c++11")
+    # https://tombarta.wordpress.com/2009/12/12/precompiled-headers-with-gcc/
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Winvalid-pch")
+
 
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         message("I'm clang")

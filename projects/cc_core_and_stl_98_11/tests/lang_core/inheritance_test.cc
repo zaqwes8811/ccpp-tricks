@@ -168,9 +168,43 @@ TEST(Core, VirtInh) {
 /// override and overload
 // http://logic.pdmi.ras.ru/~smal/aptu/cpp10/2010_11_26.html
 
+namespace lavavej_4 {
 // Lava Inh
 // http://channel9.msdn.com/Series/C9-Lectures-Stephan-T-Lavavej-Core-C-/Stephan-T-Lavavej-Core-C-4-of-n
 // Avoid!
 //
 // Static type and dyn. type
+//
+// virtuality check on runtime - it's scary
+// override for c++11 - virtual not equal override
+// final for c++11
+
+class Base {
+public:
+  virtual ~Base() { }
+  int b;
+
+  // NEED IT
+  Base() { }
+
+private:
+  // NEED IT
+  Base(const Base&);  // it delete other ctors
+  Base& operator =(const Base&);
+};
+
+class Derived: public Base {
+public:
+  Derived() {}
+};
+
+TEST(Lava, Inh) {
+  //Base
+  Derived  // can to!
+      * p = new Derived;
+  //Base b2 = *p;  // slice - need make base noncopyble
+}
+
+// NVI - may be good way use inh
+}
 
