@@ -168,3 +168,9 @@ TEST(Core, VirtInh) {
 /// override and overload
 // http://logic.pdmi.ras.ru/~smal/aptu/cpp10/2010_11_26.html
 
+// Lava Inh
+// http://channel9.msdn.com/Series/C9-Lectures-Stephan-T-Lavavej-Core-C-/Stephan-T-Lavavej-Core-C-4-of-n
+// Avoid!
+//
+// Static type and dyn. type
+

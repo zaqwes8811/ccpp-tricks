@@ -13,6 +13,7 @@
 using namespace std;
 
 // http://stackoverflow.com/questions/7927764/specializing-iterator-traits
+// My bads!
 class BigPtrDiff {
 public:
 
@@ -38,7 +39,7 @@ typename iterator_traits<InputIt>::difference_type  // may be 128 size or someth
 }
 
 TEST(STL, Strange) {
-  vector<int> mask(10);
+  vector<char> mask(10);
   for (int i = 0; i < 10; ++i) mask[i] = i % 2;
 
   // FIXME: why return diff type?
@@ -72,7 +73,7 @@ TEST(STL, Strange) {
   cout << hex << dst.max_size() << " : Max vector size" << endl;
   cout << hex << " " << std::list<int>().max_size() << " : Max list size" << endl;
   cout << hex << std::numeric_limits<ptrdiff_t>::max() << " : Max ptrdiff_t size" << endl;
-  cout << hex << " " << std::vector<char>().max_size() << " : Max list size" << endl;
+  cout << hex << std::vector<char>().max_size() << " : Max vector<char> size" << endl;
 
   auto tt = std::count(a, a+10, 1);
 
