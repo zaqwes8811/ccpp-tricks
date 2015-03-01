@@ -206,5 +206,6 @@ TEST(Lava, Inh) {
 }
 
 // NVI - may be good way use inh
+// !! Can call private throuth Base*
 }
 

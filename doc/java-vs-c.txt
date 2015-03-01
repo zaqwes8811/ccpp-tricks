@@ -1,0 +1,7 @@
+http://www.azulsystems.com/blog/cliff/2009-09-06-java-vs-c-performanceagain
+
+http://www.quora.com/What-makes-C++-really-difficult-to-learn
+C++ is predictable
+You can control performance - In java - not
+
+http://blog.codinghorror.com/the-problem-with-c/

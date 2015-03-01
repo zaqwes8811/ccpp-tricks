@@ -3,6 +3,8 @@
 // JetBrains:
 //   http://jetbrains.ru/students/events/students-traineeship-in-jetbrains/
 
+#include <gtest/gtest.h>
+
 #include <iostream>
 #include <list>
 #include <typeinfo>
@@ -21,7 +23,7 @@ template <class T> class Iter {
   T *ptr;
   T *end;
   T *begin;
-  unsigned length;
+  ptrdiff_t length;
 public:
   Iter() {
     ptr = end = begin = NULL;
@@ -34,7 +36,7 @@ public:
     length = last - first;
   }
 
-  unsigned size() { return length; }
+  ptrdiff_t size() { return length; }
 
   T &operator*() {
     if ((ptr >= end) || (ptr < begin))
