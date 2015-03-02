@@ -267,3 +267,10 @@ TEST(Alloc, Board) {
   c1.i.playNote('c');
 }
 
+/// MMap
+// http://stackoverflow.com/questions/8475609/implementing-your-own-malloc-free-with-mmap-and-munmap
+// http://stackoverflow.com/questions/826569/compelling-examples-of-custom-c-allocators
+
+// Addition
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2486.pdf
+
