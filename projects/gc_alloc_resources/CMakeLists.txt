@@ -88,10 +88,12 @@ elseif (UNIX)
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         message("I'm clang")
         link_directories(${BigExtern}/boost_1_57_0/stage_gcc/lib)
-        link_libraries(boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+        link_libraries(
+            tbb tbbmalloc
+            boost_system boost_thread pthread rt)  # !! pthread and rt last!!
     else()
         link_directories(${BigExtern}/boost_1_57_0/stage_x64/lib)
-        link_libraries(boost_system boost_thread pthread rt)  # !! pthread and rt last!!
+        link_libraries(tbb tbbmalloc boost_system boost_thread pthread rt)  # !! pthread and rt last!!
     endif()
 endif()
 
