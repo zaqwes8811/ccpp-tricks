@@ -8,6 +8,14 @@
 // About rebind:
 //   http://stackoverflow.com/questions/4062503/stl-allocator-copy-constructor-of-other-type-rebind
 
+// Troubles:
+//   https://ez.analog.com/message/13396
+
+// Q: vector<> need continue alloc. How it apply here?
+
+// Q: "node-based" containers. Hmm...
+// http://www.qnx.com/developers/docs/660/index.jsp?topic=%2Fcom.qnx.doc.dinkum%2Ftopic%2Fcpp11%2Findex_alloc.html
+
 #include <gtest/gtest.h>
 
 // The following headers are required for all allocators.
@@ -114,6 +122,7 @@ public:
             throw std::length_error("Mallocator<T>::allocate() - Integer overflow.");
         }
 
+        // FIXME: it's thread safe?
         // Mallocator wraps malloc().
         void * const pv = malloc(n * sizeof(T));
 
