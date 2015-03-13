@@ -62,7 +62,7 @@ file( GLOB proTests
   ${testsRoot}/sutter_tasks_new/*.cc
   ${testsRoot}/intermediate/*.cc
   ${testsRoot}/stephan_t_lavavej/*.cc
-  ${unitTests}/tricks_peoples/*.cc
+  ${testsRoot}/book_templ/*.cc
   ${unitTests}/tricks_peoples/*.cc
   ${unitTests}/tricks_intermediate/*.cc
   ${unitTests}/lang_core/*.cc
