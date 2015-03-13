@@ -166,7 +166,9 @@ class Book
 
     bool operator==(Book const& that) const { return impl_ == that.impl_; }
     bool operator!=(Book const& that) const { return !operator==(that); }
-    operator bool() const { return impl_; }
+
+    // FIXME: not compiled!
+    //operator bool() const { return impl_; }
 
   private:
 
