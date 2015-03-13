@@ -12,8 +12,8 @@ set(GMock "../../extern/gmock-1.6.0/fused-src")
 set(Canary "./source/canary/")
 set(Pro "./source/production/")
 set(unitTests "./tests/")
-set(Source "source/")
-set(testsRoot "./tests")
+set(Source ".")
+set(testsRoot ".")
 set(Projects "..")
 set(BigExtern "/home/zaqwes/work/big-3rdparty/")
 set(Intern "../../intern/")
@@ -75,7 +75,7 @@ file( GLOB proTests
   ${unitTests}/async-parallel-computing/*.cc)
 
 add_executable(unittest.bin
-    ${Source}/mains/launcher_tests.cc
+    ${Source}/launcher_tests.cc
     ${GMock}/gmock-gtest-all.cc
     ${proTests}
 )
