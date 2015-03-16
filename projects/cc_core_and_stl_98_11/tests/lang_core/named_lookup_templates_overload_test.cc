@@ -239,6 +239,31 @@ TEST(Lava, C3) {
 }
 }
 
+struct base {
+  virtual ~base() { }
+  virtual void foo() = 0;
+};
+
+struct d1 : public base {
+  void foo() {}
+};
+struct d2 : public base {};
+
+template <typename T>
+void do_thing(T vPtr) {
+  vPtr->foo();
+}
+
+TEST(LangCoreTest, StaticAndDynPol) {
+  base* obj = new d1;
+  do_thing(obj);
+}
+
+TEST(LangCoreTest, StaticAndDynPol_shared) {
+  base* obj = new d1;
+  do_thing(obj);
+}
+
 
 
 
