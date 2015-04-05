@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -113,4 +114,52 @@ TEST(Cpp11, Lava) {
   //
   // If name => lval - need treat as rval -> std::move() l -> r
 }
+
+// Forwarding
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm
+// http://stackoverflow.com/questions/7257144/when-to-use-stdforward-to-forward-arguments
+// http://habrahabr.ru/post/226229/
+class wrapper_base { };
+
+template<class T> class wrapper: public wrapper_base
+{
+private:
+
+    T t_;
+
+public:
+
+    // forwarding constructors
+
+    wrapper(): t_() {}
+    wrapper(int a1): t_(a1) {}
+    wrapper(int a1, int a2): t_(a1, a2) {}
+    // ...
+
+};
+
+template<class T> std::auto_ptr<T> auto_new()
+{
+    return std::auto_ptr<T>(new T());
+}
+
+template<class T> std::auto_ptr<T> auto_new(int a1)
+{
+    return std::auto_ptr<T>(new T(a1));
+}
+
+template<class T> std::auto_ptr<T> auto_new(int a1, int a2)
+{
+    return std::auto_ptr<T>(new T(a1, a2));
+}
+
+// const and non const troubles
+// (!!!!) http://eli.thegreenplace.net/2014/perfect-forwarding-and-universal-references-in-c/
+template <class T>
+void func(T&& t) {
+}
+//Don't let T&& fool you here - t is not an rvalue reference [2]. When it appears in a
+//type-deducing context, T&& acquires a special meaning.
+
+// http://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers
 
