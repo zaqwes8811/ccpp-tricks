@@ -33,3 +33,10 @@
 *.so
 *.dir*
 *build*
+
+*.ko
+*.symvers
+*.order
+*.cmd
+*.mod
+
