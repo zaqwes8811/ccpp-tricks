@@ -1,5 +1,3 @@
-https://panthema.net/2008/0901-stacktrace-demangled/
-
 new != std::allocator
 
 https://panthema.net/2008/0901-stacktrace-demangled/
