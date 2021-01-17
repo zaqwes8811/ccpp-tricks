@@ -111,6 +111,59 @@ TEST(Cpp, VariantCompare) {
 //===========================================================================================
 //===========================================================================================
 
+// https://en.cppreference.com/w/cpp/types/enable_if
+// https://riptutorial.com/cplusplus/example/16706/type-relations-with-std--is-same-t--t-
+
+class Table {
+public:
+  template<typename T>
+  struct Record {
+    T value{0};
+
+    void set_value(T new_value) {
+      value = new_value;
+    }
+  };
+
+
+  Record<int32_t> ints;
+  Record<double> doubles;
+};
+
+Table table;
+
+template<typename T>
+void set_value_gen(T v) {
+  auto v8 = std::is_same<T, int32_t>::value || std::is_same<T, int8_t>::value;
+  cout << v8 << endl;
+  if (v8) {
+    return table.ints.set_value(v);
+  } else {
+    cout << "here1" << endl;
+  }
+}
+
+void set_value(int32_t v) {
+  set_value_gen(v);
+}
+
+void set_value(double v) {
+  set_value_gen(v);
+}
+
+TEST(Cpp, TypedAccess) {
+//  set_value(0.9);
+//  set_value(1);
+
+  set_value_gen(1);
+  set_value_gen(int8_t(1));
+  set_value_gen(1.0);
+}
+
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
