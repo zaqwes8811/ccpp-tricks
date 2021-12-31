@@ -1,1 +1,0 @@
-http://stackoverflow.com/questions/3217513/are-llvm-gcc-and-clang-binary-compatible-with-gcc-particularly-mingw-gcc-on-w
