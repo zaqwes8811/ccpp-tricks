@@ -119,6 +119,6 @@ static void BM_v1_lru_PutOverflow(benchmark::State& state) {
 }
 BENCHMARK(BM_v1_lru_PutOverflow);
 
-// main()
-BENCHMARK_MAIN()
-;
+//// main()
+//BENCHMARK_MAIN()
+//;

@@ -16,4 +16,15 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 # https://stackoverflow.com/questions/26749461/how-to-determine-the-boost-library-names-for-cmake
 find_package(Boost 1.51.0 REQUIRED)
 
-add_executable(hp lru.cc)
+add_executable(hp
+        ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
+        mybenchmark.cc
+        small_data_structs_test.cc
+        copy_removal_tricks_test.cpp
+        lru.cc)
+
+target_link_libraries(hp
+        ${GTEST_BOTH_LIBRARIES}
+        pthread dl m rt
+        )
+
