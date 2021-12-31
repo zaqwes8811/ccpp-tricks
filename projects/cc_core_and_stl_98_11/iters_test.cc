@@ -14,7 +14,7 @@
 //   http://stackoverflow.com/questions/4124989/does-stdvectorswap-invalidate-iterators
 //   https://groups.google.com/forum/#!topic/comp.std.c++/Tmu74awNUUU
 
-#include "visuality/view.h"
+#include "projects/view.h"
 
 #include <gtest/gtest.h>
 

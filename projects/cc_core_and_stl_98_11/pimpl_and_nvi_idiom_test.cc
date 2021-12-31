@@ -48,18 +48,19 @@ namespace habr_version {
 typedef int SomeThing;
 
 // V0
-template <typename T>
-class deep_const_ptr 
-{
-    T * p;
+template<typename T>
+class deep_const_ptr {
+    T* p;
 public:
-    explicit deep_const_ptr( T * t ) : p( t ) {}
+    explicit deep_const_ptr(T* t) : p(t) {}
 
-    const T & operator*() const { return *p; }
-    T & operator*() { return *p; }
+    const T& operator*() const { return *p; }
 
-    const T * operator->() const { return p; }
-    T * operator->() { return p; }
+    T& operator*() { return *p; }
+
+    const T* operator->() const { return p; }
+
+    T* operator->() { return p; }
 };
 
 // Необычный оператор присваивания
@@ -72,105 +73,107 @@ Handle& Handle::operator=(const Handle &other) {
 }
 */
 
-class Class
-{
+class Class {
 
 private:
-  // no assign and copy ctor
-  class Private; // предварительное объявление
-  Private* d_;    // сокрытие деталей реализации
-  // d - не константен! 
+    // no assign and copy ctor
+    class Private; // предварительное объявление
+    Private* d_;    // сокрытие деталей реализации
+    // d - не константен!
 
 public:
-  void swap(Class& rhs) {
-    std::swap(d_, rhs.d_);
-    // ...
-  }
+    void swap(Class& rhs) {
+        std::swap(d_, rhs.d_);
+        // ...
+    }
 
-  ~Class();
-  Class();
+    ~Class();
 
-  Class &operator=(const Class &other)
-  {
-      // это может не сработать, но не изменит *this
-      Class copy(other);
-      // это не может не сработать, фиксируя транзакцию в *this
-      swap(copy);
-      return *this;
-  }
+    Class();
 
-  // DANGER)0 - const
-  const SomeThing& someThing() const;
+    Class& operator=(const Class& other) {
+        // это может не сработать, но не изменит *this
+        Class copy(other);
+        // это не может не сработать, фиксируя транзакцию в *this
+        swap(copy);
+        return *this;
+    }
 
-  void f(double n);
+    // DANGER)0 - const
+    const SomeThing& someThing() const;
 
-  // V2 - перегрузка
-  const Private * d_func() const { return d_; }
-  Private * d_func() { return d_; }
+    void f(double n);
+
+    // V2 - перегрузка
+    const Private* d_func() const { return d_; }
+
+    Private* d_func() { return d_; }
 };
 
 // *.cc - порадок определений некоторых функция важен
 class Class::Private {  // !! нужно определить до определения конструктора и дектруктора
 public:
-  bool canAcceptN(double num) const { return num != 0 ; }
-  double n;
+    bool canAcceptN(double num) const { return num != 0; }
 
-  Class * //const 
-  q; // back-link
+    double n;
 
-  const SomeThing& someThing() const { return s_; }
+    Class* //const
+        q; // back-link
+
+    const SomeThing& someThing() const { return s_; }
+
 public:
-  // не передаем
-    explicit Private( /*Class * qq*/ ) : q( 0 ) {}
-  SomeThing s_;
+    // не передаем
+    explicit Private( /*Class * qq*/ ) : q(0) {}
+
+    SomeThing s_;
 };
 
 Class::Class() : d_(new Private) {
 
-  // обр ссылка -  в самом конце, до этого нельзя
-  d_->q = this;
+    // обр ссылка -  в самом конце, до этого нельзя
+    d_->q = this;
 }
 
-Class::~Class()
-{
+Class::~Class() {
     // http://stackoverflow.com/questions/4190703/is-it-safe-to-delete-a-null-pointer
     // if (d)  ??  // Wrong - не нужно проверять
     delete d_;  // кажется проверяет указатель на ноль
 }
 
 
-
-void Class::f(double n)
-{
+void Class::f(double n) {
     if (d_->canAcceptN(n))
         d_->n = n;
 }
 
-const SomeThing & Class::someThing() const {
-  // for const meth. this is const
-  const Private* d = d_func();
-  return d->someThing();
+const SomeThing& Class::someThing() const {
+    // for const meth. this is const
+    const Private* d = d_func();
+    return d->someThing();
 }
 }  // namespace...
 
 namespace drdobbs_version {
 // Dr.Dobbs
 // http://www.drdobbs.com/cpp/making-pimpl-easy/205918714
-class Book
-{
-  public:
+class Book {
+public:
 
     Book(string const& title, string const& author);
+
     string const& title() const;
+
     string const& author() const;
 
     bool operator==(Book const& that) const { return impl_ == that.impl_; }
+
     bool operator!=(Book const& that) const { return !operator==(that); }
 
     // FIXME: not compiled!
     //operator bool() const { return impl_; }
 
-  private:
+private:
 
     struct Implementation;
     boost::shared_ptr<Implementation> impl_;

@@ -16,38 +16,38 @@
 #include <gtest/gtest.h>
 
 namespace {
-template <class T>
+template<class T>
 class CountedPtr {
 private:
-  T* ptr;
-  long* count;
+    T* ptr;
+    long* count;
 public:
-  explicit CountedPtr(T* p=0) 
-    : ptr(p), count(new long(1)) { }
-  
-  // Copy - по значению
-  CountedPtr(const CountedPtr<T>& p) : ptr(p.ptr), count(p.count) {
-      ++(*count);  // счетчик уже нового объекта?
-  }
-  
-private:
-  // throw()
-  void dispose() {
-    if (--(*count) == 0) {
-      delete count;
-      delete ptr;
+    explicit CountedPtr(T* p = 0)
+        : ptr(p), count(new long(1)) {}
+
+    // Copy - по значению
+    CountedPtr(const CountedPtr<T>& p) : ptr(p.ptr), count(p.count) {
+        ++(*count);  // счетчик уже нового объекта?
     }
-  }
+
+private:
+    // throw()
+    void dispose() {
+        if (--(*count) == 0) {
+            delete count;
+            delete ptr;
+        }
+    }
 };
 
 // http://www.parashift.com/c++-faq/ref-count-simple.html
 
 
 TEST(ImT, STLBookSmartPtr) {
-  
+
 }
 
 TEST(ImT, AdaptBoostIntrusivePtr) {
-  
+
 }
 }

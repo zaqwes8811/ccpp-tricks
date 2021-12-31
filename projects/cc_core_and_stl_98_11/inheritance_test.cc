@@ -16,7 +16,7 @@ using std::endl;
 
 class VDtor {
 public:
-  virtual ~VDtor() = 0;
+    virtual ~VDtor() = 0;
 };
 
 VDtor::~VDtor() {
@@ -25,16 +25,16 @@ VDtor::~VDtor() {
 
 class VDtorImpl : public VDtor {
 public:
-  virtual ~VDtorImpl() {}  // Могу определить, а могу и нет
+    virtual ~VDtorImpl() {}  // Могу определить, а могу и нет
 };
 
 //VDtorImpl::~VDtorImpl() { }
 
 TEST(Lang, PureVirtualDtor) {
-  // 33/M35 - а класс с виртуальным деструктором будет компилироваться?
-  // TODO:
-  //VDtor anstr;  // не создасться
-  VDtorImpl impl;
+    // 33/M35 - а класс с виртуальным деструктором будет компилироваться?
+    // TODO:
+    //VDtor anstr;  // не создасться
+    VDtorImpl impl;
 
 }
 
@@ -45,39 +45,42 @@ TEST(Lang, PureVirtualDtor) {
 // http://alenacpp.blogspot.ru/2006/03/blog-post_11.html
 //
 // Нельзя наследовать, но создавать то хочется!
-class OnlyDynamic 
-{ 
-  ~OnlyDynamic();
- public: 
-  // …
+class OnlyDynamic {
+    ~OnlyDynamic();
+
+public:
+    // …
 };
 
-class Derived: public OnlyDynamic
-{ };
+class Derived : public OnlyDynamic {
+};
 
 // Plan B
 class Lock                                // «запирающий» класс
-{ 
-  friend class Usable;
-  Lock() { }
-  Lock(const Lock&) { }
-  
+{
+    friend class Usable;
+
+    Lock() {}
+
+    Lock(const Lock&) {}
+
 public:
 };
 
-class Usable: public virtual/*!!!*/ Lock        // «финальный» класс
-{ 
+class Usable : public virtual/*!!!*/ Lock        // «финальный» класс
+{
 public:
-  Usable() { cout << "Usable!"; }
+    Usable() { cout << "Usable!"; }
 };
 
-class Derived2: public Usable {};        // формально не запрещено
+class Derived2 : public Usable {
+};        // формально не запрещено
 
 
 TEST(Lang, DisableInh) {
-  //Derived2 d; // must not compiled
-  Usable u;
-  //Derived2 *p = new Derived2;  // !!! можно!
+    //Derived2 d; // must not compiled
+    Usable u;
+    //Derived2 *p = new Derived2;  // !!! можно!
 }
 
 // http://www.gotw.ca/gotw/040.htm
@@ -103,45 +106,47 @@ public:
 /// Virtual and multi inh.
 // http://www.amse.ru/courses/cpp1/2010.05.14.html
 // http://cpp.com.ru/lippman/c18.html
-class Parent 
-{ } ;
+class Parent {
+};
 
 // единый общий под объект базового класса Parent, а не каждый свою! 
-class Child1 : virtual public Parent 
-{ } ;
-class Child2 : virtual public Parent 
-{ } ;
+class Child1 : virtual public Parent {
+};
 
-class GrandChild : public Child1,  public Child2
-{ };
+class Child2 : virtual public Parent {
+};
+
+class GrandChild : public Child1, public Child2 {
+};
 
 // Next ier.
-class Animal 
-{
- public:
-  void eat() {}  // Метод определяется для данного класса
- //...
+class Animal {
+public:
+    void eat() {}  // Метод определяется для данного класса
+    //...
 };
- 
+
 class Mammal : virtual public Animal  // !
 {
- public:
-  int getHairColor(); 
- //...
+public:
+    int getHairColor();
+    //...
 };
- 
+
 class WingedAnimal : virtual public Animal // !
 {
- public:
-  void flap();
-  void eat() { cout << "Wind\n"; }
- //...
+public:
+    void flap();
+
+    void eat() { cout << "Wind\n"; }
+    //...
 };
- 
+
 // A bat is a winged mammal
-class Bat : public Mammal, public WingedAnimal {};   //<--- обратите внимание, что метод eat() не переопределен в Bat
- 
- 
+class Bat : public Mammal, public WingedAnimal {
+};   //<--- обратите внимание, что метод eat() не переопределен в Bat
+
+
 class A {
 public:
     virtual void f();
@@ -152,17 +157,18 @@ public:
     virtual void f();
 };
 
-class C: public A, public B {
+class C : public A, public B {
 public:
     virtual void fA();
+
     virtual void fB();
 };
 
 TEST(Core, VirtInh) {
-  Bat bat;
-  
-  // вызывается перекрытая!
-  bat.eat();  // без виртуальности нет однозначности
+    Bat bat;
+
+    // вызывается перекрытая!
+    bat.eat();  // без виртуальности нет однозначности
 }
 
 /// override and overload
@@ -181,28 +187,29 @@ namespace lavavej_4 {
 
 class Base {
 public:
-  virtual ~Base() { }
-  int b;
+    virtual ~Base() {}
 
-  // NEED IT
-  Base() { }
+    int b;
+
+    // NEED IT
+    Base() {}
 
 private:
-  // NEED IT
-  Base(const Base&);  // it delete other ctors
-  Base& operator =(const Base&);
+    // NEED IT
+    Base(const Base&);  // it delete other ctors
+    Base& operator=(const Base&);
 };
 
-class Derived: public Base {
+class Derived : public Base {
 public:
-  Derived() {}
+    Derived() {}
 };
 
 TEST(Lava, Inh) {
-  //Base
-  Derived  // can to!
-      * p = new Derived;
-  //Base b2 = *p;  // slice - need make base noncopyble
+    //Base
+    Derived  // can to!
+    * p = new Derived;
+    //Base b2 = *p;  // slice - need make base noncopyble
 }
 
 // NVI - may be good way use inh

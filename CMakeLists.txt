@@ -16,6 +16,8 @@ option(BUILD_WITH_FUZZ "Build with AFL" OFF)
 
 set(CMAKE_VERBOSE_MAKEFILE true)
 
+include_directories(${CMAKE_SOURCE_DIR})
+
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/cmake)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -51,3 +53,8 @@ add_subdirectory(projects/backtrace_and_heap)
 add_subdirectory(projects/new_cpp)
 add_subdirectory(projects/x64_learn)
 add_subdirectory(projects/performance_matters)
+add_subdirectory(projects/analysers_templs/asan_check_templ)
+add_subdirectory(projects/analysers_templs/tsan_check_templ)
+add_subdirectory(projects/cc_core_and_stl_98_11)
+add_subdirectory(projects/gc_alloc_resources)
+add_subdirectory(projects/tricks)

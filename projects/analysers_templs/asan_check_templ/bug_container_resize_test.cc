@@ -11,18 +11,18 @@ Thread model: posix
 namespace {
 static int i;
 TEST(ASanTest, Vec) {
-  // http://stackoverflow.com/questions/19673311/stl-vector-resize-and-assign
-  std::vector<int> V(8);
-  V.resize(5);
-  i = V.data()[6];
-  //i = V[6];
+    // http://stackoverflow.com/questions/19673311/stl-vector-resize-and-assign
+    std::vector<int> V(8);
+    V.resize(5);
+    i = V.data()[6];
+    //i = V[6];
 }
 
 TEST(ASanTest, VecStrange) {
-  std::vector<int> V(8);
-  V.resize(5);
-  i = V.data()[7];
-  i = V.at(6);//[6];
+    std::vector<int> V(8);
+    V.resize(5);
+    i = V.data()[7];
+    i = V.at(6);//[6];
 }
 }
 
