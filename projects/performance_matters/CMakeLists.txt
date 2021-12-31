@@ -21,7 +21,9 @@ add_executable(hp
         mybenchmark.cc
         small_data_structs_test.cc
         copy_removal_tricks_test.cpp
-        lru.cc)
+        lru.cc
+        buffer.cpp
+        )
 
 target_link_libraries(hp
         ${GTEST_BOTH_LIBRARIES}
