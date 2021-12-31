@@ -1,4 +1,0 @@
-#!/bin/bash
-g++ -lrt -c main.cpp
-g++ -lrt -o main main.o 
-./main

@@ -45,5 +45,8 @@ endif ()
 ####################################################################################
 ####################################################################################
 
+find_package(GTest REQUIRED)
+
 add_subdirectory(projects/backtrace_and_heap)
 add_subdirectory(projects/new_cpp)
+add_subdirectory(projects/x64_learn)

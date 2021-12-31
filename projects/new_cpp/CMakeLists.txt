@@ -35,7 +35,8 @@ file(GLOB proTests
 
 
 add_executable(unittest.bin
-        main.cc
+        core_tests.cc
+        summary.cc
         )
 
 target_link_libraries(unittest.bin PUBLIC

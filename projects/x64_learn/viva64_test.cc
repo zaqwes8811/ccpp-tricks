@@ -1,4 +1,3 @@
-#include "heart/config.h"
 
 #include <gtest/gtest.h>
 
@@ -261,4 +260,37 @@ TEST(Viva64Test, L24) {
 }
 
 
+}
+
+namespace {
+int* g;
+
+// ASAN_OPTIONS=detect_stack_use_after_return=1
+namespace {
+void LeakLocal() {
+    int local;
+    g = &local;
+}
+
+int* get() {
+    int local;
+    return &local;
+}
+}
+
+TEST(Viva64Test, L241) {
+    //int *a = new int[100];
+    //delete[] a;
+    //int b =
+    //return a[9];
+    //int k = *get();
+    //return k+100;
+    //std::vector<int> r;
+    //r.reserve(90);
+    //return r[9];
+    //int i = *get();
+
+    //LeakLocal();
+    //return *g;
+}
 }
