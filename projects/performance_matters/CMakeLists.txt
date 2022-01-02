@@ -5,6 +5,9 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/../cmake" CACHE STRING "Modules for CMake" FORCE)
 
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/include)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm_autogen/include)
+
 find_package(benchmark REQUIRED)
 include_directories(${benchmark_INCLUDE_DIRS})
 link_libraries(${benchmark_LIBRARIES} pthread)
@@ -23,6 +26,7 @@ add_executable(hp
         copy_removal_tricks_test.cpp
         lru.cc
         buffer.cpp
+        llvm_small_objects_test.cpp
         )
 
 target_link_libraries(hp
