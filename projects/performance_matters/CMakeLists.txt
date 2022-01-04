@@ -12,15 +12,18 @@ find_package(benchmark REQUIRED)
 include_directories(${benchmark_INCLUDE_DIRS})
 link_libraries(${benchmark_LIBRARIES} pthread)
 
-set(Boost_USE_STATIC_LIBS OFF) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
 
 # https://stackoverflow.com/questions/26749461/how-to-determine-the-boost-library-names-for-cmake
 find_package(Boost 1.51.0 REQUIRED)
 
 add_executable(hp
         ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
+        ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/lib/Support/ABIBreak.cpp
+        ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/lib/Support/MemAlloc.cpp
+        #        ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/unittests/ADT/ImmutableMapTest.cpp  # need lot of code to link with
         mybenchmark.cc
         small_data_structs_test.cc
         copy_removal_tricks_test.cpp
