@@ -10,6 +10,8 @@
 
 #include <gtest/gtest.h>
 
+#include "3rdparty/SG14/SG14/inplace_function.h"
+
 
 std::array<float, 1024> stack_mem;
 
@@ -23,3 +25,10 @@ void process() {
     allocator_t allocator(&monotonic_buffer);
     std::pmr::vector<float> my_vector(16, 0, allocator);
 }
+
+
+// inplace function
+
+std::array<int, 64> a;
+
+stdext::inplace_function<void(), 1024> no_op{[a = a] {}};
