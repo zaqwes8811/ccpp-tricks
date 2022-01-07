@@ -1,3 +1,6 @@
 [submodule "3rdparty/SG14"]
 	path = 3rdparty/SG14
 	url = https://github.com/WG21-SG14/SG14.git
+[submodule "3rdparty/farbot"]
+	path = 3rdparty/farbot
+	url = https://github.com/hogliux/farbot.git

@@ -32,3 +32,5 @@ void process() {
 std::array<int, 64> a;
 
 stdext::inplace_function<void(), 1024> no_op{[a = a] {}};
+
+static_assert(std::is_nothrow_move_assignable_v<decltype(no_op)>, "A");
