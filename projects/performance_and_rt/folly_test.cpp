@@ -4,6 +4,7 @@
 
 // https://www.youtube.com/watch?v=SGdfPextuAU&ab_channel=CppNow
 
+#include <type_traits>
 
 // https://www.youtube.com/watch?v=NH1Tta7purM&t=2694s&ab_channel=CppCon
 #include <memory>
@@ -38,6 +39,7 @@ struct OrderSenderB {
 
 struct IOrderManager {
     virtual void MainLoop() = 0;
+    virtual ~IOrderManager() = default;
 };
 
 
