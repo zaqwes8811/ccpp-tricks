@@ -11,3 +11,8 @@ https://aws.amazon.com/ru/blogs/developer/real-time-streaming-transcription-with
 https://github.com/PortAudio/portaudio
 
 https://juce.com/
+
+# Idea
+- Study low latency, high performance code(minimal avg runtime)
+- Rt/AMP
+- Tech for interraction rt and non-rt
