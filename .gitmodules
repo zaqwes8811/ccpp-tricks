@@ -4,3 +4,9 @@
 [submodule "3rdparty/farbot"]
 	path = 3rdparty/farbot
 	url = https://github.com/hogliux/farbot.git
+[submodule "3rdparty/NamedType"]
+	path = 3rdparty/NamedType
+	url = https://github.com/joboccara/NamedType.git
+[submodule "3rdparty/iceoryx"]
+	path = 3rdparty/iceoryx
+	url = https://github.com/eclipse-iceoryx/iceoryx.git
