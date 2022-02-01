@@ -1,0 +1,14 @@
+Step up:
+Scala: match 
+	-> ? Match7?
+
+Scala: Future, Promise, async/await 
+	-> folly, hpx, Sean Parent - concurency
+
+Scala: frp, Rx 
+	-> RxCpp
+
+Scala: Actors 
+	-> "Browser actor model"
+
+
