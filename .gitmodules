@@ -10,3 +10,6 @@
 [submodule "3rdparty/iceoryx"]
 	path = 3rdparty/iceoryx
 	url = https://github.com/eclipse-iceoryx/iceoryx.git
+[submodule "3rdparty/smack"]
+	path = 3rdparty/smack
+	url = https://github.com/smackers/smack.git
