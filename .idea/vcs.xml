@@ -2,7 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/NamedType" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/3rdparty/SG14" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/3rdparty/farbot" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/iceoryx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/smack" vcs="Git" />
   </component>
 </project>

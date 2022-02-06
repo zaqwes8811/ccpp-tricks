@@ -54,19 +54,22 @@ std::unique_ptr<UnifiedMessageView<T>> asView(SharedMessage& msg) {
 class Tensor {
 };
 
-void test() {
-    // Direct
-    UnifiedMessage msg = Tensor{};
+//void test() {
+//    // Direct
+//    UnifiedMessage msg = Tensor{};
+//
+//    Tensor* t_v = as<Tensor>(msg);
+//
+//    // Shared
+//    auto shared_msg = std::make_shared<UnifiedMessage>(Tensor{});
+//
+//    auto msg_view = asView<Tensor>(shared_msg);
+//
+//    Tensor* t = msg_view->get();
+//}
 
-    Tensor* t_v = as<Tensor>(msg);
-
-    // Shared
-    auto shared_msg = std::make_shared<UnifiedMessage>(Tensor{});
-
-    auto msg_view = asView<Tensor>(shared_msg);
-
-    Tensor* t = msg_view->get();
-}
+//static_assert(std::is_nothrow_move_assignable_v<T>, "NeverMind");
+//static_assert(std::is_nothrow_move_constructible_v<T>, "NeverMind");
 
 
 #include <type_traits>
@@ -126,7 +129,7 @@ std::unique_ptr<IOrderManager> Manager() {
 }
 
 
-int main() {
-    auto m = Manager();
-    m->MainLoop();
-}
+//int main() {
+//    auto m = Manager();
+//    m->MainLoop();
+//}
