@@ -16,3 +16,7 @@ https://juce.com/
 - Study low latency, high performance code(minimal avg runtime)
 - Rt/AMP
 - Tech for interraction rt and non-rt
+
+Case: rt thread take buffers from pool(hoofs), fill with noize and send (rt-way) to another thread
+Q: how to measure latency?
+Q: how to check, that code is minimal (no copy, no alloc, etc)

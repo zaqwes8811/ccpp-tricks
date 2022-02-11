@@ -32,6 +32,7 @@ add_executable(performance_and_rt
         llvm_small_objects_test.cpp
         rt_test.cpp
         folly_test.cpp
+        emplace_test.cpp
         )
 
 target_link_libraries(performance_and_rt
