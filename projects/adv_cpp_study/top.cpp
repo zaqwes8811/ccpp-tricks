@@ -270,3 +270,133 @@ int main2() {
 
     // Output - пишет-сдвигат, пишет-сдвигает
 }
+
+//============================================================================================
+//============================================================================================
+//============================================================================================
+
+// Containers
+
+//
+// 9.1 Vector
+//
+
+// C++03
+template<typename T>
+class Vector {
+private:
+    T* arr;
+    size_t sz;
+    size_t cap;
+
+public:
+    // size() const
+    // capacity() const
+
+    void reserve(size_t n) {
+        if (n <= cap) return;
+
+        // https://stackoverflow.com/questions/64580921/c-aligned-new
+        // https://www.cppstories.com/2019/08/newnew-align/
+        // https://stackoverflow.com/questions/12942548/making-stdvector-allocate-aligned-memory
+        // https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM54-CPP.+Provide+placement+new+with+properly+aligned+pointers+to+sufficient+storage+capacity
+        // https://en.cppreference.com/w/cpp/types/aligned_storage
+        // https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM57-CPP.+Avoid+using+default+operator+new+for+over-aligned+types
+        // ! https://stackoverflow.com/questions/10587879/does-new-char-actually-guarantee-aligned-memory-for-a-class-type
+        T* newarr = reinterpret_cast<T*>(new int8_t[n * sizeof(T)]);  // MY: alignment
+//        T* newarr = new T[n];  // <<< !!! ctor by default, but it's bad anyway
+
+        size_t i = 0;
+
+        try {
+            std::uninitialized_copy(arr, arr + sz, newarr);  // << !!!
+        } catch(...) {
+            delete[] reinterpret_cast<int8_t*> newarr;
+            throw;
+        }
+//        try {
+//            for (; i < sz; ++i) {
+////            newarr[i] = arr[i];  // << UB now, can't assign
+//                new(newarr + i) T(arr[i]);  // copy ctor
+//            }
+//        } catch (...) {
+//            for (size_t j = 0; j < i; ++j) {
+//                (newarr + i)->~T();
+//            }
+//            delete[] reinterpret_cast<int8_t*> newarr;
+//            throw;
+//        }
+
+//        delete[] /*(T*)*/arr;  // UB/ for creation [], call all dtors - we don't have sometime
+        for (size_t i = 0; i < sz; ++i) {
+            (arr + i)->~T();
+        }
+        delete[] reinterpret_cast<int8_t*>(arr);  // no dtros will be called
+        arr = newarr;
+        cap = n;
+    }
+
+    // ctor by default
+    void resize(size_t n, const T& value = T()) {
+        if (n > cap) reserve(n);
+
+        for (size_t i = sz; i < n; ++i) {
+//            arr[i] = value;
+            new(arr + i) T(value);
+        }
+
+        if (n < sz) {
+            sz = n;  // for simplicity
+        }
+    }
+
+    // shrink_to_fit - later
+
+    void push_back(const T& value) {
+        if (cap == sz) {
+            reserve(2 * sz);
+        }
+
+//        arr[sz] = value;
+        new(arr + sz) T(value);
+        ++sz;
+    }
+
+    void pop_back() {
+        --sz;
+    }
+};
+
+// MY: static_vector
+// https://en.cppreference.com/w/cpp/types/aligned_storage
+
+int main3() {
+    std::vector<int> v(10);
+    v.size();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
