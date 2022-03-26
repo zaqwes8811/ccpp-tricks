@@ -310,7 +310,7 @@ public:
 
         try {
             std::uninitialized_copy(arr, arr + sz, newarr);  // << !!!
-        } catch(...) {
+        } catch (...) {
             delete[] reinterpret_cast<int8_t*> newarr;
             throw;
         }
@@ -364,21 +364,91 @@ public:
 
     void pop_back() {
         --sz;
+        (arr + sz)->~T();
+    }
+
+    T& operator[](size_t i) {
+        return arr[i];
+    }
+
+    const T& operator[](size_t i) const {
+        return arr[i];
+    }
+
+    T& at(size_t i) {
+        if (i >= sz) {
+            throw std::out_of_range("...");
+        }
+        return arr[i];
     }
 };
 
 // MY: static_vector
 // https://en.cppreference.com/w/cpp/types/aligned_storage
 
+// 9.2 Vector<bool>
+template<>
+class Vector<bool> {
+    uint8_t* arr;
+private:
+    struct BitReference {
+        uint8_t* bucket_ptr;
+        uint8_t pos;
+
+        BitReference operator=(bool b) {
+            if (b) {
+                *bucket_ptr |= ((uint8_t) 1 << pos);
+            } else {
+                *bucket_ptr &= ~((uint8_t) 1 << pos);
+            }
+            return *this;
+        }
+    };
+
+public:
+    BitReference operator[](size_t i) {
+        uint8_t pos = i % 8;
+        uint8_t* ptr = arr + i / 8;
+        return BitReference(ptr, pos);
+    }
+};
+
+// Type punning
+// https://www.youtube.com/watch?v=_qzMpk-22cc&ab_channel=CppCon
+// UB https://www.youtube.com/watch?v=XEXpwis_deQ&ab_channel=CppCon
+
+
+
+class C {
+    template<typename U>
+    C(const U&) = delete;
+};
+
 int main3() {
     std::vector<int> v(10);
     v.size();
+
+
+    std::vector<bool> vb(10, false);
+    C c(vb[5]);
 }
 
 
+// C++23 - list/map/unordered_map
+// deque - push_front/pop_front
+// Uninit backets - rollback ctors
 
+//Node* pnode = new Node(<>)??? T init?
 
+//node = (reinterpret_cast)new char[sizeof(Node)];
+//pn->next = ...  << UB?? Lifetime?
+//new (&(pn->value)) T(...);
 
+//new Node(...,...);  << better, without manual alloc
+// splice
+// can write good allocator
+
+// 9.5 map<key, value, cmp=std::less<key>>
 
 
 
