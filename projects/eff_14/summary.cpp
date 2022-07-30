@@ -1,10 +1,18 @@
 
+#include <vector>
 
-// These types are frequently different, because ParamType often contains 
-// adornments, e.g., const or reference qualifiers.
-template<typename T>
-void f(ParamType param);
+using namespace std;
+
+template<typename Container, typename Index>
+auto authAndAccess(Container& c, Index i) // -> decltype(c[i])
+{
+  //authenticateUser();
+  return c[i];
+}
 
 int main() {
+
+	vector<int> v{1, 5, 6};
+	authAndAccess(v, 0) = 1;
 	return 0;
 }
