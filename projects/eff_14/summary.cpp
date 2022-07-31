@@ -5,28 +5,53 @@
 
 using namespace std;
 
-template<typename Container, typename Index>
-// auto 
-decltype(auto)
-authAndAccess(
-	//Container& c
-	Container&& c
-, Index i) // -> decltype(c[i])
+template <typename Container, typename Index>
+// auto
+decltype(auto) authAndAccess(
+    // Container& c
+    Container &&c, Index i) // -> decltype(c[i])
 {
-  //authenticateUser();
+  // authenticateUser();
   return std::forward<Container>(c)[i];
 }
 
-vector<int> makeVec() {
-	return {1, 5, 6};
-}
+vector<int> makeVec() { return {1, 5, 6}; }
 
+using Vec = Checker<std::vector<int>>;
+
+class Holder {
+public:
+  Vec steal() { return std::move(v_); }
+
+  Vec &&stealPureRVal() { return std::move(v_); }
+
+  decltype(auto) stealRval() { return std::move(v_); }
+
+  Vec v_;
+};
 
 int main() {
 
-	vector<int> v{1, 5, 6};
-	authAndAccess(v, 0) = 1;
+  vector<int> v{1, 5, 6};
+  authAndAccess(v, 0) = 1;
 
-	auto s = authAndAccess(makeVec(), 0);
-	return 0;
+  auto s = authAndAccess(makeVec(), 0);
+
+  std::cout << "[!] Base" << std::endl;
+  {
+    Holder h;
+    auto v = h.steal();
+    // TD<decltype(v)> v_type;
+  }
+
+  std::cout << "[!] Next" << std::endl;
+  {
+    Holder h;
+    Vec v;
+    v = h.stealRval();
+    // v = h.steal();
+    v = h.stealPureRVal();
+    // TD<decltype(v)> v_type;
+  }
+  return 0;
 }
