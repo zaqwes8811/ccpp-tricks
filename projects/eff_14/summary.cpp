@@ -1,5 +1,6 @@
 
 #include <vector>
+#include <type_traits>
 
 #include "test_type.hpp"
 
@@ -51,7 +52,7 @@ int main() {
     v = h.stealRval();
 
     v = h.stealPureRVal();
-    // TD<decltype(v)> v_type;
+    static_assert(std::is_same<decltype(h.stealRval()), Vec&&>());// v_type;
 
     std::cout << "  [!] Return by value" << std::endl;
     v = h.steal();
