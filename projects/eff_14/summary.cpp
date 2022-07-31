@@ -49,9 +49,20 @@ int main() {
     Holder h;
     Vec v;
     v = h.stealRval();
-    // v = h.steal();
+
     v = h.stealPureRVal();
     // TD<decltype(v)> v_type;
+
+    std::cout << "  [!] Return by value" << std::endl;
+    v = h.steal();
+  }
+
+  std::cout << "[!] Copy" << std::endl;
+  {
+    Holder h;
+    auto v = Vec{};
+    Vec k;
+    k = v;
   }
   return 0;
 }

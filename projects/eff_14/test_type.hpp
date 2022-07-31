@@ -31,6 +31,16 @@ template <typename PayloadType = void> struct Checker {
     return *this;
   }
 
+  Checker &operator=(const Checker &that) {
+    std::cout << "Copy assignment" << std::endl;
+    auto tmp = Checker{that};
+
+    std::cout << "Swap" << std::endl;
+    swap(tmp, *this);
+    copy_ctor_cnt++;
+    return *this;
+  }
+
   ~Checker() {
     if (was_moved_) {
       move_dtor_cnt++;
@@ -57,6 +67,7 @@ template <typename PayloadType = void> struct Checker {
     dtor_cnt = 0;
     copy_ctor_cnt = 0;
     move_ctor_cnt = 0;
+    move_assignment_cnt = 0;
     move_dtor_cnt = 0;
   }
   static volatile uint32_t new_cnt;
@@ -64,6 +75,7 @@ template <typename PayloadType = void> struct Checker {
   static volatile uint32_t ctor_cnt;
   static volatile uint32_t copy_ctor_cnt;
   static volatile uint32_t move_ctor_cnt;
+  static volatile uint32_t move_assignment_cnt;
   static volatile uint32_t dtor_cnt;
   static volatile uint32_t move_dtor_cnt;
 
@@ -82,6 +94,8 @@ template <typename PayloadType>
 volatile uint32_t Checker<PayloadType>::copy_ctor_cnt = 0;
 template <typename PayloadType>
 volatile uint32_t Checker<PayloadType>::move_ctor_cnt = 0;
+template <typename PayloadType>
+volatile uint32_t Checker<PayloadType>::move_assignment_cnt = 0;
 template <typename PayloadType>
 volatile uint32_t Checker<PayloadType>::dtor_cnt = 0;
 template <typename PayloadType>
