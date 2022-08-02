@@ -37,7 +37,7 @@
 
 #include "gtest/gtest.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
 
   // We want to ensure that people can use Google Test assertions in

@@ -6,21 +6,20 @@
 
 #include <cstdlib>
 
-
 namespace fake_store {
-using std::vector;
 using std::string;
+using std::vector;
 using namespace entities;
 
 // FIXME: на русском тоже нужно!! и это может стать проблемой
-const char* events[] = {
-  "A weak_ptr can only be created from a shared_ptr,",
-  "and at object construction time no shared_ptr to",
-  "Even if you could create a temporary shared_ptr to this, ",
-  "it would go out of scope at the end of the constructor, ",
-  "and all weak_ptr instances would instantly expire."};
+const char *events[] = {
+    "A weak_ptr can only be created from a shared_ptr,",
+    "and at object construction time no shared_ptr to",
+    "Even if you could create a temporary shared_ptr to this, ",
+    "it would go out of scope at the end of the constructor, ",
+    "and all weak_ptr instances would instantly expire."};
 
-//const char* labels[] = {"v8", "fake"};
+// const char* labels[] = {"v8", "fake"};
 
 TaskEntities get_all() {
   TaskEntities model;
@@ -28,7 +27,7 @@ TaskEntities get_all() {
   for (int i = 0; i < 5; ++i) {
     string message(events[i]);
     int p = rand() % 10 + 1;
-    auto tmp = std::make_shared<Task>();//::createEntity();
+    auto tmp = std::make_shared<Task>(); //::createEntity();
 
     tmp->priority = p;
     model.push_back(tmp);
@@ -48,4 +47,4 @@ std::vector<entities::Task> get_all_values() {
   return v;
 }
 
-}
+} // namespace fake_store

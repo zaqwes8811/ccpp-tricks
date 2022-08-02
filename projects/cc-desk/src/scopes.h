@@ -15,6 +15,6 @@ public:
 private:
   static std::atomic_bool s_isDone;
 };
-}
+} // namespace scopes
 
 #endif

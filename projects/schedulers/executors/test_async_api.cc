@@ -1,16 +1,16 @@
 #define BOOST_THREAD_PROVIDES_FUTURE
 
-#include "actors_and_workers/actors_cc98.h"
 #include "actors_and_workers/actors_cc11.h"
+#include "actors_and_workers/actors_cc98.h"
 
-#include <gtest/gtest.h>
 #include <boost/thread/future.hpp>
+#include <gtest/gtest.h>
 
-#include <memory>
-#include <thread>
 #include <functional>
-#include <string>
 #include <future>
+#include <memory>
+#include <string>
+#include <thread>
 
 /**
 @Use case: Looks like good real use case
@@ -35,8 +35,8 @@ void CallerMethod() {
 @Use case:
 // .then()
 // "Up to this point we have skirted around the matter of waiting for Futures.
-You may never need to wait for a Future, because your code is event-driven and all
-follow-up action happens in a then-block."
+You may never need to wait for a Future, because your code is event-driven and
+all follow-up action happens in a then-block."
 
 @Use case:
 //   Trouble - interliver - operations MUST not have shared state!
@@ -51,13 +51,17 @@ public:
   typedef int Data;
   typedef int PrivateData;
 
-  void Save( std::string filename ) { a.Send( [=] {
-    //…
-  } ); }
+  void Save(std::string filename) {
+    a.Send([=] {
+      //…
+    });
+  }
 
-  void Print( Data& data ) { a.Send( [=, &data] {
-    //…
-  } ); }
+  void Print(Data &data) {
+    a.Send([=, &data] {
+      //…
+    });
+  }
 
 private:
   PrivateData somePrivateStateAcrossCalls;
@@ -76,18 +80,20 @@ public:
   typedef int Data;
   typedef int PrivateData;
 
-  std::future<bool> Save( std::string filename ) {
+  std::future<bool> Save(std::string filename) {
     using std::future;
     using std::promise;
-    auto p = std::make_shared<promise<bool> > ();
+    auto p = std::make_shared<promise<bool>>();
     future<bool> ret = p->get_future();
-    a.Send( [=] { p->set_value( true ); } );
+    a.Send([=] { p->set_value(true); });
     return ret;
   }
 
-  void Print( Data& data ) { a.Send( [=, &data] {
-    //…
-  } ); }
+  void Print(Data &data) {
+    a.Send([=, &data] {
+      //…
+    });
+  }
 
 private:
   PrivateData somePrivateStateAcrossCalls;
@@ -99,29 +105,30 @@ public:
   typedef int Data;
   typedef int PrivateData;
 
-  boost::future<bool> Save( std::string filename ) {
+  boost::future<bool> Save(std::string filename) {
     using boost::future;
     using boost::promise;
-    auto p = std::make_shared<promise<bool> > ();
+    auto p = std::make_shared<promise<bool>>();
     future<bool> ret = p->get_future();
-    a.Send( [=] { p->set_value( true ); } );
+    a.Send([=] { p->set_value(true); });
     return ret;
   }
 
-  void Print( Data& data ) { a.Send( [=, &data] {
-    //…
-  } ); }
+  void Print(Data &data) {
+    a.Send([=, &data] {
+      //…
+    });
+  }
 
-  void Save(
-      std::string filename,
-      std::function<void(
-        //bool
-        )> returnCallback
-    ) {
-    a.Send( [=] {
+  void Save(std::string filename, std::function<void(
+                                      // bool
+                                      )>
+                                      returnCallback) {
+    a.Send([=] {
       // … do the saving work …
-      returnCallback( );//true );//didItSucceed() ? true : false );
-    } ); }
+      returnCallback(); // true );//didItSucceed() ? true : false );
+    });
+  }
 
 private:
   PrivateData somePrivateStateAcrossCalls;
@@ -146,21 +153,21 @@ public:
     // … turn on saving icon, etc. …
     // …
     std::shared_future<bool> result;
-    result = backgrounder.Save( "filename" );
+    result = backgrounder.Save("filename");
     // queue up a continuation to notify ourselves of the
     // result once it's available
 
     // FIXME: Is it bad?
-    std::async( [=] {
-        //SendSaveComplete
-            OnSaveComplete
-            ( result.get() ); } );
+    std::async([=] {
+      // SendSaveComplete
+      OnSaveComplete(result.get());
+    });
   }
 
-
-  void OnSaveComplete( bool returnedValue ) {
+  void OnSaveComplete(bool returnedValue) {
     // … turn off saving icon, etc. …
   }
+
 private:
   Backgrounder_ret backgrounder;
 };
@@ -175,45 +182,36 @@ public:
     // … turn on saving icon, etc. …
     // …
     boost::shared_future<bool> result;
-    result = backgrounder.Save( "filename" );
+    result = backgrounder.Save("filename");
     // queue up a continuation to notify ourselves of the
     // result once it's available
 
     // FIXME: Is it bad?
     // no then() in std and boost
-    //result.( [=] {
+    // result.( [=] {
     //    //SendSaveComplete
     //        OnSaveComplete
     //       ( result.get() ); } );
   }
 
   void OnSaveClick_cb() {
-    //boost
-    //std::shared_future<bool> result;  // FIXME: Is it needed here?
-    backgrounder.Save( std::string("filename"),
-           ([=]
-      {
-        //OnSaveComplete( result.get() );
-      })
-    );
+    // boost
+    // std::shared_future<bool> result;  // FIXME: Is it needed here?
+    backgrounder.Save(std::string("filename"), ([=] {
+                        // OnSaveComplete( result.get() );
+                      }));
   }
 
-  void OnSaveComplete( bool returnedValue ) {
+  void OnSaveComplete(bool returnedValue) {
     // … turn off saving icon, etc. …
   }
+
 private:
   BackgrounderBoost backgrounder;
 };
-
 
 // FIXME: partial result
 
 // Build async API
 // cases
 //
-
-
-
-
-
-

@@ -37,7 +37,8 @@
 // https://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1798/
 // Для контейнеров нужна внешняя синхронизация.
 //
-// ref base and value base - похоже не то же самое что смартпоинтеры в контейнерах
+// ref base and value base - похоже не то же самое что смартпоинтеры в
+// контейнерах
 //
 // Нельзя зывать чужой код под "замком"!!
 /*
@@ -58,23 +59,23 @@ void push(const T& t){
 
 #include "parallel_ds/data_structures.h"
 
-#include <gtest/gtest.h>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
+#include <gtest/gtest.h>
 //#include <boost/thread/concurrent_queues/  // experimental
-#include <boost/thread/condition_variable.hpp>
-#include <boost/thread/locks.hpp>
-#include <boost/thread/lock_algorithms.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/end.hpp>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/lock_algorithms.hpp>
+#include <boost/thread/locks.hpp>
 
 #include <list>
 #include <ostream>
 #include <queue>
 
 #if __cplusplus > 199711L
-#  include <mutex>
-#  include <thread>
+#include <mutex>
+#include <thread>
 #endif
 
 #include <pthread.h>
@@ -82,12 +83,10 @@ void push(const T& t){
 #if __cplusplus > 199711L
 
 #else
-using boost::mutex;
 using boost::lock_guard;
+using boost::mutex;
 #endif
 using std::list;
-
-
 
 TEST(ThreadSafeDS, TBBAssignTest) {
   fix_extern_space::concurent_try_queue<int> q(10);
@@ -95,4 +94,3 @@ TEST(ThreadSafeDS, TBBAssignTest) {
   EXPECT_TRUE(q.try_push(r));
   EXPECT_TRUE(q.try_pop(r));
 }
-

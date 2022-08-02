@@ -15,30 +15,26 @@
 
 // $Id: SingletonTest.h 760 2006-10-17 20:36:13Z syntheticpp $
 
-
+#include "UnitTest.h"
 #include <cassert>
 #include <loki/Singleton.h>
-#include "UnitTest.h"
 
-#define MAKE_TEST(name)\
-    if(singletonTest && name::Instance().a != 99)\
-      singletonTest=false;\
-    ++name::Instance().a;\
-    if(singletonTest && name::Instance().a != 100)\
-      singletonTest=false;
+#define MAKE_TEST(name)                                                        \
+  if (singletonTest && name::Instance().a != 99)                               \
+    singletonTest = false;                                                     \
+  ++name::Instance().a;                                                        \
+  if (singletonTest && name::Instance().a != 100)                              \
+    singletonTest = false;
 
 ///////////////////////////////////////////////////////////////////////////////
 // SingletonTest
 ///////////////////////////////////////////////////////////////////////////////
 
-template<int N>
-class MyClass
-{
+template <int N> class MyClass {
 public:
   MyClass() : a(99), wasDestroyed(false) {}
 
-  virtual ~MyClass()
-  {
+  virtual ~MyClass() {
     assert(!wasDestroyed);
 
     wasDestroyed = true;
@@ -56,59 +52,102 @@ inline unsigned GetLongevity(MyClass<15> *) { return 1; }
 inline unsigned GetLongevity(MyClass<19> *) { return 2; }
 inline unsigned GetLongevity(MyClass<23> *) { return 3; }
 
-namespace
-{
-  using namespace Loki;
+namespace {
+using namespace Loki;
 
-  typedef SingletonHolder<MyClass<0> > t0;
+typedef SingletonHolder<MyClass<0>> t0;
 
-  typedef SingletonHolder<MyClass<1>, CreateUsingNew, DefaultLifetime, SingleThreaded> t1;
-  typedef SingletonHolder<MyClass<2>, CreateUsingNew, PhoenixSingleton, SingleThreaded> t2;
-  typedef SingletonHolder<MyClass<3>, CreateUsingNew, SingletonWithLongevity, SingleThreaded> t3;
-  typedef SingletonHolder<MyClass<4>, CreateUsingNew, NoDestroy, SingleThreaded> t4;
+typedef SingletonHolder<MyClass<1>, CreateUsingNew, DefaultLifetime,
+                        SingleThreaded>
+    t1;
+typedef SingletonHolder<MyClass<2>, CreateUsingNew, PhoenixSingleton,
+                        SingleThreaded>
+    t2;
+typedef SingletonHolder<MyClass<3>, CreateUsingNew, SingletonWithLongevity,
+                        SingleThreaded>
+    t3;
+typedef SingletonHolder<MyClass<4>, CreateUsingNew, NoDestroy, SingleThreaded>
+    t4;
 
-  typedef SingletonHolder<MyClass<9>, CreateUsingMalloc, DefaultLifetime, SingleThreaded> t9;
-  typedef SingletonHolder<MyClass<10>, CreateUsingMalloc, PhoenixSingleton, SingleThreaded> t10;
-  typedef SingletonHolder<MyClass<11>, CreateUsingMalloc, SingletonWithLongevity, SingleThreaded> t11;
-  typedef SingletonHolder<MyClass<12>, CreateUsingMalloc, NoDestroy, SingleThreaded> t12;
+typedef SingletonHolder<MyClass<9>, CreateUsingMalloc, DefaultLifetime,
+                        SingleThreaded>
+    t9;
+typedef SingletonHolder<MyClass<10>, CreateUsingMalloc, PhoenixSingleton,
+                        SingleThreaded>
+    t10;
+typedef SingletonHolder<MyClass<11>, CreateUsingMalloc, SingletonWithLongevity,
+                        SingleThreaded>
+    t11;
+typedef SingletonHolder<MyClass<12>, CreateUsingMalloc, NoDestroy,
+                        SingleThreaded>
+    t12;
 
-  typedef SingletonHolder<MyClass<17>, CreateStatic, DefaultLifetime, SingleThreaded> t17;
-  typedef SingletonHolder<MyClass<18>, CreateStatic, PhoenixSingleton, SingleThreaded> t18;
-  typedef SingletonHolder<MyClass<19>, CreateStatic, SingletonWithLongevity, SingleThreaded> t19;
-  typedef SingletonHolder<MyClass<20>, CreateStatic, NoDestroy, SingleThreaded> t20;
+typedef SingletonHolder<MyClass<17>, CreateStatic, DefaultLifetime,
+                        SingleThreaded>
+    t17;
+typedef SingletonHolder<MyClass<18>, CreateStatic, PhoenixSingleton,
+                        SingleThreaded>
+    t18;
+typedef SingletonHolder<MyClass<19>, CreateStatic, SingletonWithLongevity,
+                        SingleThreaded>
+    t19;
+typedef SingletonHolder<MyClass<20>, CreateStatic, NoDestroy, SingleThreaded>
+    t20;
 
-#if defined(_WINDOWS_) || defined(_WINDOWS_H) 
+#if defined(_WINDOWS_) || defined(_WINDOWS_H)
 
-  typedef SingletonHolder<MyClass<5>, CreateUsingNew, DefaultLifetime, ClassLevelLockable> t5;
-  typedef SingletonHolder<MyClass<6>, CreateUsingNew, PhoenixSingleton, ClassLevelLockable> t6;
-  typedef SingletonHolder<MyClass<7>, CreateUsingNew, SingletonWithLongevity, ClassLevelLockable> t7;
-  typedef SingletonHolder<MyClass<8>, CreateUsingNew, NoDestroy, ClassLevelLockable> t8;
+typedef SingletonHolder<MyClass<5>, CreateUsingNew, DefaultLifetime,
+                        ClassLevelLockable>
+    t5;
+typedef SingletonHolder<MyClass<6>, CreateUsingNew, PhoenixSingleton,
+                        ClassLevelLockable>
+    t6;
+typedef SingletonHolder<MyClass<7>, CreateUsingNew, SingletonWithLongevity,
+                        ClassLevelLockable>
+    t7;
+typedef SingletonHolder<MyClass<8>, CreateUsingNew, NoDestroy,
+                        ClassLevelLockable>
+    t8;
 
-  typedef SingletonHolder<MyClass<13>, CreateUsingMalloc, DefaultLifetime, ClassLevelLockable> t13;
-  typedef SingletonHolder<MyClass<14>, CreateUsingMalloc, PhoenixSingleton, ClassLevelLockable> t14;
-  typedef SingletonHolder<MyClass<15>, CreateUsingMalloc, SingletonWithLongevity, ClassLevelLockable> t15;
-  typedef SingletonHolder<MyClass<16>, CreateUsingMalloc, NoDestroy, ClassLevelLockable> t16;
+typedef SingletonHolder<MyClass<13>, CreateUsingMalloc, DefaultLifetime,
+                        ClassLevelLockable>
+    t13;
+typedef SingletonHolder<MyClass<14>, CreateUsingMalloc, PhoenixSingleton,
+                        ClassLevelLockable>
+    t14;
+typedef SingletonHolder<MyClass<15>, CreateUsingMalloc, SingletonWithLongevity,
+                        ClassLevelLockable>
+    t15;
+typedef SingletonHolder<MyClass<16>, CreateUsingMalloc, NoDestroy,
+                        ClassLevelLockable>
+    t16;
 
-  typedef SingletonHolder<MyClass<21>, CreateStatic, DefaultLifetime, ClassLevelLockable> t21;
-  typedef SingletonHolder<MyClass<22>, CreateStatic, PhoenixSingleton, ClassLevelLockable> t22;
-  typedef SingletonHolder<MyClass<23>, CreateStatic, SingletonWithLongevity, ClassLevelLockable> t23;
-  typedef SingletonHolder<MyClass<24>, CreateStatic, NoDestroy, ClassLevelLockable> t24;
+typedef SingletonHolder<MyClass<21>, CreateStatic, DefaultLifetime,
+                        ClassLevelLockable>
+    t21;
+typedef SingletonHolder<MyClass<22>, CreateStatic, PhoenixSingleton,
+                        ClassLevelLockable>
+    t22;
+typedef SingletonHolder<MyClass<23>, CreateStatic, SingletonWithLongevity,
+                        ClassLevelLockable>
+    t23;
+typedef SingletonHolder<MyClass<24>, CreateStatic, NoDestroy,
+                        ClassLevelLockable>
+    t24;
 
 #endif
-}
+} // namespace
 
-class SingletonTest : public Test
-{
+class SingletonTest : public Test {
 public:
   SingletonTest() : Test("Singleton.h") {}
 
-  virtual void execute(TestResult &result)
-    {
+  virtual void execute(TestResult &result) {
     printName(result);
 
     using namespace Loki;
 
-    singletonTest=true;
+    singletonTest = true;
 
     MAKE_TEST(t0)
 
@@ -127,8 +166,7 @@ public:
     MAKE_TEST(t19)
     MAKE_TEST(t20)
 
-
-#if defined(_WINDOWS_) || defined(_WINDOWS_H) 
+#if defined(_WINDOWS_) || defined(_WINDOWS_H)
 
     MAKE_TEST(t5)
     MAKE_TEST(t6)
@@ -147,10 +185,10 @@ public:
 
 #endif
 
-    testAssert("Singleton",singletonTest,result);
+    testAssert("Singleton", singletonTest, result);
 
     std::cout << '\n';
-    }
+  }
 
 private:
   bool singletonTest;

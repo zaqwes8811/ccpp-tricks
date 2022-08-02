@@ -1,23 +1,22 @@
 #ifndef BUSI_H
 #define BUSI_H
 
-#include "entities.h"
-#include "renders.h"
-#include "isolation.h"
 #include "concepts.h"
+#include "entities.h"
 #include "filters.h"
+#include "isolation.h"
+#include "renders.h"
 
 #include <actors_and_workers/actors_cc11.h>
 
-#include <string>
 #include <functional>
+#include <string>
 
 namespace actors {
-  class UIActor;
+class UIActor;
 }
 
-namespace models
-{
+namespace models {
 class Model;
 namespace ext {
 void onNew(gc::SharedPtr<Model> m, entities::TaskEntity e, entities::Task t);
@@ -34,26 +33,28 @@ void onNew(gc::SharedPtr<Model> m, entities::TaskEntity e, entities::Task t);
   domain::TasksMirror store_cache_;
   bool miss_;  // кеш устарел
 
-  FIXME: логичекая проблема с фильтрами - как быть, если каждый раз не перезагужать кеш?
-  похоже есть зависимость от текущего фильтра. А если отред. и теперь в фильтр не попадает?
+  FIXME: логичекая проблема с фильтрами - как быть, если каждый раз не
+  перезагужать кеш? похоже есть зависимость от текущего фильтра. А если отред. и
+  теперь в фильтр не попадает?
 
-  FIXME: утекают хендлы!! make ImmutableTask. причем утекают как на нижние уровни, так и на верхние
+  FIXME: утекают хендлы!! make ImmutableTask. причем утекают как на нижние
+  уровни, так и на верхние
 
   \design
   Looks like it's bad reload full model. Need work with RAM.
   It's hard recreate state. And big overhead.
 */
 class Model //: public boost::noncopyable
-    // FIXME: make emb ref counter
-    : public std::enable_shared_from_this<Model>
-{
+            // FIXME: make emb ref counter
+    : public std::enable_shared_from_this<Model> {
 public:
   /// create/destory
   explicit Model(concepts::db_manager_concept_t _pool);
 
   /// other
   /**
-    FIXME: да, лучше передать в конструкторе, но при конструировании возникает цикл.
+    FIXME: да, лучше передать в конструкторе, но при конструировании возникает
+    цикл.
   */
   void SetObserver(isolation::ModelListenerPtr iso);
   void addFilter(filters::FilterPtr f);
@@ -61,29 +62,30 @@ public:
 
   /// Consistency space
   /**
-    \design наверное лучше сразу сохранить, добавлять все равно буду скорее всего по-одному
+    \design наверное лучше сразу сохранить, добавлять все равно буду скорее
+    всего по-одному
   */
-  void AppendNewTask(const entities::Task& e);
+  void AppendNewTask(const entities::Task &e);
 
   /**
     \pre Element was persist
   */
-  void UpdateTask(const entities::Task& e);
+  void UpdateTask(const entities::Task &e);
   void initialize(std::function<void(std::string)> errorHandler);
   void dropStore();
 
   void OnLoaded(entities::TaskEntities tasks);
 
-public:  // lock troubles
+public: // lock troubles
   // typedefs
   using TaskCell = std::pair<bool, entities::TaskEntity>;
 
 private:
-
   template <typename U>
-  friend void renders::render_task_store(std::ostream& o, const U& a);
+  friend void renders::render_task_store(std::ostream &o, const U &a);
 
-  friend void models::ext::onNew(gc::SharedPtr<Model> m, entities::TaskEntity e, entities::Task t);
+  friend void models::ext::onNew(gc::SharedPtr<Model> m, entities::TaskEntity e,
+                                 entities::Task t);
 
   /**
     FIXME: плохо что хендлы утекают, и из-за того что указатели
@@ -115,15 +117,15 @@ private:
   bool m_fsmNonConsistent{false};
   // FIXME: may be add state to elem - cons/incons?
   // FIXME: may be keep sorted
-  //entities::TaskEntities m_tasksCache;
+  // entities::TaskEntities m_tasksCache;
   // f/s is cons.?/handler
   // FIXME: trouble - extra space
   std::vector<TaskCell> m_task_cells;
 
 public:
   // Thread safe. Redirect call to UI thread
-  void RaiseErrorMessage(const std::string& message);
+  void RaiseErrorMessage(const std::string &message);
 };
-}
+} // namespace models
 
 #endif // BUSI_H

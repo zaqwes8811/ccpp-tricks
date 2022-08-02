@@ -9,11 +9,11 @@ namespace migration {
 */
 class Versions {
 public:
-  void makeV0() { }
+  void makeV0() {}
 
 private:
   // read current db version, check hardcoded
 };
-}
+} // namespace migration
 
 #endif

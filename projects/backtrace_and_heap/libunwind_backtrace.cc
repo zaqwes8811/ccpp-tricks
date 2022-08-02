@@ -1,4 +1,4 @@
-// http://eli.thegreenplace.net/2015/programmatic-access-to-the-call-stack-in-c/ 
+// http://eli.thegreenplace.net/2015/programmatic-access-to-the-call-stack-in-c/
 #define UNW_LOCAL_ONLY
 #include <libunwind.h>
 #include <stdio.h>
@@ -34,9 +34,7 @@ void foo() {
   backtrace(); // <-------- backtrace here!
 }
 
-void bar() {
-  foo();
-}
+void bar() { foo(); }
 
 int main(int argc, char **argv) {
   bar();

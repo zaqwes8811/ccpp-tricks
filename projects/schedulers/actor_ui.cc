@@ -6,16 +6,16 @@
 #include "actor_ui.h"
 
 namespace actors {
-//void UIActor::Run() {
-//  while( !m_done ) {
-//    try {
-//      {
-//        if (uiPtr) {
-//          auto pr = uiPtr->off();
-//          if (!uiPtr->poll()) {
-//             auto p = uiPtr.release();
-//             delete p;
-//          }
+// void UIActor::Run() {
+//   while( !m_done ) {
+//     try {
+//       {
+//         if (uiPtr) {
+//           auto pr = uiPtr->off();
+//           if (!uiPtr->poll()) {
+//              auto p = uiPtr.release();
+//              delete p;
+//           }
 
 //          if (!uiPtr)
 //            pr->set_value(0);
@@ -37,9 +37,9 @@ namespace actors {
 //  } // note: last message sets done to true
 //}
 
-//std::future<int> UIActor::RunUI(concepts::db_manager_concept_t db) {
-//  auto pr = std::make_shared<std::promise<int>>();
-//  auto f = pr->get_future();
+// std::future<int> UIActor::RunUI(concepts::db_manager_concept_t db) {
+//   auto pr = std::make_shared<std::promise<int>>();
+//   auto f = pr->get_future();
 
 //  post([db, this, pr]() {
 //    uiPtr = std::unique_ptr<actors::UiObject>(new actors::UiObject(db, pr));
@@ -47,15 +47,15 @@ namespace actors {
 //  return f;
 //}
 
-//UIActor::UIActor() : m_done(false), mq(100), uiPtr(NULL)
+// UIActor::UIActor() : m_done(false), mq(100), uiPtr(NULL)
 //{
-//  //thd = std::unique_ptr<std::thread>(new std::thread( [=]{ this->Run(); } ) );
-//}
+//   //thd = std::unique_ptr<std::thread>(new std::thread( [=]{ this->Run(); } )
+//   );
+// }
 
-//UIActor::~UIActor() {
-//  //post( [&]{ m_done = true; } );
-//  thd->join();
-//}
+// UIActor::~UIActor() {
+//   //post( [&]{ m_done = true; } );
+//   thd->join();
+// }
 
-}  // space
-
+} // namespace actors

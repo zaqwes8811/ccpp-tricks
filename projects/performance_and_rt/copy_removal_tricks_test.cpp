@@ -4,7 +4,6 @@
 
 #include <type_traits>
 
-class WithConst {
-};
+class WithConst {};
 
 static_assert(std::is_move_assignable_v<WithConst>, "NeverMind");

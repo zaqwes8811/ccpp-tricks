@@ -1,20 +1,21 @@
 // Caching
 //   http://www.postgresql.org/message-id/E16gYpD-0007KY-00@mclean.mail.mindspring.net
 //
-// FIXME: писать все запросы буквами одного региста - пусть прописные. это помогает кешировать
+// FIXME: писать все запросы буквами одного региста - пусть прописные. это
+// помогает кешировать
 //   по крайней мере в MySQL даже регистр важен
 
 #include "heart/config.h"
 
+#include "common/error_handling.h"
 #include "data_access_layer/postgresql_queries.h"
 #include "model_layer/entities.h"
 #include "model_layer/filters.h"
-#include "common/error_handling.h"
 
 #include <std_own_ext-fix/std_own_ext.h>
 
-#include <iostream>
 #include <cassert>
+#include <iostream>
 #include <sstream>
 
 namespace storages {
@@ -24,7 +25,7 @@ struct TablePositions {
   const static int kPriority = 2;
   const static int kDone = 3;
 };
-}
+} // namespace storages
 
 // Unused
 //   string sql("SELECT * FROM " + m_table_name + " ORDER BY ID;");
@@ -32,24 +33,22 @@ struct TablePositions {
 namespace pq_dal {
 using namespace storages;
 
-using std::string;
-using std::cout;
-using std::endl;
-using pqxx::connection;
-using pqxx::work;
-using pqxx::result;
-using pqxx::nontransaction;
+using entities::EntityStates;
 using entities::Task;
 using entities::TaskEntities;
-using entities::EntityStates;
+using pqxx::connection;
+using pqxx::nontransaction;
+using pqxx::result;
+using pqxx::work;
+using std::cout;
+using std::endl;
+using std::string;
 
 using entities::Task;
 
-
-PostgreSQLDataBase::PostgreSQLDataBase(const std::string& conn_info
-                                     , const std::string& table_name)
-  : m_conn_ptr(new pqxx::connection(conn_info))
-  , m_table_name(table_name)
+PostgreSQLDataBase::PostgreSQLDataBase(const std::string &conn_info,
+                                       const std::string &table_name)
+    : m_conn_ptr(new pqxx::connection(conn_info)), m_table_name(table_name)
 
 {
   DCHECK(m_conn_ptr->is_open());
@@ -72,16 +71,14 @@ TaskLifetimeQueries PostgreSQLDataBase::getTaskLifetimeQuery() {
 }
 
 void TaskTableQueries::registerBeanClass() {
-  string sql(
-    "CREATE TABLE " \
-    "IF NOT EXISTS "+ // v9.1 >=
-    m_table_name +
-    "(" \
-    // сделать чтобы было >0
-    "ID         SERIAL PRIMARY KEY NOT NULL," \
-    "TASK_NAME  TEXT               NOT NULL, " \
-    "PRIORITY   INT                NOT NULL, " \
-    "DONE       BOOLEAN            DEFAULT FALSE);");
+  string sql("CREATE TABLE "
+             "IF NOT EXISTS " + // v9.1 >=
+             m_table_name +
+             "(" // сделать чтобы было >0
+             "ID         SERIAL PRIMARY KEY NOT NULL,"
+             "TASK_NAME  TEXT               NOT NULL, "
+             "PRIORITY   INT                NOT NULL, "
+             "DONE       BOOLEAN            DEFAULT FALSE);");
 
   auto c = m_conn_ptr.lock();
 
@@ -95,7 +92,7 @@ void TaskTableQueries::registerBeanClass() {
 
 void TaskTableQueries::drop() {
   auto c = m_conn_ptr.lock();
-  if(!c)
+  if (!c)
     return;
 
   // Если таблицы нет, то просто ничего не происходит.
@@ -109,13 +106,11 @@ void TaskTableQueries::drop() {
   w.commit();
 }
 
-TaskLifetimeQueries::TaskLifetimeQueries(const std::string& table_name
-                                         , gc::WeakPtr<pqxx::connection>  p)
-    : m_tableName(table_name)
-    , m_connPtr(p)
-{ }
+TaskLifetimeQueries::TaskLifetimeQueries(const std::string &table_name,
+                                         gc::WeakPtr<pqxx::connection> p)
+    : m_tableName(table_name), m_connPtr(p) {}
 
-void TaskLifetimeQueries::update(const entities::Task& v) {
+void TaskLifetimeQueries::update(const entities::Task &v) {
 
   DCHECK(v.id != EntityStates::kInactiveKey);
 
@@ -123,14 +118,11 @@ void TaskLifetimeQueries::update(const entities::Task& v) {
   if (v.done)
     done = "true";
 
-  string sql(
-  "UPDATE "
-        + m_tableName + " SET "
-        + "TASK_NAME = '" + v.name
-        + "', PRIORITY = " + std_own_ext::to_string(v.priority)
-        + ", DONE = " + done
-        + " WHERE ID = " + std_own_ext::to_string(v.id) + ";");
-  
+  string sql("UPDATE " + m_tableName + " SET " + "TASK_NAME = '" + v.name +
+             "', PRIORITY = " + std_own_ext::to_string(v.priority) +
+             ", DONE = " + done +
+             " WHERE ID = " + std_own_ext::to_string(v.id) + ";");
+
   auto c = m_connPtr.lock();
   if (!c)
     return;
@@ -140,23 +132,22 @@ void TaskLifetimeQueries::update(const entities::Task& v) {
   w.commit();
 }
 
-entities::Task TaskLifetimeQueries::persist(const entities::Task& task)
-{
+entities::Task TaskLifetimeQueries::persist(const entities::Task &task) {
   DCHECK(task.id == entities::EntityStates::kInactiveKey);
   DCHECK(!task.done);
 
-  string sql(
-      "INSERT INTO " + m_tableName + " (TASK_NAME, PRIORITY) " \
-        "VALUES ('"
-        + task.name + "', "
-        + std_own_ext::to_string(task.priority) + ") RETURNING ID; ");
+  string sql("INSERT INTO " + m_tableName +
+             " (TASK_NAME, PRIORITY) "
+             "VALUES ('" +
+             task.name + "', " + std_own_ext::to_string(task.priority) +
+             ") RETURNING ID; ");
 
   auto c = m_connPtr.lock();
   if (!c)
     throw std::runtime_error(FROM_HERE);
 
   work w(*c);
-  result r( w.exec( sql ));  // похоже нельзя выполнить два запроса
+  result r(w.exec(sql)); // похоже нельзя выполнить два запроса
   w.commit();
   DCHECK(r.size() == 1);
 
@@ -178,16 +169,15 @@ entities::Task TaskLifetimeQueries::persist(const entities::Task& task)
   return t;
 }
 
-
 entities::TaskEntities TaskLifetimeQueries::loadAll() const {
-  string sql("SELECT * FROM " + m_tableName + ";");// WHERE DONE = FALSE;");
+  string sql("SELECT * FROM " + m_tableName + ";"); // WHERE DONE = FALSE;");
 
   auto c = m_connPtr.lock();
   if (!c)
     throw std::runtime_error(FROM_HERE);
 
   work w(*c);
-  result r( w.exec( sql ));
+  result r(w.exec(sql));
   w.commit();
 
   // pack
@@ -206,6 +196,4 @@ entities::TaskEntities TaskLifetimeQueries::loadAll() const {
   return tasks;
 }
 
-}  // ns
-
-
+} // namespace pq_dal

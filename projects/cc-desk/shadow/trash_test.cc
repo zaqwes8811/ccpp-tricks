@@ -40,11 +40,11 @@ int main(int argc, char** argv)
 //http://developer.nokia.com/community/wiki/How_to_use_QTableWidget_in_Qt#Header_File
 #include <QtGui/QWidget>
 //#include "ui_tableWidget.h"
+#include<QHBoxLayout>
+#include<QLabel>
+#include<QPushButton>
 #include<QStringList>
 #include<QTableWidget>
-#include<QHBoxLayout>
-#include<QPushButton>
-#include<QLabel>
 
 class tableWidget : public QWidget
 {
@@ -80,7 +80,8 @@ tableWidget::tableWidget(QWidget *parent)
 
 tableWidget::~tableWidget()
 {
-    // No need to delete any object it has got a parent which is properly deleted.
+    // No need to delete any object it has got a parent which is properly
+deleted.
 
 }
 */

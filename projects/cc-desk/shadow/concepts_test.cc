@@ -6,9 +6,9 @@
 #include <data_access_layer/sqlite_queries.h>
 #include <gtest/gtest.h>
 
+#include <iostream>
 #include <memory>
 #include <string>
-#include <iostream>
 
 using std::string;
 
@@ -16,12 +16,13 @@ using std::string;
 enum db_vars { DB_SQLITE, DB_POSTGRES };
 
 concepts::db_manager_concept_t build_database(const int selector) {
-  if (true) { //selector == DB_SQLITE) {
+  if (true) { // selector == DB_SQLITE) {
     return concepts::db_manager_concept_t(sqlite_queries::SQLiteDataBase());
   } else {
     /*
     return concepts::db_manager_concept_t(
-          pq_dal::PostgreSQLDataBase(models::kConnection, models::kTaskTableNameRef));
+          pq_dal::PostgreSQLDataBase(models::kConnection,
+    models::kTaskTableNameRef));
           */
   }
 }
@@ -30,14 +31,15 @@ TEST(ConceptsTest, Test) {
   using namespace concepts;
 
   auto db = build_database(DB_SQLITE);
-  auto tables = std::vector<table_concept_t>{db.getTaskTableQuery()
+  auto tables = std::vector<table_concept_t>{
+      db.getTaskTableQuery()
       //, db.getTaskTagQuery()
   };
 
-  for (auto& a : tables)
+  for (auto &a : tables)
     registerBeanClass(a);
 
-  for (auto& a : tables)
+  for (auto &a : tables)
     drop(a);
 }
 
@@ -55,17 +57,18 @@ TEST(ConceptsTest, ActorEnv) {
   // need real links
   // Object own it, but run in other thread
   auto db = build_database(DB_SQLITE);
-  auto tables = std::vector<table_concept_t>{db.getTaskTableQuery()
-//      , db.getTaskTagQuery()
-};
+  auto tables = std::vector<table_concept_t>{
+      db.getTaskTableQuery()
+      //      , db.getTaskTagQuery()
+  };
 
   auto action = [tables] {
-    for (auto& a : tables)
+    for (auto &a : tables)
       registerBeanClass(a);
   };
 
   action();
 
-  for (auto& a : tables)
+  for (auto &a : tables)
     drop(a);
 }

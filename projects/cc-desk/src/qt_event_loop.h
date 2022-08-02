@@ -1,13 +1,11 @@
 #ifndef CORE_QT_EVENT_LOOP_H_
 #define CORE_QT_EVENT_LOOP_H_
 
-#include "concepts.h"
-#include "app_types.h"
 #include "app_types.h"
 #include "concepts.h"
+#include "mainwindow.h"
 #include "model.h"
 #include "scopes.h"
-#include "mainwindow.h"
 
 #include <QApplication>
 
@@ -32,7 +30,8 @@
 namespace actors {
 class UiObject {
 public:
-  UiObject(concepts::db_manager_concept_t db, gc::SharedPtr<std::promise<int>> pr);
+  UiObject(concepts::db_manager_concept_t db,
+           gc::SharedPtr<std::promise<int>> pr);
   bool poll();
 
   gc::SharedPtr<std::promise<int>> off() { return m_pr; }
@@ -48,6 +47,6 @@ private:
 
   gc::SharedPtr<std::promise<int>> m_pr;
 };
-}
+} // namespace actors
 
 #endif

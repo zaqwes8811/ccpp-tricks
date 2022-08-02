@@ -31,7 +31,6 @@
 //
 // Author: wan@google.com (Zhanyong Wan)
 
-
 // This sample shows how to write a more complex unit test for a class
 // that has multiple member functions.
 //
@@ -80,8 +79,7 @@ const char kHelloString[] = "Hello, world!";
 TEST(MyString, ConstructorFromCString) {
   const MyString s(kHelloString);
   EXPECT_TRUE(strcmp(s.c_string(), kHelloString) == 0);
-  EXPECT_EQ(sizeof(kHelloString)/sizeof(kHelloString[0]) - 1,
-            s.Length());
+  EXPECT_EQ(sizeof(kHelloString) / sizeof(kHelloString[0]) - 1, s.Length());
 }
 
 // Tests the copy c'tor.

@@ -1,24 +1,28 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "config.h"  // BAD, but Qt generate some files
+#include "config.h" // BAD, but Qt generate some files
 
+#include "filters.h"
 #include "model.h"
 #include "view.h"
-#include "filters.h"
 
 #include <QMainWindow>
-#include <QTableWidget>
 #include <QMessageBox>
+#include <QTableWidget>
 #include <actors_and_workers/actors_cc11.h>
 
-#include <stdexcept>
 #include <functional>
 #include <memory>
+#include <stdexcept>
 
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 
-namespace actors { class UIActor; }
+namespace actors {
+class UIActor;
+}
 
 class Row {
   int idx;
@@ -32,8 +36,8 @@ public:
   static Row of(int v);
 };
 
-class UiEngine : public QMainWindow, public std::enable_shared_from_this<UiEngine>
-{
+class UiEngine : public QMainWindow,
+                 public std::enable_shared_from_this<UiEngine> {
   Q_OBJECT
 
 public:
@@ -49,7 +53,7 @@ public:
 
   bool isReadyToDestroy() const;
 
-  void DrawErrorMessage(const std::string& m);
+  void DrawErrorMessage(const std::string &m);
 
 private slots:
 
@@ -63,7 +67,7 @@ private slots:
     \fixme а место ли этому слоту здесь?
     \fixme на один сигнал можно подвесить несколько слотов
   */
-  void onRowIsChanged(QTableWidgetItem* item);
+  void onRowIsChanged(QTableWidgetItem *item);
   void onMarkDone();
   void onReopen();
 
@@ -94,11 +98,11 @@ private:
   bool m_fsmToDestroy{false};
 
   /// Qt specific
-  Ui::MainWindow* m_uiRawPtr;
-  QMyTableView* m_taskTablePtr;
+  Ui::MainWindow *m_uiRawPtr;
+  QMyTableView *m_taskTablePtr;
 
   virtual void closeEvent(QCloseEvent *event) OVERRIDE;
-  virtual void showEvent( QShowEvent* event ) OVERRIDE;
+  virtual void showEvent(QShowEvent *event) OVERRIDE;
 };
 
 #endif // MAINWINDOW_H

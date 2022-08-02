@@ -1,29 +1,28 @@
 #include "heart/config.h"
 
-#include "sqlite_xx/sqlite_xx.h"
 #include "data_access_layer/sqlite_queries.h"
+#include "sqlite_xx/sqlite_xx.h"
 
 #include <gtest/gtest.h>
-#include <std_own_ext-fix/std_own_ext.h>
 #include <loki/ScopeGuard.h>
+#include <std_own_ext-fix/std_own_ext.h>
 
-#include <string>
-#include <stdexcept>
-#include <vector>
-#include <map>
 #include <iostream>
+#include <map>
+#include <stdexcept>
+#include <string>
+#include <vector>
 
-using std::string;
-using std::cout;
-using std::endl;
+using entities::EntityStates;
 using entities::Tag;
 using entities::TagEntity;
-using sqlite_queries::TagTableQuery;
-using entities::EntityStates;
 using entities::Task;
+using sqlite_queries::TagTableQuery;
+using std::cout;
+using std::endl;
+using std::string;
 using namespace Loki;
 using namespace sqlite_queries;
-
 
 TEST(SQLite, TaskTable) {
   auto h = std::make_shared<sqlite3_cc::sqlite3>("test.db");
@@ -50,10 +49,10 @@ TEST(SQLite, TagAndTaskTables) {
   tags.persist(Tag{EntityStates::kInactiveKey, "V8"});
 
   {
-  using renders::operator <<;
+    using renders::operator<<;
     std::cout << tags;
-  std::cout << endl;
-  cout << tasks;
+    std::cout << endl;
+    cout << tasks;
   }
 
   // Create tasks
@@ -61,10 +60,3 @@ TEST(SQLite, TagAndTaskTables) {
   tasks.persist(t);
   tasks.persist(t);
 }
-
-
-
-
-
-
-

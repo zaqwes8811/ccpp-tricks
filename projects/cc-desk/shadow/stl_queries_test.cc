@@ -14,11 +14,12 @@
 // - реализовать не через VI (NVI, ...)
 
 /// Impl.:
-// Вообще проблема в том, как положить в контейнер разные типы, потом их разделить при запросе.
-// Container<object_t> - тип то один!
+// Вообще проблема в том, как положить в контейнер разные типы, потом их
+// разделить при запросе. Container<object_t> - тип то один!
 //
 // Можно было бы хранить в нескольких контейнерах одинаковые типы,
-// а потом их объединять для обработки. Но опять же одинаковые... Скользко. Можно попутать.
+// а потом их объединять для обработки. Но опять же одинаковые... Скользко.
+// Можно попутать.
 //
 // Узнать тип объекта:
 // http://stackoverflow.com/questions/1986418/typeid-and-typeof-in-c
@@ -27,32 +28,30 @@
 // Karantin:
 // Может что-то типа GetMainTag()? BAD!!
 
-#include <vector>
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <list>
+#include <vector>
 
 #include <gtest/gtest.h>
 
 #include <functional>
 
+using std::bind;
 using std::cout;
-using std::vector;
 using std::for_each;
 using std::list;
-using std::bind;
+using std::vector;
 
-//TODO: http://www.informit.com/articles/article.aspx?p=412354&seqNum=4
-//TODO: http://stackoverflow.com/questions/10555566/is-there-any-difference-between-c11-stdbind-and-boostbind
+// TODO: http://www.informit.com/articles/article.aspx?p=412354&seqNum=4
+// TODO:
+// http://stackoverflow.com/questions/10555566/is-there-any-difference-between-c11-stdbind-and-boostbind
 
-void five_args(int i1, int i2, int i3)
-{
-  cout << i1 << i2 << i3 << '\n';
-}
+void five_args(int i1, int i2, int i3) { cout << i1 << i2 << i3 << '\n'; }
 
 TEST(BindWithBoost, App) {
   using namespace std::placeholders;
-  (bind(&five_args, _1, _2,_3))(0, 1, 1);
+  (bind(&five_args, _1, _2, _3))(0, 1, 1);
 }
 
 class caller {
@@ -61,6 +60,7 @@ public:
   void operator()(const int value) const {
     five_args(value, second_elem, end_elem);
   }
+
 private:
   const int second_elem;
   const int end_elem;
@@ -74,9 +74,8 @@ TEST(BindWithoutBoost, App) {
   a.push_back(9);
   a.push_back(0);
 
-  for_each(a.begin(), a.end(),
-           caller(1, 8));
-           //bind(five_args, _1, _2, _3)(9, 8));
+  for_each(a.begin(), a.end(), caller(1, 8));
+  // bind(five_args, _1, _2, _3)(9, 8));
 }
 
 TEST(BoostLambdas, App) {
@@ -85,7 +84,7 @@ TEST(BoostLambdas, App) {
 
   list<int> v(10);
   int i = 9;
-  //for_each(v.begin(), v.end(), (_1 = i)(i));
+  // for_each(v.begin(), v.end(), (_1 = i)(i));
 
-  //for_each(v.begin(), v.end(), (cout << (i + _1))(i));
+  // for_each(v.begin(), v.end(), (cout << (i + _1))(i));
 }

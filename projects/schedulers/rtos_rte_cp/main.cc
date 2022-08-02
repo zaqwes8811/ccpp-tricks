@@ -1,8 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#include <thread>
 #include <cstring>
+#include <thread>
 
 using namespace testing;
 
@@ -17,22 +17,20 @@ struct sched_param fifo_param;
 #define SCHED_POLICY SCHED_FIFO
 #define MAX_ITERATIONS (1000000)
 
-
 void print_scheduler(int schedType) {
 
-
   switch (schedType) {
-    case SCHED_FIFO:
-      printf("Pthread policy is SCHED_FIFO\n");
-      break;
-    case SCHED_OTHER:
-      printf("Pthread policy is SCHED_OTHER\n");
-      break;
-    case SCHED_RR:
-      printf("Pthread policy is SCHED_RR\n");
-      break;
-    default:
-      printf("Pthread policy is UNKNOWN\n");
+  case SCHED_FIFO:
+    printf("Pthread policy is SCHED_FIFO\n");
+    break;
+  case SCHED_OTHER:
+    printf("Pthread policy is SCHED_OTHER\n");
+    break;
+  case SCHED_RR:
+    printf("Pthread policy is SCHED_RR\n");
+    break;
+  default:
+    printf("Pthread policy is UNKNOWN\n");
   }
 }
 
@@ -67,17 +65,16 @@ void set_scheduler(void) {
 void *starterThread(void *threadp) {
   sleep(10);
 
-
   return nullptr;
 }
 
 void starterThread_cpp() {
-//  std::this_thread::sleep_for(std::chrono::seconds(1));
+  //  std::this_thread::sleep_for(std::chrono::seconds(1));
 
   sched_param sch;
   int policy;
   pthread_getschedparam(pthread_self(), &policy, &sch);
-//  std::lock_guard<std::mutex> lk(iomutex);
+  //  std::lock_guard<std::mutex> lk(iomutex);
   std::cout << "Thread " << 0 << " is executing at priority "
             << sch.sched_priority << " policy:" << policy << '\n';
   sleep(1);
@@ -110,8 +107,8 @@ TEST(Rt, Thread) {
 
   // Realtime threads
   // https://stackoverflow.com/questions/8408258/how-to-create-and-display-threads-attributes
-  // https://stackoverflow.com/questions/18884510/portable-way-of-setting-stdthread-priority-in-c11 !!!
-  // https://en.cppreference.com/w/cpp/thread/thread/native_handle
+  // https://stackoverflow.com/questions/18884510/portable-way-of-setting-stdthread-priority-in-c11
+  // !!! https://en.cppreference.com/w/cpp/thread/thread/native_handle
   std::thread t(starterThread_cpp);
   sched_param sch;
   int policy;
@@ -123,21 +120,21 @@ TEST(Rt, Thread) {
   }
 
   auto handle = t.native_handle();
-//  int schedType = sched_getscheduler(t.);
-//  print_scheduler(schedType);
+  //  int schedType = sched_getscheduler(t.);
+  //  print_scheduler(schedType);
 
   t.join();
-//  t.
-//  t.
+  //  t.
+  //  t.
 
-//  pthread_t startthread;
-//  pthread_create(&startthread,   // pointer to thread descriptor
-//                 &fifo_sched_attr,     // use FIFO RT max priority attributes
-//                 starterThread, // thread function entry point
-//                 (void *) 0 // parameters to pass in
-//  );
-//
-//  pthread_join(startthread, nullptr);
+  //  pthread_t startthread;
+  //  pthread_create(&startthread,   // pointer to thread descriptor
+  //                 &fifo_sched_attr,     // use FIFO RT max priority
+  //                 attributes starterThread, // thread function entry point
+  //                 (void *) 0 // parameters to pass in
+  //  );
+  //
+  //  pthread_join(startthread, nullptr);
 }
 
 //===========================================================================================

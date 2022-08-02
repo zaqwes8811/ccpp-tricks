@@ -18,25 +18,23 @@
 
 #include <gtest/gtest.h>
 
-#include <vector>
-#include <iostream>
 #include <algorithm>
-#include <stdexcept>
+#include <iostream>
 #include <list>
+#include <stdexcept>
+#include <vector>
 
 using std::cout;
 using std::endl;
-using std::vector;
 using std::ostreambuf_iterator;
 using std::out_of_range;
+using std::vector;
 
 using namespace std;
 using namespace view;
 
-
-
 // ++it or it++ - второй обязан вернуть старое значение
-//TODO: кстати, а как тогда это работает с функциями?
+// TODO: кстати, а как тогда это работает с функциями?
 
 // in -
 // out -
@@ -45,12 +43,13 @@ using namespace view;
 //   random access - vector, deque, string
 //   DANGER: list, set, map конец нельзя проверять на <
 //   DANGER: шагать большими шагами опасно
-//   DANGER: проблема увеличения уменьш. в векторах p. 264, что-то со временными знач
+//   DANGER: проблема увеличения уменьш. в векторах p. 264, что-то со временными
+//   знач
 TEST(STL, VectorPPProblem) {
   using std::sort;
 
   // Сортировка нач. со втрого элемента
-  vector<int> coll;  // !!
+  vector<int> coll; // !!
 
   // Не переносимая
   if (coll.size() > 1) {
@@ -66,8 +65,8 @@ TEST(STL, VectorPPProblem) {
 
 /// Util functions
 TEST(STL_Iter, UtilFunc) {
-  using std::list;
   using std::advance;
+  using std::list;
 
   list<int> coll;
 
@@ -85,7 +84,8 @@ TEST(STL_Iter, UtilFunc) {
 /// Adaptors
 // предбразование в обр. меняет что-то p. 273. Физ поз. сохр., а лог. перемещ
 //
-// Insert Iter. - итератор вывода - реализ. так что вызывает insert or push_backs
+// Insert Iter. - итератор вывода - реализ. так что вызывает insert or
+// push_backs
 //   and other.
 // ++, -- - фиктивные операции
 // бывает трех типов - нач., конеч. и общие
@@ -95,20 +95,19 @@ TEST(STL_Iter, InsertIters) {
   vector<int> coll;
 
   // inconvenient
-  back_insert_iterator<vector<int> > iter(coll);  // при перерасп. станет недейств?
+  back_insert_iterator<vector<int>> iter(
+      coll); // при перерасп. станет недейств?
   assert(coll.capacity() == 0);
-  *iter = 1;  // перераспределит ли память?
+  *iter = 1; // перераспределит ли память?
   assert(coll.capacity() == 1);
   iter++;
-  *iter = 2;  // just call push_back
+  *iter = 2; // just call push_back
   assert(coll.capacity() == 2);
-
 }
 
 TEST(STL_Iter, Ranges) {
-  // интервалы должны быть валиндыми 
-  //  - не перепутано начало и конец, 
-  //  - из одного объекта, 
+  // интервалы должны быть валиндыми
+  //  - не перепутано начало и конец,
+  //  - из одного объекта,
   //  - не выходят за границы
 }
-

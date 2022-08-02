@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // The Loki Library
 // Copyright (c) 2005 Peter Kümmel
-// Permission to use, copy, modify, distribute and sell this software for any 
-//     purpose is hereby granted without fee, provided that the above copyright 
-//     notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+//     purpose is hereby granted without fee, provided that the above copyright
+//     notice appear in all copies and that both that copyright notice and this
 //     permission notice appear in supporting documentation.
-// The author makes no representations about the 
-//     suitability of this software for any purpose. It is provided "as is" 
+// The author makes no representations about the
+//     suitability of this software for any purpose. It is provided "as is"
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef LOKI_ORDEREDSTATIC_INC_
@@ -14,212 +14,175 @@
 
 // $Id: OrderedStatic.h 751 2006-10-17 19:50:37Z syntheticpp $
 
-
-#include <vector>
 #include <iostream>
+#include <vector>
 
 #include "LokiExport.h"
+#include "Sequence.h"
 #include "Singleton.h"
 #include "Typelist.h"
-#include "Sequence.h"
 
 // usage: see test/OrderedStatic
 
-namespace Loki
-{
-    namespace Private
-    {
-        ////////////////////////////////////////////////////////////////////////////////
-        // polymorph base class for OrderedStatic template,
-        // necessary because of the creator
-        ////////////////////////////////////////////////////////////////////////////////
-        class LOKI_EXPORT OrderedStaticCreatorFunc
-        {
-        public:
-            virtual void createObject() = 0;
-        
-        protected:
-            OrderedStaticCreatorFunc();
-            virtual ~OrderedStaticCreatorFunc();
-        
-        private:
-            OrderedStaticCreatorFunc(const OrderedStaticCreatorFunc&);
-        };
+namespace Loki {
+namespace Private {
+////////////////////////////////////////////////////////////////////////////////
+// polymorph base class for OrderedStatic template,
+// necessary because of the creator
+////////////////////////////////////////////////////////////////////////////////
+class LOKI_EXPORT OrderedStaticCreatorFunc {
+public:
+  virtual void createObject() = 0;
 
-        ////////////////////////////////////////////////////////////////////////////////
-        // template base clase for OrderedStatic template, 
-        // common for all specializations
-        ////////////////////////////////////////////////////////////////////////////////
-        template<class T>
-        class OrderedStaticBase : public OrderedStaticCreatorFunc
-        {
-        public:
-            T& operator*()
-            {
-                return *val_;
-            }
+protected:
+  OrderedStaticCreatorFunc();
+  virtual ~OrderedStaticCreatorFunc();
 
-            T* operator->()
-            {
-                return val_;
-            }
+private:
+  OrderedStaticCreatorFunc(const OrderedStaticCreatorFunc &);
+};
 
-        protected:
+////////////////////////////////////////////////////////////////////////////////
+// template base clase for OrderedStatic template,
+// common for all specializations
+////////////////////////////////////////////////////////////////////////////////
+template <class T> class OrderedStaticBase : public OrderedStaticCreatorFunc {
+public:
+  T &operator*() { return *val_; }
 
-            OrderedStaticBase(unsigned int longevity) :  val_(0), longevity_(longevity)
-            {
-            }
-            
-            virtual ~OrderedStaticBase()
-            {
-            }
-            
-            void SetLongevity(T* ptr)
-            {
-                val_=ptr;
-                Loki::SetLongevity(val_,longevity_);
-            }
+  T *operator->() { return val_; }
 
-        private:
-            OrderedStaticBase();
-            OrderedStaticBase(const OrderedStaticBase&);
-            OrderedStaticBase& operator=(const OrderedStaticBase&);
-            T* val_;
-            unsigned int longevity_;
-            
-        };
+protected:
+  OrderedStaticBase(unsigned int longevity) : val_(0), longevity_(longevity) {}
 
-        ////////////////////////////////////////////////////////////////////////////////
-        // OrderedStaticManagerClass implements details 
-        // OrderedStaticManager is then defined as a Singleton
-        ////////////////////////////////////////////////////////////////////////////////
-        class LOKI_EXPORT OrderedStaticManagerClass
-        {
-        public:
-            OrderedStaticManagerClass();
-            virtual ~OrderedStaticManagerClass();
+  virtual ~OrderedStaticBase() {}
 
-            typedef void (OrderedStaticCreatorFunc::*Creator)();
+  void SetLongevity(T *ptr) {
+    val_ = ptr;
+    Loki::SetLongevity(val_, longevity_);
+  }
 
-            void createObjects();
-            void registerObject(unsigned int longevity,OrderedStaticCreatorFunc*,Creator);
+private:
+  OrderedStaticBase();
+  OrderedStaticBase(const OrderedStaticBase &);
+  OrderedStaticBase &operator=(const OrderedStaticBase &);
+  T *val_;
+  unsigned int longevity_;
+};
 
-        private:
-            OrderedStaticManagerClass(const OrderedStaticManagerClass&);
-            OrderedStaticManagerClass& operator=(const OrderedStaticManagerClass&);
-            
-            struct Data
-            {
-                Data(unsigned int,OrderedStaticCreatorFunc*, Creator);
-                unsigned int longevity;
-                OrderedStaticCreatorFunc* object;
-                Creator creator;
-            };
+////////////////////////////////////////////////////////////////////////////////
+// OrderedStaticManagerClass implements details
+// OrderedStaticManager is then defined as a Singleton
+////////////////////////////////////////////////////////////////////////////////
+class LOKI_EXPORT OrderedStaticManagerClass {
+public:
+  OrderedStaticManagerClass();
+  virtual ~OrderedStaticManagerClass();
 
-            std::vector<Data> staticObjects_;
-            unsigned int max_longevity_;
-            unsigned int min_longevity_;
-        };
+  typedef void (OrderedStaticCreatorFunc::*Creator)();
 
-    }// namespace Private
+  void createObjects();
+  void registerObject(unsigned int longevity, OrderedStaticCreatorFunc *,
+                      Creator);
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // OrderedStaticManager is only a Singleton typedef
-    ////////////////////////////////////////////////////////////////////////////////
+private:
+  OrderedStaticManagerClass(const OrderedStaticManagerClass &);
+  OrderedStaticManagerClass &operator=(const OrderedStaticManagerClass &);
 
-    typedef Loki::SingletonHolder
-    <
-        Loki::Private::OrderedStaticManagerClass, 
-        Loki::CreateUsingNew,
-        Loki::NoDestroy,
-        Loki::SingleThreaded
-    >
+  struct Data {
+    Data(unsigned int, OrderedStaticCreatorFunc *, Creator);
+    unsigned int longevity;
+    OrderedStaticCreatorFunc *object;
+    Creator creator;
+  };
+
+  std::vector<Data> staticObjects_;
+  unsigned int max_longevity_;
+  unsigned int min_longevity_;
+};
+
+} // namespace Private
+
+////////////////////////////////////////////////////////////////////////////////
+// OrderedStaticManager is only a Singleton typedef
+////////////////////////////////////////////////////////////////////////////////
+
+typedef Loki::SingletonHolder<Loki::Private::OrderedStaticManagerClass,
+                              Loki::CreateUsingNew, Loki::NoDestroy,
+                              Loki::SingleThreaded>
     OrderedStaticManager;
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // template OrderedStatic template: 
-    // L        : longevity
-    // T        : object type
-    // TList    : creator parameters
-    ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// template OrderedStatic template:
+// L        : longevity
+// T        : object type
+// TList    : creator parameters
+////////////////////////////////////////////////////////////////////////////////
 
-    template<unsigned int L, class T, class TList = Loki::NullType>
-    class OrderedStatic;
+template <unsigned int L, class T, class TList = Loki::NullType>
+class OrderedStatic;
 
+////////////////////////////////////////////////////////////////////////////////
+// OrderedStatic specializations
+////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // OrderedStatic specializations
-    ////////////////////////////////////////////////////////////////////////////////
+template <unsigned int L, class T>
+class OrderedStatic<L, T, Loki::NullType>
+    : public Private::OrderedStaticBase<T> {
+public:
+  OrderedStatic() : Private::OrderedStaticBase<T>(L) {
+    OrderedStaticManager::Instance().registerObject(
+        L, this, &Private::OrderedStaticCreatorFunc::createObject);
+  }
 
-    template<unsigned int L, class T>
-    class OrderedStatic<L, T, Loki::NullType> : public Private::OrderedStaticBase<T>
-    {
-    public:    
-        OrderedStatic() : Private::OrderedStaticBase<T>(L)
-        {
-            OrderedStaticManager::Instance().registerObject
-                                (L,this,&Private::OrderedStaticCreatorFunc::createObject);
-        }
+  void createObject() { Private::OrderedStaticBase<T>::SetLongevity(new T); }
 
-        void createObject()
-        {
-            Private::OrderedStaticBase<T>::SetLongevity(new T);
-        }
+private:
+  OrderedStatic(const OrderedStatic &);
+  OrderedStatic &operator=(const OrderedStatic &);
+};
 
-    private:
-        OrderedStatic(const OrderedStatic&);
-        OrderedStatic& operator=(const OrderedStatic&);
-    };
+template <unsigned int L, class T, typename P1>
+class OrderedStatic<L, T, Loki::Seq<P1>>
+    : public Private::OrderedStaticBase<T> {
+public:
+  OrderedStatic(P1 p) : Private::OrderedStaticBase<T>(L), para_(p) {
+    OrderedStaticManager::Instance().registerObject(
+        L, this, &Private::OrderedStaticCreatorFunc::createObject);
+  }
 
-    template<unsigned int L, class T, typename P1>
-    class OrderedStatic<L, T, Loki::Seq<P1> > : public Private::OrderedStaticBase<T>
-    {
-    public:
-        OrderedStatic(P1 p) : Private::OrderedStaticBase<T>(L), para_(p)
-        {
-            OrderedStaticManager::Instance().registerObject
-                                (L,this,&Private::OrderedStaticCreatorFunc::createObject);
-        }
-        
-        void createObject()
-        {
-            Private::OrderedStaticBase<T>::SetLongevity(new T(para_));
-        }
+  void createObject() {
+    Private::OrderedStaticBase<T>::SetLongevity(new T(para_));
+  }
 
-    private:
-        OrderedStatic();
-        OrderedStatic(const OrderedStatic&);
-        OrderedStatic& operator=(const OrderedStatic&);
-        P1 para_;
-    };
+private:
+  OrderedStatic();
+  OrderedStatic(const OrderedStatic &);
+  OrderedStatic &operator=(const OrderedStatic &);
+  P1 para_;
+};
 
-    template<unsigned int L, class T, typename P1>
-    class OrderedStatic<L, T,  P1(*)() > : public Private::OrderedStaticBase<T>
-    {
-    public:
+template <unsigned int L, class T, typename P1>
+class OrderedStatic<L, T, P1 (*)()> : public Private::OrderedStaticBase<T> {
+public:
+  typedef P1 (*Func)();
 
-        typedef P1(*Func)();
+  OrderedStatic(Func p) : Private::OrderedStaticBase<T>(L), para_(p) {
+    OrderedStaticManager::Instance().registerObject(
+        L, this, &Private::OrderedStaticCreatorFunc::createObject);
+  }
 
-        OrderedStatic(Func p) : Private::OrderedStaticBase<T>(L), para_(p)
-        {
-            OrderedStaticManager::Instance().registerObject
-                                (L,this,&Private::OrderedStaticCreatorFunc::createObject);
-        }
+  void createObject() {
+    Private::OrderedStaticBase<T>::SetLongevity(new T(para_()));
+  }
 
-        void createObject()
-        {
-            Private::OrderedStaticBase<T>::SetLongevity(new T(para_()));
-        }
+private:
+  OrderedStatic();
+  OrderedStatic(const OrderedStatic &);
+  OrderedStatic &operator=(const OrderedStatic &);
+  Func para_;
+};
 
-    private:
-        OrderedStatic();
-        OrderedStatic(const OrderedStatic&);
-        OrderedStatic& operator=(const OrderedStatic&);
-        Func para_;
-    };
-
-}// namespace Loki
-
+} // namespace Loki
 
 #endif // end file guardian
-

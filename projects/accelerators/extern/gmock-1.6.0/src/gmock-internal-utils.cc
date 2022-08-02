@@ -37,12 +37,12 @@
 
 #include "gmock/internal/gmock-internal-utils.h"
 
-#include <ctype.h>
-#include <ostream>  // NOLINT
-#include <string>
 #include "gmock/gmock.h"
 #include "gmock/internal/gmock-port.h"
 #include "gtest/gtest.h"
+#include <ctype.h>
+#include <ostream> // NOLINT
+#include <string>
 
 namespace testing {
 namespace internal {
@@ -51,15 +51,15 @@ namespace internal {
 // words.  Each maximum substring of the form [A-Za-z][a-z]*|\d+ is
 // treated as one word.  For example, both "FooBar123" and
 // "foo_bar_123" are converted to "foo bar 123".
-string ConvertIdentifierNameToWords(const char* id_name) {
+string ConvertIdentifierNameToWords(const char *id_name) {
   string result;
   char prev_char = '\0';
-  for (const char* p = id_name; *p != '\0'; prev_char = *(p++)) {
+  for (const char *p = id_name; *p != '\0'; prev_char = *(p++)) {
     // We don't care about the current locale as the input is
     // guaranteed to be a valid C++ identifier name.
     const bool starts_new_word = IsUpper(*p) ||
-        (!IsAlpha(prev_char) && IsLower(*p)) ||
-        (!IsDigit(prev_char) && IsDigit(*p));
+                                 (!IsAlpha(prev_char) && IsLower(*p)) ||
+                                 (!IsDigit(prev_char) && IsDigit(*p));
 
     if (IsAlNum(*p)) {
       if (starts_new_word && result != "")
@@ -74,15 +74,12 @@ string ConvertIdentifierNameToWords(const char* id_name) {
 // user can define another class in a similar fashion if he intends to
 // use Google Mock with a testing framework other than Google Test.
 class GoogleTestFailureReporter : public FailureReporterInterface {
- public:
-  virtual void ReportFailure(FailureType type, const char* file, int line,
-                             const string& message) {
-    AssertHelper(type == FATAL ?
-                 TestPartResult::kFatalFailure :
-                 TestPartResult::kNonFatalFailure,
-                 file,
-                 line,
-                 message.c_str()) = Message();
+public:
+  virtual void ReportFailure(FailureType type, const char *file, int line,
+                             const string &message) {
+    AssertHelper(type == FATAL ? TestPartResult::kFatalFailure
+                               : TestPartResult::kNonFatalFailure,
+                 file, line, message.c_str()) = Message();
     if (type == FATAL) {
       posix::Abort();
     }
@@ -91,13 +88,13 @@ class GoogleTestFailureReporter : public FailureReporterInterface {
 
 // Returns the global failure reporter.  Will create a
 // GoogleTestFailureReporter and return it the first time called.
-FailureReporterInterface* GetFailureReporter() {
+FailureReporterInterface *GetFailureReporter() {
   // Points to the global failure reporter used by Google Mock.  gcc
   // guarantees that the following use of failure_reporter is
   // thread-safe.  We may need to add additional synchronization to
   // protect failure_reporter if we port Google Mock to other
   // compilers.
-  static FailureReporterInterface* const failure_reporter =
+  static FailureReporterInterface *const failure_reporter =
       new GoogleTestFailureReporter();
   return failure_reporter;
 }
@@ -128,7 +125,7 @@ bool LogIsVisible(LogSeverity severity) {
 // stack_frames_to_skip is treated as 0, since we don't know which
 // function calls will be inlined by the compiler and need to be
 // conservative.
-void Log(LogSeverity severity, const string& message,
+void Log(LogSeverity severity, const string &message,
          int stack_frames_to_skip) {
   if (!LogIsVisible(severity))
     return;
@@ -156,18 +153,18 @@ void Log(LogSeverity severity, const string& message,
     // In dbg mode, we can do what the caller tell us to do (plus one
     // for skipping this function's stack frame).
     const int actual_to_skip = stack_frames_to_skip + 1;
-#endif  // NDEBUG
+#endif // NDEBUG
 
     // Appends a new-line to message if it doesn't end with one.
     if (!message.empty() && *message.rbegin() != '\n') {
       std::cout << "\n";
     }
     std::cout << "Stack trace:\n"
-         << ::testing::internal::GetCurrentOsStackTraceExceptTop(
-             ::testing::UnitTest::GetInstance(), actual_to_skip);
+              << ::testing::internal::GetCurrentOsStackTraceExceptTop(
+                     ::testing::UnitTest::GetInstance(), actual_to_skip);
   }
   std::cout << ::std::flush;
 }
 
-}  // namespace internal
-}  // namespace testing
+} // namespace internal
+} // namespace testing

@@ -1,4 +1,4 @@
-// Хрень с пространствами имен. 
+// Хрень с пространствами имен.
 // http://rsdn.ru/forum/cpp/2141920.all
 // Проблема в циклической зависимости
 #include <typeinfo>
@@ -8,15 +8,15 @@
 #include "data_access_layer/postgresql_queries.h"
 #include "model_layer/entities.h"
 
-#include <loki/ScopeGuard.h>
-#include <pqxx/pqxx> 
 #include <gtest/gtest.h>
+#include <loki/ScopeGuard.h>
+#include <pqxx/pqxx>
 
 #include <iostream>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <stdexcept>
 
 #include <cassert>
 
@@ -27,13 +27,12 @@ using namespace Loki;
 using namespace pqxx;
 using namespace std;
 
-void do_something(gc::WeakPtr<pqxx::connection> C)
-{
+void do_something(gc::WeakPtr<pqxx::connection> C) {
   using models::kTaskTableNameRef;
-  
+
   // Tasks
   TaskTableQueries q(kTaskTableNameRef, C);
-  q.registerBeanClass();  // clang segfault
+  q.registerBeanClass(); // clang segfault
 
   cout << "create table\n";
 
@@ -44,14 +43,14 @@ void do_something(gc::WeakPtr<pqxx::connection> C)
   // Create records
   TaskLifetimeQueries q_insert(kTaskTableNameRef, C);
   auto t = Task();
- // q_insert.create(t, C);
- // assert(t.get_primary_key() != EntitiesStates::kInActiveKey);
- // q_insert.create(t, C);
+  // q_insert.create(t, C);
+  // assert(t.get_primary_key() != EntitiesStates::kInActiveKey);
+  // q_insert.create(t, C);
 
   // Tags
 
   // View
-  //q.draw(cout);
+  // q.draw(cout);
 }
 
 TEST(postgres, all) {
@@ -61,7 +60,7 @@ TEST(postgres, all) {
     if (!C->is_open()) {
       throw runtime_error("Can't open database");
     }
-    
+
     auto guard = MakeObjGuard(*C, &connection::disconnect);
     EXPECT_NO_THROW(do_something(C));
   }
@@ -71,20 +70,20 @@ TEST(postgres, all) {
 TEST(postgres, error_codes) {
   try {
 
-  } catch (const pqxx::undefined_table& e) {
+  } catch (const pqxx::undefined_table &e) {
     // Нет таблицы
     cerr << typeid(e).name() << endl << e.what() << endl;
-  } catch (const pqxx::unique_violation& e) {
+  } catch (const pqxx::unique_violation &e) {
     // Не уникальный ключ при вствке
     cerr << typeid(e).name() << endl << e.what() << endl;
-  } catch (const pqxx::sql_error& e) {
+  } catch (const pqxx::sql_error &e) {
     // Кажется ошибка в синтаксисе
     cerr << typeid(e).name() << endl << e.what() << endl;
-  } catch (const std::exception& e) {
+  } catch (const std::exception &e) {
     cerr << "UNCATCHED" << endl;
     cerr << typeid(e).name() << endl;
     cerr << e.what() << std::endl;
   }
 }
 
-}  // namespace
+} // namespace

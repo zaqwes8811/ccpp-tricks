@@ -1,26 +1,20 @@
-#include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
 #include <gtest/gtest.h>
 
 #if __cplusplus >= 201103L
-#  include <thread>
+#include <thread>
 #endif
 
 // BUG: boost::thread + main thread races not detected
 // BUG: but by boost::ref not detected
 
 // not work
-void f1(int& X) {
-  X = 42;
-}
+void f1(int &X) { X = 42; }
 
-void f2(int* X) {
-  *X = 42;
-}
+void f2(int *X) { *X = 42; }
 
-void f3(boost::shared_ptr<int> X) {
-  *X = 42;
-}
+void f3(boost::shared_ptr<int> X) { *X = 42; }
 
 TEST(TSanBoostRefTest, NonDetectRaceOnPutRef) {
   int X;
@@ -28,7 +22,7 @@ TEST(TSanBoostRefTest, NonDetectRaceOnPutRef) {
   boost::thread t(boost::bind(&::f1, boost::ref(X)));
 
   // Main thread work
-  X = 43;  // not see
+  X = 43; // not see
 
   t.join();
 }
@@ -40,8 +34,8 @@ TEST(TSanBoostRefTest, NonDetectRaceWithMainThread) {
   boost::thread t(boost::bind(&::f2, &X));
 
   // Main thread work
-  X = 43;  // not see
-  f2(&X);  // not see
+  X = 43; // not see
+  f2(&X); // not see
   f1(X);  // not see
 
   t.join();
@@ -69,4 +63,3 @@ TEST(TSanBoostRefTest, DetectWorking) {
   t.join();
   tt.join();
 }
-

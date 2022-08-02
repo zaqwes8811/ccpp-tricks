@@ -16,7 +16,8 @@
 //  http://www.threadingbuildingblocks.org/docs/help/index.htm#tbb_userguide/Task-Based_Programming.htm
 //
 // Thinks:
-//   ошибки лучше передавать в вызывающую функцию. future и прочие работают, но как скрестить с asio
+//   ошибки лучше передавать в вызывающую функцию. future и прочие работают, но
+//   как скрестить с asio
 //
 //
 // Effective pools:
@@ -35,7 +36,8 @@
 //   http://rextester.com/discussion/XHA86284/ThreadPool
 //   http://www.youtube.com/watch?v=FfbZfBk-3rI
 
-// TODO: Try http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
+// TODO: Try
+// http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
 //   но это не на пуле, это просто так
 //
 // About own thread pool
@@ -50,14 +52,15 @@
 //
 // !!http://mostlycoding.blogspot.com.es/2009/05/asio-library-has-been-immensely-helpful.html
 //
-// Magic http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
+// Magic
+// http://stackoverflow.com/questions/19572140/how-do-i-utilize-boostpackaged-task-function-parameters-and-boostasioio
 //
 #ifndef AP_POOL_H_
 #define AP_POOL_H_
 
 #include <boost/noncopyable.hpp>
-#include <boost/weak_ptr.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/weak_ptr.hpp>
 //#include <boost/thread/detail/thread_group.hpp>
 #include <boost/asio.hpp>
 
@@ -78,15 +81,15 @@ public:
     http://stackoverflow.com/questions/6369264/is-boostio-servicepost-thread-safe
     http://stackoverflow.com/questions/10051330/is-it-thread-safe-when-one-thread-add-timer-to-boostasioio-service-and-the-o
   */
-  boost::asio::io_service& get();
+  boost::asio::io_service &get();
 
 private:
   boost::asio::io_service m_io_service;
   boost::thread_group m_threads;
-  boost::asio::io_service::work m_work;  // protect if now work doc_asio/521
+  boost::asio::io_service::work m_work; // protect if now work doc_asio/521
   int cm_size;
 };
 
-}
+} // namespace thread_pools
 
 #endif

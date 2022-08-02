@@ -35,15 +35,15 @@
 #include "gtest/gtest.h"
 
 #include <stdio.h>  // NOLINT
-#include <stdlib.h>  // For exit().
+#include <stdlib.h> // For exit().
 
 #if GTEST_HAS_SEH
-# include <windows.h>
+#include <windows.h>
 #endif
 
 #if GTEST_HAS_EXCEPTIONS
-# include <exception>  // For set_terminate().
-# include <stdexcept>
+#include <exception> // For set_terminate().
+#include <stdexcept>
 #endif
 
 using testing::Test;
@@ -51,57 +51,55 @@ using testing::Test;
 #if GTEST_HAS_SEH
 
 class SehExceptionInConstructorTest : public Test {
- public:
+public:
   SehExceptionInConstructorTest() { RaiseException(42, 0, 0, NULL); }
 };
 
 TEST_F(SehExceptionInConstructorTest, ThrowsExceptionInConstructor) {}
 
 class SehExceptionInDestructorTest : public Test {
- public:
+public:
   ~SehExceptionInDestructorTest() { RaiseException(42, 0, 0, NULL); }
 };
 
 TEST_F(SehExceptionInDestructorTest, ThrowsExceptionInDestructor) {}
 
 class SehExceptionInSetUpTestCaseTest : public Test {
- public:
+public:
   static void SetUpTestCase() { RaiseException(42, 0, 0, NULL); }
 };
 
 TEST_F(SehExceptionInSetUpTestCaseTest, ThrowsExceptionInSetUpTestCase) {}
 
 class SehExceptionInTearDownTestCaseTest : public Test {
- public:
+public:
   static void TearDownTestCase() { RaiseException(42, 0, 0, NULL); }
 };
 
 TEST_F(SehExceptionInTearDownTestCaseTest, ThrowsExceptionInTearDownTestCase) {}
 
 class SehExceptionInSetUpTest : public Test {
- protected:
+protected:
   virtual void SetUp() { RaiseException(42, 0, 0, NULL); }
 };
 
 TEST_F(SehExceptionInSetUpTest, ThrowsExceptionInSetUp) {}
 
 class SehExceptionInTearDownTest : public Test {
- protected:
+protected:
   virtual void TearDown() { RaiseException(42, 0, 0, NULL); }
 };
 
 TEST_F(SehExceptionInTearDownTest, ThrowsExceptionInTearDown) {}
 
-TEST(SehExceptionTest, ThrowsSehException) {
-  RaiseException(42, 0, 0, NULL);
-}
+TEST(SehExceptionTest, ThrowsSehException) { RaiseException(42, 0, 0, NULL); }
 
-#endif  // GTEST_HAS_SEH
+#endif // GTEST_HAS_SEH
 
 #if GTEST_HAS_EXCEPTIONS
 
 class CxxExceptionInConstructorTest : public Test {
- public:
+public:
   CxxExceptionInConstructorTest() {
     // Without this macro VC++ complains about unreachable code at the end of
     // the constructor.
@@ -110,12 +108,11 @@ class CxxExceptionInConstructorTest : public Test {
   }
 
   static void TearDownTestCase() {
-    printf("%s",
-           "CxxExceptionInConstructorTest::TearDownTestCase() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInConstructorTest::TearDownTestCase() "
+                 "called as expected.\n");
   }
 
- protected:
+protected:
   ~CxxExceptionInConstructorTest() {
     ADD_FAILURE() << "CxxExceptionInConstructorTest destructor "
                   << "called unexpectedly.";
@@ -138,14 +135,13 @@ TEST_F(CxxExceptionInConstructorTest, ThrowsExceptionInConstructor) {
 }
 
 class CxxExceptionInDestructorTest : public Test {
- public:
+public:
   static void TearDownTestCase() {
-    printf("%s",
-           "CxxExceptionInDestructorTest::TearDownTestCase() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInDestructorTest::TearDownTestCase() "
+                 "called as expected.\n");
   }
 
- protected:
+protected:
   ~CxxExceptionInDestructorTest() {
     GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(
         throw std::runtime_error("Standard C++ exception"));
@@ -155,11 +151,10 @@ class CxxExceptionInDestructorTest : public Test {
 TEST_F(CxxExceptionInDestructorTest, ThrowsExceptionInDestructor) {}
 
 class CxxExceptionInSetUpTestCaseTest : public Test {
- public:
+public:
   CxxExceptionInSetUpTestCaseTest() {
-    printf("%s",
-           "CxxExceptionInSetUpTestCaseTest constructor "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTestCaseTest constructor "
+                 "called as expected.\n");
   }
 
   static void SetUpTestCase() {
@@ -167,39 +162,34 @@ class CxxExceptionInSetUpTestCaseTest : public Test {
   }
 
   static void TearDownTestCase() {
-    printf("%s",
-           "CxxExceptionInSetUpTestCaseTest::TearDownTestCase() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTestCaseTest::TearDownTestCase() "
+                 "called as expected.\n");
   }
 
- protected:
+protected:
   ~CxxExceptionInSetUpTestCaseTest() {
-    printf("%s",
-           "CxxExceptionInSetUpTestCaseTest destructor "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTestCaseTest destructor "
+                 "called as expected.\n");
   }
 
   virtual void SetUp() {
-    printf("%s",
-           "CxxExceptionInSetUpTestCaseTest::SetUp() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTestCaseTest::SetUp() "
+                 "called as expected.\n");
   }
 
   virtual void TearDown() {
-    printf("%s",
-           "CxxExceptionInSetUpTestCaseTest::TearDown() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTestCaseTest::TearDown() "
+                 "called as expected.\n");
   }
 };
 
 TEST_F(CxxExceptionInSetUpTestCaseTest, ThrowsExceptionInSetUpTestCase) {
-  printf("%s",
-         "CxxExceptionInSetUpTestCaseTest test body "
-         "called as expected.\n");
+  printf("%s", "CxxExceptionInSetUpTestCaseTest test body "
+               "called as expected.\n");
 }
 
 class CxxExceptionInTearDownTestCaseTest : public Test {
- public:
+public:
   static void TearDownTestCase() {
     throw std::runtime_error("Standard C++ exception");
   }
@@ -208,26 +198,23 @@ class CxxExceptionInTearDownTestCaseTest : public Test {
 TEST_F(CxxExceptionInTearDownTestCaseTest, ThrowsExceptionInTearDownTestCase) {}
 
 class CxxExceptionInSetUpTest : public Test {
- public:
+public:
   static void TearDownTestCase() {
-    printf("%s",
-           "CxxExceptionInSetUpTest::TearDownTestCase() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTest::TearDownTestCase() "
+                 "called as expected.\n");
   }
 
- protected:
+protected:
   ~CxxExceptionInSetUpTest() {
-    printf("%s",
-           "CxxExceptionInSetUpTest destructor "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTest destructor "
+                 "called as expected.\n");
   }
 
   virtual void SetUp() { throw std::runtime_error("Standard C++ exception"); }
 
   virtual void TearDown() {
-    printf("%s",
-           "CxxExceptionInSetUpTest::TearDown() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInSetUpTest::TearDown() "
+                 "called as expected.\n");
   }
 };
 
@@ -237,18 +224,16 @@ TEST_F(CxxExceptionInSetUpTest, ThrowsExceptionInSetUp) {
 }
 
 class CxxExceptionInTearDownTest : public Test {
- public:
+public:
   static void TearDownTestCase() {
-    printf("%s",
-           "CxxExceptionInTearDownTest::TearDownTestCase() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInTearDownTest::TearDownTestCase() "
+                 "called as expected.\n");
   }
 
- protected:
+protected:
   ~CxxExceptionInTearDownTest() {
-    printf("%s",
-           "CxxExceptionInTearDownTest destructor "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInTearDownTest destructor "
+                 "called as expected.\n");
   }
 
   virtual void TearDown() {
@@ -259,24 +244,21 @@ class CxxExceptionInTearDownTest : public Test {
 TEST_F(CxxExceptionInTearDownTest, ThrowsExceptionInTearDown) {}
 
 class CxxExceptionInTestBodyTest : public Test {
- public:
+public:
   static void TearDownTestCase() {
-    printf("%s",
-           "CxxExceptionInTestBodyTest::TearDownTestCase() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInTestBodyTest::TearDownTestCase() "
+                 "called as expected.\n");
   }
 
- protected:
+protected:
   ~CxxExceptionInTestBodyTest() {
-    printf("%s",
-           "CxxExceptionInTestBodyTest destructor "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInTestBodyTest destructor "
+                 "called as expected.\n");
   }
 
   virtual void TearDown() {
-    printf("%s",
-           "CxxExceptionInTestBodyTest::TearDown() "
-           "called as expected.\n");
+    printf("%s", "CxxExceptionInTestBodyTest::TearDown() "
+                 "called as expected.\n");
   }
 };
 
@@ -284,9 +266,7 @@ TEST_F(CxxExceptionInTestBodyTest, ThrowsStdCxxException) {
   throw std::runtime_error("Standard C++ exception");
 }
 
-TEST(CxxExceptionTest, ThrowsNonStdCxxException) {
-  throw "C-string";
-}
+TEST(CxxExceptionTest, ThrowsNonStdCxxException) { throw "C-string"; }
 
 // This terminate handler aborts the program using exit() rather than abort().
 // This avoids showing pop-ups on Windows systems and core dumps on Unix-like
@@ -297,9 +277,9 @@ void TerminateHandler() {
   exit(3);
 }
 
-#endif  // GTEST_HAS_EXCEPTIONS
+#endif // GTEST_HAS_EXCEPTIONS
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 #if GTEST_HAS_EXCEPTIONS
   std::set_terminate(&TerminateHandler);
 #endif

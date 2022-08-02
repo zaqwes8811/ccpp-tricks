@@ -19,4 +19,4 @@ void schAddPeriodicTask();
 //   Note
 void schAddSelfDeletedTask();
 
-#endif  // CO_OPERATIVE_SCH_H_
+#endif // CO_OPERATIVE_SCH_H_

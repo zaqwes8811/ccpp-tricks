@@ -24,14 +24,14 @@ bool isInsideCoro();
 /*
 struct Coro {
   friend void yield();
-  
+
   Coro();
   Coro(Handler);
   ~Coro();
   void start(Handler);
   void resume();
   bool isStarted() const;
-  
+
 private:
   // ...
 };
@@ -44,9 +44,9 @@ void coro() {
 }
 
 TEST(Coro, Base) {
-  //cout << '1';
-  //Coro c(coro);
-  //cout << '3';
-  //c.resume();
-  //cout << '5';
+  // cout << '1';
+  // Coro c(coro);
+  // cout << '3';
+  // c.resume();
+  // cout << '5';
 }

@@ -14,7 +14,6 @@
 #define FROM_HERE ""
 #endif
 
-
 /**
   From Sutter:
   http://www.drdobbs.com/parallel/prefer-using-active-objects-instead-of-n/225700095
@@ -27,11 +26,11 @@
   template <typename T>
   boost::shared_ptr<boost::packaged_task<T> > Task;
 */
-//class SingleWorker
+// class SingleWorker
 //{
-//public:
-//  // typedefs
-//  typedef std::function<void()> Callable;
+// public:
+//   // typedefs
+//   typedef std::function<void()> Callable;
 
 //  SingleWorker() { }
 
@@ -43,9 +42,9 @@
 
 //  std::string GetId();
 
-//private:
-//  cc11::Actor m_pool;
-//};
+// private:
+//   cc11::Actor m_pool;
+// };
 
 ///**
 //  \fixme incapsulate thread id's
@@ -53,8 +52,8 @@
 
 //  \attention Real trouble with checking current thread, not dispatch
 //*/
-//class Dispatcher {
-//public:
+// class Dispatcher {
+// public:
 //  enum Ids
 //  { DB, UI };
 
@@ -66,10 +65,11 @@
 //    \fixme Bad. Coupled with particular application. Make
 //      Promise of Packaged Task
 //  */
-//  static std::future<int> ActivateUiEventLoop(concepts::db_manager_concept_t db);
+//  static std::future<int> ActivateUiEventLoop(concepts::db_manager_concept_t
+//  db);
 
-//private:
-//  Dispatcher();
+// private:
+//   Dispatcher();
 
 //  static std::string decodeId(Ids id);
 

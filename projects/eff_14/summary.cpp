@@ -1,6 +1,6 @@
 
-#include <vector>
 #include <type_traits>
+#include <vector>
 
 #include "test_type.hpp"
 
@@ -28,6 +28,8 @@ public:
 
   decltype(auto) stealRval() { return std::move(v_); }
 
+  auto stealAutoRval() { return std::move(v_); }
+
   Vec v_;
 };
 
@@ -52,10 +54,13 @@ int main() {
     v = h.stealRval();
 
     v = h.stealPureRVal();
-    static_assert(std::is_same<decltype(h.stealRval()), Vec&&>());// v_type;
+    static_assert(std::is_same<decltype(h.stealRval()), Vec &&>()); // v_type;
 
     std::cout << "  [!] Return by value" << std::endl;
     v = h.steal();
+
+    std::cout << "  [!] Return by auto" << std::endl;
+    v = h.stealAutoRval();
   }
 
   std::cout << "[!] Copy" << std::endl;

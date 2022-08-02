@@ -17,8 +17,7 @@
 // Static and global - lifetime troubles
 class Threads {
 public:
-  enum Ids
-  { DB };
+  enum Ids { DB };
 
   static void post(Ids id, SingleWorker::Callable fun);
 
@@ -42,11 +41,9 @@ private:
 
   Threads();
 
-  static std::shared_ptr<SingleWorker> s_dbWorker;  // make weak access
+  static std::shared_ptr<SingleWorker> s_dbWorker; // make weak access
 
-  static std::weak_ptr<SingleWorker> get() {
-    return s_dbWorker;
-  }
+  static std::weak_ptr<SingleWorker> get() { return s_dbWorker; }
 };
 
 #endif

@@ -16,27 +16,21 @@
 #include <omp.h>
 #endif
 
-
 using namespace std;
 
-int main(int argc, char **argv)
-{
-    int test( 999 );
+int main(int argc, char **argv) {
+  int test(999);
 
-    #pragma omp parallel sections
-    {
-       #pragma omp section
-       {
-         cout << "test = 3 " << test << endl;
-       }
+#pragma omp parallel sections
+  {
+#pragma omp section
+    { cout << "test = 3 " << test << endl; }
 
-       #pragma omp section
-       {
-         cout << "test = 4 " << test << endl;
-       }
-    }
+#pragma omp section
+    { cout << "test = 4 " << test << endl; }
+  }
 
-    #pragma omp barrier
+#pragma omp barrier
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }

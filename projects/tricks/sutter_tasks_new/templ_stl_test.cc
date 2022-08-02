@@ -3,59 +3,58 @@
 #include <cassert>
 
 // C++
-#include <vector>
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <string>
+#include <vector>
 
-#include <gtest/gtest.h>
 #include <boost/lexical_cast.hpp>
+#include <gtest/gtest.h>
 
-using std::vector;
 using std::cout;
 using std::endl;
 using std::string;
+using std::vector;
 
 /// Task 1: Vector
 
-void f(vector<int>& v) {
+void f(vector<int> &v) {
   v[0];
   v.at(0);
 }
 
-template<class Container, class OutputIterator>
-OutputIterator copy_own(const Container& c, OutputIterator result) {
+template <class Container, class OutputIterator>
+OutputIterator copy_own(const Container &c, OutputIterator result) {
   return std::copy(c.begin(), c.end(), result);
 }
 
 TEST(SutterNew, Task1) {
-  using std::ostream_iterator;
   using std::copy;
+  using std::ostream_iterator;
 
   vector<int> v;
   v.reserve(2);
-  //assert(v.capacity() == 2);
-  // скорее больше или равно, но вообще проверять смысле нет
-  assert(v.capacity() >= 2);  // added
+  // assert(v.capacity() == 2);
+  //  скорее больше или равно, но вообще проверять смысле нет
+  assert(v.capacity() >= 2); // added
 
   // !!Compilde and work, but it's error
-  //assert(v.size() == 2);  // added
-  //v.at(0) = 1;  // added  throw exception
-  v[0] = 1;  // error
-  v[1] = 2;  // error
+  // assert(v.size() == 2);  // added
+  // v.at(0) = 1;  // added  throw exception
+  v[0] = 1; // error
+  v[1] = 2; // error
 
   // raw
-  for (vector<int>::iterator i = v.begin();
-       i < v.end(); i++) {
+  for (vector<int>::iterator i = v.begin(); i < v.end(); i++) {
     cout << *i << endl;
   }
 
   // updated
-  for (vector<int>::const_iterator i=v.begin(),  // const better if read only
-      end=v.end();  // reduce extra calc
-      i != end;  // < -> !=
-      ++i) {
-      cout << *i << '\n';  // endl сбрасывает буффер
+  for (vector<int>::const_iterator i = v.begin(), // const better if read only
+       end = v.end();                             // reduce extra calc
+       i != end;                                  // < -> !=
+       ++i) {
+    cout << *i << '\n'; // endl сбрасывает буффер
   }
 
   // high level update - вообще дело вкуса
@@ -66,17 +65,17 @@ TEST(SutterNew, Task1) {
   copy_own(v, ostream_iterator<int>(cout, "\n"));
 
   // Next
-  //cout << v[0];  // maybe 1
+  // cout << v[0];  // maybe 1
 
   // Next
   v.reserve(100);
-  //assert  // not need
-  //cout << v[0];  // maybe 0
+  // assert  // not need
+  // cout << v[0];  // maybe 0
 }
 
 /// Task 2/3 Strings - sprintf
-void PrettyFormat(int i, char* buf) {
-  sprintf(buf, "%4d", i);  // C-version
+void PrettyFormat(int i, char *buf) {
+  sprintf(buf, "%4d", i); // C-version
   // DANGER0: переполнение 4 - минимальный размер
   // можно попробовать проверить, и передать размер буффера.
   // она что-то возвр. но это будет уже не важно
@@ -100,8 +99,7 @@ void PrettyFormat(int i, char *buf, int buflen) {
 //   - не эффективно
 //
 // Pluses:
-template<class T>
-void PrettyFormat(T i, string& s) {
+template <class T> void PrettyFormat(T i, string &s) {
   using std::ostringstream;
   using std::setw;
 
@@ -109,7 +107,7 @@ void PrettyFormat(T i, string& s) {
   temp << setw(4) << i;
   s = temp.str();
 
-  //s = boost::lexical_cast<string>(i);  // без форматирования
+  // s = boost::lexical_cast<string>(i);  // без форматирования
 }
 
 // ostrstream - помечана устаревшей, но кажется неплохой у нее + - эффективность
@@ -124,7 +122,7 @@ TEST(SutterNew, Task3) {
 // p. 41 "невозможно создать указатель на функцию член станд. библ."
 //
 // http://stackoverflow.com/questions/2304203/how-to-use-boost-bind-with-a-member-function
-//TODO: http://www.informit.com/articles/article.aspx?p=412354&seqNum=4
+// TODO: http://www.informit.com/articles/article.aspx?p=412354&seqNum=4
 
 /// Task 5:
 // Недостатки полиморф. вр. вып.
@@ -133,64 +131,55 @@ TEST(SutterNew, Task3) {
 //
 // Полиморфизм времени компиляции - можно обойтись без наследования
 //
-template<class T1, class T2>  // два типа!!
-void construct(T1* p, const T2& value) {
-  new (p) T1(value);  // placment new
+template <class T1, class T2> // два типа!!
+void construct(T1 *p, const T2 &value) {
+  new (p) T1(value); // placment new
   // http://stackoverflow.com/questions/222557/what-uses-are-there-for-placement-new
   // http://stackoverflow.com/questions/15254/can-placement-new-for-arrays-be-used-in-a-portable-way
 }
 
 TEST(SutterNew, Task5) {
-  int* p = new int;
+  int *p = new int;
   double i = 0;
-  construct(p, i);  //TODO: компилируется, а должно?
+  construct(p, i); // TODO: компилируется, а должно?
 
   // mem leak
 }
 
 /// Task 6:
-template<class T>
-void destroy(T* p) {
-  p->~T();
-}
+template <class T> void destroy(T *p) { p->~T(); }
 
 // Trouble: FwdIter может быть только указателем
 // Итераторы не всегда указатели
-template<class FwdIter>
-void destroy(FwdIter first, FwdIter last) {
+template <class FwdIter> void destroy(FwdIter first, FwdIter last) {
   while (first != last) {
-      //destroy(first);
-      destroy(&*first);  // any iterator
-      ++first;
+    // destroy(first);
+    destroy(&*first); // any iterator
+    ++first;
   }
 }
 
 // p. 48
-//TODO: понял не до конца
+// TODO: понял не до конца
 // no exception safe
-//TODO: что за побочные действия оператора Т?
-template<class T>
-void swap(T& a, T& b) {  // лучше переопределить через T::swap в другом простр. имен
+// TODO: что за побочные действия оператора Т?
+template <class T>
+void swap(T &a,
+          T &b) { // лучше переопределить через T::swap в другом простр. имен
   T temp(a);
-  a = b; // may throw
-  b = temp;  // may throw - a is changed!!
+  a = b;    // may throw
+  b = temp; // may throw - a is changed!!
 }
 
 /// Task 7:
-//TODO: мало знаю о шаблонах, поэтому мало ясно. Что-то про специализацию и
-//   перегрузку функций.
-
+// TODO: мало знаю о шаблонах, поэтому мало ясно. Что-то про специализацию и
+//    перегрузку функций.
 
 /// Task 8: о дружественных шаблонах
-//TODO: шаблономагия
+// TODO: шаблономагия
 
 /// Task 9: export
-//TODO: шаблономагия
+// TODO: шаблономагия
 
 /// Task 10: export
-//TODO: шаблономагия
-
-
-
-
-
+// TODO: шаблономагия

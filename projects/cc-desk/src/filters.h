@@ -1,4 +1,5 @@
-// WARNING: danger! всю иерархию фильтров хранить в этой паре файлов! это связано в операцией
+// WARNING: danger! всю иерархию фильтров хранить в этой паре файлов! это
+// связано в операцией
 //   сравнения по типу.
 //
 // TROUBLE: фильтры не такие простные штуки
@@ -8,8 +9,9 @@
 // можно hash_map, может так и проще, тогда не нужны свои hash and equal
 //
 // Logic fail:
-//   stable_sort это не то же самое, что отсортировать... - главное, что при пересорт. одинак. элем. сохр. порядок
-//   скорее всего дело в том, что строки !!не одинаковые - у них одинаковое начало, но не сами они
+//   stable_sort это не то же самое, что отсортировать... - главное, что при
+//   пересорт. одинак. элем. сохр. порядок скорее всего дело в том, что строки
+//   !!не одинаковые - у них одинаковое начало, но не сами они
 //
 // Feature:
 //   отсортировать по имени и в группах одинаковых по приоритету
@@ -19,12 +21,11 @@
 
 #include "entities.h"
 
-#include <list>
 #include <functional>
+#include <list>
 #include <unordered_set>
 
-namespace filters
-{
+namespace filters {
 
 std::function<bool(entities::TaskEntity)> is_non_saved();
 std::function<bool(entities::TaskEntity)> is_contained(const size_t id);
@@ -33,7 +34,7 @@ std::function<bool(entities::TaskEntity)> is_contained(const size_t id);
 class Filter {
 public:
   // ctors/..
-  virtual ~Filter() { }
+  virtual ~Filter() {}
   virtual entities::TaskEntities operator()(entities::TaskEntities t) = 0;
 
   // FIXME: хочется обойтись без rtti, пока так.
@@ -43,30 +44,28 @@ public:
 typedef gc::SharedPtr<Filter> FilterPtr;
 
 // сырые указатели лучше не передавать.
-bool operator==(const Filter& lhs, const Filter& rhs);
+bool operator==(const Filter &lhs, const Filter &rhs);
 bool operator==(FilterPtr lhs, FilterPtr rhs);
-//std::size_t hash_value(FilterPtr b);  // пока страшновато, до конца не понял
+// std::size_t hash_value(FilterPtr b);  // пока страшновато, до конца не понял
 
-struct KeyHasher
-{
-  std::size_t operator()(FilterPtr k) const
-  {
+struct KeyHasher {
+  std::size_t operator()(FilterPtr k) const {
     using std::hash;
     return hash<int>()(k->typeCode());
   }
 };
 
 struct KeyEqual {
-    bool operator()(FilterPtr lhs, FilterPtr rhs) const {
-        return lhs == rhs;
-    }
+  bool operator()(FilterPtr lhs, FilterPtr rhs) const { return lhs == rhs; }
 };
 
 // на входе весь кеш, на выходе результат собственно, может лучше через SQL?
-// Но как легко комбинировать фильтры. Откат к sql может повлиять, а может и нет на архитектуры.
+// Но как легко комбинировать фильтры. Откат к sql может повлиять, а может и нет
+// на архитектуры.
 //
 // зацепаемся за типы? может еще можно как-то?
-// FIXME: Фильтры должны быть линейными, а значить переставляемыми, но как доказать?
+// FIXME: Фильтры должны быть линейными, а значить переставляемыми, но как
+// доказать?
 class ChainFilters {
 public:
   ChainFilters();
@@ -84,7 +83,7 @@ public:
 
 private:
   // FIXME: можно вообще тупо массив, фильтров все равно не 100500
-  std::unordered_set<FilterPtr, KeyHasher, KeyEqual> m_s;  // need own hasher
+  std::unordered_set<FilterPtr, KeyHasher, KeyEqual> m_s; // need own hasher
 };
 
 class DoneFilter : public Filter {
@@ -101,9 +100,9 @@ public:
 
 class SortByTaskName : public Filter {
 public:
-    entities::TaskEntities operator()(entities::TaskEntities e);
-    int typeCode() const;
+  entities::TaskEntities operator()(entities::TaskEntities e);
+  int typeCode() const;
 };
-}
+} // namespace filters
 
 #endif // FILTERS_H

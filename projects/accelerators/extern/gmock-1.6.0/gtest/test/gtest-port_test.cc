@@ -36,15 +36,15 @@
 #include <stdio.h>
 
 #if GTEST_OS_MAC
-# include <time.h>
-#endif  // GTEST_OS_MAC
+#include <time.h>
+#endif // GTEST_OS_MAC
 
 #include <list>
-#include <utility>  // For std::pair and std::make_pair.
+#include <utility> // For std::pair and std::make_pair.
 #include <vector>
 
-#include "gtest/gtest.h"
 #include "gtest/gtest-spi.h"
+#include "gtest/gtest.h"
 
 // Indicates that this translation unit is part of Google Test's
 // implementation.  It must come before gtest-internal-inl.h is
@@ -62,7 +62,7 @@ namespace testing {
 namespace internal {
 
 class Base {
- public:
+public:
   // Copy constructor and assignment operator do exactly what we need, so we
   // use them.
   Base() : member_(0) {}
@@ -70,18 +70,18 @@ class Base {
   virtual ~Base() {}
   int member() { return member_; }
 
- private:
+private:
   int member_;
 };
 
 class Derived : public Base {
- public:
+public:
   explicit Derived(int n) : Base(n) {}
 };
 
 TEST(ImplicitCastTest, ConvertsPointers) {
   Derived derived(0);
-  EXPECT_TRUE(&derived == ::testing::internal::ImplicitCast_<Base*>(&derived));
+  EXPECT_TRUE(&derived == ::testing::internal::ImplicitCast_<Base *>(&derived));
 }
 
 TEST(ImplicitCastTest, CanUseInheritance) {
@@ -91,15 +91,15 @@ TEST(ImplicitCastTest, CanUseInheritance) {
 }
 
 class Castable {
- public:
-  Castable(bool* converted) : converted_(converted) {}
+public:
+  Castable(bool *converted) : converted_(converted) {}
   operator Base() {
     *converted_ = true;
     return Base();
   }
 
- private:
-  bool* converted_;
+private:
+  bool *converted_;
 };
 
 TEST(ImplicitCastTest, CanUseNonConstCastOperator) {
@@ -110,15 +110,15 @@ TEST(ImplicitCastTest, CanUseNonConstCastOperator) {
 }
 
 class ConstCastable {
- public:
-  ConstCastable(bool* converted) : converted_(converted) {}
+public:
+  ConstCastable(bool *converted) : converted_(converted) {}
   operator Base() const {
     *converted_ = true;
     return Base();
   }
 
- private:
-  bool* converted_;
+private:
+  bool *converted_;
 };
 
 TEST(ImplicitCastTest, CanUseConstCastOperatorOnConstValues) {
@@ -129,8 +129,8 @@ TEST(ImplicitCastTest, CanUseConstCastOperatorOnConstValues) {
 }
 
 class ConstAndNonConstCastable {
- public:
-  ConstAndNonConstCastable(bool* converted, bool* const_converted)
+public:
+  ConstAndNonConstCastable(bool *converted, bool *const_converted)
       : converted_(converted), const_converted_(const_converted) {}
   operator Base() {
     *converted_ = true;
@@ -141,9 +141,9 @@ class ConstAndNonConstCastable {
     return Base();
   }
 
- private:
-  bool* converted_;
-  bool* const_converted_;
+private:
+  bool *converted_;
+  bool *const_converted_;
 };
 
 TEST(ImplicitCastTest, CanSelectBetweenConstAndNonConstCasrAppropriately) {
@@ -163,8 +163,8 @@ TEST(ImplicitCastTest, CanSelectBetweenConstAndNonConstCasrAppropriately) {
 }
 
 class To {
- public:
-  To(bool* converted) { *converted = true; }  // NOLINT
+public:
+  To(bool *converted) { *converted = true; } // NOLINT
 };
 
 TEST(ImplicitCastTest, CanUseImplicitConstructor) {
@@ -175,21 +175,21 @@ TEST(ImplicitCastTest, CanUseImplicitConstructor) {
 }
 
 TEST(IteratorTraitsTest, WorksForSTLContainerIterators) {
-  StaticAssertTypeEq<int,
-      IteratorTraits< ::std::vector<int>::const_iterator>::value_type>();
+  StaticAssertTypeEq<
+      int, IteratorTraits<::std::vector<int>::const_iterator>::value_type>();
   StaticAssertTypeEq<bool,
-      IteratorTraits< ::std::list<bool>::iterator>::value_type>();
+                     IteratorTraits<::std::list<bool>::iterator>::value_type>();
 }
 
 TEST(IteratorTraitsTest, WorksForPointerToNonConst) {
-  StaticAssertTypeEq<char, IteratorTraits<char*>::value_type>();
-  StaticAssertTypeEq<const void*, IteratorTraits<const void**>::value_type>();
+  StaticAssertTypeEq<char, IteratorTraits<char *>::value_type>();
+  StaticAssertTypeEq<const void *, IteratorTraits<const void **>::value_type>();
 }
 
 TEST(IteratorTraitsTest, WorksForPointerToConst) {
-  StaticAssertTypeEq<char, IteratorTraits<const char*>::value_type>();
-  StaticAssertTypeEq<const void*,
-      IteratorTraits<const void* const*>::value_type>();
+  StaticAssertTypeEq<char, IteratorTraits<const char *>::value_type>();
+  StaticAssertTypeEq<const void *,
+                     IteratorTraits<const void *const *>::value_type>();
 }
 
 // Tests that the element_type typedef is available in scoped_ptr and refers
@@ -208,25 +208,25 @@ TEST(GtestCheckSyntaxTest, BehavesLikeASingleStatement) {
   if (AlwaysTrue())
     GTEST_CHECK_(true);
   else
-    ;  // NOLINT
+    ; // NOLINT
 
   if (AlwaysFalse())
-    ;  // NOLINT
+    ; // NOLINT
   else
     GTEST_CHECK_(true) << "";
 }
 
 TEST(GtestCheckSyntaxTest, WorksWithSwitch) {
   switch (0) {
-    case 1:
-      break;
-    default:
-      GTEST_CHECK_(true);
+  case 1:
+    break;
+  default:
+    GTEST_CHECK_(true);
   }
 
-  switch(0)
-    case 0:
-      GTEST_CHECK_(true) << "Check failed in switch case";
+  switch (0)
+  case 0:
+    GTEST_CHECK_(true) << "Check failed in switch case";
 }
 
 // Verifies behavior of FormatFileLocation.
@@ -236,8 +236,8 @@ TEST(FormatFileLocationTest, FormatsFileLocation) {
 }
 
 TEST(FormatFileLocationTest, FormatsUnknownFile) {
-  EXPECT_PRED_FORMAT2(
-      IsSubstring, "unknown file", FormatFileLocation(NULL, 42));
+  EXPECT_PRED_FORMAT2(IsSubstring, "unknown file",
+                      FormatFileLocation(NULL, 42));
   EXPECT_PRED_FORMAT2(IsSubstring, "42", FormatFileLocation(NULL, 42));
 }
 
@@ -255,8 +255,7 @@ TEST(FormatCompilerIndependentFileLocationTest, FormatsFileLocation) {
 }
 
 TEST(FormatCompilerIndependentFileLocationTest, FormatsUknownFile) {
-  EXPECT_EQ("unknown file:42",
-            FormatCompilerIndependentFileLocation(NULL, 42));
+  EXPECT_EQ("unknown file:42", FormatCompilerIndependentFileLocation(NULL, 42));
 }
 
 TEST(FormatCompilerIndependentFileLocationTest, FormatsUknownLine) {
@@ -268,8 +267,8 @@ TEST(FormatCompilerIndependentFileLocationTest, FormatsUknownFileAndLine) {
 }
 
 #if GTEST_OS_MAC
-void* ThreadFunc(void* data) {
-  pthread_mutex_t* mutex = static_cast<pthread_mutex_t*>(data);
+void *ThreadFunc(void *data) {
+  pthread_mutex_t *mutex = static_cast<pthread_mutex_t *>(data);
   pthread_mutex_lock(mutex);
   pthread_mutex_unlock(mutex);
   return NULL;
@@ -278,8 +277,8 @@ void* ThreadFunc(void* data) {
 TEST(GetThreadCountTest, ReturnsCorrectValue) {
   EXPECT_EQ(1U, GetThreadCount());
   pthread_mutex_t mutex;
-  pthread_attr_t  attr;
-  pthread_t       thread_id;
+  pthread_attr_t attr;
+  pthread_t thread_id;
 
   // TODO(vladl@google.com): turn mutex into internal::Mutex for automatic
   // destruction.
@@ -294,7 +293,7 @@ TEST(GetThreadCountTest, ReturnsCorrectValue) {
   EXPECT_EQ(2U, GetThreadCount());
   pthread_mutex_unlock(&mutex);
 
-  void* dummy;
+  void *dummy;
   ASSERT_EQ(0, pthread_join(thread_id, &dummy));
 
   // MacOS X may not immediately report the updated thread count after
@@ -313,19 +312,19 @@ TEST(GetThreadCountTest, ReturnsCorrectValue) {
 TEST(GetThreadCountTest, ReturnsZeroWhenUnableToCountThreads) {
   EXPECT_EQ(0U, GetThreadCount());
 }
-#endif  // GTEST_OS_MAC
+#endif // GTEST_OS_MAC
 
 TEST(GtestCheckDeathTest, DiesWithCorrectOutputOnFailure) {
   const bool a_false_condition = false;
   const char regex[] =
 #ifdef _MSC_VER
-     "gtest-port_test\\.cc\\(\\d+\\):"
+      "gtest-port_test\\.cc\\(\\d+\\):"
 #elif GTEST_USES_POSIX_RE
-     "gtest-port_test\\.cc:[0-9]+"
+      "gtest-port_test\\.cc:[0-9]+"
 #else
-     "gtest-port_test\\.cc:\\d+"
-#endif  // _MSC_VER
-     ".*a_false_condition.*Extra info.*";
+      "gtest-port_test\\.cc:\\d+"
+#endif // _MSC_VER
+      ".*a_false_condition.*Extra info.*";
 
   EXPECT_DEATH_IF_SUPPORTED(GTEST_CHECK_(a_false_condition) << "Extra info",
                             regex);
@@ -334,14 +333,16 @@ TEST(GtestCheckDeathTest, DiesWithCorrectOutputOnFailure) {
 #if GTEST_HAS_DEATH_TEST
 
 TEST(GtestCheckDeathTest, LivesSilentlyOnSuccess) {
-  EXPECT_EXIT({
-      GTEST_CHECK_(true) << "Extra info";
-      ::std::cerr << "Success\n";
-      exit(0); },
+  EXPECT_EXIT(
+      {
+        GTEST_CHECK_(true) << "Extra info";
+        ::std::cerr << "Success\n";
+        exit(0);
+      },
       ::testing::ExitedWithCode(0), "Success");
 }
 
-#endif  // GTEST_HAS_DEATH_TEST
+#endif // GTEST_HAS_DEATH_TEST
 
 // Verifies that Google Test choose regular expression engine appropriate to
 // the platform. The test will produce compiler errors in case of failure.
@@ -360,19 +361,18 @@ TEST(RegexEngineSelectionTest, SelectsCorrectRegexEngine) {
 
 #if GTEST_USES_POSIX_RE
 
-# if GTEST_HAS_TYPED_TEST
+#if GTEST_HAS_TYPED_TEST
 
-template <typename Str>
-class RETest : public ::testing::Test {};
+template <typename Str> class RETest : public ::testing::Test {};
 
 // Defines StringTypes as the list of all string types that class RE
 // supports.
-typedef testing::Types<
-    ::std::string,
-#  if GTEST_HAS_GLOBAL_STRING
-    ::string,
-#  endif  // GTEST_HAS_GLOBAL_STRING
-    const char*> StringTypes;
+typedef testing::Types<::std::string,
+#if GTEST_HAS_GLOBAL_STRING
+                       ::string,
+#endif // GTEST_HAS_GLOBAL_STRING
+                       const char *>
+    StringTypes;
 
 TYPED_TEST_CASE(RETest, StringTypes);
 
@@ -390,9 +390,9 @@ TYPED_TEST(RETest, ImplicitConstructorWorks) {
 
 // Tests that RE's constructors reject invalid regular expressions.
 TYPED_TEST(RETest, RejectsInvalidRegex) {
-  EXPECT_NONFATAL_FAILURE({
-    const RE invalid(TypeParam("?"));
-  }, "\"?\" is not a valid POSIX Extended regular expression.");
+  EXPECT_NONFATAL_FAILURE(
+      { const RE invalid(TypeParam("?")); },
+      "\"?\" is not a valid POSIX Extended regular expression.");
 }
 
 // Tests RE::FullMatch().
@@ -422,7 +422,7 @@ TYPED_TEST(RETest, PartialMatchWorks) {
   EXPECT_FALSE(RE::PartialMatch(TypeParam("zza"), re));
 }
 
-# endif  // GTEST_HAS_TYPED_TEST
+#endif // GTEST_HAS_TYPED_TEST
 
 #elif GTEST_USES_SIMPLE_RE
 
@@ -465,7 +465,7 @@ TEST(IsAsciiPunctTest, IsFalseForNonPunct) {
 }
 
 TEST(IsAsciiPunctTest, IsTrueForPunct) {
-  for (const char* p = "^-!\"#$%&'()*+,./:;<=>?@[\\]_`{|}~"; *p; p++) {
+  for (const char *p = "^-!\"#$%&'()*+,./:;<=>?@[\\]_`{|}~"; *p; p++) {
     EXPECT_PRED1(IsAsciiPunct, *p);
   }
 }
@@ -788,8 +788,7 @@ TEST(MatchRegexAtHeadTest, WorksWhenRegexStartsWithRepetition) {
   EXPECT_TRUE(MatchRegexAtHead("a?b", "ab"));
 }
 
-TEST(MatchRegexAtHeadTest,
-     WorksWhenRegexStartsWithRepetionOfEscapeSequence) {
+TEST(MatchRegexAtHeadTest, WorksWhenRegexStartsWithRepetionOfEscapeSequence) {
   EXPECT_FALSE(MatchRegexAtHead("\\.+a", "abc"));
   EXPECT_FALSE(MatchRegexAtHead("\\s?b", "  b"));
 
@@ -845,17 +844,14 @@ TEST(RETest, ImplicitConstructorWorks) {
 
 // Tests that RE's constructors reject invalid regular expressions.
 TEST(RETest, RejectsInvalidRegex) {
-  EXPECT_NONFATAL_FAILURE({
-    const RE normal(NULL);
-  }, "NULL is not a valid simple regular expression");
+  EXPECT_NONFATAL_FAILURE({ const RE normal(NULL); },
+                          "NULL is not a valid simple regular expression");
 
-  EXPECT_NONFATAL_FAILURE({
-    const RE normal(".*(\\w+");
-  }, "'(' is unsupported");
+  EXPECT_NONFATAL_FAILURE({ const RE normal(".*(\\w+"); },
+                          "'(' is unsupported");
 
-  EXPECT_NONFATAL_FAILURE({
-    const RE invalid("^?");
-  }, "'?' can only follow a repeatable token");
+  EXPECT_NONFATAL_FAILURE({ const RE invalid("^?"); },
+                          "'?' can only follow a repeatable token");
 }
 
 // Tests RE::FullMatch().
@@ -888,7 +884,7 @@ TEST(RETest, PartialMatchWorks) {
   EXPECT_FALSE(RE::PartialMatch("zza", re));
 }
 
-#endif  // GTEST_USES_POSIX_RE
+#endif // GTEST_USES_POSIX_RE
 
 #if !GTEST_OS_WINDOWS_MOBILE
 
@@ -924,21 +920,21 @@ TEST(CaptureTest, CapturesStdoutAndStderr) {
 
 TEST(CaptureDeathTest, CannotReenterStdoutCapture) {
   CaptureStdout();
-  EXPECT_DEATH_IF_SUPPORTED(CaptureStdout();,
-                            "Only one stdout capturer can exist at a time");
+  EXPECT_DEATH_IF_SUPPORTED(CaptureStdout();
+                            , "Only one stdout capturer can exist at a time");
   GetCapturedStdout();
 
   // We cannot test stderr capturing using death tests as they use it
   // themselves.
 }
 
-#endif  // !GTEST_OS_WINDOWS_MOBILE
+#endif // !GTEST_OS_WINDOWS_MOBILE
 
 TEST(ThreadLocalTest, DefaultConstructorInitializesToDefaultValues) {
   ThreadLocal<int> t1;
   EXPECT_EQ(0, t1.get());
 
-  ThreadLocal<void*> t2;
+  ThreadLocal<void *> t2;
   EXPECT_TRUE(t2.get() == NULL);
 }
 
@@ -947,14 +943,14 @@ TEST(ThreadLocalTest, SingleParamConstructorInitializesToParam) {
   EXPECT_EQ(123, t1.get());
 
   int i = 0;
-  ThreadLocal<int*> t2(&i);
+  ThreadLocal<int *> t2(&i);
   EXPECT_EQ(&i, t2.get());
 }
 
 class NoDefaultContructor {
- public:
-  explicit NoDefaultContructor(const char*) {}
-  NoDefaultContructor(const NoDefaultContructor&) {}
+public:
+  explicit NoDefaultContructor(const char *) {}
+  NoDefaultContructor(const NoDefaultContructor &) {}
 };
 
 TEST(ThreadLocalTest, ValueDefaultContructorIsNotRequiredForParamVersion) {
@@ -974,7 +970,7 @@ TEST(ThreadLocalTest, GetAndPointerReturnSameValue) {
 
 TEST(ThreadLocalTest, PointerAndConstPointerReturnSameValue) {
   ThreadLocal<String> thread_local;
-  const ThreadLocal<String>& const_thread_local = thread_local;
+  const ThreadLocal<String> &const_thread_local = thread_local;
 
   EXPECT_EQ(thread_local.pointer(), const_thread_local.pointer());
 
@@ -984,11 +980,11 @@ TEST(ThreadLocalTest, PointerAndConstPointerReturnSameValue) {
 
 #if GTEST_IS_THREADSAFE
 
-void AddTwo(int* param) { *param += 2; }
+void AddTwo(int *param) { *param += 2; }
 
 TEST(ThreadWithParamTest, ConstructorExecutesThreadFunc) {
   int i = 40;
-  ThreadWithParam<int*> thread(&AddTwo, &i, NULL);
+  ThreadWithParam<int *> thread(&AddTwo, &i, NULL);
   thread.Join();
   EXPECT_EQ(42, i);
 }
@@ -996,12 +992,13 @@ TEST(ThreadWithParamTest, ConstructorExecutesThreadFunc) {
 TEST(MutexDeathTest, AssertHeldShouldAssertWhenNotLocked) {
   // AssertHeld() is flaky only in the presence of multiple threads accessing
   // the lock. In this case, the test is robust.
-  EXPECT_DEATH_IF_SUPPORTED({
-    Mutex m;
-    { MutexLock lock(&m); }
-    m.AssertHeld();
-  },
-  "thread .*hold");
+  EXPECT_DEATH_IF_SUPPORTED(
+      {
+        Mutex m;
+        { MutexLock lock(&m); }
+        m.AssertHeld();
+      },
+      "thread .*hold");
 }
 
 TEST(MutexTest, AssertHeldShouldNotAssertWhenLocked) {
@@ -1011,9 +1008,9 @@ TEST(MutexTest, AssertHeldShouldNotAssertWhenLocked) {
 }
 
 class AtomicCounterWithMutex {
- public:
-  explicit AtomicCounterWithMutex(Mutex* mutex) :
-    value_(0), mutex_(mutex), random_(42) {}
+public:
+  explicit AtomicCounterWithMutex(Mutex *mutex)
+      : value_(0), mutex_(mutex), random_(42) {}
 
   void Increment() {
     MutexLock lock(mutex_);
@@ -1037,15 +1034,15 @@ class AtomicCounterWithMutex {
   }
   int value() const { return value_; }
 
- private:
+private:
   volatile int value_;
-  Mutex* const mutex_;  // Protects value_.
-  Random       random_;
+  Mutex *const mutex_; // Protects value_.
+  Random random_;
 };
 
-void CountingThreadFunc(pair<AtomicCounterWithMutex*, int> param) {
+void CountingThreadFunc(pair<AtomicCounterWithMutex *, int> param) {
   for (int i = 0; i < param.second; ++i)
-      param.first->Increment();
+    param.first->Increment();
 }
 
 // Tests that the mutex only lets one thread at a time to lock it.
@@ -1053,7 +1050,7 @@ TEST(MutexTest, OnlyOneThreadCanLockAtATime) {
   Mutex mutex;
   AtomicCounterWithMutex locked_counter(&mutex);
 
-  typedef ThreadWithParam<pair<AtomicCounterWithMutex*, int> > ThreadType;
+  typedef ThreadWithParam<pair<AtomicCounterWithMutex *, int>> ThreadType;
   const int kCycleCount = 20;
   const int kThreadCount = 7;
   scoped_ptr<ThreadType> counting_threads[kThreadCount];
@@ -1061,10 +1058,9 @@ TEST(MutexTest, OnlyOneThreadCanLockAtATime) {
   // Creates and runs kThreadCount threads that increment locked_counter
   // kCycleCount times each.
   for (int i = 0; i < kThreadCount; ++i) {
-    counting_threads[i].reset(new ThreadType(&CountingThreadFunc,
-                                             make_pair(&locked_counter,
-                                                       kCycleCount),
-                                             &threads_can_start));
+    counting_threads[i].reset(new ThreadType(
+        &CountingThreadFunc, make_pair(&locked_counter, kCycleCount),
+        &threads_can_start));
   }
   threads_can_start.Notify();
   for (int i = 0; i < kThreadCount; ++i)
@@ -1077,13 +1073,12 @@ TEST(MutexTest, OnlyOneThreadCanLockAtATime) {
   EXPECT_EQ(kCycleCount * kThreadCount, locked_counter.value());
 }
 
-template <typename T>
-void RunFromThread(void (func)(T), T param) {
+template <typename T> void RunFromThread(void(func)(T), T param) {
   ThreadWithParam<T> thread(func, param, NULL);
   thread.Join();
 }
 
-void RetrieveThreadLocalValue(pair<ThreadLocal<String>*, String*> param) {
+void RetrieveThreadLocalValue(pair<ThreadLocal<String> *, String *> param) {
   *param.second = param.first->get();
 }
 
@@ -1104,9 +1099,9 @@ TEST(ThreadLocalTest, ParameterizedConstructorSetsDefault) {
 static std::vector<bool> g_destroyed;
 
 class DestructorTracker {
- public:
+public:
   DestructorTracker() : index_(GetNewIndex()) {}
-  DestructorTracker(const DestructorTracker& /* rhs */)
+  DestructorTracker(const DestructorTracker & /* rhs */)
       : index_(GetNewIndex()) {}
   ~DestructorTracker() {
     // We never access g_destroyed concurrently, so we don't need to
@@ -1114,7 +1109,7 @@ class DestructorTracker {
     g_destroyed[index_] = true;
   }
 
- private:
+private:
   static int GetNewIndex() {
     g_destroyed.push_back(false);
     return g_destroyed.size() - 1;
@@ -1122,11 +1117,9 @@ class DestructorTracker {
   const int index_;
 };
 
-typedef ThreadLocal<DestructorTracker>* ThreadParam;
+typedef ThreadLocal<DestructorTracker> *ThreadParam;
 
-void CallThreadLocalGet(ThreadParam thread_local) {
-  thread_local->get();
-}
+void CallThreadLocalGet(ThreadParam thread_local) { thread_local->get(); }
 
 // Tests that when a ThreadLocal object dies in a thread, it destroys
 // the managed object for that thread.
@@ -1170,8 +1163,8 @@ TEST(ThreadLocalTest, DestroysManagedObjectAtThreadExit) {
     ASSERT_FALSE(g_destroyed[0]);
 
     // This creates another DestructorTracker object in the new thread.
-    ThreadWithParam<ThreadParam> thread(
-        &CallThreadLocalGet, &thread_local, NULL);
+    ThreadWithParam<ThreadParam> thread(&CallThreadLocalGet, &thread_local,
+                                        NULL);
     thread.Join();
 
     // Now the new thread has exited.  The per-thread object for it
@@ -1200,7 +1193,7 @@ TEST(ThreadLocalTest, ThreadLocalMutationsAffectOnlyCurrentThread) {
   EXPECT_TRUE(result.c_str() == NULL);
 }
 
-#endif  // GTEST_IS_THREADSAFE
+#endif // GTEST_IS_THREADSAFE
 
-}  // namespace internal
-}  // namespace testing
+} // namespace internal
+} // namespace testing

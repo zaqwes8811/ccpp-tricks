@@ -1,12 +1,12 @@
 #include "heart/config.h"
 
-#include "model_layer/entities.h"
 #include "data_access_layer/postgresql_queries.h"
+#include "model_layer/entities.h"
 
 #include <vector>
 
 namespace entities {
-const size_t EntityStates::kInactiveKey = 0;  // was -1
+const size_t EntityStates::kInactiveKey = 0; // was -1
 const int EntityStates::kDefaultPriority = 0;
 const bool EntityStates::kDefaultDone = false;
 
@@ -17,9 +17,8 @@ TaskEntity Task::ToEntity() const {
 }
 
 Task::Task()
-  : id(EntityStates::kInactiveKey)
-  , priority(EntityStates::kDefaultPriority)
-  , done(EntityStates::kDefaultDone) { }
+    : id(EntityStates::kInactiveKey), priority(EntityStates::kDefaultPriority),
+      done(EntityStates::kDefaultDone) {}
 
 entities::Task Task::toValue() const {
   Task t;
@@ -30,9 +29,7 @@ entities::Task Task::toValue() const {
   return t;
 }
 
-Task::Task(const Task& v) : id(v.id), name(v.name), priority(v.priority), done(v.done)
-{ }
+Task::Task(const Task &v)
+    : id(v.id), name(v.name), priority(v.priority), done(v.done) {}
 
-}
-
-
+} // namespace entities

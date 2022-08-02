@@ -1,7 +1,8 @@
 #ifndef CANARY_CONFIG_H_
 #define CANARY_CONFIG_H_
 
-// Very important file. After change it all files be compiled if(!) it insert first in *.c
+// Very important file. After change it all files be compiled if(!) it insert
+// first in *.c
 //   or *.cc file.
 // Template:
 //
@@ -23,6 +24,6 @@
 
 static const int GkMaxCountChannels = 4;
 
-#define G_SOME_FEATURE  // G_* - global
+#define G_SOME_FEATURE // G_* - global
 
-#endif  // CANARY_CONFIG_H_
+#endif // CANARY_CONFIG_H_

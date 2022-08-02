@@ -1,25 +1,22 @@
 
-#include "actors_and_workers/actors_cc98.h"
 #include "actors_and_workers/actors_cc11.h"
+#include "actors_and_workers/actors_cc98.h"
 
-#include <folly/futures/Future.h>
-#include <gtest/gtest.h>
-#include <folly/Executor.h>
 #include <boost/thread/thread.hpp>
-#include <folly/futures/ManualExecutor.h>
+#include <folly/Executor.h>
+#include <folly/futures/Future.h>
 #include <folly/futures/InlineExecutor.h>
+#include <folly/futures/ManualExecutor.h>
+#include <gtest/gtest.h>
 
 #include <iostream>
 
 using namespace folly;
 using namespace std;
 
-class MyExecutor : public folly::Executor
-{
+class MyExecutor : public folly::Executor {
 public:
-  virtual void add(Func f) {
-    a.Send(f);
-  }
+  virtual void add(Func f) { a.Send(f); }
 
 private:
   cc11::Actior a;
@@ -33,16 +30,14 @@ void foo(int x) {
 MyExecutor ge;
 
 TEST(FollyTest, My) {
-  //auto e = MyExecutor();
+  // auto e = MyExecutor();
   MyExecutor e;
 
   cout << "making Promise" << endl;
-  shared_ptr<Promise<int> > p = make_shared<Promise<int> >();
+  shared_ptr<Promise<int>> p = make_shared<Promise<int>>();
   Future<int> f = p->getFuture();
 
-  auto work = [](Try<int>&& t) {
-    foo(t.value());
-  };
+  auto work = [](Try<int> &&t) { foo(t.value()); };
 
   // continue
   // work, but trouble. put in queue but destruct
@@ -57,15 +52,15 @@ TEST(FollyTest, My) {
     cout << "Promise fulfilled" << endl;
   });
 
-  //while(true);
-  //boost::thread::(boost::chrono::seconds(2));
+  // while(true);
+  // boost::thread::(boost::chrono::seconds(2));
 }
 
 namespace mc {
 // Async api:
 //   Error handling
 class MemcacheClient {
- public:
+public:
   struct GetReply {
     enum class Result {
       FOUND,
@@ -86,23 +81,8 @@ class MemcacheClient {
   int get(std::string key, std::function<void(GetReply)> callback);
 
   // used future
-  // "This is slightly more useful than a synchronous API, but it's not yet ideal"
+  // "This is slightly more useful than a synchronous API, but it's not yet
+  // ideal"
   Future<GetReply> async_get(std::string key);
 };
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} // namespace mc

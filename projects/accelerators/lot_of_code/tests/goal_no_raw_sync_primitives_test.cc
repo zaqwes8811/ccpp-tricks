@@ -1,11 +1,12 @@
-/// Task based parallelizm 
+/// Task based parallelizm
 //
 // TBB Ref. Man. - https://software.intel.com/en-us/node/506045
 //
 // Task based parallelizm - https://software.intel.com/ru-ru/node/506100
 // В курсе по CUDA from NVIDIA упоминалось про похожую фичу
-// 
-// !! https://software.intel.com/en-us/articles/optimizing-game-architectures-with-intel-threading-building-blocks
+//
+// !!
+// https://software.intel.com/en-us/articles/optimizing-game-architectures-with-intel-threading-building-blocks
 //
 // http://blog.think-async.com/2008/10/asynchronous-forkjoin-using-asio.html
 //
@@ -19,16 +20,13 @@
 
 #include <gtest/gtest.h>
 
-
 // No locks, thread -> task
-TEST(SeanParent_, NoRawSync)
-{
+TEST(SeanParent_, NoRawSync) {
   // std::async
   //
   // Libs - реализовано более чем в std::
   // Библиотеки лучше. Даже новый стандарт не решает. Sheduler
-  //  http://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1795/ 
+  //  http://tech.yandex.ru/events/yagosti/cpp-user-group/talks/1795/
   // PPL(MS), libdispatch(Apple), TBB
   // Похоже что-то есть и в Boost.
 }
-

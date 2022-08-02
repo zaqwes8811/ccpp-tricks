@@ -19,12 +19,11 @@
 // Как быть с Qt - она собирается без исключений!!
 
 #include <cassert>
-#include <string>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
-template <typename T>
-std::string toString(T const& value) {
+template <typename T> std::string toString(T const &value) {
   std::stringstream sstr;
   sstr << value;
   return sstr.str();
@@ -35,8 +34,7 @@ std::string toString(T const& value) {
 */
 class fatal_error : public std::runtime_error {
 public:
-  fatal_error(const std::string& m) : std::runtime_error(m)
-  { }
+  fatal_error(const std::string &m) : std::runtime_error(m) {}
 };
 
 /**
@@ -58,25 +56,22 @@ public:
 */
 class infrastructure_error : public std::runtime_error {
 public:
-  infrastructure_error(const std::string& m) : std::runtime_error(m)
-  { }
+  infrastructure_error(const std::string &m) : std::runtime_error(m) {}
 };
 
 class unknown_error : public std::runtime_error {
 public:
-  unknown_error(const std::string& m) : std::runtime_error(m)
-  { }
+  unknown_error(const std::string &m) : std::runtime_error(m) {}
 };
 
-
-
 #ifndef FROM_HERE
-#  define FROM_HERE (std::string(__FILE__) + ": " + toString(__LINE__)) + " : "
+#define FROM_HERE (std::string(__FILE__) + ": " + toString(__LINE__)) + " : "
 #endif
 
-
-#define DCHECK(cond) do { if (!(cond)) throw fatal_error("Assert: " + FROM_HERE); } while(0);
-
-
+#define DCHECK(cond)                                                           \
+  do {                                                                         \
+    if (!(cond))                                                               \
+      throw fatal_error("Assert: " + FROM_HERE);                               \
+  } while (0);
 
 #endif

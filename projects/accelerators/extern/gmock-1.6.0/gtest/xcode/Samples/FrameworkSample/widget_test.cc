@@ -35,8 +35,8 @@
 
 // This is a simple test file for the Widget class in the Widget.framework
 
-#include <string>
 #include "gtest/gtest.h"
+#include <string>
 
 #include <Widget/widget.h>
 

@@ -4,5 +4,7 @@
 //
 // Div.-Con.
 // http://stackoverflow.com/questions/16260879/how-to-parallelize-a-divide-and-conquer-algorithm-efficiently
-// "Using threads directly for writing parallel algorithms, especially divide-and-conquer type algorithms is a bad idea, 
-//  you will have poor scaling, poor load-balancing and as you know the cost of thread-creation is expensive."
+// "Using threads directly for writing parallel algorithms, especially
+// divide-and-conquer type algorithms is a bad idea,
+//  you will have poor scaling, poor load-balancing and as you know the cost of
+//  thread-creation is expensive."

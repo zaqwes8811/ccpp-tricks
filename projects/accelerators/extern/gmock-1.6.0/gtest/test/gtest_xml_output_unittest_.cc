@@ -41,30 +41,25 @@
 #include "gtest/gtest.h"
 
 using ::testing::InitGoogleTest;
+using ::testing::Test;
 using ::testing::TestEventListeners;
 using ::testing::TestWithParam;
-using ::testing::UnitTest;
-using ::testing::Test;
 using ::testing::Types;
+using ::testing::UnitTest;
 using ::testing::Values;
 
-class SuccessfulTest : public Test {
-};
+class SuccessfulTest : public Test {};
 
 TEST_F(SuccessfulTest, Succeeds) {
   SUCCEED() << "This is a success.";
   ASSERT_EQ(1, 1);
 }
 
-class FailedTest : public Test {
-};
+class FailedTest : public Test {};
 
-TEST_F(FailedTest, Fails) {
-  ASSERT_EQ(1, 2);
-}
+TEST_F(FailedTest, Fails) { ASSERT_EQ(1, 2); }
 
-class DisabledTest : public Test {
-};
+class DisabledTest : public Test {};
 
 TEST_F(DisabledTest, DISABLED_test_not_run) {
   FAIL() << "Unexpected failure: Disabled test should not be run";
@@ -95,12 +90,9 @@ TEST(InvalidCharactersTest, InvalidCharactersInMessage) {
   FAIL() << "Invalid characters in brackets [\x1\x2]";
 }
 
-class PropertyRecordingTest : public Test {
-};
+class PropertyRecordingTest : public Test {};
 
-TEST_F(PropertyRecordingTest, OneProperty) {
-  RecordProperty("key_1", "1");
-}
+TEST_F(PropertyRecordingTest, OneProperty) { RecordProperty("key_1", "1"); }
 
 TEST_F(PropertyRecordingTest, IntValuedProperty) {
   RecordProperty("key_int", 1);
@@ -117,16 +109,14 @@ TEST_F(PropertyRecordingTest, TwoValuesForOneKeyUsesLastValue) {
   RecordProperty("key_1", "2");
 }
 
-TEST(NoFixtureTest, RecordProperty) {
-  RecordProperty("key", "1");
-}
+TEST(NoFixtureTest, RecordProperty) { RecordProperty("key", "1"); }
 
-void ExternalUtilityThatCallsRecordProperty(const char* key, int value) {
+void ExternalUtilityThatCallsRecordProperty(const char *key, int value) {
   testing::Test::RecordProperty(key, value);
 }
 
-void ExternalUtilityThatCallsRecordProperty(const char* key,
-                                            const char* value) {
+void ExternalUtilityThatCallsRecordProperty(const char *key,
+                                            const char *value) {
   testing::Test::RecordProperty(key, value);
 }
 
@@ -159,15 +149,14 @@ TYPED_TEST_CASE_P(TypeParameterizedTestCase);
 TYPED_TEST_P(TypeParameterizedTestCase, HasTypeParamAttribute) {}
 REGISTER_TYPED_TEST_CASE_P(TypeParameterizedTestCase, HasTypeParamAttribute);
 typedef Types<int, long> TypeParameterizedTestCaseTypes;
-INSTANTIATE_TYPED_TEST_CASE_P(Single,
-                              TypeParameterizedTestCase,
+INSTANTIATE_TYPED_TEST_CASE_P(Single, TypeParameterizedTestCase,
                               TypeParameterizedTestCaseTypes);
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   InitGoogleTest(&argc, argv);
 
   if (argc > 1 && strcmp(argv[1], "--shut_down_xml") == 0) {
-    TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
+    TestEventListeners &listeners = UnitTest::GetInstance()->listeners();
     delete listeners.Release(listeners.default_xml_generator());
   }
   return RUN_ALL_TESTS();

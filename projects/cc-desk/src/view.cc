@@ -1,27 +1,27 @@
 #include "heart/config.h"
 
-#include "view.h"
 #include "model_layer/entities.h"
+#include "view.h"
 
-#include <QWidget>
 #include <QHeaderView>
+#include <QWidget>
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
-using entities::TaskViewTableIdx;
 using entities::Task;
 using entities::TaskEntities;
+using entities::TaskViewTableIdx;
 
 const QColor QMyTableView::kDoneColor = QColor(0, 0, 255, 127);
-const QColor QMyTableView::kReopenColor = QColor(0, 0, 0, 0);  // не влияет, т.к. при перерисовке
+const QColor QMyTableView::kReopenColor =
+    QColor(0, 0, 0, 0); // не влияет, т.к. при перерисовке
 // учитывается только done column
 
-QMyTableView::QMyTableView(QWidget *parent)
-    : QTableWidget(parent) {
+QMyTableView::QMyTableView(QWidget *parent) : QTableWidget(parent) {
 
   // fill lists
-  QList<QString> column_names;  // FIXME: move from here
+  QList<QString> column_names; // FIXME: move from here
   column_names.append("id");
   column_names.append("Task name");
   column_names.append("Priority");
@@ -30,7 +30,7 @@ QMyTableView::QMyTableView(QWidget *parent)
   setColumnCount(column_names.size());
   setHorizontalHeaderLabels(column_names);
 
-  setColumnHidden(TaskViewTableIdx::kId, true);  // FIXME: id's пока так
+  setColumnHidden(TaskViewTableIdx::kId, true); // FIXME: id's пока так
   setColumnHidden(entities::TaskViewTableIdx::kDone, true);
 
   // Style
@@ -39,31 +39,39 @@ QMyTableView::QMyTableView(QWidget *parent)
   v->setDefaultSectionSize(20);
 
   horizontalHeader()->setResizeMode(QHeaderView
-    //::Stretch);//
-    ::ResizeToContents);
-  //resizeRowToContents();
-  //resizeColumnsToContents();
-  //setWordWrap(false);
-  //setTextElideMode(Qt::ElideNone);
+                                    //::Stretch);//
+                                    ::ResizeToContents);
+  // resizeRowToContents();
+  // resizeColumnsToContents();
+  // setWordWrap(false);
+  // setTextElideMode(Qt::ElideNone);
 
-  //setRowHeight(0, 50);
+  // setRowHeight(0, 50);
 
   // FIXME: растянутую ячейку отменяте смена фильтра
 }
 
 bool QMyTableView::isEdited() const {
- if (state() == QAbstractItemView::EditingState) return true;
- else return false;
+  if (state() == QAbstractItemView::EditingState)
+    return true;
+  else
+    return false;
 }
 
 void QMyTableView::insertBlankRows(const int end) {
   // вставляем еще несколько рядов
-  for (int row = end; row < end+models::kAddedBlankLines; ++row) {
-      setItem(row, entities::TaskViewTableIdx::kId, new QTableWidgetItem(QString::number(entities::EntityStates::kInactiveKey)));
-      setItem(row, entities::TaskViewTableIdx::kTaskName, new QTableWidgetItem(QString()));
-      setItem(row, entities::TaskViewTableIdx::kPriority,
-              new QTableWidgetItem(QString::number(entities::EntityStates::kDefaultPriority)));
-      setItem(row, entities::TaskViewTableIdx::kDone, new QTableWidgetItem(QString::number(entities::EntityStates::kDefaultDone)));
+  for (int row = end; row < end + models::kAddedBlankLines; ++row) {
+    setItem(row, entities::TaskViewTableIdx::kId,
+            new QTableWidgetItem(
+                QString::number(entities::EntityStates::kInactiveKey)));
+    setItem(row, entities::TaskViewTableIdx::kTaskName,
+            new QTableWidgetItem(QString()));
+    setItem(row, entities::TaskViewTableIdx::kPriority,
+            new QTableWidgetItem(
+                QString::number(entities::EntityStates::kDefaultPriority)));
+    setItem(row, entities::TaskViewTableIdx::kDone,
+            new QTableWidgetItem(
+                QString::number(entities::EntityStates::kDefaultDone)));
   }
 }
 
@@ -79,17 +87,19 @@ void QMyTableView::draw(entities::TaskEntities taskEntities) {
   setRowCount(taskEntities.size() + models::kAddedBlankLines);
 
   auto row = 0;
-  for (auto& entity : taskEntities) {
-    setItem(row, entities::TaskViewTableIdx::kId, new QTableWidgetItem(QString::number(entity->id)));
-    setItem(row, entities::TaskViewTableIdx::kPriority, new QTableWidgetItem(QString::number(entity->priority)));
-    setItem(row, entities::TaskViewTableIdx::kDone, new QTableWidgetItem(QString::number(entity->done)));
+  for (auto &entity : taskEntities) {
+    setItem(row, entities::TaskViewTableIdx::kId,
+            new QTableWidgetItem(QString::number(entity->id)));
+    setItem(row, entities::TaskViewTableIdx::kPriority,
+            new QTableWidgetItem(QString::number(entity->priority)));
+    setItem(row, entities::TaskViewTableIdx::kDone,
+            new QTableWidgetItem(QString::number(entity->done)));
 
     auto note = QString::fromUtf8(entity->name.c_str());
     auto v = new QTableWidgetItem(note);
 
     if (entity->done)
       v->setTextColor(kDoneColor);
-
 
     setItem(row, entities::TaskViewTableIdx::kTaskName, v);
     ++row;
@@ -115,7 +125,7 @@ void QMyTableView::markDone(const int row) {
 void QMyTableView::markReopen(const int row) {
   auto v = QString::number(entities::EntityStates::kDefaultDone);
   item(row, entities::TaskViewTableIdx::kDone)->setText(v);
-  //item(row, values::TaskViewTableIdx::kTaskName)->setTextColor(kReopenColor);
+  // item(row, values::TaskViewTableIdx::kTaskName)->setTextColor(kReopenColor);
 }
 
 bool QMyTableView::IsSaved(const int row) const {
@@ -126,7 +136,10 @@ entities::Task QMyTableView::getTask(const int row) const {
   DCHECK(row < rowCount());
 
   auto id = GetId(row);
-  std::string name(item(row, entities::TaskViewTableIdx::kTaskName)->text().toUtf8().constData());
+  std::string name(item(row, entities::TaskViewTableIdx::kTaskName)
+                       ->text()
+                       .toUtf8()
+                       .constData());
   int p(item(row, entities::TaskViewTableIdx::kPriority)->text().toInt());
   auto isDone = item(row, entities::TaskViewTableIdx::kDone)->text().toInt();
 

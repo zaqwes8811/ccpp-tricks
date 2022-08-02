@@ -33,16 +33,16 @@
 
 #include "gtest/gtest.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <stdexcept>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Prints the given failure message and exits the program with
 // non-zero.  We use this instead of a Google Test assertion to
 // indicate a failure, as the latter is been tested and cannot be
 // relied on.
-void Fail(const char* msg) {
+void Fail(const char *msg) {
   printf("FAILURE: %s\n", msg);
   fflush(stdout);
   exit(1);
@@ -56,14 +56,14 @@ void TestFailureThrowsRuntimeError() {
   // A successful assertion shouldn't throw.
   try {
     EXPECT_EQ(3, 3);
-  } catch(...) {
+  } catch (...) {
     Fail("A successful assertion wrongfully threw.");
   }
 
   // A failed assertion should throw a subclass of std::runtime_error.
   try {
     EXPECT_EQ(2, 3) << "Expected failure";
-  } catch(const std::runtime_error& e) {
+  } catch (const std::runtime_error &e) {
     if (strstr(e.what(), "Expected failure") != NULL)
       return;
 
@@ -72,13 +72,13 @@ void TestFailureThrowsRuntimeError() {
            "but the message is incorrect.  Instead of containing \"Expected "
            "failure\", it is:\n");
     Fail(e.what());
-  } catch(...) {
+  } catch (...) {
     Fail("A failed assertion threw the wrong type of exception.");
   }
   Fail("A failed assertion should've thrown but didn't.");
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
 
   // We want to ensure that people can use Google Test assertions in

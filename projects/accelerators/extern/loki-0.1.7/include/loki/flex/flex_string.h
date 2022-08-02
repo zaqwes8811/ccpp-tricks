@@ -15,16 +15,15 @@
 
 // $Id: flex_string.h 754 2006-10-17 19:59:11Z syntheticpp $
 
-
 // <THE> string
 #include "flex_string_shell.h"
 
 // Storage policies
-#include "simplestringstorage.h"
 #include "allocatorstringstorage.h"
-#include "vectorstringstorage.h"
-#include "smallstringopt.h"
 #include "cowstringopt.h"
+#include "simplestringstorage.h"
+#include "smallstringopt.h"
+#include "vectorstringstorage.h"
 //#include "utf16encoding.h"
 
 #endif // FLEX_STRING_INC_

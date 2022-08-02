@@ -2,8 +2,8 @@
 // http://stackoverflow.com/questions/262439/create-a-wrapper-function-for-malloc-and-free-in-c
 #include <stdio.h>
 #define UNW_LOCAL_ONLY
-#include <libunwind.h>
 #include <cxxabi.h>
+#include <libunwind.h>
 
 #include <cstdio>
 #include <cstdlib>
@@ -11,7 +11,7 @@
 #include <vector>
 
 extern "C" {
-	void backtrace();
+void backtrace();
 }
 
 void backtrace() {
@@ -35,9 +35,9 @@ void backtrace() {
 
     char sym[256];
     if (unw_get_proc_name(&cursor, sym, sizeof(sym), &offset) == 0) {
-      char* nameptr = sym;
+      char *nameptr = sym;
       int status;
-      char* demangled = abi::__cxa_demangle(sym, 0, 0, &status);
+      char *demangled = abi::__cxa_demangle(sym, 0, 0, &status);
       if (status == 0) {
         nameptr = demangled;
       }
@@ -50,14 +50,13 @@ void backtrace() {
 }
 
 extern "C" {
-void* malloc(size_t sz);
+void *malloc(size_t sz);
 void free(void *p);
 }
 
-int main()
-{
-    //free(malloc(10));
-    std::vector<char> v(10);
-    std::vector<int> vi(10);
-    return 0;
+int main() {
+  // free(malloc(10));
+  std::vector<char> v(10);
+  std::vector<int> vi(10);
+  return 0;
 }

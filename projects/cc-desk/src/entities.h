@@ -52,11 +52,11 @@ public:
   TaskEntity ToEntity() const;
 
   // ctor/dtor/assign/copy
-  Task(const Task& v);
+  Task(const Task &v);
   Task();
 
   // data
-  size_t id;  // нужно какое-то не активное
+  size_t id; // нужно какое-то не активное
   std::string name;
   int priority;
   bool done;
@@ -66,15 +66,14 @@ class Tag;
 typedef gc::SharedPtr<entities::Tag> TagEntity;
 
 /**
-  \fixme должны быть уникальные по имени и при создании это нужно контролировать.
+  \fixme должны быть уникальные по имени и при создании это нужно
+  контролировать.
 */
 class Tag {
 public:
-  Tag() : id(EntityStates::kInactiveKey) { }
-  Tag(size_t _id, const std::string& name)
-    : id(_id)
-    , name(name)
-    , color("green") { }
+  Tag() : id(EntityStates::kInactiveKey) {}
+  Tag(size_t _id, const std::string &name)
+      : id(_id), name(name), color("green") {}
 
   Tag toValue() const;
 
@@ -85,5 +84,5 @@ public:
 
 typedef std::vector<entities::TaskEntity> TaskEntities;
 typedef std::vector<entities::TagEntity> TagEntities;
-}  // namespace..
+} // namespace entities
 #endif // DOMAIN_H

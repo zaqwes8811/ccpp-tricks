@@ -3,6 +3,4 @@
 
 #include <gtest/gtest.h>
 
-namespace sean1 {
-
-}
+namespace sean1 {}

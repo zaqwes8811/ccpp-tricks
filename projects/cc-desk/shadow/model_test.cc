@@ -1,29 +1,29 @@
 #include "heart/config.h"
 
-#include "model_layer/entities.h"
-#include "data_access_layer/postgresql_queries.h"  // BAD!! too low level
-#include "data_access_layer/sqlite_queries.h"
-#include "model_layer/model.h"
-#include "data_access_layer/fake_store.h"
-#include "view/renders.h"
 #include "core/concepts.h"
+#include "data_access_layer/fake_store.h"
+#include "data_access_layer/postgresql_queries.h" // BAD!! too low level
+#include "data_access_layer/sqlite_queries.h"
+#include "model_layer/entities.h"
+#include "model_layer/model.h"
+#include "view/renders.h"
 
 #include <gtest/gtest.h>
 #include <loki/ScopeGuard.h>
 
+#include <functional>
 #include <memory>
 #include <ostream>
-#include <functional>
 
 namespace {
-using std::ref;
+using entities::TaskEntities;
 using Loki::MakeObjGuard;
 using Loki::ScopeGuard;
-using pq_dal::PostgreSQLDataBase;
 using models::Model;
-using entities::TaskEntities;
-using std::cout;
+using pq_dal::PostgreSQLDataBase;
 using renders::render_task_store;
+using std::cout;
+using std::ref;
 
 TEST(AppCore, Create) {
   // make_shared получает по копии - проблема с некопируемыми объектами
@@ -35,20 +35,21 @@ TEST(AppCore, Create) {
     auto data = fake_store::get_all();
 
     // как добавить пачкой?
-    //std::for_each(data.begin(), data.end(), bind(&Model::_append, ref(*app_ptr), _1));
+    // std::for_each(data.begin(), data.end(), bind(&Model::_append,
+    // ref(*app_ptr), _1));
 
-    //renders::render_task_store(cout, *(app_ptr.get()));
+    // renders::render_task_store(cout, *(app_ptr.get()));
   }
 
   {
     Model app_ptr(pool);
     auto _ = MakeObjGuard(app_ptr, &Model::dropStore);
 
-    //renders::render_task_store(cout, *(app_ptr.get()));
+    // renders::render_task_store(cout, *(app_ptr.get()));
   }
 
   auto q = pool.getTaskTableQuery();
-  //EXPECT_THROW(q->draw(cout), pqxx::undefined_table);
+  // EXPECT_THROW(q->draw(cout), pqxx::undefined_table);
 }
 
 TEST(AppCore, UpdatePriority) {
@@ -60,21 +61,19 @@ TEST(AppCore, UpdatePriority) {
 
     // добавляем записи
     auto data = fake_store::get_all();
-    //adobe::for_each(data, bind(&Model::_append, ref(*app_ptr), _1));
+    // adobe::for_each(data, bind(&Model::_append, ref(*app_ptr), _1));
     renders::render_task_store(cout, app_ptr);
 
     // Change priority
-    //data[0]->set_priority(10);
-    //app_ptr->update(data[0]);
+    // data[0]->set_priority(10);
+    // app_ptr->update(data[0]);
     renders::render_task_store(cout, app_ptr);
   }
 
   auto q = db.getTaskTableQuery();
-  //EXPECT_THROW(q->draw(cout), pqxx::undefined_table);
+  // EXPECT_THROW(q->draw(cout), pqxx::undefined_table);
 }
 
-TEST(AppCore, SelectionByPriority) {
+TEST(AppCore, SelectionByPriority) {}
 
-}
-
-}  // namespace
+} // namespace

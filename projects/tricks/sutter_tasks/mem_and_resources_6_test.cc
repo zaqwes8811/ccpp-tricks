@@ -31,53 +31,50 @@ using std::bad_alloc;
 // ERROR: не определн new and new[]
 class B {
 public:
-    virtual ~B();
+  virtual ~B();
 
-    void operator delete(void*, size_t) throw();
+  void operator delete(void *, size_t) throw();
 
-    /*Real static*/ void operator delete[](void*, size_t) throw();
+  /*Real static*/ void operator delete[](void *, size_t) throw();
 
-    void f(void*, size_t) throw();
-
+  void f(void *, size_t) throw();
 };
 
 class D : public B {
 public:
-    void operator delete(void*) throw();
+  void operator delete(void *) throw();
 
-    void operator delete[](void*) throw();
+  void operator delete[](void *) throw();
 };
 
 // 4
 class X {
 public:
-    void* operator new(size_t s, int) throw() {
-        return ::operator new(s);
-    }
+  void *operator new(size_t s, int) throw() { return ::operator new(s); }
 };
 
 // TODO: Это типа менеджера памяти?
 class SharedMemory {
 public:
-    static void* Allocate(size_t s) {
-        return 0;  // OsSpecificSharedMemAllocation(s);
-    }
+  static void *Allocate(size_t s) {
+    return 0; // OsSpecificSharedMemAllocation(s);
+  }
 
-    static void Deallocate(void* p, int i = 0) {
-        // OsSpecificSharedMemDeallocation(p, i);
-    }
+  static void Deallocate(void *p, int i = 0) {
+    // OsSpecificSharedMemDeallocation(p, i);
+  }
 };
 
 class Y {
 public:
-    void* operator new(size_t s, SharedMemory& m) throw() {
-        return m.Allocate(s);
-    }
+  void *operator new(size_t s, SharedMemory &m) throw() {
+    return m.Allocate(s);
+  }
 
-    // Он не парный что ли?
-    void operator delete(void* p, SharedMemory& m, int i) throw() {
-        m.Deallocate(p);
-    }
+  // Он не парный что ли?
+  void operator delete(void *p, SharedMemory &m, int i) throw() {
+    m.Deallocate(p);
+  }
 };
 
 /*
@@ -91,21 +88,21 @@ void operator delete(void* p, std::nothrow_t&) throw() {
 // @Ref
 
 TEST(Sutter, DynamicMemNewDelete) {
-    //D* pd1 = new D;
-    //delete pd1;
-    //B* pb1 = new D;
-    //delete pb1;
+  // D* pd1 = new D;
+  // delete pd1;
+  // B* pb1 = new D;
+  // delete pb1;
 
-    //D* pd2 = new D[10];
-    //delete[] pd2;
+  // D* pd2 = new D[10];
+  // delete[] pd2;
 
-    // ERROR: Undefined!
-    // DANGER: не работать с массивами полиморфно! Лучше vector<> or deque<>
-    //B* pb2 = new D[10];
-    //delete[] pb2;
+  // ERROR: Undefined!
+  // DANGER: не работать с массивами полиморфно! Лучше vector<> or deque<>
+  // B* pb2 = new D[10];
+  // delete[] pb2;
 
-    //B b;
-    typedef void (B::*PWF)(void*, size_t);
-    //PWF p1 = &B::f;
-    //PWF p2 = &B::operator delete;  // delete is static by default
+  // B b;
+  typedef void (B::*PWF)(void *, size_t);
+  // PWF p1 = &B::f;
+  // PWF p2 = &B::operator delete;  // delete is static by default
 }
