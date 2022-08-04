@@ -1,6 +1,6 @@
 # https://stackoverflow.com/questions/58807225/google-benchmark-as-a-cmake-dependency
 # https://cmake.org/cmake/help/latest/command/find_package.html
-project(performance_and_rt)
+project(opt_cpp)
 cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/../cmake" CACHE STRING "Modules for CMake" FORCE)
@@ -21,6 +21,7 @@ find_package(Boost 1.51.0 REQUIRED)
 
 add_executable(opt_cpp
         ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
+        ch4_benchmark.cc
         )
 
 target_link_libraries(opt_cpp
