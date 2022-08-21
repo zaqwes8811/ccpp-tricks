@@ -3,17 +3,13 @@ include_directories(${CMAKE_SOURCE_DIR}/3rdparty/loki-0.1.7/include)
 
 add_executable(cc_core
         ${CMAKE_SOURCE_DIR}/projects/all_tests.cc
-        cc11_base_features_test.cc
         containers_test.cc
         crt_pattern_test.cc
         fun_pred_adapter_test.cc
-        high_level_opt_app.cc
-        inheritance_test.cc
         insert_remove_erase_test.cc
         iters_test.cc
         marked_guidelines_test.cc
         move_idiom_test.cc
-        named_lookup_templates_overload_test.cc
         pimpl_and_nvi_idiom_test.cc
         std_own_ext_test.cc
         stl_x64_test.cc

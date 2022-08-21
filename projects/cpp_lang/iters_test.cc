@@ -22,7 +22,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "projects/view.h"
+#include "common/view.h"
 
 using std::cout;
 using std::endl;

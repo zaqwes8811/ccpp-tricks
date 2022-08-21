@@ -6,14 +6,10 @@ add_executable(tricks
         sutter_tasks/exception_safety_test.cc
         sutter_tasks/mem_and_resources_6_test.cc
         sutter_tasks/stl_test.cc
-        sean_parent/goal_no_raw_loops_app.cc
-        sean_parent/goal_no_raw_ptrs_app.cc
-        sean_parent/goal_no_raw_sync_primitives_app.cc
-        sean_parent/inh_evil_reduce_c98_apps.cc
-        from_gotchas/ch1_test.cc
-        from_gotchas/ch5_init.cc
-        from_gotchas/ch7_poly_test.cc
-        from_gotchas/ch8.cc
+        gotchas/ch1_test.cc
+        gotchas/ch5_init.cc
+        gotchas/ch7_poly_test.cc
+        gotchas/ch8.cc
         coding_standarts/ctors_dtors_assign.cc
         )
 

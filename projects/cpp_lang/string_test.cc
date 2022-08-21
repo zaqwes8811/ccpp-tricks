@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "projects/view.h"
+#include "common/view.h"
 
 using namespace std;
 using namespace boost;

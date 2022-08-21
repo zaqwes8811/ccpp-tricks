@@ -5,7 +5,6 @@
 
 #define BOOST_THREAD_PROVIDES_FUTURE  // FIXME: bad
 
-//#include "safe_queue_cc11.h"
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/lexical_cast.hpp>
@@ -16,7 +15,7 @@
 #include <boost/weak_ptr.hpp>
 #include <string>
 
-#include "concurent_queues_pthread.h"
+#include "safe_queue_cc11.h"
 
 namespace executors {
 
@@ -97,7 +96,7 @@ public:
 //   http://www.drdobbs.com/cpp/prefer-using-futures-or-callbacks-to-com/226700179
 //   http://www.drdobbs.com/architecture-and-design/know-when-to-use-an-active-object-instea/227500074?pgno=3
 // http://www.chromium.org/developers/design-documents/threading
-class SingleWorker {
+class SerialExecutor {
 public:
     // typedefs
     typedef boost::function0<void> Callable;
@@ -107,7 +106,7 @@ public:
     // template <typename T>
     // boost::shared_ptr<boost::packaged_task<T> > Task;
 
-    SingleWorker() : m_pool(1) {}
+    SerialExecutor() : m_pool(1) {}
 
     void post(Callable task) { m_pool.add(task); }
 
@@ -117,7 +116,7 @@ public:
         boost::packaged_task<std::string> t(&getCurrentThreadId);
         boost::future<std::string> f = t.get_future();
 
-        SingleWorker::Callable pkg = boost::bind(&boost::packaged_task<std::string>::operator(), boost::ref(t));
+        SerialExecutor::Callable pkg = boost::bind(&boost::packaged_task<std::string>::operator(), boost::ref(t));
         post(pkg);
 
         return f.get();

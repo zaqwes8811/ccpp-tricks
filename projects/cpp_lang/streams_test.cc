@@ -8,7 +8,7 @@
 #include <boost/unordered_set.hpp>
 #include <typeinfo>
 
-#include "projects/view.h"
+#include "common/view.h"
 //#include <ext/hash_set>
 
 #include <algorithm>
