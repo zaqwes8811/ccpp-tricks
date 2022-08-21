@@ -1,5 +1,0 @@
-imperative prog
-fprogr
-logic
-
-// oop 
