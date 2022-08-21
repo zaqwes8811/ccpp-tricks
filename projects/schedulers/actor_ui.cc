@@ -58,4 +58,4 @@ namespace actors {
 //   thd->join();
 // }
 
-} // namespace actors
+}  // namespace actors

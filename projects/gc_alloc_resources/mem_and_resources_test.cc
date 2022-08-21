@@ -36,15 +36,14 @@
 // - можно передвать *this
 // - метод можно вызывать с аргументами
 
+#include <gtest/gtest.h>
+#include <loki/ScopeGuard.h>
 #include <stdio.h>
 
 #include <algorithm>
 #include <iostream>
-#include <new> // for placement new
+#include <new>  // for placement new
 #include <vector>
-
-#include <gtest/gtest.h>
-#include <loki/ScopeGuard.h>
 
 using std::cout;
 using std::endl;
@@ -91,124 +90,123 @@ using std::vector;
 
 class matrix {
 public:
-  matrix(int r = 2, int c = 2) {
-    nrows_ = r;
-    ncols_ = c;
-    m_ = new double[r * c];
-  }
-
-  double get(int r, int c) const { return m_[r * ncols_ + c]; }
-
-  void put(int r, int c, double d) { m_[r * ncols_ + c] = d; }
-
-  // Step 1: add dctor - if copy - Error(gcc): double free or corruption (top):
-  // Sln: disable copy
-  ~matrix() { delete[] m_; }
-
-  // Step 2: add copy ctor
-  int rget() const { return nrows_; }
-  int cget() const { return ncols_; }
-  // http://stackoverflow.com/questions/4153527/explicit-copy-constructor-behavior-and-pratical-uses
-  // http://stackoverflow.com/questions/11480545/explicit-copy-constructor
-  /*explicit*/ matrix(const matrix &mc) {
-    cout << "Call copy ctor" << endl;
-    nrows_ = mc.rget();
-    ncols_ = mc.cget();
-    m_ = new double[nrows_ * ncols_];
-    // TODO: fill
-  }
-
-  // Step 4: assign operator
-  // if not impl.: on assign - Error: double free or corruption (top)
-  // void // Step 6
-  // DANGER:
-  // http://stackoverflow.com/questions/752658/is-the-practice-of-returning-a-c-reference-variable-evil
-  // http://stackoverflow.com/questions/15968226/returning-tmp-using-references-behaving-differently
-  // http://www.thecodingforums.com/threads/return-reference-to-local-variable.285367/
-  // !!!http://bytes.com/topic/c/answers/491692-safe-return-local-object
-  // Ссылки на лок. пер. возвр. нельзя. Для объектов можно в нек. случаях, но
-  // вообще возвращение ссылок на внутренние объекты классов нарушает
-  // инкпасуляцию.
-  //
-  // https://isocpp.org/wiki/faq/references
-  //
-  matrix & // есть еще одно копирование - да вроде бы нет.
-  operator=(const matrix &mc) {
-    cout << "Call assign operator" << endl;
-    // Step 5:
-    if (this != &mc) { // хоть передан по ссылке, но адрес взять можно
-      // cout << "Call assign operator real" << endl;
-      delete[] m_; // a = a - work but...
-      nrows_ = mc.rget();
-      ncols_ = mc.cget();
-      m_ = new double[nrows_ * ncols_];
-      // TODO: fill
+    matrix(int r = 2, int c = 2) {
+        nrows_ = r;
+        ncols_ = c;
+        m_ = new double[r * c];
     }
 
-    // Step 6: if chained - Runtime Error(gcc): The program has unexpectedly
-    // finished.
-    return *this; // !!
-  }
+    double get(int r, int c) const { return m_[r * ncols_ + c]; }
 
-  /// Other operators
-  //==
+    void put(int r, int c, double d) { m_[r * ncols_ + c] = d; }
+
+    // Step 1: add dctor - if copy - Error(gcc): double free or corruption (top):
+    // Sln: disable copy
+    ~matrix() { delete[] m_; }
+
+    // Step 2: add copy ctor
+    int rget() const { return nrows_; }
+    int cget() const { return ncols_; }
+    // http://stackoverflow.com/questions/4153527/explicit-copy-constructor-behavior-and-pratical-uses
+    // http://stackoverflow.com/questions/11480545/explicit-copy-constructor
+    /*explicit*/ matrix(const matrix &mc) {
+        cout << "Call copy ctor" << endl;
+        nrows_ = mc.rget();
+        ncols_ = mc.cget();
+        m_ = new double[nrows_ * ncols_];
+        // TODO: fill
+    }
+
+    // Step 4: assign operator
+    // if not impl.: on assign - Error: double free or corruption (top)
+    // void // Step 6
+    // DANGER:
+    // http://stackoverflow.com/questions/752658/is-the-practice-of-returning-a-c-reference-variable-evil
+    // http://stackoverflow.com/questions/15968226/returning-tmp-using-references-behaving-differently
+    // http://www.thecodingforums.com/threads/return-reference-to-local-variable.285367/
+    // !!!http://bytes.com/topic/c/answers/491692-safe-return-local-object
+    // Ссылки на лок. пер. возвр. нельзя. Для объектов можно в нек. случаях, но
+    // вообще возвращение ссылок на внутренние объекты классов нарушает
+    // инкпасуляцию.
+    //
+    // https://isocpp.org/wiki/faq/references
+    //
+    matrix &  // есть еще одно копирование - да вроде бы нет.
+    operator=(const matrix &mc) {
+        cout << "Call assign operator" << endl;
+        // Step 5:
+        if (this != &mc) {  // хоть передан по ссылке, но адрес взять можно
+            // cout << "Call assign operator real" << endl;
+            delete[] m_;  // a = a - work but...
+            nrows_ = mc.rget();
+            ncols_ = mc.cget();
+            m_ = new double[nrows_ * ncols_];
+            // TODO: fill
+        }
+
+        // Step 6: if chained - Runtime Error(gcc): The program has unexpectedly
+        // finished.
+        return *this;  // !!
+    }
+
+    /// Other operators
+    //==
 
 private:
-  int nrows_;
-  int ncols_;
-  double *m_;
+    int nrows_;
+    int ncols_;
+    double *m_;
 
-  // TODO: disable copy and assign
+    // TODO: disable copy and assign
 };
 
 class holder {
 public:
-  holder() {}
-  const matrix &get() const { return mat_; }
+    holder() {}
+    const matrix &get() const { return mat_; }
 
 private:
-  matrix mat_;
+    matrix mat_;
 
-  // disable copy and assign
-  holder(const holder &h);
-  holder &operator=(const holder &h);
+    // disable copy and assign
+    holder(const holder &h);
+    holder &operator=(const holder &h);
 };
 
 void foo(matrix mat) {}
 
 TEST(Resources, CopyAndAssign) {
-  matrix darray(10, 20);
-  for (int i = 0; i < 10; ++i)
-    for (int j = 0; j < 20; j++)
-      darray.put(i, j, i * j);
-  foo(darray);
+    matrix darray(10, 20);
+    for (int i = 0; i < 10; ++i)
+        for (int j = 0; j < 20; j++) darray.put(i, j, i * j);
+    foo(darray);
 
-  // Step 3: on assign call copy ctor?
-  matrix a = darray; // copy ctor !при создании!
-  matrix b(a);       // copy ctor
+    // Step 3: on assign call copy ctor?
+    matrix a = darray;  // copy ctor !при создании!
+    matrix b(a);        // copy ctor
 
-  // Step 4
-  matrix c;
-  c = a;
+    // Step 4
+    matrix c;
+    c = a;
 
-  // Step 5
-  c = c; // work but...
-  c.put(1, 1, 9);
+    // Step 5
+    c = c;  // work but...
+    c.put(1, 1, 9);
 
-  // Step 6
-  b = a = c;
+    // Step 6
+    b = a = c;
 
-  // New Step 7:
-  cout << "Step 7\n";
-  holder h;
-  // holder y = h;  // not compiled
-  holder y;
-  // y = h;  // not compiled
-  b = h.get();                   // assign
-  matrix d = h.get();            // copy ctor
-  const matrix &ref_d = h.get(); // а ничего не вызывает
-  b = (ref_d);                   // assign
-  const matrix k(ref_d);         // copy ctor
+    // New Step 7:
+    cout << "Step 7\n";
+    holder h;
+    // holder y = h;  // not compiled
+    holder y;
+    // y = h;  // not compiled
+    b = h.get();                    // assign
+    matrix d = h.get();             // copy ctor
+    const matrix &ref_d = h.get();  // а ничего не вызывает
+    b = (ref_d);                    // assign
+    const matrix k(ref_d);          // copy ctor
 }
 
 // TODO:
@@ -217,124 +215,124 @@ TEST(Resources, CopyAndAssign) {
 // http://gotw.ca/gotw/059.htm
 // http://www.gotw.ca/gotw/059.htm
 class person {
-  char *name;
-  int age;
+    char *name;
+    int age;
 
 public:
-  // the constructor acquires a resource:
-  // in this case, dynamic memory obtained via new[]
-  person(const char *the_name, int the_age) {
-    name = new char[strlen(the_name) + 1];
-    strcpy(name, the_name);
-    age = the_age;
-  }
-
-  // the destructor must release this resource via delete[]
-  ~person() { delete[] name; }
-
-  // 1. copy constructor
-  person(const person &that) {
-    name = new char[strlen(that.name) + 1];
-    strcpy(name, that.name);
-    age = that.age;
-  }
-
-  // 2. copy assignment operator
-  person &operator=(const person &that) {
-    if (this != &that) {
-      delete[] name;
-      // DANGER!!
-      // This is a dangerous point in the flow of execution!
-      // We have temporarily invalidated the class invariants,
-      // and the next statement might throw an exception,
-      // leaving the object in an invalid state :(
-      name = new char[strlen(that.name) + 1];
-      strcpy(name, that.name);
-      age = that.age;
+    // the constructor acquires a resource:
+    // in this case, dynamic memory obtained via new[]
+    person(const char *the_name, int the_age) {
+        name = new char[strlen(the_name) + 1];
+        strcpy(name, the_name);
+        age = the_age;
     }
-    return *this;
-  }
 
-  /*
-// 2. copy assignment operator
-  person& operator=(const person& that)
-  {
-      char* local_name = new char[strlen(that.name) + 1];
-      // If the above statement throws,
-      // the object is still in the same state as before.
-      // None of the following statements will throw an exception :)
-      strcpy(local_name, that.name);
-      delete[] name;
-      name = local_name;
-      age = that.age;
-      return *this;
-  }
-*/
+    // the destructor must release this resource via delete[]
+    ~person() { delete[] name; }
+
+    // 1. copy constructor
+    person(const person &that) {
+        name = new char[strlen(that.name) + 1];
+        strcpy(name, that.name);
+        age = that.age;
+    }
+
+    // 2. copy assignment operator
+    person &operator=(const person &that) {
+        if (this != &that) {
+            delete[] name;
+            // DANGER!!
+            // This is a dangerous point in the flow of execution!
+            // We have temporarily invalidated the class invariants,
+            // and the next statement might throw an exception,
+            // leaving the object in an invalid state :(
+            name = new char[strlen(that.name) + 1];
+            strcpy(name, that.name);
+            age = that.age;
+        }
+        return *this;
+    }
+
+    /*
+  // 2. copy assignment operator
+    person& operator=(const person& that)
+    {
+        char* local_name = new char[strlen(that.name) + 1];
+        // If the above statement throws,
+        // the object is still in the same state as before.
+        // None of the following statements will throw an exception :)
+        strcpy(local_name, that.name);
+        delete[] name;
+        name = local_name;
+        age = that.age;
+        return *this;
+    }
+  */
 };
 
 // http://stackoverflow.com/questions/25147667/clang-produces-illegal-instruction-where-gcc-doesnt
 int my_fclose(FILE *stream) {
-  if (stream)
-    return fclose(stream);
-  return NULL; // !!!
+    if (stream) return fclose(stream);
+    return NULL;  // !!!
 }
 
-template <typename T> void del_array(T *p) {
-  cout << "array deleter\n";
-  delete[] p;
+template <typename T>
+void del_array(T *p) {
+    cout << "array deleter\n";
+    delete[] p;
 }
 
 TEST(Resources, ScopedGuard) {
-  // http://loki-lib.sourceforge.net/index.php?n=Main.Policy-basedDesign
-  // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=2
-  //
-  // x64 trouble? http://www.viva64.com/en/a/0049/
-  // using Loki::ScopeGuard;
-  // using Loki::MakeGuard;
+    // http://loki-lib.sourceforge.net/index.php?n=Main.Policy-basedDesign
+    // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=2
+    //
+    // x64 trouble? http://www.viva64.com/en/a/0049/
+    // using Loki::ScopeGuard;
+    // using Loki::MakeGuard;
 
-  // http://stackoverflow.com/questions/16922871/why-glibcs-fclosenull-cause-segmentation-fault-instead-of-returning-error
-  FILE *topSecret = fopen("_cia.txt", "r"); // failed if file not founded
-  EXPECT_TRUE(topSecret == NULL);
+    // http://stackoverflow.com/questions/16922871/why-glibcs-fclosenull-cause-segmentation-fault-instead-of-returning-error
+    FILE *topSecret = fopen("_cia.txt", "r");  // failed if file not founded
+    EXPECT_TRUE(topSecret == NULL);
 
-  // Illegal instruction (core dumped) - clang-3.4
-  int *p = new int[10];
-  Loki::ScopeGuard g = Loki::MakeGuard(del_array<int>, p);
-  Loki::ScopeGuard closeIt = Loki::MakeGuard(&my_fclose,
-                                             //&::fclose,  // failed
-                                             topSecret);
+    // Illegal instruction (core dumped) - clang-3.4
+    int *p = new int[10];
+    Loki::ScopeGuard g = Loki::MakeGuard(del_array<int>, p);
+    Loki::ScopeGuard closeIt = Loki::MakeGuard(&my_fclose,
+                                               //&::fclose,  // failed
+                                               topSecret);
 
-  // ...do someting...
+    // ...do someting...
 
-  // Помечаем, что действия откатывать не нужно, все прошло хорошо.
-  // Но иногда это не нужно.
-  // closeIt.Dismiss();  // not need?
+    // Помечаем, что действия откатывать не нужно, все прошло хорошо.
+    // Но иногда это не нужно.
+    // closeIt.Dismiss();  // not need?
 }
 
 TEST(Resources, Guards) {
-  // Проблема в том, что хотелось бы не использовать Loki.
-  // Можно использовать smart_ptrs у функциями удаления, но не у всех есть такая
-  // особенность. shared_ptrs лучше для этого не использовать. C+11 - есть Qt -
-  // есть
+    // Проблема в том, что хотелось бы не использовать Loki.
+    // Можно использовать smart_ptrs у функциями удаления, но не у всех есть такая
+    // особенность. shared_ptrs лучше для этого не использовать. C+11 - есть Qt -
+    // есть
 }
 
 TEST(Resources, SafeMakeSetArrays) {
-  // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=3
-  // http://loki-lib.sourceforge.net/index.php?n=Idioms.ScopeGuardPointer
-  try {
-    /// MayThrow
-    int *p = new int[10];
-    Loki::ScopeGuard g = Loki::MakeGuard(del_array<int>, p);
-    double *table = new double[9];
-    Loki::ScopeGuard t = Loki::MakeGuard(del_array<double>, table);
-    throw 0;
-    // throw 0;
+    // http://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758?pgno=3
+    // http://loki-lib.sourceforge.net/index.php?n=Idioms.ScopeGuardPointer
+    try {
+        /// MayThrow
+        int *p = new int[10];
+        Loki::ScopeGuard g = Loki::MakeGuard(del_array<int>, p);
+        double *table = new double[9];
+        Loki::ScopeGuard t = Loki::MakeGuard(del_array<double>, table);
+        throw 0;
+        // throw 0;
 
-    /// NoThrow
-    // g.Dismiss();  // не удаляет
+        /// NoThrow
+        // g.Dismiss();  // не удаляет
 
-    // int* pp = //g.SafeExecute()
-    int *p_state_ = p;
-    // std::swap(p, p_new);
-  } catch (...) {
-  }
+        // int* pp = //g.SafeExecute()
+        int *p_state_ = p;
+        // std::swap(p, p_new);
+    } catch (...) {
+    }
 }

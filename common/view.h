@@ -1,68 +1,64 @@
 #ifndef REUSE_VIEW_H_
 #define REUSE_VIEW_H_
 
+#include <algorithm>
 #include <boost/shared_ptr.hpp>
-
+#include <iostream>
 #include <list>
+#include <ostream>
 #include <vector>
 
-#include <algorithm>
-#include <iostream>
-#include <ostream>
-
 namespace view {
-template <typename T> class Action {
+template <typename T>
+class Action {
 public:
-  explicit Action(std::ostream *o_) : o(o_) {}
-  void operator()(const T &elem) const { *o << elem << ", "; }
-  std::ostream *const o;
+    explicit Action(std::ostream *o_) : o(o_) {}
+    void operator()(const T &elem) const { *o << elem << ", "; }
+    std::ostream *const o;
 };
 
-template <typename T> class ActionSmart {
+template <typename T>
+class ActionSmart {
 public:
-  explicit ActionSmart(std::ostream *o_) : o(o_) {}
-  void operator()(const boost::shared_ptr<T> &elem) const {
-    *o << *elem << ", ";
-  }
-  std::ostream *const o;
+    explicit ActionSmart(std::ostream *o_) : o(o_) {}
+    void operator()(const boost::shared_ptr<T> &elem) const { *o << *elem << ", "; }
+    std::ostream *const o;
 };
 
 template <typename T>
 std::ostream &operator<<(std::ostream &o, const std::vector<T> &a) {
-  std::for_each(a.begin(), a.end(), Action<T>(&o));
-  o << std::endl;
-  return o;
+    std::for_each(a.begin(), a.end(), Action<T>(&o));
+    o << std::endl;
+    return o;
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &o,
-                         const std::vector<boost::shared_ptr<T>> &a) {
-  std::for_each(a.begin(), a.end(), ActionSmart<T>(&o));
-  o << std::endl;
-  return o;
+std::ostream &operator<<(std::ostream &o, const std::vector<boost::shared_ptr<T>> &a) {
+    std::for_each(a.begin(), a.end(), ActionSmart<T>(&o));
+    o << std::endl;
+    return o;
 }
 
 template <typename T>
 std::ostream &operator<<(std::ostream &o, const std::list<T> &a) {
-  std::for_each(a.begin(), a.end(), Action<T>(&o));
-  o << std::endl;
-  return o;
+    std::for_each(a.begin(), a.end(), Action<T>(&o));
+    o << std::endl;
+    return o;
 }
 
 template <class T>
 inline void print_elems(const T &coll, const char *optcstr = "") {
-  typename T::const_iterator pos;
-  std::cout << optcstr;
-  for (pos = coll.begin(); pos != coll.end(); ++pos)
-    std::cout << *pos << ' ';
-  std::cout << std::endl;
+    typename T::const_iterator pos;
+    std::cout << optcstr;
+    for (pos = coll.begin(); pos != coll.end(); ++pos) std::cout << *pos << ' ';
+    std::cout << std::endl;
 }
 
-template <class T> inline void insert_elems(T &coll, int first, int last) {
-  for (int i = first; i <= last; ++i)
-    coll.insert(coll.end(), i);
+template <class T>
+inline void insert_elems(T &coll, int first, int last) {
+    for (int i = first; i <= last; ++i) coll.insert(coll.end(), i);
 }
 
-} // namespace view
+}  // namespace view
 
-#endif // REUSE_VIEW_H_
+#endif  // REUSE_VIEW_H_

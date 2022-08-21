@@ -353,51 +353,49 @@ auto async(F&& f, Args&&... args) {
 using namespace stlab;
 
 int main() {
-  // http://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0701r0.html
+    // http://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0701r0.html
 
-  //	//
-  //https://calcul.math.cnrs.fr/attachments/spip/Documents/Journees/janv2017/parallelism_in_cpp_sc15.pdf
-  //	future<int> x = async([] {return 100;});
-  //	future<int> y = x.then([](const int& x) {return x * 2;});
-  ////	y.wait();
-  //	cout << y.get() << endl;
+    //	//
+    // https://calcul.math.cnrs.fr/attachments/spip/Documents/Journees/janv2017/parallelism_in_cpp_sc15.pdf
+    //	future<int> x = async([] {return 100;});
+    //	future<int> y = x.then([](const int& x) {return x * 2;});
+    ////	y.wait();
+    //	cout << y.get() << endl;
 
-  future<int> argument1 = async(default_executor, [] { return 42; });
-  future<int> argument2 = async(default_executor, [] { return 815; });
+    future<int> argument1 = async(default_executor, [] { return 42; });
+    future<int> argument2 = async(default_executor, [] { return 815; });
 
-  auto result = when_any(
-      default_executor,
-      [](int x, std::size_t index) {
-        cout << "The current result is " << x << " " << index << '\n';
-      },
-      argument1, argument2);
+    auto result = when_any(
+        default_executor,
+        [](int x, std::size_t index) { cout << "The current result is " << x << " " << index << '\n'; }, argument1,
+        argument2);
 
-  // Waiting just for illustration purpose
-  while (!result.get_try()) {
-    this_thread::sleep_for(chrono::milliseconds(1));
-  }
+    // Waiting just for illustration purpose
+    while (!result.get_try()) {
+        this_thread::sleep_for(chrono::milliseconds(1));
+    }
 
-  size_t p = 0;
-  size_t r = 0;
-  std::vector<stlab::future<int>> futures;
-  futures.push_back(async(default_executor, [] { return 1; }));
-  futures.push_back(async(default_executor, [] { return 2; }));
-  futures.push_back(async(default_executor, [] { return 3; }));
-  futures.push_back(async(default_executor, [] { return 5; }));
+    size_t p = 0;
+    size_t r = 0;
+    std::vector<stlab::future<int>> futures;
+    futures.push_back(async(default_executor, [] { return 1; }));
+    futures.push_back(async(default_executor, [] { return 2; }));
+    futures.push_back(async(default_executor, [] { return 3; }));
+    futures.push_back(async(default_executor, [] { return 5; }));
 
-  auto sut = when_all(
-      default_executor,
-      [&_p = p, &_r = r](std::vector<int> v) {
-        _p = v.size();
-        for (auto i : v) {
-          _r += i;
-        }
-      },
-      std::make_pair(futures.begin(), futures.end()));
+    auto sut = when_all(
+        default_executor,
+        [&_p = p, &_r = r](std::vector<int> v) {
+            _p = v.size();
+            for (auto i : v) {
+                _r += i;
+            }
+        },
+        std::make_pair(futures.begin(), futures.end()));
 
-  while (!sut.get_try()) {
-    this_thread::sleep_for(chrono::milliseconds(1));
-  }
+    while (!sut.get_try()) {
+        this_thread::sleep_for(chrono::milliseconds(1));
+    }
 
-  cout << p << " " << r << endl;
+    cout << p << " " << r << endl;
 }

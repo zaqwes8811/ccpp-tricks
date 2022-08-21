@@ -14,30 +14,31 @@ namespace detail {
   \attention тогда и модель становится шаблоном, а значит код выносится в
   заголовки
 */
-template <typename V> class ModelListener_templ {
+template <typename V>
+class ModelListener_templ {
 public:
-  ModelListener_templ(V *const view) : m_viewRawPtr(view) {}
+    ModelListener_templ(V *const view) : m_viewRawPtr(view) {}
 
-  void update() {}
+    void update() {}
 
 private:
-  V *const m_viewRawPtr;
+    V *const m_viewRawPtr;
 };
-} // namespace detail
+}  // namespace detail
 
 class ModelListener {
 public:
-  virtual ~ModelListener() {}
-  void update(entities::TaskEntities m) { do_update(m); }
+    virtual ~ModelListener() {}
+    void update(entities::TaskEntities m) { do_update(m); }
 
-  virtual void DrawErrorMessage(const std::string &message) = 0;
+    virtual void DrawErrorMessage(const std::string &message) = 0;
 
 private:
-  virtual void do_update(entities::TaskEntities m) = 0;
+    virtual void do_update(entities::TaskEntities m) = 0;
 };
 
 typedef gc::SharedPtr<isolation::ModelListener> ModelListenerPtr;
 
-} // namespace isolation
+}  // namespace isolation
 
-#endif // ISOLATION_H
+#endif  // ISOLATION_H

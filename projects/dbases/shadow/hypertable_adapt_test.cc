@@ -1,8 +1,8 @@
 // exc, errors and logging - hard coupled
 //
-#include "heart/config.h"
-
 #include <gtest/gtest.h>
+
+#include "heart/config.h"
 
 //#include <cstdint>  // c++11
 
@@ -17,5 +17,5 @@
 
 // using namespace ::Hypertable;  // нужно для макросов
 TEST(HTTest, Assert) {
-  // HT_ASSERT(false);
+    // HT_ASSERT(false);
 }

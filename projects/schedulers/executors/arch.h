@@ -1,13 +1,12 @@
 #ifndef AAW_ARCH_H_
 #define AAW_ARCH_H_
 
-#include "actors_cc98.h"
-
-#include <boost/shared_ptr.hpp>
-
 #include <algorithm>
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
+
+#include "actors_cc98.h"
 
 #ifndef FROM_HERE
 #define FROM_HERE ""
@@ -17,33 +16,31 @@
 // Static and global - lifetime troubles
 class Threads {
 public:
-  enum Ids { DB };
+    enum Ids { DB };
 
-  static void post(Ids id, SingleWorker::Callable fun);
+    static void post(Ids id, SingleWorker::Callable fun);
 
 private:
-  static std::string decodeId(Ids id) {
-    std::map<int, std::string> m;
-    m[DB] = dbId();
+    static std::string decodeId(Ids id) {
+        std::map<int, std::string> m;
+        m[DB] = dbId();
 
-    if (m.find(id) == m.end())
-      throw std::runtime_error(FROM_HERE);
+        if (m.find(id) == m.end()) throw std::runtime_error(FROM_HERE);
 
-    return m[id];
-  }
+        return m[id];
+    }
 
-  static std::string dbId() {
-    auto p = get().lock();
-    if (!p)
-      throw std::runtime_error(FROM_HERE);
-    return p->getId();
-  }
+    static std::string dbId() {
+        auto p = get().lock();
+        if (!p) throw std::runtime_error(FROM_HERE);
+        return p->getId();
+    }
 
-  Threads();
+    Threads();
 
-  static std::shared_ptr<SingleWorker> s_dbWorker; // make weak access
+    static std::shared_ptr<SingleWorker> s_dbWorker;  // make weak access
 
-  static std::weak_ptr<SingleWorker> get() { return s_dbWorker; }
+    static std::weak_ptr<SingleWorker> get() { return s_dbWorker; }
 };
 
 #endif

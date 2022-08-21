@@ -12,13 +12,11 @@
 
 #include <gtest/gtest.h>
 
-TEST(LlvmDataStructuresTest, SmallVector) {
-  auto sv = llvm::SmallVector<int, 4>();
-}
+TEST(LlvmDataStructuresTest, SmallVector) { auto sv = llvm::SmallVector<int, 4>(); }
 
 TEST(LlvmDataStructuresTest, DenseMap) { auto sv = llvm::DenseMap<int, int>(); }
 
 TEST(LlvmDataStructuresTest, ImmutableMap) {
-  //    auto sv = llvm::ImmutableMap<int, int>({1, 1});  // Need lot of code to
-  //    link
+    //    auto sv = llvm::ImmutableMap<int, int>({1, 1});  // Need lot of code to
+    //    link
 }

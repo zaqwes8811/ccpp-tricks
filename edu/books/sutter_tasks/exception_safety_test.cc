@@ -35,11 +35,11 @@
 // impl swap? pimpl?
 //   конструктор, констр. копирования и опер. присв. могут бросать исключения.
 
+#include <gtest/gtest.h>
+
 #include <algorithm>
 #include <iostream>
 #include <stdexcept>
-
-#include <gtest/gtest.h>
 
 using std::cout;
 using std::logic_error;
@@ -61,38 +61,38 @@ using std::logic_error;
 
 class Session {
 public:
-  // Inner class:
-  // http://bytes.com/topic/c/answers/133914-static-nested-class
-  // http://stackoverflow.com/questions/3846696/nested-classes-c-static-inner-methods-xml-parsing-and-trying-to-populate-vect
-  //
-  // Inh.:
-  // http://stackoverflow.com/questions/15777635/c-calling-base-class-constructors
-  /*static*/ class OpenFailed : public logic_error {
-  public:
-    OpenFailed() : logic_error("") {}
-  };
+    // Inner class:
+    // http://bytes.com/topic/c/answers/133914-static-nested-class
+    // http://stackoverflow.com/questions/3846696/nested-classes-c-static-inner-methods-xml-parsing-and-trying-to-populate-vect
+    //
+    // Inh.:
+    // http://stackoverflow.com/questions/15777635/c-calling-base-class-constructors
+    /*static*/ class OpenFailed : public logic_error {
+    public:
+        OpenFailed() : logic_error("") {}
+    };
 
-  // Throws: OpenFailed
-  void Open() {}
+    // Throws: OpenFailed
+    void Open() {}
 };
 
 TEST(Sutter, ExceptionBase) { Session::OpenFailed error(); }
 
 TEST(Sutter, Stack) {
-  // перенесен в структуры данных
+    // перенесен в структуры данных
 }
 
 // TODO: Exception on construction
 // http://www.gotw.ca/gotw/066.htm
 // http://herbsutter.com/2008/07/25/constructor-exceptions-in-c-c-and-java/
 TEST(Sutter, ExcConstr) {
-  {
-    int(1);
-    // http://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=199
-    const int &perch = int(1);
+    {
+        int(1);
+        // http://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=199
+        const int &perch = int(1);
 
-    // ... more code; at this point, only the first
-    // temporary object is pushing up daisies ...
-  }
-  // Get it? It's a lifetime-of-temporaries-bound-to-references joke
+        // ... more code; at this point, only the first
+        // temporary object is pushing up daisies ...
+    }
+    // Get it? It's a lifetime-of-temporaries-bound-to-references joke
 }

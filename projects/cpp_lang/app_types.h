@@ -18,6 +18,6 @@ using WeakPtr = std
 // Trouble with xxx::make_shared<T>
 //   http://stackoverflow.com/questions/19572512/c11-template-function-aliases-vs-wrappers
 
-} // namespace gc
+}  // namespace gc
 
-#endif // CANARY_APP_TYPES_H
+#endif  // CANARY_APP_TYPES_H

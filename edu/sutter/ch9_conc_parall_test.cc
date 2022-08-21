@@ -24,35 +24,35 @@
 #include <future>
 */
 
+#include <gtest/gtest.h>
+
 #include "tbb/task.h"
 #include "tbb/task_scheduler_init.h"
-
-#include <gtest/gtest.h>
 
 using namespace std;
 
 // No locks, thread -> task
 TEST(SeanParent, NoRawSync) {
-  // async
-  // Libs:
-  // PPL(MS), libdispatch(Apple), TBB
+    // async
+    // Libs:
+    // PPL(MS), libdispatch(Apple), TBB
 }
 
 int f(int x, int y) { return x; }
 
 // C++11 acync http://www.drdobbs.com/cpp/c11s-async-template/240001196
 TEST(TBB, AsyncTry) {
-  // ParallelFib(25);
-  int x = 0;
-  int y = 0;
-  // auto result = async([=] { return f(x, y); });
+    // ParallelFib(25);
+    int x = 0;
+    int y = 0;
+    // auto result = async([=] { return f(x, y); });
 
-  // time...
-  // int res = result.get();
+    // time...
+    // int res = result.get();
 
-  // http://stackoverflow.com/questions/22597948/using-boostfuture-with-then-continuations
-  // TODO; это типа зависимые задачи?
-  // result.then([](int r) { cout << r << endl;});  // missing
+    // http://stackoverflow.com/questions/22597948/using-boostfuture-with-then-continuations
+    // TODO; это типа зависимые задачи?
+    // result.then([](int r) { cout << r << endl;});  // missing
 }
 
 // Wrappers type

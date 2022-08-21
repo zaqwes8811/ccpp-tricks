@@ -12,17 +12,16 @@
 //
 // Trouble: десереализация - есть немного в комментах
 
+#include <gtest/gtest.h>
+
 #include <algorithm>
+#include <boost/make_shared.hpp>
+#include <boost/shared_ptr.hpp>
 #include <iostream>
 #include <memory>
 #include <string>
+#include <typeinfo>  // не хотелось бы включать, но похоже нужно
 #include <vector>
-
-#include <typeinfo> // не хотелось бы включать, но похоже нужно
-
-#include <boost/make_shared.hpp>
-#include <boost/shared_ptr.hpp>
-#include <gtest/gtest.h>
 
 using std::cout;
 using std::endl;
@@ -34,123 +33,117 @@ using std::vector;
 using std::move;
 
 namespace step0 {
-using object_t = int; // step 2
+using object_t = int;  // step 2
 }
 
 namespace step1 {
 void draw(const int &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 // step 3: remove
 class object_t {
 public:
-  object_t(const int &x) : self_(x) {}
+    object_t(const int &x) : self_(x) {}
 
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    draw(x.self_, out, position);
-  }
+    friend void draw(const object_t &x, ostream &out, size_t position) { draw(x.self_, out, position); }
 
 private:
-  int self_;
+    int self_;
 };
-} // namespace step1
+}  // namespace step1
 
 namespace step2 {
 void draw(const int &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 class object_t {
 public:
-  object_t(const int &x) : self_(new int_model_t(x)) {}
+    object_t(const int &x) : self_(new int_model_t(x)) {}
 
-  object_t(const object_t &x)
-      : self_(new int_model_t(*x.self_)) {
-  } // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+    object_t(const object_t &x)
+        : self_(new int_model_t(*x.self_)) {
+    }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
-  object_t &operator=(const object_t &x) {
-    object_t tmp(x);
-    self_ = std::move(tmp.self_);
-    // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
-    return *this;
-  }
-
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    x.self_->draw_(out, position);
-  } // разрешаем доступ к закрытым частям
-
-private:
-  struct int_model_t {
-    int_model_t(const int &x) : data_(x) {}
-    void draw_(ostream &out, size_t position) const {
-      draw(data_, out, position);
+    object_t &operator=(const object_t &x) {
+        object_t tmp(x);
+        self_ = std::move(tmp.self_);
+        // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+        return *this;
     }
 
-    int data_;
-  };
-  std::unique_ptr<int_model_t> self_;
+    friend void draw(const object_t &x, ostream &out, size_t position) {
+        x.self_->draw_(out, position);
+    }  // разрешаем доступ к закрытым частям
+
+private:
+    struct int_model_t {
+        int_model_t(const int &x) : data_(x) {}
+        void draw_(ostream &out, size_t position) const { draw(data_, out, position); }
+
+        int data_;
+    };
+    std::unique_ptr<int_model_t> self_;
 };
-} // namespace step2
+}  // namespace step2
 
 namespace step3 {
 void draw(const int &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 class object_t {
 public:
-  object_t(const int &x) : self_(new int_model_t(x)) { cout << "ctor\n"; }
+    object_t(const int &x) : self_(new int_model_t(x)) { cout << "ctor\n"; }
 
-  object_t(const object_t &x) : self_(new int_model_t(*x.self_)) {
-    cout << "copy\n";
-  } // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+    object_t(const object_t &x) : self_(new int_model_t(*x.self_)) {
+        cout << "copy\n";
+    }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
-  // Speed up
-  object_t(object_t &&) noexcept = default;
+    // Speed up
+    object_t(object_t &&) noexcept = default;
 
-  object_t &operator=(const object_t &x) {
-    object_t tmp(x);
-    *this = std::move(tmp); // if no move assign progr. is failed
-    // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
-    return *this;
-  }
-  object_t &operator=(object_t &&) noexcept = default; // Need it!
+    object_t &operator=(const object_t &x) {
+        object_t tmp(x);
+        *this = std::move(tmp);  // if no move assign progr. is failed
+        // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+        return *this;
+    }
+    object_t &operator=(object_t &&) noexcept = default;  // Need it!
 
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    x.self_->draw_(out, position);
-  } // разрешаем доступ к закрытым частям
+    friend void draw(const object_t &x, ostream &out, size_t position) {
+        x.self_->draw_(out, position);
+    }  // разрешаем доступ к закрытым частям
 
 private:
-  struct int_model_t {
-    int_model_t(const int &x) : data_(x) {}
-    void draw_(ostream &out, size_t position) const {
-      draw(data_, out, position);
-    }
+    struct int_model_t {
+        int_model_t(const int &x) : data_(x) {}
+        void draw_(ostream &out, size_t position) const { draw(data_, out, position); }
 
-    int data_;
-  };
-  std::unique_ptr<int_model_t> self_;
+        int data_;
+    };
+    std::unique_ptr<int_model_t> self_;
 };
-} // namespace step3
+}  // namespace step3
 
 namespace step4 {
 void draw(const int &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 void draw(const string &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 // "Don't allow polymorphism to complicate client code"
@@ -158,64 +151,60 @@ void draw(const string &x, ostream &out,
 // нужно будет думать об этом.
 class object_t {
 public:
-  object_t(const string &x) : self_(new string_model_t(move(x))) {}
+    object_t(const string &x) : self_(new string_model_t(move(x))) {}
 
-  object_t(const int &x) : self_(new int_model_t(move(x))) { cout << "ctor\n"; }
+    object_t(const int &x) : self_(new int_model_t(move(x))) { cout << "ctor\n"; }
 
-  // Not compiled
-  // object_t(const object_t& x) : self_(new int_model_t(*x.self_))
-  object_t(const object_t &x) : self_(x.self_->copy_()) {
-    cout << "copy\n";
-  } // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+    // Not compiled
+    // object_t(const object_t& x) : self_(new int_model_t(*x.self_))
+    object_t(const object_t &x) : self_(x.self_->copy_()) {
+        cout << "copy\n";
+    }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
-  // Speed up
-  object_t(object_t &&) noexcept = default;
+    // Speed up
+    object_t(object_t &&) noexcept = default;
 
-  object_t &operator=(const object_t &x) {
-    object_t tmp(x);
-    *this = std::move(tmp); // if no move assign progr. is failed
-    // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
-    return *this;
-  }
-  object_t &operator=(object_t &&) noexcept = default; // Need it!
+    object_t &operator=(const object_t &x) {
+        object_t tmp(x);
+        *this = std::move(tmp);  // if no move assign progr. is failed
+        // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+        return *this;
+    }
+    object_t &operator=(object_t &&) noexcept = default;  // Need it!
 
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    x.self_->draw_(out, position);
-  } // разрешаем доступ к закрытым частям
+    friend void draw(const object_t &x, ostream &out, size_t position) {
+        x.self_->draw_(out, position);
+    }  // разрешаем доступ к закрытым частям
 
 private:
-  struct concept_t {
-    virtual ~concept_t() = default;
-    virtual concept_t *copy_() const = 0;
-    virtual void draw_(ostream &out, size_t position) const = 0;
-  };
+    struct concept_t {
+        virtual ~concept_t() = default;
+        virtual concept_t *copy_() const = 0;
+        virtual void draw_(ostream &out, size_t position) const = 0;
+    };
 
-  struct string_model_t : concept_t {
-    string_model_t(const string &x) : data_(move(x)) {}
-    void draw_(ostream &out, size_t position) const {
-      draw(data_, out, position);
-    }
+    struct string_model_t : concept_t {
+        string_model_t(const string &x) : data_(move(x)) {}
+        void draw_(ostream &out, size_t position) const { draw(data_, out, position); }
 
-    concept_t *copy_() const { return new string_model_t(*this); }
+        concept_t *copy_() const { return new string_model_t(*this); }
 
-    string data_;
-  };
+        string data_;
+    };
 
-  struct int_model_t : concept_t {
-    int_model_t(const int &x) : data_(move(x)) {}
-    void draw_(ostream &out, size_t position) const {
-      draw(data_, out, position);
-    }
+    struct int_model_t : concept_t {
+        int_model_t(const int &x) : data_(move(x)) {}
+        void draw_(ostream &out, size_t position) const { draw(data_, out, position); }
 
-    concept_t *copy_() const { return new int_model_t(*this); }
+        concept_t *copy_() const { return new int_model_t(*this); }
 
-    int data_;
-  };
+        int data_;
+    };
 
-  // std::unique_ptr<int_model_t> self_;
-  std::unique_ptr<concept_t> self_;
+    // std::unique_ptr<int_model_t> self_;
+    std::unique_ptr<concept_t> self_;
 };
-} // namespace step4
+}  // namespace step4
 
 namespace step5 {
 
@@ -225,300 +214,287 @@ namespace step5 {
 // Если используется полиморфизм, то и сами объекты создаются в куче!
 template <typename T>
 void draw(const T &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 // template<typename T>  // не тут
 class object_t {
 public:
-  // шаблонный конструктор
-  // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
-  template <typename T>
-  object_t(T x)
-      : self_(new model<T>(move(x))) // by value/ специализируем шаблонный класс
-  {}
+    // шаблонный конструктор
+    // http://ldmitrieva.blogspot.ru/2010/11/blog-post_12.html
+    template <typename T>
+    object_t(T x)
+        : self_(new model<T>(move(x)))  // by value/ специализируем шаблонный класс
+    {}
 
-  // Not compiled
-  // object_t(const object_t& x) : self_(new int_model_t(*x.self_))
-  object_t(const object_t &x) : self_(x.self_->copy_()) {
-    // cout << "copy\n";
-  } // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+    // Not compiled
+    // object_t(const object_t& x) : self_(new int_model_t(*x.self_))
+    object_t(const object_t &x) : self_(x.self_->copy_()) {
+        // cout << "copy\n";
+    }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
 
-  // Speed up
-  object_t(object_t &&) noexcept = default;
+    // Speed up
+    object_t(object_t &&) noexcept = default;
 
-  object_t &operator=(const object_t &x) {
-    object_t tmp(x);
-    *this = std::move(tmp); // if no move assign progr. is failed
-    // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
-    return *this;
-  }
-  object_t &operator=(object_t &&) noexcept = default; // Need it!
+    object_t &operator=(const object_t &x) {
+        object_t tmp(x);
+        *this = std::move(tmp);  // if no move assign progr. is failed
+        // std::swap(self_, tmp.self_);  // also compiled, but may be not exc. safe
+        return *this;
+    }
+    object_t &operator=(object_t &&) noexcept = default;  // Need it!
 
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    x.self_->draw_(out, position);
-  } // разрешаем доступ к закрытым частям
+    friend void draw(const object_t &x, ostream &out, size_t position) {
+        x.self_->draw_(out, position);
+    }  // разрешаем доступ к закрытым частям
 
 private:
-  struct concept_t {
-    virtual ~concept_t() = default;
-    virtual concept_t *copy_() const = 0;
-    virtual void draw_(ostream &out, size_t position) const = 0;
-  };
+    struct concept_t {
+        virtual ~concept_t() = default;
+        virtual concept_t *copy_() const = 0;
+        virtual void draw_(ostream &out, size_t position) const = 0;
+    };
 
-  // Шаблонный класс и обычный конструктор.
-  template <typename T> struct model : concept_t {
-    model(const T &x) : data_(move(x)) {}
-    void draw_(ostream &out, size_t position) const {
-      // !!Most important - it's terminal function
-      draw(data_, out, position);
-    }
+    // Шаблонный класс и обычный конструктор.
+    template <typename T>
+    struct model : concept_t {
+        model(const T &x) : data_(move(x)) {}
+        void draw_(ostream &out, size_t position) const {
+            // !!Most important - it's terminal function
+            draw(data_, out, position);
+        }
 
-    concept_t *copy_() const { return new model(*this); }
+        concept_t *copy_() const { return new model(*this); }
 
-    T data_;
-  };
+        T data_;
+    };
 
-  // std::unique_ptr<int_model_t> self_;
-  std::unique_ptr<concept_t> self_;
+    // std::unique_ptr<int_model_t> self_;
+    std::unique_ptr<concept_t> self_;
 };
 
-using document_t = vector<object_t>; // полиморфизм только через shared_ptrs
+using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
 
 void draw(const document_t &x, ostream &out, size_t position) {
-  out << string(position, ' ') << "<document>" << endl;
-  for (const auto &e : x)
-    draw(e, out, position + 2);
-  out << string(position, ' ') << "</document>" << endl;
+    out << string(position, ' ') << "<document>" << endl;
+    for (const auto &e : x) draw(e, out, position + 2);
+    out << string(position, ' ') << "</document>" << endl;
 }
 
 // не нужно ничего наследовать.
 class my_class_t {};
 
-void draw(const my_class_t &, ostream &out, size_t position) {
-  out << string(position, ' ') << "my_class_t()" << endl;
-}
+void draw(const my_class_t &, ostream &out, size_t position) { out << string(position, ' ') << "my_class_t()" << endl; }
 
-} // namespace step5
+}  // namespace step5
 
 TEST(EvelC11, App) {
-  using step5::document_t;
-  using step5::my_class_t;
+    using step5::document_t;
+    using step5::my_class_t;
 
-  // TODO:
-  document_t document;
-  document.reserve(5);
+    // TODO:
+    document_t document;
+    document.reserve(5);
 
-  document.emplace_back(0);
-  document.emplace_back(string("hello"));
-  document.emplace_back(2);
-  document.emplace_back(my_class_t());
+    document.emplace_back(0);
+    document.emplace_back(string("hello"));
+    document.emplace_back(2);
+    document.emplace_back(my_class_t());
 
-  std::reverse(document.begin(), document.end());
+    std::reverse(document.begin(), document.end());
 
-  draw(document, cout, 0);
+    draw(document, cout, 0);
 
-  // object_t a(document);
-  // object_t b(my_class_t());
-  // a = b;  // not compiled if diff. types
-  // b = a;
-  //  http://en.cppreference.com/w/cpp/language/typeid
-  //  RTII cost:
-  //  http://stackoverflow.com/questions/579887/how-expensive-is-rtti
-  assert(typeid(document[0]) == typeid(document[1]));
+    // object_t a(document);
+    // object_t b(my_class_t());
+    // a = b;  // not compiled if diff. types
+    // b = a;
+    //  http://en.cppreference.com/w/cpp/language/typeid
+    //  RTII cost:
+    //  http://stackoverflow.com/questions/579887/how-expensive-is-rtti
+    assert(typeid(document[0]) == typeid(document[1]));
 }
 
 namespace ps_sample {
 template <typename T>
 void draw(const T &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 class object_t {
 public:
-  template <typename T>
-  object_t(const T &x)
-      : self_(new model<T>(move(x))) // by value/ специализируем шаблонный класс
-  {}
+    template <typename T>
+    object_t(const T &x)
+        : self_(new model<T>(move(x)))  // by value/ специализируем шаблонный класс
+    {}
 
-  object_t(const object_t &x) : self_(x.self_->copy_()) {
-    cout << "copy\n";
-  } // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
-  object_t(object_t &&) noexcept = default;
+    object_t(const object_t &x) : self_(x.self_->copy_()) {
+        cout << "copy\n";
+    }  // если оставить только копирующий констр. компилятор (gcc 4.7) заругается
+    object_t(object_t &&) noexcept = default;
 
-  object_t &operator=(const object_t &x) {
-    object_t tmp(x);
-    *this = std::move(tmp);
-    return *this;
-  }
-  object_t &operator=(object_t &&) noexcept = default; // Need it!
+    object_t &operator=(const object_t &x) {
+        object_t tmp(x);
+        *this = std::move(tmp);
+        return *this;
+    }
+    object_t &operator=(object_t &&) noexcept = default;  // Need it!
 
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    x.self_->draw_(out, position);
-  }
+    friend void draw(const object_t &x, ostream &out, size_t position) { x.self_->draw_(out, position); }
 
 private:
-  struct concept_t {
-    virtual ~concept_t() = default;
-    virtual concept_t *copy_() const = 0;
-    virtual void draw_(ostream &out, size_t position) const = 0;
-  };
+    struct concept_t {
+        virtual ~concept_t() = default;
+        virtual concept_t *copy_() const = 0;
+        virtual void draw_(ostream &out, size_t position) const = 0;
+    };
 
-  // Шаблонный класс и обычный конструктор.
-  template <typename T> struct model : concept_t {
-    model(const T &x) : data_(move(x)) {}
-    void draw_(ostream &out, size_t position) const {
-      draw(data_, out, position);
-    }
+    // Шаблонный класс и обычный конструктор.
+    template <typename T>
+    struct model : concept_t {
+        model(const T &x) : data_(move(x)) {}
+        void draw_(ostream &out, size_t position) const { draw(data_, out, position); }
 
-    concept_t *copy_() const { return new model(*this); }
+        concept_t *copy_() const { return new model(*this); }
 
-    T data_;
-  };
+        T data_;
+    };
 
-  // std::unique_ptr<int_model_t> self_;
-  std::unique_ptr<concept_t> self_;
+    // std::unique_ptr<int_model_t> self_;
+    std::unique_ptr<concept_t> self_;
 };
 
-using document_t = vector<object_t>; // полиморфизм только через shared_ptrs
+using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
 
 void draw(const document_t &x, ostream &out, size_t position) {
-  out << string(position, ' ') << "<document>" << endl;
-  for (const auto &e : x)
-    draw(e, out, position + 2);
-  out << string(position, ' ') << "</document>" << endl;
+    out << string(position, ' ') << "<document>" << endl;
+    for (const auto &e : x) draw(e, out, position + 2);
+    out << string(position, ' ') << "</document>" << endl;
 }
 
 // не нужно ничего наследовать.
 class my_class_t {};
 
-void draw(const my_class_t &, ostream &out, size_t position) {
-  out << string(position, ' ') << "my_class_t()" << endl;
-}
+void draw(const my_class_t &, ostream &out, size_t position) { out << string(position, ' ') << "my_class_t()" << endl; }
 
 /// Ps
 using history_t = vector<document_t>;
 void commit(history_t &x) {
-  assert(x.size());
-  x.push_back(x.back());
+    assert(x.size());
+    x.push_back(x.back());
 }
 
 void undo(history_t &x) {
-  assert(x.size());
-  x.pop_back();
+    assert(x.size());
+    x.pop_back();
 }
 
 document_t &current(history_t &x) {
-  assert(x.size());
-  return x.back();
+    assert(x.size());
+    return x.back();
 }
-} // namespace ps_sample
+}  // namespace ps_sample
 
 namespace ps_sample_shared {
 // Если большие объекты, но почему так работает? Почему не копий?
 template <typename T>
 void draw(const T &x, ostream &out,
-          size_t position) // object_t -> int and move here
+          size_t position)  // object_t -> int and move here
 {
-  out << string(position, ' ') << x << endl;
+    out << string(position, ' ') << x << endl;
 }
 
 class object_t {
 public:
-  template <typename T>
-  // make_ptr
-  object_t(const T &x) : self_(boost::make_shared<model<T>>(move(x))) {}
+    template <typename T>
+    // make_ptr
+    object_t(const T &x) : self_(boost::make_shared<model<T>>(move(x))) {}
 
-  friend void draw(const object_t &x, ostream &out, size_t position) {
-    x.self_->draw_(out, position);
-  }
+    friend void draw(const object_t &x, ostream &out, size_t position) { x.self_->draw_(out, position); }
 
 private:
-  struct concept_t {
-    virtual ~concept_t() = default;
-    virtual void draw_(ostream &out, size_t position) const = 0;
-  };
+    struct concept_t {
+        virtual ~concept_t() = default;
+        virtual void draw_(ostream &out, size_t position) const = 0;
+    };
 
-  template <typename T> struct model : concept_t {
-    model(const T &x) : data_(move(x)) {}
-    void draw_(ostream &out, size_t position) const {
-      // а как сделать метод?
-      draw(data_, out, position);
-    }
-    T data_;
-  };
+    template <typename T>
+    struct model : concept_t {
+        model(const T &x) : data_(move(x)) {}
+        void draw_(ostream &out, size_t position) const {
+            // а как сделать метод?
+            draw(data_, out, position);
+        }
+        T data_;
+    };
 
-  // std::unique_ptr<int_model_t> self_;
-  // std::
-  boost::shared_ptr<const concept_t>
-      self_; // ссылки на immutable!! поэтому мы можем возвращаться
-  // если подставляет части, то целиком. Это и защищает от копирования.
-  // В случае с фотошопом все понятно, иначе пришлось бы копировать все, хотя
-  // части были бы неизменными. Но пиксель, например, может быть меньше
-  // указателя.
+    // std::unique_ptr<int_model_t> self_;
+    // std::
+    boost::shared_ptr<const concept_t> self_;  // ссылки на immutable!! поэтому мы можем возвращаться
+    // если подставляет части, то целиком. Это и защищает от копирования.
+    // В случае с фотошопом все понятно, иначе пришлось бы копировать все, хотя
+    // части были бы неизменными. Но пиксель, например, может быть меньше
+    // указателя.
 };
 
-using document_t = vector<object_t>; // полиморфизм только через shared_ptrs
+using document_t = vector<object_t>;  // полиморфизм только через shared_ptrs
 
 void draw(const document_t &x, ostream &out, size_t position) {
-  out << string(position, ' ') << "<document>" << endl;
-  for (const auto &e : x)
-    draw(e, out, position + 2);
-  out << string(position, ' ') << "</document>" << endl;
+    out << string(position, ' ') << "<document>" << endl;
+    for (const auto &e : x) draw(e, out, position + 2);
+    out << string(position, ' ') << "</document>" << endl;
 }
 
 // не нужно ничего наследовать.
 class my_class_t {};
 
-void draw(const my_class_t &, ostream &out, size_t position) {
-  out << string(position, ' ') << "my_class_t()" << endl;
-}
+void draw(const my_class_t &, ostream &out, size_t position) { out << string(position, ' ') << "my_class_t()" << endl; }
 
 /// Ps
 using history_t = vector<document_t>;
 void commit(history_t &x) {
-  assert(x.size());
-  x.push_back(x.back());
+    assert(x.size());
+    x.push_back(x.back());
 }
 
 void undo(history_t &x) {
-  assert(x.size());
-  x.pop_back();
+    assert(x.size());
+    x.pop_back();
 }
 
 document_t &current(history_t &x) {
-  assert(x.size());
-  return x.back();
+    assert(x.size());
+    return x.back();
 }
 
-} // namespace ps_sample_shared
+}  // namespace ps_sample_shared
 
 TEST(EvelPs, App) {
-  using namespace ps_sample_shared;
-  history_t h(1);
+    using namespace ps_sample_shared;
+    history_t h(1);
 
-  // Работаем с верхним элементом
-  current(h).emplace_back(0);
-  current(h).emplace_back(string("Hello!"));
+    // Работаем с верхним элементом
+    current(h).emplace_back(0);
+    current(h).emplace_back(string("Hello!"));
 
-  draw(current(h), cout, 0);
-  cout << "-------------" << endl;
+    draw(current(h), cout, 0);
+    cout << "-------------" << endl;
 
-  commit(h); // сохраняем текущую и ее копируем на верх.
+    commit(h);  // сохраняем текущую и ее копируем на верх.
 
-  current(h).emplace_back(current(h));
-  current(h).emplace_back(my_class_t());
-  current(h)[1] = string("World");
+    current(h).emplace_back(current(h));
+    current(h).emplace_back(my_class_t());
+    current(h)[1] = string("World");
 
-  draw(current(h), cout, 0);
-  cout << "-------------" << endl;
+    draw(current(h), cout, 0);
+    cout << "-------------" << endl;
 
-  undo(h);
-  draw(current(h), cout, 0);
+    undo(h);
+    draw(current(h), cout, 0);
 }
 
 // TODO: add features to class

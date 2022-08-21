@@ -8,36 +8,36 @@ static int *g;
 // ASAN_OPTIONS=detect_stack_use_after_return=1
 namespace {
 void LeakLocal() {
-  int local;
-  g = &local;
+    int local;
+    g = &local;
 }
 
 int *get() {
-  int local;
-  return &local;
+    int local;
+    return &local;
 }
-} // namespace
+}  // namespace
 
 int r() {
-  int i = *get();
-  LeakLocal();
-  return *g;
+    int i = *get();
+    LeakLocal();
+    return *g;
 }
 
 namespace holder {
 // else opt and not work - remove some code
 static int fake_return_value = 0;
 TEST(ASanTest, Mem) {
-  int *a = new int[100];
-  delete[] a;
+    int *a = new int[100];
+    delete[] a;
 
-  int b = a[9];
+    int b = a[9];
 
-  fake_return_value = b & 0x0f | b << 8;
+    fake_return_value = b & 0x0f | b << 8;
 }
 
 int global_array[100] = {-1};
 
 TEST(ASanTest, Global) { fake_return_value = global_array[1 + 100]; }
 
-} // namespace holder
+}  // namespace holder

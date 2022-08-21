@@ -1,8 +1,8 @@
-#include "core/config.h"
-
 #include "arch.h"
 
 #include <boost/lexical_cast.hpp>
+
+#include "core/config.h"
 
 // http://www.cplusplusdevelop.com/829_19589028/
 

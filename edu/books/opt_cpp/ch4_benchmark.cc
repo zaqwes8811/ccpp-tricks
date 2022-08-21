@@ -1,8 +1,8 @@
 #include <benchmark/benchmark.h>
+#include <unistd.h>
 
 #include <ctime>
 #include <iostream>
-#include <unistd.h>
 
 std::string gen_random(const int len) {
     static const char alphanum[] =
@@ -22,9 +22,8 @@ std::string gen_random(const int len) {
 
 std::string remove_ctrl(std::string s) {
     std::string result;
-    for (int i=0; i<s.length(); ++i) {
-        if (s[i] >= 0x20)
-            result = result + s[i];
+    for (int i = 0; i < s.length(); ++i) {
+        if (s[i] >= 0x20) result = result + s[i];
     }
     return result;
 }
@@ -42,9 +41,8 @@ BENCHMARK(BM_remove_ctrl);
 
 std::string remove_ctrl_mutating(std::string s) {
     std::string result;
-    for (int i=0; i<s.length(); ++i) {
-        if (s[i] >= 0x20)
-            result += s[i];
+    for (int i = 0; i < s.length(); ++i) {
+        if (s[i] >= 0x20) result += s[i];
     }
     return result;
 }
@@ -63,9 +61,8 @@ BENCHMARK(BM_remove_ctrl_mutating);
 std::string remove_ctrl_reserve(std::string s) {
     std::string result;
     result.reserve(s.length());
-    for (int i=0; i<s.length(); ++i) {
-        if (s[i] >= 0x20)
-            result += s[i];
+    for (int i = 0; i < s.length(); ++i) {
+        if (s[i] >= 0x20) result += s[i];
     }
     return result;
 }

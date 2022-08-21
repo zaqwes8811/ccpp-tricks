@@ -23,11 +23,11 @@
 #include <mutex>
 #include <thread>
 #endif
+#include <pthread.h>
+
 #include <list>
 #include <ostream>
 #include <vector>
-
-#include <pthread.h>
 
 #if __cplusplus > 199711L
 using std::mutex;
@@ -48,86 +48,86 @@ using boost::unique_lock;
 //   лучше сперва вообще запретить.
 // http://stackoverflow.com/questions/13030272/how-to-implement-an-atomic-thread-safe-and-exception-safe-deep-copy-assignment
 class A {
-  mutable mutex mut_;
-  std::vector<double> data_;
+    mutable mutex mut_;
+    std::vector<double> data_;
 
 public:
-  A() {}
-  // ...
+    A() {}
+    // ...
 
-  A &operator=(const A &rhs) {
-    if (this != &rhs) // важно, чтобы не было самоблокировки
-    {
-      // Так захватывает он лок или нет?
-      unique_lock<mutex> lhs_lock(mut_, defer_lock);
-      unique_lock<mutex> rhs_lock(rhs.mut_, defer_lock);
-      lock(lhs_lock, rhs_lock); // похоже правильно обрабатывает a = a
+    A &operator=(const A &rhs) {
+        if (this != &rhs)  // важно, чтобы не было самоблокировки
+        {
+            // Так захватывает он лок или нет?
+            unique_lock<mutex> lhs_lock(mut_, defer_lock);
+            unique_lock<mutex> rhs_lock(rhs.mut_, defer_lock);
+            lock(lhs_lock, rhs_lock);  // похоже правильно обрабатывает a = a
 
-      // V0
-      // std::unique_lock<std::mutex> lhs_lock(mut_);
-      // std::unique_lock<std::mutex> rhs_lock(rhs.mut_);  // deadlock!
-      // assign data ...
-      data_ = rhs.data_;
+            // V0
+            // std::unique_lock<std::mutex> lhs_lock(mut_);
+            // std::unique_lock<std::mutex> rhs_lock(rhs.mut_);  // deadlock!
+            // assign data ...
+            data_ = rhs.data_;
+        }
+        return *this;
     }
-    return *this;
-  }
 
 private:
-  A(const A &); // !!
-                // ...
+    A(const A &);  // !!
+                   // ...
 };
 void task1(A *a, A *b) {
-  // std::cout << "task1 says: " << msg;
-  for (int i = 0; i < 100000; ++i) {
-    *a = *b; // deadlock - v0
-    ;
-  }
+    // std::cout << "task1 says: " << msg;
+    for (int i = 0; i < 100000; ++i) {
+        *a = *b;  // deadlock - v0
+        ;
+    }
 }
 
 class B {
-  typedef boost::shared_mutex mutex_type;
-  typedef boost::shared_lock<mutex_type> SharedLock;
-  typedef boost::unique_lock<mutex_type> ExclusiveLock;
+    typedef boost::shared_mutex mutex_type;
+    typedef boost::shared_lock<mutex_type> SharedLock;
+    typedef boost::unique_lock<mutex_type> ExclusiveLock;
 
-  // TODO: shared_lock = read_lock?
+    // TODO: shared_lock = read_lock?
 
-  mutable mutex_type mut_;
-  std::vector<double> data_;
+    mutable mutex_type mut_;
+    std::vector<double> data_;
 
 public:
-  B &operator=(const B &rhs) {
-    if (this != &rhs) {
-      // assign data ...
-      // expensive code here ... !!!
-      ExclusiveLock lhs_lock(mut_, defer_lock); // свой эксклюзивный
-      SharedLock rhs_lock(mut_, defer_lock);
-      boost::lock(lhs_lock, rhs_lock);
-      data_ = rhs.data_;
+    B &operator=(const B &rhs) {
+        if (this != &rhs) {
+            // assign data ...
+            // expensive code here ... !!!
+            ExclusiveLock lhs_lock(mut_, defer_lock);  // свой эксклюзивный
+            SharedLock rhs_lock(mut_, defer_lock);
+            boost::lock(lhs_lock, rhs_lock);
+            data_ = rhs.data_;
+        }
+        return *this;
     }
-    return *this;
-  }
-  // private:
-  B(const B &rhs) {
-    SharedLock _(rhs.mut_);
-    data_ = rhs.data_;
-  }
+    // private:
+    B(const B &rhs) {
+        SharedLock _(rhs.mut_);
+        data_ = rhs.data_;
+    }
 };
 
 TEST(DS, Mutex) {
-  mutex mut;
+    mutex mut;
 
-  // http://stackoverflow.com/questions/20516773/stdunique-lockstdmutex-or-stdlock-guardstdmutex
-  unique_lock<mutex> lk(mut, defer_lock);
-  assert(lk.owns_lock() == false);
+    // http://stackoverflow.com/questions/20516773/stdunique-lockstdmutex-or-stdlock-guardstdmutex
+    unique_lock<mutex> lk(mut, defer_lock);
+    assert(lk.owns_lock() == false);
 
-  A a, b;
+    A a, b;
 
-  thread t1(task1, &a, &b);
-  thread t2(task1, &b, &a);
-  thread t3(task1, &a, &a);
-  thread t4(task1, &a, &a);
-  t1.join();
-  t2.join();
-  t3.join();
-  t4.join();
+    thread t1(task1, &a, &b);
+    thread t2(task1, &b, &a);
+    thread t3(task1, &a, &a);
+    thread t4(task1, &a, &a);
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
 }

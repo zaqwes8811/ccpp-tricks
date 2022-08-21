@@ -24,6 +24,6 @@
 
 static const int GkMaxCountChannels = 4;
 
-#define G_SOME_FEATURE // G_* - global
+#define G_SOME_FEATURE  // G_* - global
 
-#endif // CANARY_CONFIG_H_
+#endif  // CANARY_CONFIG_H_

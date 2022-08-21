@@ -67,29 +67,29 @@
 namespace thread_pools {
 class AsioThreadPool {
 public:
-  AsioThreadPool();
-  ~AsioThreadPool();
+    AsioThreadPool();
+    ~AsioThreadPool();
 
-  /**
-    \attention I don't know how incapsulate io_service.post()
+    /**
+      \attention I don't know how incapsulate io_service.post()
 
-    \return m_io_service ref
+      \return m_io_service ref
 
-    Thread safity
-    http://www.boost.org/doc/libs/1_42_0/doc/html/boost_asio/reference/io_service.html
-    http://www.boost.org/doc/libs/1_41_0/doc/html/boost_asio/overview/core/threads.html
-    http://stackoverflow.com/questions/6369264/is-boostio-servicepost-thread-safe
-    http://stackoverflow.com/questions/10051330/is-it-thread-safe-when-one-thread-add-timer-to-boostasioio-service-and-the-o
-  */
-  boost::asio::io_service &get();
+      Thread safity
+      http://www.boost.org/doc/libs/1_42_0/doc/html/boost_asio/reference/io_service.html
+      http://www.boost.org/doc/libs/1_41_0/doc/html/boost_asio/overview/core/threads.html
+      http://stackoverflow.com/questions/6369264/is-boostio-servicepost-thread-safe
+      http://stackoverflow.com/questions/10051330/is-it-thread-safe-when-one-thread-add-timer-to-boostasioio-service-and-the-o
+    */
+    boost::asio::io_service &get();
 
 private:
-  boost::asio::io_service m_io_service;
-  boost::thread_group m_threads;
-  boost::asio::io_service::work m_work; // protect if now work doc_asio/521
-  int cm_size;
+    boost::asio::io_service m_io_service;
+    boost::thread_group m_threads;
+    boost::asio::io_service::work m_work;  // protect if now work doc_asio/521
+    int cm_size;
 };
 
-} // namespace thread_pools
+}  // namespace thread_pools
 
 #endif

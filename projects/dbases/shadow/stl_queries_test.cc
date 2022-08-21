@@ -28,14 +28,13 @@
 // Karantin:
 // Может что-то типа GetMainTag()? BAD!!
 
+#include <gtest/gtest.h>
+
 #include <algorithm>
+#include <functional>
 #include <iostream>
 #include <list>
 #include <vector>
-
-#include <gtest/gtest.h>
-
-#include <functional>
 
 using std::bind;
 using std::cout;
@@ -50,41 +49,39 @@ using std::vector;
 void five_args(int i1, int i2, int i3) { cout << i1 << i2 << i3 << '\n'; }
 
 TEST(BindWithBoost, App) {
-  using namespace std::placeholders;
-  (bind(&five_args, _1, _2, _3))(0, 1, 1);
+    using namespace std::placeholders;
+    (bind(&five_args, _1, _2, _3))(0, 1, 1);
 }
 
 class caller {
 public:
-  caller(int a, int b) : second_elem(a), end_elem(b) {}
-  void operator()(const int value) const {
-    five_args(value, second_elem, end_elem);
-  }
+    caller(int a, int b) : second_elem(a), end_elem(b) {}
+    void operator()(const int value) const { five_args(value, second_elem, end_elem); }
 
 private:
-  const int second_elem;
-  const int end_elem;
+    const int second_elem;
+    const int end_elem;
 };
 
 TEST(BindWithoutBoost, App) {
-  using std::for_each;
+    using std::for_each;
 
-  vector<int> a;
-  a.push_back(0);
-  a.push_back(9);
-  a.push_back(0);
+    vector<int> a;
+    a.push_back(0);
+    a.push_back(9);
+    a.push_back(0);
 
-  for_each(a.begin(), a.end(), caller(1, 8));
-  // bind(five_args, _1, _2, _3)(9, 8));
+    for_each(a.begin(), a.end(), caller(1, 8));
+    // bind(five_args, _1, _2, _3)(9, 8));
 }
 
 TEST(BoostLambdas, App) {
-  using namespace std::placeholders;
-  // http://www.boost.org/doc/libs/1_31_0/libs/lambda/doc/lambda_docs_as_one_file.html
+    using namespace std::placeholders;
+    // http://www.boost.org/doc/libs/1_31_0/libs/lambda/doc/lambda_docs_as_one_file.html
 
-  list<int> v(10);
-  int i = 9;
-  // for_each(v.begin(), v.end(), (_1 = i)(i));
+    list<int> v(10);
+    int i = 9;
+    // for_each(v.begin(), v.end(), (_1 = i)(i));
 
-  // for_each(v.begin(), v.end(), (cout << (i + _1))(i));
+    // for_each(v.begin(), v.end(), (cout << (i + _1))(i));
 }

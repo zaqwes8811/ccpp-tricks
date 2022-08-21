@@ -38,15 +38,15 @@ private:
 */
 
 void coro() {
-  cout << '2';
-  yield();
-  cout << '4';
+    cout << '2';
+    yield();
+    cout << '4';
 }
 
 TEST(Coro, Base) {
-  // cout << '1';
-  // Coro c(coro);
-  // cout << '3';
-  // c.resume();
-  // cout << '5';
+    // cout << '1';
+    // Coro c(coro);
+    // cout << '3';
+    // c.resume();
+    // cout << '5';
 }

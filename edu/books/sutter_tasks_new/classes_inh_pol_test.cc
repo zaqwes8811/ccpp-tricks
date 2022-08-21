@@ -1,30 +1,30 @@
 
-#include <string>
-
 #include <gtest/gtest.h>
+
+#include <string>
 
 using std::string;
 
 /// Task 14:
 class A {
 public:
-  A(const string &s) {}
+    A(const string &s) {}
 
-  string f() { return "hello"; }
+    string f() { return "hello"; }
 };
 
 class B : public A {
 public:
-  B()
-      : A(s = f() // obj A not exist? s not exist too
-        ) {}
+    B()
+        : A(s = f()  // obj A not exist? s not exist too
+          ) {}
 
 private:
-  string s;
+    string s;
 };
 
 TEST(SutterNew, Inh) {
-  // B b;  // SEG...
+    // B b;  // SEG...
 }
 
 class B1 {};

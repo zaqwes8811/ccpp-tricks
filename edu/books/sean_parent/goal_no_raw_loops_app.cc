@@ -47,7 +47,7 @@
 
 #ifndef NO_ASL
 #include <adobe/algorithm/find.hpp>
-#include <adobe/algorithm/for_each.hpp> // ничего не возвращает
+#include <adobe/algorithm/for_each.hpp>  // ничего не возвращает
 #include <adobe/algorithm/lower_bound.hpp>
 #include <adobe/algorithm/random_shuffle.hpp>
 #include <adobe/algorithm/sort.hpp>
@@ -121,18 +121,18 @@ namespace {
 // struct print
 //{
 // template<typename T>
-void print(const int &t) // const
+void print(const int &t)  // const
 {
-  cout << t << " ";
+    cout << t << " ";
 }
 //};
 
 struct Printer {
-  // template<typename T>
-  void operator()(const int &t) const {
-    cout << t << " ";
-    // return 0;
-  }
+    // template<typename T>
+    void operator()(const int &t) const {
+        cout << t << " ";
+        // return 0;
+    }
 };
 
 // Хорошо бы вернуть что-то - новое положение отрезка - [f_new, l_new)
@@ -141,48 +141,48 @@ struct Printer {
 template <typename I>
 // I models RandomAccessIterator
 int /*pair<I, I>*/ slide(I f, I l, I p) {
-  if (p < f)
-    rotate(p, f, l);
+    if (p < f) rotate(p, f, l);
 
-  // Ветка выполняется!!
-  if (l < p) {
-    rotate(f, l, p);
-    // [p, p+(l-f)) ?
-  }
+    // Ветка выполняется!!
+    if (l < p) {
+        rotate(f, l, p);
+        // [p, p+(l-f)) ?
+    }
 
-  // TODO: а остальные случаи
+    // TODO: а остальные случаи
 
-  return 0;
+    return 0;
 }
 
-} // namespace
+}  // namespace
 
 class IntSequence {
 private:
-  int value;
+    int value;
 
 public:
-  IntSequence(int init) : value(init) {}
+    IntSequence(int init) : value(init) {}
 
-  int operator()() { return value++; }
+    int operator()() { return value++; }
 };
 
-template <typename I, typename S> pair<I, I> gather(I f, I l, I p, S s) {
-  return make_pair(stable_partition(f, p, not1(s)), stable_partition(p, l, s));
+template <typename I, typename S>
+pair<I, I> gather(I f, I l, I p, S s) {
+    return make_pair(stable_partition(f, p, not1(s)), stable_partition(p, l, s));
 }
 
 struct employee {
-  explicit employee(const char *_last) : last(_last) {}
+    explicit employee(const char *_last) : last(_last) {}
 
-  string last;
-  string first;
+    string last;
+    string first;
 
-  string get_last() const { return last; }
+    string get_last() const { return last; }
 };
 
 ostream &operator<<(ostream &o, const employee &e) {
-  o << "L: " << e.last << " ";
-  return o;
+    o << "L: " << e.last << " ";
+    return o;
 }
 
 // rotate
@@ -192,219 +192,213 @@ ostream &operator<<(ostream &o, const employee &e) {
 // For sorted:
 // lower_bound
 TEST(SeanParent_, NoRawLoops) {
-  // TODO: ошибочный ввод
-  // first
-  {
-    int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
-    const int kSize = sizeof(arr) / sizeof(arr[0]);
-    vector<int> v;
-    v.insert(v.begin(), arr, arr + kSize);
-    vector<int>::iterator it = v.begin();
-    cout << v;
-
-    size_t f = 3;
-    size_t l = 6 + 1;     // [)
-    size_t p = kSize - 1; // )
-
-    slide(it + f, it + l, it + p);
-
-    cout << v;
-
-    f = 5;
-    l = kSize - 1; // [)
-    p = 3;         // )
-
-    slide(it + f, it + l, it + p);
-
-    cout << v;
-  }
-  cout << endl;
-
-  // second
-  {
-    int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
-    const int kSize = sizeof(arr) / sizeof(arr[0]);
-    vector<int> v(
-        arr, arr + kSize); // можно в констр., можно вставить, можно назначить
-    // v.insert(v.begin(), arr, arr + kSize);
-    vector<int>::iterator it = v.begin();
-    cout << v;
-
-    size_t edge = distance(v.begin(), v.end());
-    pair<vector<int>::iterator, vector<int>::iterator> range =
-        gather(v.begin(), v.end(), v.begin() + edge, bind2nd(less<int>(), 4));
-
-    cout << v;
-
-    vector<int> tmp;
-    copy(range.first, range.second,
-         back_insert_iterator<std::vector<int>>(tmp));
-    cout << tmp;
-
-#ifndef NO_ASL
-    // NO CHECK
-    cout << *adobe::find(v, 8) << endl;
-#endif
-
-    //
-    // Functors vs bind -
-    // http://stackoverflow.com/questions/17810018/functors-vs-stdbind
-    /// Work
-    // boost::for_each(boost::make_iterator_range(v.begin(), v.begin()+4)
-    // ,print());
-    //
-    /// Not work with functors
-    // F - ConvertibleToFunction?
-    // http://stackoverflow.com/questions/9453380/iterating-over-a-stdmap-using-boostbind
-    // http://stlab.adobe.com/group__for__each.html
-    // Указатель на функция передается, но объект нет.
-    // adobe::for_each(make_pair(v.begin(), v.begin()+4), Printer());//&print);
-    // // With ptr work
-    // boost::peaceholder::_1
-    // http://stackoverflow.com/questions/356950/c-functors-and-their-uses
-    //
-    // Boost.Bind
-    // http://www.boost.org/doc/libs/1_55_0/libs/bind/bind.html
-    // adobe::for_each(v.begin(), v.begin()+4, &Printer::operator());
-
-    /*
-    IntSequence seq(1);
-    // частичной специялизации похоже нет
-    //generate_n<insert_iterator<vector<int> >, int, IntSequence&>(v.begin(), 4,
-    seq); generate_n<vector<int>::iterator, int, IntSequence&>(v.begin(), 4,
-    seq); cout << v;
-
-    generate_n<vector<int>::iterator, int, IntSequence&>(v.begin(), 4, seq);
-    cout << v;
-    */
-  }
-  cout << endl;
-
-  // lower_bound
-  // http://stackoverflow.com/questions/12968498/compare-function-in-lower-bound
-  // http://stackoverflow.com/questions/8741065/test-lower-bounds-return-value-against-the-end-iterator
-  //
-  // The function uses its internal comparison object (key_comp) to determine
-  // this, returning an iterator to the first element for which
-  // key_comp(element,val) would return false.
-  {
-    int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
-    vector<int> v(arr, arr + sizeof(arr) / sizeof(arr[0]));
-
-    vector<int> tmp = v;
-
-#ifndef NO_ASL
-    adobe::stable_sort(tmp);
-
-    cout << tmp;
-
-    vector<int> range_;
-
-    // возвращает итератор на элемент не меньше значения value - elem >= value
-    cout << *adobe::lower_bound(tmp, 2) << endl;
-    cout << *std::lower_bound(begin(tmp), end(tmp), 6) << endl;
-
-    // elem > value
-    cout << *adobe::upper_bound(tmp, 7) << endl;
-
-    /// Danger:
-    // https://www.securecoding.cert.org/confluence/display/cplusplus/ARR34-CPP.+Use+Valid+Iterator+Ranges
-    // val_lower <= val_upper
-    // TODO: расстояние может быть отрицательным?
-    // assert(distance(adobe::lower_bound(tmp, 7), adobe::upper_bound(tmp, 2))
-    // >= 0);
-
-    // Можно передать пару!!
-    adobe::copy(make_pair(adobe::lower_bound(tmp, 2), // may be include
-                          adobe::upper_bound(
-                              tmp, 7)), // ) итератор указывает на > 7, и мы его
-                                        // не включаем в копирование
-                back_insert_iterator<vector<int>>(range_));
-    cout << range_;
-#endif
-  }
-
-  // Chrome
-  {
-    // Похоже суть перенести фиксированную панель ближе к началу
-    int arr[] = {1, 2, 3, 123, 8, 8, 8, 117, 2, 1};
-    vector<int> v(arr, arr + sizeof(arr) / sizeof(arr[0]));
-    vector<int> expanded_panels_ = v;
-    cout << v;
-
+    // TODO: ошибочный ввод
+    // first
     {
-      int fixed_index = 7;
+        int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
+        const int kSize = sizeof(arr) / sizeof(arr[0]);
+        vector<int> v;
+        v.insert(v.begin(), arr, arr + kSize);
+        vector<int>::iterator it = v.begin();
+        cout << v;
+
+        size_t f = 3;
+        size_t l = 6 + 1;      // [)
+        size_t p = kSize - 1;  // )
+
+        slide(it + f, it + l, it + p);
+
+        cout << v;
+
+        f = 5;
+        l = kSize - 1;  // [)
+        p = 3;          // )
+
+        slide(it + f, it + l, it + p);
+
+        cout << v;
+    }
+    cout << endl;
+
+    // second
+    {
+        int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
+        const int kSize = sizeof(arr) / sizeof(arr[0]);
+        vector<int> v(arr, arr + kSize);  // можно в констр., можно вставить, можно назначить
+        // v.insert(v.begin(), arr, arr + kSize);
+        vector<int>::iterator it = v.begin();
+        cout << v;
+
+        size_t edge = distance(v.begin(), v.end());
+        pair<vector<int>::iterator, vector<int>::iterator> range =
+            gather(v.begin(), v.end(), v.begin() + edge, bind2nd(less<int>(), 4));
+
+        cout << v;
+
+        vector<int> tmp;
+        copy(range.first, range.second, back_insert_iterator<std::vector<int>>(tmp));
+        cout << tmp;
+
 #ifndef NO_ASL
-      vector<int>::iterator p =
-          adobe::find(expanded_panels_, 123); // 2); похоже предусловия не такие
-      vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
-      assert(p != expanded_panels_.end());
-      assert(p <= f);
-      // итераторы портяться, но расстояние останется
-      int delta = distance(expanded_panels_.begin(), p);
+        // NO CHECK
+        cout << *adobe::find(v, 8) << endl;
+#endif
 
-      int ref = expanded_panels_[fixed_index];
-      expanded_panels_.erase(f); // что-то сдало не активно
+        //
+        // Functors vs bind -
+        // http://stackoverflow.com/questions/17810018/functors-vs-stdbind
+        /// Work
+        // boost::for_each(boost::make_iterator_range(v.begin(), v.begin()+4)
+        // ,print());
+        //
+        /// Not work with functors
+        // F - ConvertibleToFunction?
+        // http://stackoverflow.com/questions/9453380/iterating-over-a-stdmap-using-boostbind
+        // http://stlab.adobe.com/group__for__each.html
+        // Указатель на функция передается, но объект нет.
+        // adobe::for_each(make_pair(v.begin(), v.begin()+4), Printer());//&print);
+        // // With ptr work
+        // boost::peaceholder::_1
+        // http://stackoverflow.com/questions/356950/c-functors-and-their-uses
+        //
+        // Boost.Bind
+        // http://www.boost.org/doc/libs/1_55_0/libs/bind/bind.html
+        // adobe::for_each(v.begin(), v.begin()+4, &Printer::operator());
 
-      cout << expanded_panels_;
+        /*
+        IntSequence seq(1);
+        // частичной специялизации похоже нет
+        //generate_n<insert_iterator<vector<int> >, int, IntSequence&>(v.begin(), 4,
+        seq); generate_n<vector<int>::iterator, int, IntSequence&>(v.begin(), 4,
+        seq); cout << v;
 
-      expanded_panels_.insert(expanded_panels_.begin() + delta, ref);
-      cout << expanded_panels_;
+        generate_n<vector<int>::iterator, int, IntSequence&>(v.begin(), 4, seq);
+        cout << v;
+        */
+    }
+    cout << endl;
+
+    // lower_bound
+    // http://stackoverflow.com/questions/12968498/compare-function-in-lower-bound
+    // http://stackoverflow.com/questions/8741065/test-lower-bounds-return-value-against-the-end-iterator
+    //
+    // The function uses its internal comparison object (key_comp) to determine
+    // this, returning an iterator to the first element for which
+    // key_comp(element,val) would return false.
+    {
+        int arr[] = {1, 2, 3, 8, 8, 8, 8, 7, 2, 1};
+        vector<int> v(arr, arr + sizeof(arr) / sizeof(arr[0]));
+
+        vector<int> tmp = v;
+
+#ifndef NO_ASL
+        adobe::stable_sort(tmp);
+
+        cout << tmp;
+
+        vector<int> range_;
+
+        // возвращает итератор на элемент не меньше значения value - elem >= value
+        cout << *adobe::lower_bound(tmp, 2) << endl;
+        cout << *std::lower_bound(begin(tmp), end(tmp), 6) << endl;
+
+        // elem > value
+        cout << *adobe::upper_bound(tmp, 7) << endl;
+
+        /// Danger:
+        // https://www.securecoding.cert.org/confluence/display/cplusplus/ARR34-CPP.+Use+Valid+Iterator+Ranges
+        // val_lower <= val_upper
+        // TODO: расстояние может быть отрицательным?
+        // assert(distance(adobe::lower_bound(tmp, 7), adobe::upper_bound(tmp, 2))
+        // >= 0);
+
+        // Можно передать пару!!
+        adobe::copy(make_pair(adobe::lower_bound(tmp, 2),  // may be include
+                              adobe::upper_bound(tmp, 7)),  // ) итератор указывает на > 7, и мы его
+                                                            // не включаем в копирование
+                    back_insert_iterator<vector<int>>(range_));
+        cout << range_;
 #endif
     }
 
-    // rotate version
+    // Chrome
     {
+        // Похоже суть перенести фиксированную панель ближе к началу
+        int arr[] = {1, 2, 3, 123, 8, 8, 8, 117, 2, 1};
+        vector<int> v(arr, arr + sizeof(arr) / sizeof(arr[0]));
+        vector<int> expanded_panels_ = v;
+        cout << v;
+
+        {
+            int fixed_index = 7;
 #ifndef NO_ASL
-      expanded_panels_ = v;
-      int fixed_index = 7;
+            vector<int>::iterator p = adobe::find(expanded_panels_, 123);  // 2); похоже предусловия не такие
+            vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
+            assert(p != expanded_panels_.end());
+            assert(p <= f);
+            // итераторы портяться, но расстояние останется
+            int delta = distance(expanded_panels_.begin(), p);
 
-      vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
-      vector<int>::iterator p =
-          adobe::find(expanded_panels_, 123); // 2); похоже предусловия не такие
+            int ref = expanded_panels_[fixed_index];
+            expanded_panels_.erase(f);  // что-то сдало не активно
 
-      assert((p <= p + 1) && (p + 1 <= f + 1));
-      // rotate(p, p+1, f+1);
-      rotate(p, f, f + 1); // не правильно - на самом деле смотря что нужно
-      cout << expanded_panels_; // не эквивалентно!
+            cout << expanded_panels_;
+
+            expanded_panels_.insert(expanded_panels_.begin() + delta, ref);
+            cout << expanded_panels_;
 #endif
-    }
-  }
+        }
 
-  // use libraries
-  {
-    // Boost, ASL
-    //
-    // Have many variants of simple, common algorithm such as find() and copy()
-    //
-    // Interface symetry
-    {
-      vector<employee> v;
-      v.push_back(employee("Lugansky"));
-      v.push_back(employee("Barbar"));
-      v.push_back(employee("Parent"));
-      v.push_back(employee("Parent"));
-      v.push_back(employee("Parent"));
-      v.push_back(employee("Yeng"));
+        // rotate version
+        {
 #ifndef NO_ASL
-      adobe::random_shuffle(v);
+            expanded_panels_ = v;
+            int fixed_index = 7;
 
-      // сортируем и ищем
-      // DANGER: не согласованный интерфейс. BAD!!
-      // adobe::sort(v, [](const employee& e0, const employee& e1) { return
-      // e0.last < e1.last; }); auto a = adobe::lower_bound(v, "Parent", [](emp,
-      // !!!string) { return e.last < string; };
-      adobe::sort(v, less<string>(),
-                  &employee::get_last); // можно и &employee::last
-      // auto p =
-      cout << *adobe::lower_bound(v, "Parent", less<string>(),
-                                  &employee::get_last);
-      cout << endl;
-      // Норм, но лучше сделать с getter
-      cout << v;
+            vector<int>::iterator f = begin(expanded_panels_) + fixed_index;
+            vector<int>::iterator p = adobe::find(expanded_panels_, 123);  // 2); похоже предусловия не такие
+
+            assert((p <= p + 1) && (p + 1 <= f + 1));
+            // rotate(p, p+1, f+1);
+            rotate(p, f, f + 1);  // не правильно - на самом деле смотря что нужно
+            cout << expanded_panels_;  // не эквивалентно!
 #endif
+        }
     }
 
-    // Далать тело for_each как можно меньше
-  }
+    // use libraries
+    {
+        // Boost, ASL
+        //
+        // Have many variants of simple, common algorithm such as find() and copy()
+        //
+        // Interface symetry
+        {
+            vector<employee> v;
+            v.push_back(employee("Lugansky"));
+            v.push_back(employee("Barbar"));
+            v.push_back(employee("Parent"));
+            v.push_back(employee("Parent"));
+            v.push_back(employee("Parent"));
+            v.push_back(employee("Yeng"));
+#ifndef NO_ASL
+            adobe::random_shuffle(v);
+
+            // сортируем и ищем
+            // DANGER: не согласованный интерфейс. BAD!!
+            // adobe::sort(v, [](const employee& e0, const employee& e1) { return
+            // e0.last < e1.last; }); auto a = adobe::lower_bound(v, "Parent", [](emp,
+            // !!!string) { return e.last < string; };
+            adobe::sort(v, less<string>(),
+                        &employee::get_last);  // можно и &employee::last
+            // auto p =
+            cout << *adobe::lower_bound(v, "Parent", less<string>(), &employee::get_last);
+            cout << endl;
+            // Норм, но лучше сделать с getter
+            cout << v;
+#endif
+        }
+
+        // Далать тело for_each как можно меньше
+    }
 }

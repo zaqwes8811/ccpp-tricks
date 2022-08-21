@@ -26,19 +26,19 @@
 using namespace std;
 
 // Container aliasing
-template <typename T> struct Vector {
-  typedef vector<T, tbb::scalable_allocator<T>>
-      Type; // аллокатор мешает передаче и присваиванию
+template <typename T>
+struct Vector {
+    typedef vector<T, tbb::scalable_allocator<T>> Type;  // аллокатор мешает передаче и присваиванию
 };
 
 void foo(const Vector<int>::Type &v) {}
 
 TEST(Alloc, TBB) {
-  Vector<int>::Type v;
-  // v.reserve(100000);  // don't link
-  v.push_back(9);
+    Vector<int>::Type v;
+    // v.reserve(100000);  // don't link
+    v.push_back(9);
 
-  // аллокатор нужно указывать
-  Vector<int>::Type c_copy = v;
-  foo(v);
+    // аллокатор нужно указывать
+    Vector<int>::Type c_copy = v;
+    foo(v);
 }

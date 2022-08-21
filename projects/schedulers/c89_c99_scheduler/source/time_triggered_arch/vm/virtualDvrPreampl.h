@@ -3,4 +3,4 @@
 
 void preamplReset_void_Virtual();
 
-#endif // VIRTUALDVRPREAMPL_H
+#endif  // VIRTUALDVRPREAMPL_H

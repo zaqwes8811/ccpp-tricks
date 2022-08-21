@@ -4,7 +4,6 @@
 
 // "CppCon 2016: Jason Turner “Practical Performance Practices""
 
-
 #include <string>
 
 int main() {

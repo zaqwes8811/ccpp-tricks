@@ -57,18 +57,18 @@ void push(const T& t){
 // когда забираем из стека, то тоже можно захватить auto_ptr'ом
 */
 
-#include "parallel_ds/data_structures.h"
+#include <gtest/gtest.h>
 
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
-#include <gtest/gtest.h>
+
+#include "parallel_ds/data_structures.h"
 //#include <boost/thread/concurrent_queues/  // experimental
 #include <boost/noncopyable.hpp>
 #include <boost/range/end.hpp>
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/lock_algorithms.hpp>
 #include <boost/thread/locks.hpp>
-
 #include <list>
 #include <ostream>
 #include <queue>
@@ -89,8 +89,8 @@ using boost::mutex;
 using std::list;
 
 TEST(ThreadSafeDS, TBBAssignTest) {
-  fix_extern_space::concurent_try_queue<int> q(10);
-  int r = 0;
-  EXPECT_TRUE(q.try_push(r));
-  EXPECT_TRUE(q.try_pop(r));
+    fix_extern_space::concurent_try_queue<int> q(10);
+    int r = 0;
+    EXPECT_TRUE(q.try_push(r));
+    EXPECT_TRUE(q.try_pop(r));
 }

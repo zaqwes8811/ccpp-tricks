@@ -22,8 +22,8 @@ typedef unsigned long tLong;
 #define FALSE 0
 #define TRUE (!FALSE)
 #endif
-#define RETURN_NORMAL 0 //(bit) 0
-#define RETURN_ERROR 1  //(bit) 1
+#define RETURN_NORMAL 0  //(bit) 0
+#define RETURN_ERROR 1   //(bit) 1
 
 //----------------------------------------------------------------------
 // Interrupts

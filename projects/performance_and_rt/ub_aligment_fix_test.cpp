@@ -9,11 +9,10 @@
 #include <type_traits>
 
 template <typename To, typename From,
-          typename = std::enable_if<(sizeof(To) == sizeof(From)) &&
-                                    std::is_trivially_copyable_v<From> &&
+          typename = std::enable_if<(sizeof(To) == sizeof(From)) && std::is_trivially_copyable_v<From> &&
                                     std::is_trivially_copyable_v<To>>>
 To bit_cast(const From &src) {
-  To dst;
-  std::memcpy(&dst, &src, sizeof(To));
-  return dst;
+    To dst;
+    std::memcpy(&dst, &src, sizeof(To));
+    return dst;
 }

@@ -24,8 +24,8 @@
 //#define RTSEQ_DELAY_NSEC 		( 1000000)
 
 typedef struct {
-  int threadIdx;
-  unsigned long long sequencePeriods;
+    int threadIdx;
+    unsigned long long sequencePeriods;
 } threadParams_t;
 
 double getTimeMsec(void);

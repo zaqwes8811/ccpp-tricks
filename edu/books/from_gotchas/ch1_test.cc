@@ -3,16 +3,16 @@
 // G8
 class B {
 public:
-  void g();
+    void g();
 
 private:
-  virtual void f(); // new
+    virtual void f();  // new
 };
 class D : public B {
 public:
-  void f(); // неожиданно стала виртуальной
+    void f();  // неожиданно стала виртуальной
 private:
-  double g; // new - неожиданно перекрыла публичную функцию
+    double g;  // new - неожиданно перекрыла публичную функцию
 };
 
 // G9 - Using Bad Language

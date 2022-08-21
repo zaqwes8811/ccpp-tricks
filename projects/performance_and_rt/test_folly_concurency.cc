@@ -6,31 +6,31 @@
   \info tbb, ppl
 */
 //#include "actors_and_workers/actors_cc98.h"
-#include "actors_and_workers/actors_cc11.h"
-
-#include <boost/thread/thread.hpp>
 #include <folly/Executor.h>
 #include <folly/futures/Future.h>
 #include <folly/futures/InlineExecutor.h>
 #include <folly/futures/ManualExecutor.h>
 #include <gtest/gtest.h>
 
+#include <boost/thread/thread.hpp>
 #include <iostream>
+
+#include "actors_and_workers/actors_cc11.h"
 
 using namespace folly;
 using namespace std;
 
 class MyExecutor : public folly::Executor {
 public:
-  virtual void add(Func f) { a.post(f); }
+    virtual void add(Func f) { a.post(f); }
 
 private:
-  cc11::Actor a;
+    cc11::Actor a;
 };
 
 void foo(int x) {
-  // do something with x
-  cout << "foo(" << x << ")" << endl;
+    // do something with x
+    cout << "foo(" << x << ")" << endl;
 }
 
 MyExecutor ge;
@@ -40,56 +40,56 @@ namespace mc {
 //   Error handling
 class MemcacheClient {
 public:
-  struct GetReply {
-    enum class Result {
-      FOUND,
-      NOT_FOUND,
-      SERVER_ERROR,
+    struct GetReply {
+        enum class Result {
+            FOUND,
+            NOT_FOUND,
+            SERVER_ERROR,
+        };
+
+        Result result;
+        // The value when result is FOUND,
+        // The error message when result is SERVER_ERROR or CLIENT_ERROR
+        // undefined otherwise
+        std::string value;
     };
 
-    Result result;
-    // The value when result is FOUND,
-    // The error message when result is SERVER_ERROR or CLIENT_ERROR
-    // undefined otherwise
-    std::string value;
-  };
+    GetReply get(std::string key) { return GetReply(); }
 
-  GetReply get(std::string key) { return GetReply(); }
+    // typical - way to "callback hell"
+    int get(std::string key, std::function<void(GetReply)> callback);
 
-  // typical - way to "callback hell"
-  int get(std::string key, std::function<void(GetReply)> callback);
-
-  // used future
-  // "This is slightly more useful than a synchronous API, but it's not yet
-  // ideal"
-  Future<GetReply> async_get(std::string key);
+    // used future
+    // "This is slightly more useful than a synchronous API, but it's not yet
+    // ideal"
+    Future<GetReply> async_get(std::string key);
 };
-} // namespace mc
+}  // namespace mc
 
 int main() {
-  // auto e = MyExecutor();
-  MyExecutor e;
+    // auto e = MyExecutor();
+    MyExecutor e;
 
-  cout << "making Promise" << endl;
-  shared_ptr<Promise<int>> p = make_shared<Promise<int>>();
-  Future<int> f = p->getFuture();
+    cout << "making Promise" << endl;
+    shared_ptr<Promise<int>> p = make_shared<Promise<int>>();
+    Future<int> f = p->getFuture();
 
-  // http://rsdn.ru/article/funcprog/monad.xml
-  auto work = [](Try<int> &&t) { foo(t.value()); };
+    // http://rsdn.ru/article/funcprog/monad.xml
+    auto work = [](Try<int> &&t) { foo(t.value()); };
 
-  // continue
-  // work, but trouble. put in queue but destruct
-  f.via(&ge).then(work);
+    // continue
+    // work, but trouble. put in queue but destruct
+    f.via(&ge).then(work);
 
-  cout << "Future chain made" << endl;
+    cout << "Future chain made" << endl;
 
-  // launch
-  e.add([p] {
-    cout << "fulfilling Promise" << endl;
-    p->setValue(42);
-    cout << "Promise fulfilled" << endl;
-  });
+    // launch
+    e.add([p] {
+        cout << "fulfilling Promise" << endl;
+        p->setValue(42);
+        cout << "Promise fulfilled" << endl;
+    });
 
-  // while(true);
-  // boost::thread::(boost::chrono::seconds(2));
+    // while(true);
+    // boost::thread::(boost::chrono::seconds(2));
 }
