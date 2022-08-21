@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "visuality/view.h"
+#include "common/view.h"
 //#include <
 
 #include <algorithm>

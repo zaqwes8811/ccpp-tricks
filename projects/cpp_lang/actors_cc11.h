@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <functional>
 
 #include "error_handling.h"
 #include "safe_queue_cc11.h"

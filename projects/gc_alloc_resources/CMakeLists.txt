@@ -6,7 +6,6 @@ add_executable(gc
         mem_pools_test.cc
         mm_files_test.cc
         own_alloc_test.cc
-        queue_ccup_task_test.cc
         ref_count_chromium_test.cc
         shild_gc_single_thread_test.cc
         smart_ptrs_in_depth_test.cc

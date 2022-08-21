@@ -11,8 +11,8 @@
 #include <ostream>
 #include <vector>
 
-#include "projects/std_own_ext_v3.h"
-#include "projects/view.h"
+#include "common/std_own_ext_v3.h"
+#include "common/view.h"
 
 using namespace std;
 using namespace view;  //::operator<<;

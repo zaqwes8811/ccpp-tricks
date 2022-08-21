@@ -12,7 +12,7 @@
 #include <valarray>
 #include <vector>
 
-#include "visuality/view.h"
+#include "common/view.h"
 
 using namespace std;
 using namespace view;

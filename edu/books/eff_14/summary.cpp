@@ -2,7 +2,7 @@
 #include <type_traits>
 #include <vector>
 
-#include "test_type.hpp"
+#include "common/test_type.hpp"
 
 using namespace std;
 
