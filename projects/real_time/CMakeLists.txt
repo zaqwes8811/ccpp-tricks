@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(rt_audio
         ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
         iceoyx_hoofs_test.cpp
+        models_test.cpp
         )
 
 

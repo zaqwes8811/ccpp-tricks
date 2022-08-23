@@ -20,3 +20,6 @@ https://juce.com/
 Case: rt thread take buffers from pool(hoofs), fill with noize and send (rt-way) to another thread
 Q: how to measure latency?
 Q: how to check, that code is minimal (no copy, no alloc, etc)
+
+[!!!!]
+https://www.youtube.com/watch?v=j2AgjFSFgRc&ab_channel=MeetingCpp

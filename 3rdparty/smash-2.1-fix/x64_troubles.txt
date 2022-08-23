@@ -1,2 +1,0 @@
-snmp types have sertan size - streaming errors may occure
-much
