@@ -224,7 +224,7 @@ void end_delay_test(void)
 
 #define RUN_RT_THREAD
 
-void main(void)
+void main_local(void)
 {
    int rc, scope;
 

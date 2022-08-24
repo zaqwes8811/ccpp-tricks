@@ -11,14 +11,15 @@ find_package(iceoryx_hoofs REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(rt_audio
+add_executable(rt_acs
         ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
         iceoyx_hoofs_test.cpp
         models_test.cpp
+        rtos_rte_cp/RT-Clock/posix_clock.c
         )
 
 
-target_link_libraries(rt_audio
+target_link_libraries(rt_acs
         ${GTEST_BOTH_LIBRARIES}
         pthread dl m rt
         )

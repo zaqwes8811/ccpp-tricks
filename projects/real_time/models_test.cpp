@@ -10,7 +10,7 @@
 TEST(Models, Thread) {
 
     auto model_fn = []() {
-        // Sleep?
+        // Sleep? But it's system call
 
         // filter for ADC
 
@@ -34,4 +34,8 @@ TEST(Models, Thread) {
 // https://rt.wiki.kernel.org/index.php/Frequently_Asked_Questions
 // https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application
 
+
+// Measurements
+// https://stackoverflow.com/questions/88/is-gettimeofday-guaranteed-to-be-of-microsecond-resolution
+// https://stackoverflow.com/questions/25583498/clock-monotonic-vs-clock-monotonic-raw-truncated-values
 }
