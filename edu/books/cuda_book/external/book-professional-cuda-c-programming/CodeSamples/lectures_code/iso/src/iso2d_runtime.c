@@ -10,9 +10,9 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  *  * Neither the name of NVIDIA CORPORATION nor the names of its
- *    contributors may be used to endorse or promote products derived 
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -31,26 +31,24 @@
  * Max Grossman (jmaxg3@gmail.com)
  */
 
+#include <math.h>
+#include <openacc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include <openacc.h>
+
 #include "common.h"
 #include "common2d.h"
 
 /*
- * This function advances the state of the system by nsteps timesteps. The 
+ * This function advances the state of the system by nsteps timesteps. The
  * curr is the current state of the system.
  * next is the output matrix to store the next time step into.
  */
-static void fwd(TYPE *next, TYPE *curr, TYPE *vsq,
-        TYPE *c_coeff, int nx, int ny, int dimx, int dimy, int radius) {
-
-#pragma acc parallel present(next[0:dimx * dimy], curr[0:dimx * dimy], \
-        vsq[0:dimx * dimy], c_coeff[0:NUM_COEFF])
+static void fwd(TYPE *next, TYPE *curr, TYPE *vsq, TYPE *c_coeff, int nx, int ny, int dimx, int dimy, int radius) {
+#pragma acc parallel present(next [0:dimx * dimy], curr [0:dimx * dimy], vsq [0:dimx * dimy], c_coeff [0:NUM_COEFF])
 #pragma acc loop collapse(2) gang worker vector
     for (int y = 0; y < ny; y++) {
         for (int x = 0; x < nx; x++) {
@@ -63,16 +61,14 @@ static void fwd(TYPE *next, TYPE *curr, TYPE *vsq,
                 int y_neg_offset = POINT_OFFSET(x, y - d, dimx, radius);
                 int x_pos_offset = POINT_OFFSET(x + d, y, dimx, radius);
                 int x_neg_offset = POINT_OFFSET(x - d, y, dimx, radius);
-                div += c_coeff[d] * (curr[y_pos_offset] +
-                        curr[y_neg_offset] + curr[x_pos_offset] +
-                        curr[x_neg_offset]);
+                div += c_coeff[d] * (curr[y_pos_offset] + curr[y_neg_offset] + curr[x_pos_offset] + curr[x_neg_offset]);
             }
             next[this_offset] = temp + div * vsq[this_offset];
         }
     }
 }
 
-int main( int argc, char *argv[] ) {
+int main(int argc, char *argv[]) {
     config conf;
     setup_config(&conf, argc, argv);
     init_progress(conf.progress_width, conf.nsteps, conf.progress_disabled);
@@ -81,8 +77,8 @@ int main( int argc, char *argv[] ) {
     TYPE dt = 0.002f;
 
     // compute the pitch for perfect coalescing
-    size_t dimx = conf.nx + 2*conf.radius;
-    size_t dimy = conf.ny + 2*conf.radius;
+    size_t dimx = conf.nx + 2 * conf.radius;
+    size_t dimy = conf.ny + 2 * conf.radius;
     size_t nbytes = dimx * dimy * sizeof(TYPE);
 
     if (conf.verbose) {
@@ -94,7 +90,7 @@ int main( int argc, char *argv[] ) {
     TYPE c_coeff[NUM_COEFF];
     TYPE *curr = (TYPE *)malloc(nbytes);
     TYPE *next = (TYPE *)malloc(nbytes);
-    TYPE *vsq  = (TYPE *)malloc(nbytes);
+    TYPE *vsq = (TYPE *)malloc(nbytes);
     if (curr == NULL || next == NULL || vsq == NULL) {
         fprintf(stderr, "Allocations failed\n");
         return 1;
@@ -115,8 +111,7 @@ int main( int argc, char *argv[] ) {
     for (int step = 0; step < conf.nsteps; step++) {
         for (int src = 0; src < conf.nsrcs; src++) {
             if (conf.srcs[src].t > step) continue;
-            int src_offset = POINT_OFFSET(conf.srcs[src].x, conf.srcs[src].y,
-                    dimx, conf.radius);
+            int src_offset = POINT_OFFSET(conf.srcs[src].x, conf.srcs[src].y, dimx, conf.radius);
             curr[src_offset] = srcs[src][step];
 
             acc_update_device(curr + src_offset, sizeof(TYPE));
@@ -130,7 +125,7 @@ int main( int argc, char *argv[] ) {
 
         update_progress(step + 1);
     }
-    
+
     acc_copyout(curr, dimx * dimy * sizeof(TYPE));
 
     double elapsed_s = seconds() - start;
@@ -138,8 +133,8 @@ int main( int argc, char *argv[] ) {
     finish_progress();
 
     float point_rate = (float)conf.nx * conf.ny / (elapsed_s / conf.nsteps);
-    fprintf(stderr, "iso_r4_2x:   %8.10f s total, %8.10f s/step, %8.2f Mcells/s/step\n",
-            elapsed_s, elapsed_s / conf.nsteps, point_rate / 1000000.f);
+    fprintf(stderr, "iso_r4_2x:   %8.10f s total, %8.10f s/step, %8.2f Mcells/s/step\n", elapsed_s,
+            elapsed_s / conf.nsteps, point_rate / 1000000.f);
 
     if (conf.save_text) {
         save_text(curr, dimx, dimy, conf.ny, conf.nx, "snap.text", conf.radius);

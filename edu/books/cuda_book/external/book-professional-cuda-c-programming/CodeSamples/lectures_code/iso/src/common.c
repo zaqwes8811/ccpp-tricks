@@ -10,9 +10,9 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  *  * Neither the name of NVIDIA CORPORATION nor the names of its
- *    contributors may be used to endorse or promote products derived 
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -30,9 +30,10 @@
  * Paulius Micikevicius (pauliusm@nvidia.com)
  * Max Grossman (jmaxg3@gmail.com)
  */
-#include <sys/time.h>
 #include "common.h"
+
 #include <math.h>
+#include <sys/time.h>
 
 static char *progress_buffer = NULL;
 static int progress_length = -1;
@@ -51,7 +52,7 @@ void ricker_wavelet(TYPE *source, int nsteps, TYPE dt, TYPE freq) {
     TYPE shift = -1.5594f / freq;
 
     for (int i = 0; i < nsteps; i++) {
-        TYPE time = i*dt + shift;
+        TYPE time = i * dt + shift;
         TYPE pi_freq_t = 3.141517f * freq * time;
         TYPE sqr_pi_freq_t = pi_freq_t * pi_freq_t;
         source[i] = 1e5f * (1.f - 2 * sqr_pi_freq_t) * exp(-sqr_pi_freq_t);
@@ -62,21 +63,24 @@ void parse_source(char *optarg, source *out) {
     char *x_str = optarg;
     char *first_comma = strchr(x_str, ',');
     if (first_comma == NULL) {
-        fprintf(stderr, "Improperly formatted argument to -p, must "
+        fprintf(stderr,
+                "Improperly formatted argument to -p, must "
                 "be x,y,f,t\n");
         exit(1);
     }
     char *y_str = first_comma + 1;
     char *second_comma = strchr(y_str, ',');
     if (second_comma == NULL) {
-        fprintf(stderr, "Improperly formatted argument to -p, must "
+        fprintf(stderr,
+                "Improperly formatted argument to -p, must "
                 "be x,y,f,t\n");
         exit(1);
     }
     char *freq_str = second_comma + 1;
     char *third_comma = strchr(freq_str, ',');
     if (third_comma == NULL) {
-        fprintf(stderr, "Improperly formatted argument to -p, must "
+        fprintf(stderr,
+                "Improperly formatted argument to -p, must "
                 "be x,y,f,t\n");
         exit(1);
     }
@@ -181,7 +185,8 @@ void update_progress(int progress) {
     }
 
     if (progress_buffer == NULL) {
-        fprintf(stderr, "Calling update_progress without having called "
+        fprintf(stderr,
+                "Calling update_progress without having called "
                 "init_progress\n");
         exit(1);
     }
@@ -222,5 +227,3 @@ void finish_progress() {
 
     free(progress_buffer);
 }
-
-

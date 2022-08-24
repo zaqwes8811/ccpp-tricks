@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern int sgemm_(char *transa, char *transb, int *m, int *
-                  n, int *k, float *alpha, float *a, int *lda, float *b, int *
-                  ldb, float *beta, float *c, int *ldc);
+extern int sgemm_(char *transa, char *transb, int *m, int *n, int *k, float *alpha, float *a, int *lda, float *b,
+                  int *ldb, float *beta, float *c, int *ldc);
 
 /*
  * A simple example of re-compiling legacy BLAS code to use the drop-in cuBLAS
@@ -22,18 +21,15 @@ int N = 1024;
  * will be filled with random single-precision floating-point values between 0
  * and 100.
  */
-void generate_random_dense_matrix(int M, int N, float **outA)
-{
+void generate_random_dense_matrix(int M, int N, float **outA) {
     int i, j;
     double rMax = (double)RAND_MAX;
     float *A = (float *)malloc(sizeof(float) * M * N);
 
     // For each column
-    for (j = 0; j < N; j++)
-    {
+    for (j = 0; j < N; j++) {
         // For each row
-        for (i = 0; i < M; i++)
-        {
+        for (i = 0; i < M; i++) {
             double dr = (double)rand();
             A[j * M + i] = (dr / rMax) * 100.0;
         }
@@ -42,8 +38,7 @@ void generate_random_dense_matrix(int M, int N, float **outA)
     *outA = A;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int i, j;
     float *A, *B, *C;
     float alpha = 3.0f;
@@ -57,10 +52,8 @@ int main(int argc, char **argv)
 
     sgemm_("N", "N", &M, &M, &N, &alpha, A, &M, B, &N, &beta, C, &M);
 
-    for (i = 0; i < 10; i++)
-    {
-        for (j = 0; j < 10; j++)
-        {
+    for (i = 0; i < 10; i++) {
+        for (j = 0; j < 10; j++) {
             printf("%2.2f ", C[j * M + i]);
         }
 

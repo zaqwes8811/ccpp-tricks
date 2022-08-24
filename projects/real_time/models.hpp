@@ -7,8 +7,6 @@
 
 #include <atomic>
 
-class AperiodicLevel1 final {
+class AperiodicLevel1 final {};
 
-};
-
-#endif //IN_THE_VICINITY_CC_MODELS_HPP
+#endif  // IN_THE_VICINITY_CC_MODELS_HPP

@@ -1,6 +1,5 @@
-#include "time_triggered_arch/config.h"
 #include "time_triggered_arch/vm/virtualDvrPreampl.h"
 
-void preamplReset_void_Virtual() {
+#include "time_triggered_arch/config.h"
 
-}
+void preamplReset_void_Virtual() {}

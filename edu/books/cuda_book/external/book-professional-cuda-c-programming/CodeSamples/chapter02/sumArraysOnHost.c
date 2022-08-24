@@ -6,31 +6,25 @@
  * sequentially iterates through vector elements on the host.
  */
 
-void sumArraysOnHost(float *A, float *B, float *C, const int N)
-{
-    for (int idx = 0; idx < N; idx++)
-    {
+void sumArraysOnHost(float *A, float *B, float *C, const int N) {
+    for (int idx = 0; idx < N; idx++) {
         C[idx] = A[idx] + B[idx];
     }
-
 }
 
-void initialData(float *ip, int size)
-{
+void initialData(float *ip, int size) {
     // generate different seed for random number
     time_t t;
-    srand((unsigned) time(&t));
+    srand((unsigned)time(&t));
 
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         ip[i] = (float)(rand() & 0xFF) / 10.0f;
     }
 
     return;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int nElem = 1024;
     size_t nBytes = nElem * sizeof(float);
 
@@ -48,5 +42,5 @@ int main(int argc, char **argv)
     free(h_B);
     free(h_C);
 
-    return(0);
+    return (0);
 }

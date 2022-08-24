@@ -3,4 +3,3 @@
 //
 
 // "CppCon 2018: Alan Talbot “Moving Faster: Everyday efficiency in modern C++”"
-

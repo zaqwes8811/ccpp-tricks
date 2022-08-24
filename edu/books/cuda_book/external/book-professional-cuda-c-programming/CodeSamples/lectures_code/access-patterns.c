@@ -1,10 +1,10 @@
 #include <openacc.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-#define LOOP    30
-#define BAD_STRIDE  4
+#define LOOP 30
+#define BAD_STRIDE 4
 
 static void usage(char **argv) {
     fprintf(stderr, "usage: %s [-n size] [-h] [-c] [-b]\n", argv[0]);
@@ -14,8 +14,10 @@ static void usage(char **argv) {
 static void verify(int *A, int *B, int *C, int N) {
     for (int i = 0; i < N; i++) {
         if (C[i] != A[i] + B[i]) {
-            fprintf(stderr, "Validation error on element %d. Expected %d, got "
-                "%d\n", i, A[i] + B[i], C[i]);
+            fprintf(stderr,
+                    "Validation error on element %d. Expected %d, got "
+                    "%d\n",
+                    i, A[i] + B[i], C[i]);
             exit(1);
         }
     }
@@ -57,14 +59,14 @@ int main(int argc, char **argv) {
     }
 
     // warmup
-#pragma acc kernels loop copyin(A[0:N], B[0:N]) copyout(C[0:N])
+#pragma acc kernels loop copyin(A [0:N], B [0:N]) copyout(C [0:N])
     for (int i = 0; i < N; i++) {
         C[i] = A[i] + B[i];
     }
 
     if (!bad) {
         for (int l = 0; l < LOOP; l++) {
-#pragma acc kernels loop copyin(A[0:N], B[0:N]) copyout(C[0:N])
+#pragma acc kernels loop copyin(A [0:N], B [0:N]) copyout(C [0:N])
             for (int i = 0; i < N; i++) {
                 C[i] = A[i] + B[i];
             }
@@ -72,12 +74,11 @@ int main(int argc, char **argv) {
         }
     } else {
         for (int l = 0; l < LOOP; l++) {
-#pragma acc kernels loop copyin(A[0:N], B[0:N]) copyout(C[0:N])
+#pragma acc kernels loop copyin(A [0:N], B [0:N]) copyout(C [0:N])
             for (int i = 0; i < N; i++) {
                 int round = i / (N / BAD_STRIDE);
                 int offset = i % (N / BAD_STRIDE);
-                C[offset * BAD_STRIDE + round] = A[offset * BAD_STRIDE + round] +
-                    B[offset * BAD_STRIDE + round];
+                C[offset * BAD_STRIDE + round] = A[offset * BAD_STRIDE + round] + B[offset * BAD_STRIDE + round];
             }
             if (check) verify(A, B, C, N);
         }

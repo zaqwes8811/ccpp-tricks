@@ -9,10 +9,9 @@
  * thread configuration.
  */
 
-#define N   1024
+#define N 1024
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int i;
     /*
      * restrict indicates to the compiler that the memory pointed to by A, B, C,
@@ -26,8 +25,7 @@ int main(int argc, char **argv)
     int *restrict D = (int *)malloc(N * sizeof(int));
 
     // Initialize A and B
-    for (i = 0; i < N; i++)
-    {
+    for (i = 0; i < N; i++) {
         A[i] = i;
         B[i] = 2 * i;
     }
@@ -35,20 +33,17 @@ int main(int argc, char **argv)
     // Execute the following block of code on an accelerator
 #pragma acc kernels
     {
-        for (i = 0; i < N; i++)
-        {
+        for (i = 0; i < N; i++) {
             C[i] = A[i] + B[i];
         }
 
-        for (i = 0; i < N; i++)
-        {
+        for (i = 0; i < N; i++) {
             D[i] = C[i] * A[i];
         }
     }
 
     // Display part of the results
-    for (i = 0; i < 10; i++)
-    {
+    for (i = 0; i < 10; i++) {
         printf("%d ", D[i]);
     }
 

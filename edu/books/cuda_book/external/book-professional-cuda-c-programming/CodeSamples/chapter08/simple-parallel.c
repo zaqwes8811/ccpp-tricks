@@ -8,10 +8,9 @@
  * parallelism.
  */
 
-#define N   1024
+#define N 1024
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int i;
     /*
      * Note that this example does not require the restrict keyword that
@@ -25,8 +24,7 @@ int main(int argc, char **argv)
     int *D = (int *)malloc(N * sizeof(int));
 
     // Initialize A and B
-    for (i = 0; i < N; i++)
-    {
+    for (i = 0; i < N; i++) {
         A[i] = i;
         B[i] = 2 * i;
     }
@@ -39,22 +37,19 @@ int main(int argc, char **argv)
     {
 #pragma acc loop
 
-        for (i = 0; i < N; i++)
-        {
+        for (i = 0; i < N; i++) {
             C[i] = A[i] + B[i];
         }
 
 #pragma acc loop
 
-        for (i = 0; i < N; i++)
-        {
+        for (i = 0; i < N; i++) {
             D[i] = C[i] * A[i];
         }
     }
 
     // Display part of the results
-    for (i = 0; i < 10; i++)
-    {
+    for (i = 0; i < 10; i++) {
         printf("%d ", D[i]);
     }
 

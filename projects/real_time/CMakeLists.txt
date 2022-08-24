@@ -5,6 +5,8 @@ find_package(benchmark REQUIRED)
 include_directories(${benchmark_INCLUDE_DIRS})
 link_libraries(${benchmark_LIBRARIES} pthread)
 
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/farbot/include)
+
 find_package(GTest REQUIRED)
 
 find_package(iceoryx_hoofs REQUIRED)
@@ -12,7 +14,7 @@ find_package(iceoryx_hoofs REQUIRED)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(rt_acs
-        ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
+        ${CMAKE_SOURCE_DIR}/projects/all_tests.cc
         iceoyx_hoofs_test.cpp
         models_test.cpp
         rtos_rte_cp/RT-Clock/posix_clock.c
