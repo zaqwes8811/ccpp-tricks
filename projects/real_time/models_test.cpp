@@ -38,4 +38,14 @@ TEST(Models, Thread) {
 // Measurements
 // https://stackoverflow.com/questions/88/is-gettimeofday-guaranteed-to-be-of-microsecond-resolution
 // https://stackoverflow.com/questions/25583498/clock-monotonic-vs-clock-monotonic-raw-truncated-values
+
+// Clock scaling
+// https://askubuntu.com/questions/523640/how-i-can-disable-cpu-frequency-scaling-and-set-the-system-to-performance
+// http://www.servernoobs.com/avoiding-cpu-speed-scaling-in-modern-linux-distributions-running-cpu-at-full-speed-tips/
+
+// Tick generation
+// https://stackoverflow.com/questions/5833550/how-do-i-get-the-most-accurate-realtime-periodic-interrupts-in-linux
+
+// Shielded CPU
+// https://www.linuxjournal.com/article/6900
 }
