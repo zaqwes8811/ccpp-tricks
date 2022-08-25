@@ -7,10 +7,20 @@
 #include <gtest/gtest.h>
 
 #include <farbot/fifo.hpp>
-
 #include <thread>
 
 #include "rtos_rte_cp/RT-Clock/posix_clock.h"
+
+enum class ErrorCode { kNone, kOverflow };
+
+struct SensorFrame {
+    int frame_tick_{};
+};
+
+using SensorFifo =
+    farbot::fifo<SensorFrame, farbot::fifo_options::concurrency::single, farbot::fifo_options::concurrency::single>;
+using ErrorCodeFifo =
+    farbot::fifo<ErrorCode, farbot::fifo_options::concurrency::single, farbot::fifo_options::concurrency::single>;
 
 TEST(Models, Thread) {
     print_scheduler();
@@ -24,7 +34,9 @@ TEST(Models, Thread) {
                rtclk_resolution.tv_sec, (rtclk_resolution.tv_nsec / 1000), rtclk_resolution.tv_nsec);
     }
 
-    auto model_fn = []() {
+    auto error_code_fifo = ErrorCodeFifo{8};
+
+    auto model_fn = [&error_code_fifo]() {
         // Sleep? But it's system call
 
         // filter for ADC
@@ -33,9 +45,9 @@ TEST(Models, Thread) {
 
         // Time markers? realtime_safe
 
-        struct timespec tim{};
+        struct timespec tim {};
         tim.tv_sec = 0;
-        tim.tv_nsec = 500000000L;
+        tim.tv_nsec = 50000000L;
 
         while (true) {
             // clock_nanosleep
@@ -46,6 +58,10 @@ TEST(Models, Thread) {
             }
 
             // TODO() Measure and push to queue
+            bool pushed = error_code_fifo.push(ErrorCode::kOverflow);
+            if(!pushed) {
+                printf("Overflow\n");
+            }
         }
     };
 
