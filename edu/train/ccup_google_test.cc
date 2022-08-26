@@ -1,33 +1,32 @@
 
 #include <gtest/gtest.h>
-
-#include <vector>
-#include <utility>
-
 #include <stdlib.h>
+
+#include <utility>
+#include <vector>
 
 using namespace std;
 
 TEST(CCupGoogle, One) {
-  // http://www.careercup.com/question?id=5122639288860672
-  // O(1) space
-  //
-  // Deep math + work with stream
-  vector<pair<int, int>> stream({{1,2},{2,2},{3,4},{4,10}});
+    // http://www.careercup.com/question?id=5122639288860672
+    // O(1) space
+    //
+    // Deep math + work with stream
+    vector<pair<int, int>> stream({{1, 2}, {2, 2}, {3, 4}, {4, 10}});
 
-  int sum = 0;
-  size_t size = 0;
-  for (auto& e: stream) {
-    sum += e.second;
-    ++size;
-  }
+    int sum = 0;
+    size_t size = 0;
+    for (auto& e : stream) {
+        sum += e.second;
+        ++size;
+    }
 
-  size_t id = ::rand() % size;
+    size_t id = ::rand() % size;
 
-  // FIXME: can I do it for stream? - No.
-  auto elem = stream[id];
+    // FIXME: can I do it for stream? - No.
+    auto elem = stream[id];
 
-  int w = elem.second;
+    int w = elem.second;
 }
 
 // http://www.careercup.com/question?id=4925398016065536
@@ -71,11 +70,11 @@ int match (string target, string source){
 */
 
 TEST(Google, Discount) {
-  // http://www.careercup.com/question?id=5757597581836288
-  // use DP
+    // http://www.careercup.com/question?id=5757597581836288
+    // use DP
 }
 
 TEST(Google, DP) {
-  // http://www.careercup.com/question?id=5739350128066560
-  // Don't understood
+    // http://www.careercup.com/question?id=5739350128066560
+    // Don't understood
 }
