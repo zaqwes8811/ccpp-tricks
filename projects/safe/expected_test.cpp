@@ -168,10 +168,23 @@ static std::shared_ptr<Obj> create(std::aligned_storage_t<sizeof(ObjImpl), align
     return std::shared_ptr<Obj>(obj_ptr, [](auto ptr) { ptr->~Obj(); });  // Where is atomic ptr? Heap?
 }
 
-template <int N = 8>
-class ObjProvider {
+template <typename T, typename U, int N = 8>
+class SingleThreadProvider {
 public:
-    std::aligned_storage_t<sizeof(ObjImpl), alignof(ObjImpl)> buf[N];  // Uninitialized?
+    static_assert(std::is_base_of_v<U, T>);
+    std::aligned_storage_t<sizeof(T), alignof(T)> buf[N] = {};  // Uninitialized?
+    std::array<bool, N> used_{};  //  fill with false?
+
+    U* get() {
+        for(int i = 0; i < N; ++i) {
+
+        }
+        return nullptr;
+    }
+
+    ~SingleThreadProvider() {
+        // delete all used
+    }
 };
 
 // Related:
