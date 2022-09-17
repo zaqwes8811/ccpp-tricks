@@ -13,3 +13,6 @@
 [submodule "3rdparty/smack"]
 	path = 3rdparty/smack
 	url = https://github.com/smackers/smack.git
+[submodule "3rdparty/mission-critical-sw-experiments"]
+	path = 3rdparty/mission-critical-sw-experiments
+	url = https://github.com/zaqwes8811/mission-critical-sw-experiments.git
