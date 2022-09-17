@@ -40,7 +40,7 @@ int _2sum_naive(const vector<int>& in, const int target) {
         // Ищет только первый, как и нужно
         vector<int>::const_iterator finded_it =
             find_if(at,  // begin  TODO: may be bug
-                    // in.begin()
+                         // in.begin()
                     in.end(), fp::compose_f_gx(bind2nd(equal_to<int>(), target), bind2nd(plus<int>(), *at)));
 
         if (finded_it != in.end()) count_unique++;

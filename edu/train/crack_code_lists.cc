@@ -179,7 +179,7 @@ public:
     // no copy and assign - по суте реализует move-семантику! да но вообще оператор уничтожает данные что слева!!
     // затирает
     own_forward_list<T>& operator=(own_forward_list<T> rhs  // по значению
-                                   // const own_forward_list<T>& rhs
+                                                            // const own_forward_list<T>& rhs
     ) {
         // http://stackoverflow.com/questions/12015156/what-is-wrong-with-checking-for-self-assignment-and-what-does-it-mean
         // if (this != &rhs) {

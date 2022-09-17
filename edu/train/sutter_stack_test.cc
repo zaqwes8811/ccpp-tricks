@@ -130,7 +130,7 @@ void Stack<T>::Push(const T& t) {
     }
     v_[vused_] = t;  // DANGER: if throw - then no Strong Warr.
                      //  Итераторы станут не действ.
-    ++vused_;  // pointer to next
+    ++vused_;        // pointer to next
 }
 
 // Step 5

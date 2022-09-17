@@ -24,12 +24,12 @@ add_executable(performance_and_rt
         ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/lib/Support/ABIBreak.cpp
         ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/lib/Support/MemAlloc.cpp
         #        ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/unittests/ADT/ImmutableMapTest.cpp  # need lot of code to link with
-        small_data_structs_test.cc
-        copy_removal_tricks_test.cpp
-        buffer.cpp
-        llvm_small_objects_test.cpp
-        rt_test.cpp
-        folly_test.cpp
+#        small_data_structs_test.cc
+#        copy_removal_tricks_test.cpp
+#        buffer.cpp
+#        llvm_small_objects_test.cpp
+#        rt_test.cpp
+#        folly_test.cpp
         )
 
 target_link_libraries(performance_and_rt
@@ -37,3 +37,12 @@ target_link_libraries(performance_and_rt
         pthread dl m rt
         )
 
+add_executable(hp_benchmark
+        ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
+        zigzag_benchmark.cpp
+        )
+
+target_link_libraries(hp_benchmark
+        ${GTEST_BOTH_LIBRARIES}
+        pthread dl m rt
+        )

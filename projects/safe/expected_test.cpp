@@ -4,12 +4,11 @@
 
 //#include <iceoryx_utils/cxx/expected.hpp>
 #include <cstdlib>
-
-#include <utility>
-#include <type_traits>
+#include <iostream>
 #include <memory>
 #include <optional>
-#include <iostream>
+#include <type_traits>
+#include <utility>
 
 [[nodiscard]] void* rtti() noexcept {
     //    auto a =typeid(int);
@@ -27,11 +26,11 @@ void g() { (void)rtti(); }
 
 enum SystemError { no_error, out_of_memory };
 
-//namespace {
-//iox::cxx::expected<std::vector<int>, SystemError> makeVector() {
-//    return iox::cxx::success<std::vector<int>>(std::vector<int>(0, 100));
-//}
-//}  // namespace
+// namespace {
+// iox::cxx::expected<std::vector<int>, SystemError> makeVector() {
+//     return iox::cxx::success<std::vector<int>>(std::vector<int>(0, 100));
+// }
+// }  // namespace
 
 //========================================================================
 //========================================================================
@@ -173,11 +172,10 @@ class SingleThreadProvider {
 public:
     static_assert(std::is_base_of_v<U, T>);
     std::aligned_storage_t<sizeof(T), alignof(T)> buf[N] = {};  // Uninitialized?
-    std::array<bool, N> used_{};  //  fill with false?
+    std::array<bool, N> used_{};                                //  fill with false?
 
     U* get() {
-        for(int i = 0; i < N; ++i) {
-
+        for (int i = 0; i < N; ++i) {
         }
         return nullptr;
     }
@@ -198,9 +196,9 @@ int main() {
     // No exception
     // No rtti
 
-//    auto v = makeVector();
+    //    auto v = makeVector();
     auto f = new int();  // No malloc?
-//    static_cast<void>(v);
+                         //    static_cast<void>(v);
     static_cast<void>(f);
 
     g();

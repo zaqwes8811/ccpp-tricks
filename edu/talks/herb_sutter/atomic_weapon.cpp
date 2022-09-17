@@ -34,7 +34,8 @@ Real model - L_j cache
  Transformations
  Source code -> ... -> Actual exec - Only care abolut
 
-Transformation at all level are equivalde => can reaseon about all transform. as reordering ouf souce code load and stores
+Transformation at all level are equivalde => can reaseon about all transform. as reordering ouf souce code load and
+stores
 
  Dekker and Peterson Algoritn
  Even Seq Cons.
