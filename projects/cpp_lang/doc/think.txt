@@ -1,7 +1,0 @@
-About pair<>
-  http://stackoverflow.com/questions/156275/what-is-the-equivalent-of-the-c-pairl-r-in-java?rq=1
-  да, меня многое тоже смущало, лучше класс, или структрурку сделать
-
-"std::rotate is a common building block in many algorithms. This example demonstrates insertion sort:"
-
-свои функции алгоритмов лучше интегрированы особенно для ассоц. контейнеров

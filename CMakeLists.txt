@@ -48,9 +48,6 @@ endif ()
 
 find_package(GTest REQUIRED)
 
-add_subdirectory(projects/backtrace_and_heap)
-add_subdirectory(projects/analysers_templs/asan_check_templ)
-add_subdirectory(projects/analysers_templs/tsan_check_templ)
 add_subdirectory(projects/cpp_lang)
 add_subdirectory(projects/high_perf)
 add_subdirectory(edu/books)
