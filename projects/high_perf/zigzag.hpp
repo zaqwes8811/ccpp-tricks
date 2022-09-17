@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "mission-critical-sw-experiments/tests/arena.hpp"
+
 namespace leetcode {
 using namespace std;
 
