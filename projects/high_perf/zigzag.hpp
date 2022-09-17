@@ -217,4 +217,9 @@ string convert_best(string s, int numRows) {
 
     return s;
 }
+
+// TODO() arena
+// TODO() split direct move and back
+// TODO() don't use input string - less branches
+
 }  // namespace leetcode
