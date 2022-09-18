@@ -40,6 +40,12 @@ target_link_libraries(performance_and_rt
         pthread dl m rt
         )
 
+################################################################################
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -g -ggdb3")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fno-omit-frame-pointer -g -ggdb3")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fno-omit-frame-pointer -g -ggdb3")
+
 add_executable(hp_benchmark
         ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
         zigzag_benchmark.cpp

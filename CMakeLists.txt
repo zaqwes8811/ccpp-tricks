@@ -32,15 +32,20 @@ if (BUILD_WITH_TSAN)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=thread")
 endif()
 
+## Perf
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -g -ggdb3")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fno-omit-frame-pointer -g -ggdb3")
+#set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fno-omit-frame-pointer -g -ggdb3")
+
 #if (PLATFORM_TYPE STREQUAL "X86_64_TORCH_LEGACY")
 #    set(CMAKE_CXX_STANDARD 14)
 #else ()
 set(CMAKE_CXX_STANDARD 17)
 #endif ()
 
-if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
-endif ()
+#if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
+#endif ()
 
 ####################################################################################
 ####################################################################################
