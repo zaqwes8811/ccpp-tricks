@@ -12,6 +12,8 @@
 namespace leetcode {
 using namespace std;
 
+// TODO(me) RVO check
+
 string convert_ref(string s, int numRows) {
     if (numRows == 1) return s;
 
@@ -163,6 +165,8 @@ string convert_best(string s, int numRows) {
     int in_place_counter = 0;
     auto siter = s.begin();
     auto send = s.cend();
+
+    // TODO() Rangebase loop
     for (auto iter = 0; iter < size; ++iter) {
         int counter = 0;
         int direction = 1;
