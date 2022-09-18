@@ -13,6 +13,12 @@ target_link_libraries(fastware_test
         pthread dl m rt
         )
 
+####################################################################
+
+find_package(benchmark REQUIRED)
+include_directories(${benchmark_INCLUDE_DIRS})
+link_libraries(${benchmark_LIBRARIES} pthread)
+
 add_executable(fastware_bench
         ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
         )
