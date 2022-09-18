@@ -34,7 +34,7 @@ static void BM_ZigZag(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_ZigZag)->Arg(8)->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);
+BENCHMARK(BM_ZigZag)->Arg(8);//->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);
 
 static void BM_ZigZag_best(benchmark::State& state) {
     std::string x = gen_random(state.range(0));
@@ -44,7 +44,7 @@ static void BM_ZigZag_best(benchmark::State& state) {
     }
 }
 
-BENCHMARK(BM_ZigZag_best)->Arg(8)->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);
+BENCHMARK(BM_ZigZag_best)->Arg(8);//->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);
 
 static void BM_ZigZag_ref(benchmark::State& state) {
     std::string x = gen_random(state.range(0));
@@ -54,4 +54,4 @@ static void BM_ZigZag_ref(benchmark::State& state) {
     }
 }
 
-BENCHMARK(BM_ZigZag_ref)->Arg(8)->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);
+BENCHMARK(BM_ZigZag_ref)->Arg(8);//->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);

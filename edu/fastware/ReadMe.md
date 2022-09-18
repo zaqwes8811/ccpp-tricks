@@ -1,7 +1,7 @@
 
 Chandler Capur:
 - llvm
-  CppCon 2017: Chandler Carruth “Going Nowhere Faster”
+  CppCon 2017: Chandler Carruth “Going Nowhere Faster” - BENCHMARK FIRST!!!
   CppCon 2015: Chandler Carruth "Tuning C++: Benchmarks, and CPUs, and Compilers! Oh My!"
 
 Perf help:
