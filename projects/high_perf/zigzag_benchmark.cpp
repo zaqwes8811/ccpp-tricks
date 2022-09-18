@@ -54,4 +54,4 @@ static void BM_ZigZag_ref(benchmark::State& state) {
     }
 }
 
-//BENCHMARK(BM_ZigZag_ref)->Arg(8)->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);;
+BENCHMARK(BM_ZigZag_ref)->Arg(8)->Arg(16)->Arg(32)->Arg(64)->Arg(128)->Arg(g_size)->Arg(512);
