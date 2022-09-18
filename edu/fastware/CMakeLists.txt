@@ -2,6 +2,7 @@
 add_executable(fastware_test
         ${CMAKE_SOURCE_DIR}/projects/all_tests.cc
         ben_deane/emplace_test.cpp
+        ben_deane/rvo_test.cpp
 #        jason_turner/jt_perf.cpp
         )
 
