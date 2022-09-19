@@ -22,7 +22,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.51.0 REQUIRED)
 
 add_executable(performance_and_rt
-        ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
+        ${CMAKE_SOURCE_DIR}/projects/all_tests.cc
         ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/lib/Support/ABIBreak.cpp
         ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/lib/Support/MemAlloc.cpp
         #        ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/llvm/unittests/ADT/ImmutableMapTest.cpp  # need lot of code to link with
