@@ -3,6 +3,18 @@ add_executable(train_test
         ${CMAKE_SOURCE_DIR}/projects/all_tests.cc
         ccup_amazon_test.cc
         ccup_apple_test.cc
+        ccup_facebook_test.cc
+        ccup_google_test.cc
+        ccup_nvidia_test.cc
+        ccup_unknown_test.cc
+        #
+        crack_code2_test.cc
+        crack_code_gr_trees_test.cc
+        crack_code_lists.cc
+        #
+        oj_bst_test.cc
+        oj_spec_test.cc
+        oj_test.cc
         )
 
 

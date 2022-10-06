@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "visuality/view.h"
+#include "common/view.h"
 
 // using namespace std;
 using std::cout;

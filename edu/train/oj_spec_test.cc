@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "visuality/view.h"
+#include "common/view.h"
 
 using namespace view;
 using namespace std;

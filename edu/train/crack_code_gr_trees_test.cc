@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 
-#include "visuality/view.h"
+#include "common/view.h"
 
 //
 #include <queue>
