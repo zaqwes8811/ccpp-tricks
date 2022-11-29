@@ -22,3 +22,4 @@ target_link_libraries(tricks
 
 add_subdirectory(cppmove_book)
 add_subdirectory(opt_cpp)
+add_subdirectory(cpptemplates_book)

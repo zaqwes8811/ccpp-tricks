@@ -2,8 +2,8 @@
 //   much opt problems
 //   work with big amount of data
 //
-#include <gtest/gtest.h>
 #include <common/view.h>
+#include <gtest/gtest.h>
 
 #include <algorithm>
 #include <fstream>
