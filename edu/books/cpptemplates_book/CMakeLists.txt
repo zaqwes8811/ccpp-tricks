@@ -10,3 +10,4 @@ target_link_libraries(cpptemplates_book
         ${GTEST_BOTH_LIBRARIES}
         pthread dl m rt
         )
+target_compile_options(cpptemplates_book PRIVATE "-fconcepts")
