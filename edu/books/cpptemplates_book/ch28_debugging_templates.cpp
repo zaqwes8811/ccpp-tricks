@@ -22,6 +22,10 @@ concept Addable = requires(T a, T b) {
     a + b;
 };
 
+// Ptr != Deref.
+// template <typename T>
+// concept Dereferencable = std::is_pointer_v<T>;
+
 template <typename T>
 concept Dereferencable = requires(T t) {
     *t;
@@ -70,7 +74,8 @@ void shell(T const& env) {
 
 class Client {
 public:
-    using Index = int;
+    //    using Index = int;
+    using Index = std::optional<int>;
 };
 
 TEST(DebugTemplatesTest, Step0) {
