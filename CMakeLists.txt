@@ -55,3 +55,5 @@ add_subdirectory(projects/cpp_lang)
 add_subdirectory(projects/high_perf)
 add_subdirectory(edu/books)
 add_subdirectory(projects/safe)
+
+add_subdirectory(edu)

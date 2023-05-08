@@ -38,13 +38,3 @@ target_link_libraries(performance_and_rt
         ${GTEST_BOTH_LIBRARIES}
         pthread dl m rt
         )
-
-add_executable(hp_benchmark
-        ${CMAKE_SOURCE_DIR}/projects/all_benches.cpp
-        zigzag_benchmark.cpp
-        )
-
-target_link_libraries(hp_benchmark
-        ${GTEST_BOTH_LIBRARIES}
-        pthread dl m rt
-        )
