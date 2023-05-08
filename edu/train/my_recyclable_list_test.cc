@@ -6,6 +6,9 @@
 template<typename T>
 class RecyclableQueue final {
 public:
+    RecyclableQueue(int StartSize=64) : reusable_list_{StartSize} {
+
+    }
     void Push(T data) {
         if (reusable_list_.empty()) {
             list_.push_back(std::move(data));
@@ -15,6 +18,10 @@ public:
         auto it = std::begin(reusable_list_);
         *it = std::move(data);
         list_.splice(list_.end(), reusable_list_, it);
+    }
+
+    bool empty() const {
+        return list_.empty();
     }
 
     decltype(auto) Pop() {
