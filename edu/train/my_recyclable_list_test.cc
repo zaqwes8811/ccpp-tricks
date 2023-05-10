@@ -1,16 +1,22 @@
 #include <gtest/gtest.h>
 
-#include <list>
 #include <iostream>
+#include <iterator>
+#include <list>
+#include <memory_resource>
 
-template<typename T>
+template <typename T>
 class RecyclableQueue final {
 public:
-    RecyclableQueue(int StartSize=64) : reusable_list_{StartSize} {
+    RecyclableQueue(int StartSize = 64)
+        : start_size_{StartSize},
+          arena_(start_size_ * sizeof(T) * 4),
+          pool_{std::data(arena_), std::size(arena_)},
+          list_(&pool_),
+          reusable_list_{&pool_} {}
 
-    }
     void Push(T data) {
-        if (reusable_list_.empty()) {
+        if (std::empty(reusable_list_)) {
             list_.push_back(std::move(data));
             return;
         }
@@ -20,9 +26,7 @@ public:
         list_.splice(list_.end(), reusable_list_, it);
     }
 
-    bool empty() const {
-        return list_.empty();
-    }
+    bool empty() const { return list_.empty(); }
 
     decltype(auto) Pop() {
         auto it = std::begin(list_);
@@ -32,8 +36,11 @@ public:
     }
 
 private:
-    std::list<T> list_;
-    std::list<T> reusable_list_;
+    int start_size_;
+    std::vector<uint8_t> arena_;
+    std::pmr::monotonic_buffer_resource pool_;
+    std::pmr::list<T> list_;
+    std::pmr::list<T> reusable_list_;
 };
 
 TEST(RecyclableQueueTest, Creation) {
@@ -48,11 +55,9 @@ TEST(RecyclableQueueTest, Creation) {
 
     EXPECT_EQ(q.Pop(), 2);
 
-    
     q.Push(4);
     q.Push(5);
 
     q.Pop();
     q.Push(6);
-
 }
