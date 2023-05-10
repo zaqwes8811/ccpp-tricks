@@ -74,7 +74,7 @@ public:
     struct Row {
         Row(T* row) : row{row} {}
 
-        T& operator[](int col) { return *(row + col); }
+        T& operator[](int col) && { return *(row + col); }
 
     private:
         T* row;
