@@ -4,6 +4,7 @@
 #include <iterator>
 #include <list>
 #include <memory_resource>
+#include <type_traits>
 
 template <typename T>
 class RecyclableQueue final {
@@ -64,7 +65,13 @@ TEST(RecyclableQueueTest, Creation) {
 
 template <typename T>
 class Matrix {
-    std::vector<T> buffer_;
+    struct BoolWrapper {
+        bool value;
+    };
+
+    using U = typename std::conditional<std::is_same_v<T, bool>, BoolWrapper, T>::type;
+
+    std::vector<U> buffer_;
     int rows_;
     int cols_;
 
@@ -72,15 +79,22 @@ public:
     Matrix(int rows, int cols) : buffer_(rows * cols), rows_(rows), cols_(cols) {}
 
     struct Row {
-        Row(T* row) : row{row} {}
+        Row(typename std::vector<U>::iterator it) : row_it{it} {}
 
-        T& operator[](int col) && { return *(row + col); }
+        T& operator[](int col) && {
+            std::advance(row_it, col);
+            if constexpr (std::is_same_v<T, bool>) {
+                return row_it->value;
+            } else {
+                return *row_it;
+            }
+        }
 
     private:
-        T* row;
+        typename std::vector<U>::iterator row_it;
     };
 
-    Row operator[](int row) { return Row(std::data(buffer_) + row * cols_); }
+    Row operator[](int row) { return Row(std::begin(buffer_) + row * cols_); }
 };
 
 TEST(MatrixTest, Creation) {
@@ -88,4 +102,11 @@ TEST(MatrixTest, Creation) {
     int& v = m[0][0];
     v = 1;
     EXPECT_EQ(1, m[0][0]);
+}
+
+TEST(MatrixTest, Bool) {
+    auto m = Matrix<bool>(3, 2);
+    bool& v = m[0][0];
+    v = true;
+    EXPECT_EQ(true, m[0][0]);
 }
