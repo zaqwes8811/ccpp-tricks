@@ -69,7 +69,7 @@ class Matrix {
     int cols_;
 
 public:
-    Matrix(int rows, int cols) : buffer_(rows, cols), rows_(rows), cols_(cols) {}
+    Matrix(int rows, int cols) : buffer_(rows * cols), rows_(rows), cols_(cols) {}
 
     struct Row {
         Row(T* row) : row{row} {}
