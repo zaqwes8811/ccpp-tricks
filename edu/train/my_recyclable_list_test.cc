@@ -61,3 +61,31 @@ TEST(RecyclableQueueTest, Creation) {
     q.Pop();
     q.Push(6);
 }
+
+template <typename T>
+class Matrix {
+    std::vector<T> buffer_;
+    int rows_;
+    int cols_;
+
+public:
+    Matrix(int rows, int cols) : buffer_(rows, cols), rows_(rows), cols_(cols) {}
+
+    struct Row {
+        Row(T* row) : row{row} {}
+
+        T& operator[](int col) { return *(row + col); }
+
+    private:
+        T* row;
+    };
+
+    Row operator[](int row) { return Row(std::data(buffer_) + row * cols_); }
+};
+
+TEST(MatrixTest, Creation) {
+    auto m = Matrix<int>(3, 2);
+    int& v = m[0][0];
+    v = 1;
+    EXPECT_EQ(1, m[0][0]);
+}
